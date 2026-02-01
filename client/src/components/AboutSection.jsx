@@ -76,7 +76,7 @@ export const AboutSection = () => {
                   {/* Profile Image */}
                   <div className="relative flex-shrink-0">
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:scale-105 md:group-hover:scale-110 relative">
-                      <img src="/profile-logo.png" alt="Ayan Manna" className="w-full h-full object-cover" />
+                      <img src="/profile-logo.jpeg" alt="Ayan Manna" className="w-full h-full object-cover" />
                       <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full border-4 border-background flex items-center justify-center">
                         <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
                       </div>

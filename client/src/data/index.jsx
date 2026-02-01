@@ -52,313 +52,370 @@ export const heroData = {
 // Projects Data
 export const projects = [
   {
-    id: 8,
-    title: "GenAxis",
-    category: "AI SaaS ",
-    description: "AI saas webapp build with PERN stack and Intigrated Gemini . OPEN SOURCE ",
-    image: "/projects/project8.png",
-    video: "/projects/videos/genaxix-demo.mp4",
-    tags: ["PERN Stack", "Clerk Auth", "Google Gemini", "Clerk Billing", "OPEN SOURCE"],
-    demoUrl: "https://genaxis.vercel.app",
-    githubUrl: "https://github.com/ayanmanna123/genaxis",
-    featured: true,
-    accentColor: "from-emerald-500 to-teal-600",
-    status: "Live",
-    highlights: ["Image Generation", "Article writer", "Blog Writter", "Resume Reviewer"],
-    details: {
-      problem: "Content creators and developers spend hours switching between different AI tools for text, code, and image generation, leading to fragmented workflows and productivity loss.",
-      solution: "GenAxis unifies multiple AI capabilities into a single cohesive platform. By integrating Gemini AI, it offers seamless generation of blog posts, code snippets, and images within one interface.",
-      features: [
-        { title: "Multi-Modal Generation", description: "Generate text, code, and images in a single session without context switching." },
-        { title: "Smart History", description: "Auto-saves all generated content with search capabilities for easy retrieval." },
-        { title: "Credit System", description: "Integrated billing system to manage usage limits and premium features." }
+    "id": 8,
+    "title": "BPPIMT Quiz",
+    "category": "Web Application",
+    "description": "An interactive quiz platform developed for B.P. Poddar Institute of Management and Technology, facilitating engaging quizzes for students.",
+    "image": "/projects/project8.png",
+    "video": "/projects/videos/bppimt-quiz-demo.mp4",
+    "tags": ["React", "Node.js", "Express", "MongoDB", "Vercel", "Educational"],
+    "demoUrl": "https://bppimt-quiz.vercel.app",
+    "githubUrl": "https://github.com/ayanmanna123/bppimt_quiz",
+    "featured": true,
+    "accentColor": "from-indigo-500 to-purple-600",
+    "status": "Live",
+    "highlights": ["User Authentication", "Dynamic Quiz Generation", "Real-time Scoring", "Responsive Design"],
+    "details": {
+      "problem": "Traditional quiz methods lacked interactivity and real-time feedback, making assessments less engaging for students.",
+      "solution": "BPPIMT Quiz offers a dynamic platform where quizzes can be created, managed, and taken interactively, providing immediate feedback and enhancing the learning experience.",
+      "features": [
+        {
+          "title": "User Authentication",
+          "description": "Secure login system ensuring authorized access for quiz participants and administrators."
+        },
+        {
+          "title": "Dynamic Quiz Management",
+          "description": "Admins can create and manage quizzes with various question types and difficulty levels."
+        },
+        {
+          "title": "Real-time Scoring",
+          "description": "Immediate feedback and scoring upon quiz completion to aid learning."
+        }
       ],
-      techStack: {
-        Frontend: ["React", "TailwindCSS", "Framer Motion", "Lucide React"],
-        Backend: ["Node.js", "Express", "PostgreSQL", "Prisma"],
-        AI_ML: ["Google Gemini API", "OpenAI DALL-E"],
-        Infrastructure: ["Vercel", "Supabase", "Clerk Auth"]
+      "techStack": {
+        "Frontend": ["React", "TailwindCSS"],
+        "Backend": ["Node.js", "Express", "MongoDB"],
+        "Infrastructure": ["Vercel"]
       },
-      challenges: [
-        "Optimizing response latency for real-time AI generation.",
-        "Managing concurrent API rate limits securely.",
-        "Implementing a secure and scalable credit-based billing system."
+      "challenges": [
+        "Implementing a flexible quiz structure to accommodate various question types.",
+        "Ensuring real-time performance and scalability for multiple concurrent users.",
+        "Maintaining data integrity and security across the platform."
       ],
-      screenshots: {
-        mobile: ["/projects/project8.png"],
-        desktop: ["/projects/project8.png"]
+      "screenshots": {
+        "mobile": ["/projects/project1.png"],
+        "desktop": ["/projects/project1.png"]
+      }
+    }
+  },
+
+  {
+    "id": 9,
+    "title": "Where Is My Bus",
+    "category": "Full Stack Web Application / Smart Transport",
+    "description": "Real-time bus tracking and smart public transport platform with live location tracking, route planning, and secure booking system.",
+    "image": "/projects/project9.png",
+    "video": "/projects/videos/where-is-my-bus-demo.mp4",
+    "tags": [
+      "MERN Stack",
+      "Real-Time Tracking",
+      "Google Maps API",
+      "Socket.io",
+      "Razorpay Payments",
+      "JWT Auth"
+    ],
+    "demoUrl": "https://gps-tracker-umber.vercel.app/",
+    "githubUrl": "https://github.com/ayanmanna123/GPS_Tracker",
+    "featured": true,
+    "accentColor": "from-blue-500 to-cyan-600",
+    "status": "Live",
+    "highlights": [
+      "Live Bus Location Tracking",
+      "Smart Route Planning",
+      "Secure Ticket Booking",
+      "Real-Time Bus Updates",
+      "Interactive Map UI"
+    ],
+
+    "details": {
+      "problem": "Public transport users often face uncertainty about bus arrival times, routes, and seat availability. Traditional systems lack real-time tracking and centralized booking capabilities.",
+
+      "solution": "Where Is My Bus provides real-time GPS-based bus tracking, intelligent route visualization, and secure ticket booking through a unified platform. It enhances commuter confidence and transport system efficiency.",
+
+      "features": [
+        {
+          "title": "Real-Time Bus Tracking",
+          "description": "Track buses live on map using GPS and real-time socket communication."
+        },
+        {
+          "title": "Interactive Map Navigation",
+          "description": "Google Maps integration for route visualization and location-based tracking."
+        },
+        {
+          "title": "Secure Booking System",
+          "description": "Integrated payment gateway for seamless ticket booking."
+        },
+        {
+          "title": "Authentication & Security",
+          "description": "JWT-based authentication for secure user sessions."
+        },
+        {
+          "title": "Real-Time Notifications",
+          "description": "Socket-based updates for live bus status and movement."
+        }
+      ],
+
+      "techStack": {
+        "Frontend": [
+          "React 18",
+          "Vite 4",
+          "JavaScript ES6+",
+          "Tailwind CSS 3",
+          "Google Maps API v3"
+        ],
+        "Backend": [
+          "Node.js 18",
+          "Express.js 4",
+          "MongoDB 6",
+          "Redis 7",
+          "JWT Authentication"
+        ],
+        "Additional_Tools": [
+          "Auth0 (Identity Management)",
+          "Razorpay (Payment Gateway)",
+          "OpenAI API (AI Features if used)",
+          "Socket.io (Real-Time Communication)"
+        ],
+        "Infrastructure": [
+          "Vercel (Frontend Hosting)",
+          "Cloud Backend Deployment"
+        ]
+      },
+
+      "challenges": [
+        "Handling real-time GPS data streaming efficiently.",
+        "Maintaining low latency socket communication.",
+        "Ensuring secure payment and booking flow.",
+        "Optimizing map rendering performance for multiple buses.",
+        "Scaling backend for concurrent users."
+      ],
+
+      "screenshots": {
+        "mobile": ["/projects/project9-mobile.png"],
+        "desktop": ["/projects/project9-desktop.png"]
       }
     }
   },
   {
-    id: 7,
-    title: "NauraCare",
-    category: "Healthcare SaaS",
-    description: "Hospital management platform with multi-role access, patient tracking, and billing systems.",
-    image: "/projects/project7.png",
-    video: "/projects/videos/nauracare-demo.mp4",
-    tags: ["React", "Node.js", "MongoDB", "Stripe", "JWT Auth"],
-    demoUrl: "https://nauracare.vercel.app",
-    githubUrl: "https://github.com/ayanmanna123/neuracare",
-    featured: true,
-    accentColor: "from-emerald-500 to-teal-600",
-    status: "Live",
-    highlights: ["Multi-role system", "Patient management", "Payment integration"],
-    details: {
-      problem: "Small to medium-sized clinics often struggle with paper-based records or expensive, complex hospital management systems that are difficult to use.",
-      solution: "NauraCare provides a streamlined, affordable digital management system. It handles patient records, appointment scheduling, and billing in an intuitive interface designed for non-technical staff.",
-      features: [
-        { title: "Role-Based Access", description: "Distinct dashboards for Doctors, Admins, and Receptionists." },
-        { title: "Patient Timeline", description: "Visual history of patient visits, prescriptions, and efficiently tracked vitals." },
-        { title: "Automated Billing", description: "Seamless invoicing and payment processing via Stripe." }
+    "id": 10,
+    "title": "CollabLearn",
+    "category": "EdTech SaaS / Mentorship Platform",
+    "description": "A full-stack mentorship and collaborative learning platform enabling students to connect with mentors through real-time chat, video sessions, task management, and progress tracking.",
+    "image": "/projects/project10.jpeg",
+    "video": "/projects/videos/collablearn-demo.mp4",
+    "tags": [
+      "MERN Stack",
+      "Real-Time Chat",
+      "Video Conferencing",
+      "EdTech SaaS",
+      "JWT Auth",
+      "Razorpay Payments",
+      "Socket.io"
+    ],
+    "demoUrl": "https://collab-learn-ruby.vercel.app/",
+    "githubUrl": "https://github.com/ayanmanna123/CollabLearn",
+    "featured": true,
+    "accentColor": "from-purple-500 to-indigo-600",
+    "status": "Live",
+
+    "highlights": [
+      "Smart Mentor Discovery",
+      "Real-Time Chat & Video Sessions",
+      "Task & Progress Tracking",
+      "Karma Reward System",
+      "Community Forum",
+      "Secure Payment Integration"
+    ],
+
+    "details": {
+      "problem": "Students often struggle to find the right mentors, schedule sessions, track learning progress, and maintain structured learning communication in one unified platform.",
+
+      "solution": "CollabLearn provides an all-in-one mentorship ecosystem where students can discover mentors based on skills and ratings, book sessions, communicate in real time, and track learning progress while mentors manage students, sessions, and earnings efficiently.",
+
+      "features": [
+        {
+          "title": "Smart Mentor Discovery",
+          "description": "AI-assisted mentor discovery based on skills, ratings, and expertise."
+        },
+        {
+          "title": "Real-Time Communication",
+          "description": "Instant chat using Stream Chat and WebSocket communication."
+        },
+        {
+          "title": "Video Mentoring Sessions",
+          "description": "High-quality live video sessions powered by ZegoCloud."
+        },
+        {
+          "title": "Task & Progress Management",
+          "description": "Mentors assign tasks and students track learning progress."
+        },
+        {
+          "title": "Karma & Engagement System",
+          "description": "Gamified engagement system rewarding active participation."
+        },
+        {
+          "title": "Secure Payment & Booking",
+          "description": "Razorpay integration for secure mentoring session payments."
+        }
       ],
-      techStack: {
-        Frontend: ["React", "Redux Toolkit", "Material UI"],
-        Backend: ["Node.js", "Express", "MongoDB", "Mongoose"],
-        Security: ["JWT Auth", "Bcrypt", "Helmet"],
-        DevOps: ["Docker", "AWS EC2"]
+
+      "techStack": {
+        "Frontend": [
+          "React 19.1.1",
+          "Vite 7.1.7",
+          "TailwindCSS 3.4.18",
+          "React Router 7.9.6",
+          "Axios 1.13.2",
+          "Socket.io Client 4.8.1",
+          "Stream Chat 9.26.1",
+          "ZegoCloud 2.17.1",
+          "Framer Motion 12.23.26",
+          "Lucide React 0.553.0",
+          "React Toastify 11.0.5",
+          "JWT Decode 4.0.0",
+          "Date-fns 4.1.0"
+        ],
+
+        "Backend": [
+          "Node.js >=18",
+          "Express 5.1.0",
+          "MongoDB 8.19.3",
+          "Mongoose 8.19.3",
+          "Socket.io 4.7.5",
+          "JWT 9.0.2",
+          "Bcrypt 6.0.0",
+          "Cloudinary 2.8.0",
+          "Razorpay 2.9.6",
+          "Nodemailer 6.9.16",
+          "Zod 4.1.12"
+        ]
       },
-      challenges: [
-        "Designing a database schema that efficiently handles complex patient relationships and medical history.",
-        "Ensuring HIPAA-compliant data security measures.",
-        "Building a real-time appointment booking system with double-booking prevention."
+
+      "challenges": [
+        "Maintaining low-latency real-time messaging and notifications.",
+        "Handling video session stability and signaling.",
+        "Designing scalable mentor-student matching algorithms.",
+        "Managing secure payment workflows and session booking.",
+        "Synchronizing real-time chat, video, and task updates."
       ],
-      screenshots: {
-        mobile: ["/projects/project7.png"],
-        desktop: ["/projects/project7.png"]
+
+      "screenshots": {
+        "mobile": ["/projects/project10-mobile.png"],
+        "desktop": ["/projects/project10-desktop.png"]
       }
     }
   },
   {
-    id: 1,
-    title: "Vante & Co.",
-    category: "E-commerce",
-    description: "Fashion marketplace with product recommendations and seamless checkout experience.",
-    image: "/projects/project1.png",
-    video: "/projects/videos/vante-demo.mp4",
-    tags: ["React", "Node.js", "Stripe", "Redis"],
-    demoUrl: "https://e-commerce-website-4w6a.vercel.app",
-    githubUrl: "https://github.com/ayanmanna123/E-commerce-website",
-    featured: true,
-    accentColor: "from-purple-500 to-indigo-600",
-    status: "Live",
-    highlights: ["Product catalog", "Shopping cart", "Payment processing"],
-    details: {
-      problem: "Users often abandon carts due to slow loading times and complicated checkout processes in traditional e-commerce sites.",
-      solution: "Vante & Co. focuses on speed and simplicity. With Redis caching and a streamlined Stripe integration, it delivers a sub-second shopping experience.",
-      features: [
-        { title: "Smart Filtering", description: "Instant product filtering and searching." },
-        { title: "One-Click Checkout", description: "Integrated Stripe payment flow for rapid transactions." },
-        { title: "Personalized Recommendations", description: "Suggests products based on browsing history." }
+    "id": 11,
+    "title": "JobFlux",
+    "category": "Professional Networking / Job Portal SaaS",
+    "description": "A full-stack professional networking and job portal platform similar to LinkedIn, enabling users to build professional profiles, connect with others, apply for jobs, and communicate in real time.",
+    "image": "/projects/project11.png",
+    "video": "/projects/videos/jobflux-demo.mp4",
+    "tags": [
+      "MERN Stack",
+      "Professional Networking",
+      "Job Portal",
+      "Real-Time Chat",
+      "JWT Auth",
+      "Cloud Media Storage"
+    ],
+    "demoUrl": "https://jobflux-full-stack-8sja.vercel.app/",
+    "githubUrl": "https://github.com/ayanmanna123/Jobflux_FullStack",
+    "featured": true,
+    "accentColor": "from-sky-500 to-blue-600",
+    "status": "Live",
+
+    "highlights": [
+      "Professional Profile System",
+      "Job Posting & Applications",
+      "Real-Time Messaging",
+      "Connection System",
+      "Activity Feed",
+      "Secure Authentication"
+    ],
+
+    "details": {
+      "problem": "Job seekers and professionals often rely on multiple platforms for networking, job applications, and communication, resulting in fragmented professional management.",
+
+      "solution": "JobFlux provides a unified professional ecosystem where users can build career profiles, connect with professionals, apply for jobs, and communicate in real time — all in a single platform.",
+
+      "features": [
+        {
+          "title": "Professional Profile Builder",
+          "description": "Create detailed profiles including skills, experience, education, and achievements."
+        },
+        {
+          "title": "Job Portal System",
+          "description": "Companies can post jobs and users can apply directly through the platform."
+        },
+        {
+          "title": "Connection & Networking",
+          "description": "Send connection requests and build a professional network."
+        },
+        {
+          "title": "Real-Time Messaging",
+          "description": "Instant chat system powered by WebSocket communication."
+        },
+        {
+          "title": "Activity Feed",
+          "description": "Share posts, updates, and professional achievements."
+        },
+        {
+          "title": "Media Upload & Storage",
+          "description": "Upload profile pictures, resumes, and documents securely."
+        }
       ],
-      techStack: {
-        Frontend: ["React", "Styled Components", "Redux"],
-        Backend: ["Node.js", "Express", "MongoDB"],
-        Performance: ["Redis Caching", "CDN"],
-        Payments: ["Stripe API"]
+
+      "techStack": {
+        "Frontend": [
+          "React 19.1.1",
+          "Vite 7.1.7",
+          "TailwindCSS 3.4.18",
+          "React Router 7.9.6",
+          "Axios 1.13.2",
+          "Socket.io Client 4.8.1",
+          "Stream Chat 9.26.1",
+          "ZegoCloud 2.17.1",
+          "Framer Motion 12.23.26",
+          "Lucide React 0.553.0",
+          "React Toastify 11.0.5",
+          "JWT Decode 4.0.0",
+          "Date-fns 4.1.0"
+        ],
+
+        "Backend": [
+          "Node.js >=18",
+          "Express 5.1.0",
+          "MongoDB 8.19.3",
+          "Mongoose 8.19.3",
+          "Socket.io 4.7.5",
+          "JWT 9.0.2",
+          "Bcrypt 6.0.0",
+          "Cloudinary 2.8.0",
+          "Razorpay 2.9.6",
+          "Nodemailer 6.9.16",
+          "Zod 4.1.12"
+        ]
       },
-      challenges: [
-        "Implementing effective caching strategies to keep product data fresh while maximizing performance.",
-        "Handling complex inventory state management during high traffic.",
-        "Ensuring mobile responsiveness for a complex catalog layout."
+
+      "challenges": [
+        "Designing scalable social graph connection system.",
+        "Managing real-time chat and notification delivery.",
+        "Optimizing feed rendering and post retrieval performance.",
+        "Ensuring secure authentication and session management.",
+        "Handling large media uploads efficiently."
       ],
-      screenshots: {
-        mobile: ["/projects/project1.png"],
-        desktop: ["/projects/project1.png"]
-      }
-    }
-  },
-  {
-    id: 2,
-    title: "Converse Pro",
-    category: "Real-time Communication",
-    description: "Chat platform with real-time messaging, media sharing, and user authentication.",
-    image: "/projects/project2.png",
-    video: "/projects/videos/converse-demo.mp4",
-    tags: ["Socket.IO", "MongoDB", "React", "WebRTC"],
-    demoUrl: "https://converse-pro-frontend.vercel.app",
-    githubUrl: "https://github.com/ayanmanna123/converse-pro",
-    featured: true,
-    accentColor: "from-blue-500 to-cyan-600",
-    status: "Live",
-    highlights: ["Real-time chat", "Media sharing", "User authentication"],
-    details: {
-      problem: "Remote teams need reliable, feature-rich communication tools that don't compromise on privacy or speed.",
-      solution: "Converse Pro leverages WebSockets for instant messaging and WebRTC for peer-to-peer media sharing, ensuring low-latency communication.",
-      features: [
-        { title: "Instant Messaging", description: "Real-time text delivery with read receipts." },
-        { title: "Media Sharing", description: "Secure file transfer using WebRTC." },
-        { title: "Group Channels", description: "Create and manage topic-based chat rooms." }
-      ],
-      techStack: {
-        Frontend: ["React", "Chakra UI"],
-        Backend: ["Node.js", "Socket.IO", "MongoDB"],
-        Realtime: ["WebSockets", "WebRTC"],
-        Auth: ["JWT"]
-      },
-      challenges: [
-        "Scaling WebSocket connections for thousands of concurrent users.",
-        "Managing connection state and reconnection logic gracefully.",
-        "Syncing message history across multiple devices in real-time."
-      ],
-      screenshots: {
-        mobile: ["/projects/project2.png"],
-        desktop: ["/projects/project2.png"]
-      }
-    }
-  },
-  {
-    id: 3,
-    title: "Blogni AI",
-    category: "Artificial Intelligence",
-    description: "AI-powered content generation platform with multi-language support.",
-    image: "/projects/project3.png",
-    video: "/projects/videos/blogni-demo.mp4",
-    tags: ["Next.js", "Gemini AI", "Clerk Auth", "Redis"],
-    demoUrl: "https://blogni.vercel.app",
-    githubUrl: "https://github.com/ayanmanna123/Blogni",
-    accentColor: "from-amber-500 to-orange-600",
-    status: "Live",
-    highlights: ["AI content generation", "Multi-language", "User accounts"],
-    details: {
-      problem: "Creating high-quality content in multiple languages is time-consuming and expensive for solo bloggers.",
-      solution: "Blogni AI automaties the writing process. Users provide a topic, and the AI generates SEO-optimized articles in selected languages instantly.",
-      features: [
-        { title: "Multilingual Support", description: "Generate content in 10+ languages." },
-        { title: "SEO Optimization", description: "Auto-inserts keywords and meta tags." },
-        { title: "Tone Customization", description: "Adjust writing style from professional to casual." }
-      ],
-      techStack: {
-        Frontend: ["Next.js 14", "TailwindCSS"],
-        Backend: ["Server Actions", "Vercel SDK"],
-        AI: ["Google Gemini Pro"],
-        Database: ["PostgreSQL", "Drizzle ORM"]
-      },
-      challenges: [
-        "Prompt engineering to ensure consistent high-quality output across languages.",
-        "Handling long-running AI requests within serverless function limits.",
-        "Streaming AI responses for a better user experience."
-      ],
-      screenshots: {
-        mobile: ["/projects/project3.png"],
-        desktop: ["/projects/project3.png"]
-      }
-    }
-  },
-  {
-    id: 4,
-    title: "Spendlix",
-    category: "FinTech",
-    description: "Financial tracking platform with expense management and budgeting features.",
-    image: "/projects/project4.png",
-    video: "/projects/videos/spendlix-demo.mp4",
-    tags: ["React", "Chart.js", "Node.js", "Firebase"],
-    demoUrl: "https://spendlix.vercel.app/login",
-    githubUrl: "https://github.com/ayanmanna123/Spendlix",
-    accentColor: "from-rose-500 to-pink-600",
-    status: "Live",
-    highlights: ["Expense tracking", "Data visualization", "Budget planning"],
-    details: {
-      problem: "Managing personal finances is often tedious with spreadsheets or overly complex apps.",
-      solution: "Spendlix offers a visual-first approach to finance. Interactive charts and simple entry methods make tracking expenses engaging and easy.",
-      features: [
-        { title: "Visual Analytics", description: "Interactive breakdown of spending habits." },
-        { title: "Budget Goals", description: "Set and track monthly spending limits." },
-        { title: "Recurring Expenses", description: "Automated tracking for subscriptions and bills." }
-      ],
-      techStack: {
-        Frontend: ["React", "Chart.js", "Mantine UI"],
-        Backend: ["Firebase Functions"],
-        Database: ["Firestore"],
-        Auth: ["Firebase Auth"]
-      },
-      challenges: [
-        "Creating performant data visualizations with large datasets.",
-        "Implementing offline capabilities for on-the-go tracking.",
-        "Ensuring strict data privacy and security for financial data."
-      ],
-      screenshots: {
-        mobile: ["/projects/project4.png"],
-        desktop: ["/projects/project4.png"]
-      }
-    }
-  },
-  {
-    id: 5,
-    title: "Eattoo",
-    category: "Food Tech",
-    description: "Food delivery platform with restaurant listings and order management.",
-    image: "/projects/project5.png",
-    video: "/projects/videos/eattoo-demo.mp4",
-    tags: ["React", "Redux", "Mapbox", "Stripe"],
-    demoUrl: "https://eattoo-food-delivery-website-frontend.onrender.com/",
-    githubUrl: "https://github.com/ayanmanna123/Eattoo-food-delivery-website",
-    accentColor: "from-violet-500 to-purple-600",
-    status: "Live",
-    highlights: ["Restaurant listings", "Order system", "Location services"],
-    details: {
-      problem: "Connecting hungry users with local restaurants efficiently requires complex logistics and real-time updates.",
-      solution: "Eattoo streamlines the process with live order tracking and a robust restaurant management portal.",
-      features: [
-        { title: "Live Tracking", description: "Real-time delivery partner location updates." },
-        { title: "Restaurant Portal", description: "Menu management and order acceptance interface." },
-        { title: "Smart Search", description: "Find food by cuisine, rating, or delivery time." }
-      ],
-      techStack: {
-        Frontend: ["React", "Redux", "Mapbox GL"],
-        Backend: ["Node.js", "Express"],
-        Database: ["MongoDB"],
-        Services: ["AWS S3", "Stripe"]
-      },
-      challenges: [
-        "Integrating accurate geolocation services for delivery tracking.",
-        "Managing complex state for multi-item orders and customizations.",
-        "Optimizing image delivery for food menus."
-      ],
-      screenshots: {
-        mobile: ["/projects/project5.png"],
-        desktop: ["/projects/project5.png"]
-      }
-    }
-  },
-  {
-    id: 6,
-    title: "JobQue",
-    category: "HR Tech",
-    description: "Job matching platform with candidate tracking and application management.",
-    image: "/projects/project6.png",
-    video: "/projects/videos/jobque-demo.mp4",
-    tags: ["Next.js", "PostgreSQL", "Redis", "AI Integration"],
-    demoUrl: "#",
-    githubUrl: "#",
-    accentColor: "from-orange-500 to-red-600",
-    status: "Development",
-    highlights: ["Job matching", "Candidate tracking", "Application system"],
-    details: {
-      problem: "Recruiters are overwhelmed by resumes and candidates struggle to find relevant roles.",
-      solution: "JobQue uses AI compatibility matching to surface the best candidates for recruiters and the best jobs for applicants.",
-      features: [
-        { title: "AI Matching", description: "Score-based compatibility ratings." },
-        { title: "Resume Parsing", description: "Auto-extract skills and experience." },
-        { title: "Application Kanban", description: "Drag-and-drop pipeline management." }
-      ],
-      techStack: {
-        Frontend: ["Next.js", "Radix UI"],
-        Backend: ["NestJS", "Python (AI Service)"],
-        Database: ["PostgreSQL", "Redis"],
-        DevOps: ["Kubernetes"]
-      },
-      challenges: [
-        "Developing an accurate matching algorithm.",
-        "Parsing diverse resume formats reliably.",
-        "Building a real-time notification system for application updates."
-      ],
-      screenshots: {
-        mobile: ["/projects/project6.png"],
-        desktop: ["/projects/project6.png"]
+
+      "screenshots": {
+        "mobile": ["/projects/project11-mobile.png"],
+        "desktop": ["/projects/project11-desktop.png"]
       }
     }
   }
+
+
+
 ];
 
 export const categoryColors = {

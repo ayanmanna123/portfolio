@@ -11,68 +11,94 @@ const LeetCodeStatsSection = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchLeetCodeStats = async () => {
+        const fetchAllData = async () => {
+            setLoading(true);
+
+            // 1. Initialize Default/Fallback Calendar Data (Last 365 days empty)
+            const today = new Date();
+            const dateMap = new Map();
+            for (let i = 0; i < 365; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateString = date.toISOString().split('T')[0];
+                dateMap.set(dateString, 0);
+            }
+
+            // Helper to format map to array
+            const formatData = (map) => Array.from(map.entries()).map(([date, count]) => ({
+                date,
+                count,
+                level: count === 0 ? 0 : Math.min(4, Math.ceil(count / 3))
+            })).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            // Set initial empty calendar
+            setCalendarData(formatData(dateMap));
+
             try {
-                // Fetch Stats from stricter API that provides total counts
-                const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${leetcodeUsername}`);
-                const data = await response.json();
+                // 2. Fetch Stats & Calendar (New Reliable API)
+                try {
+                    const response = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${leetcodeUsername}`);
+                    if (response.ok) {
+                        const data = await response.json();
 
-                if (data && data.status === "success") {
-                    setStats(data);
-                }
-
-                // Fetch Calendar Data (Keep using Alfa for consistency if it works, or switch if needed. Alfa works for calendar)
-                const calendarResponse = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/calendar`);
-                const calendarJson = await calendarResponse.json();
-
-                if (calendarJson && calendarJson.submissionCalendar) {
-                    const submissionMap = JSON.parse(calendarJson.submissionCalendar);
-
-                    // Generate last 365 days to match GitHub's size
-                    const today = new Date();
-                    const dateMap = new Map();
-
-                    for (let i = 0; i < 365; i++) {
-                        const date = new Date(today);
-                        date.setDate(date.getDate() - i);
-                        const dateString = date.toISOString().split('T')[0];
-                        dateMap.set(dateString, 0);
-                    }
-
-                    // Fill in actual submissions
-                    Object.keys(submissionMap).forEach(timestamp => {
-                        const date = new Date(parseInt(timestamp) * 1000).toISOString().split('T')[0];
-                        if (dateMap.has(date)) {
-                            dateMap.set(date, submissionMap[timestamp]);
+                        // Calculate Acceptance Rate
+                        let acceptanceRate = 0;
+                        if (data.matchedUserStats?.acSubmissionNum?.[0]?.count && data.matchedUserStats?.totalSubmissionNum?.[0]?.count) {
+                            acceptanceRate = (data.matchedUserStats.acSubmissionNum[0].count / data.matchedUserStats.totalSubmissionNum[0].count * 100).toFixed(2);
                         }
-                    });
 
-                    // Convert to array and sort
-                    const formattedData = Array.from(dateMap.entries()).map(([date, count]) => ({
-                        date,
-                        count,
-                        level: count === 0 ? 0 : Math.min(4, Math.ceil(count / 3))
-                    })).sort((a, b) => new Date(a.date) - new Date(b.date));
+                        setStats({
+                            totalSolved: data.totalSolved,
+                            totalQuestions: data.totalQuestions,
+                            easySolved: data.easySolved,
+                            totalEasy: data.totalEasy,
+                            mediumSolved: data.mediumSolved,
+                            totalMedium: data.totalMedium,
+                            hardSolved: data.hardSolved,
+                            totalHard: data.totalHard,
+                            ranking: data.ranking,
+                            acceptanceRate: acceptanceRate
+                        });
 
-                    setCalendarData(formattedData);
+                        // Process Calendar Data
+                        if (data.submissionCalendar) {
+                            // API returns object directly, no parsing needed
+                            const submissionMap = data.submissionCalendar;
+
+                            Object.keys(submissionMap).forEach(timestamp => {
+                                const date = new Date(parseInt(timestamp) * 1000).toISOString().split('T')[0];
+                                if (dateMap.has(date)) {
+                                    dateMap.set(date, submissionMap[timestamp]);
+                                }
+                            });
+                            setCalendarData(formatData(dateMap));
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Failed to fetch LeetCode data:", e);
                 }
 
-                // Fetch Badges
-                const badgesResponse = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
-                const badgesJson = await badgesResponse.json();
-
-                if (badgesJson && badgesJson.badges) {
-                    setStats(prev => ({ ...prev, badges: badgesJson.badges }));
+                // 3. Fetch Badges (Keep old API for badges only)
+                try {
+                    const badgesRes = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
+                    if (badgesRes.ok) {
+                        const badgesJson = await badgesRes.json();
+                        if (badgesJson && badgesJson.badges) {
+                            setStats(prev => ({ ...prev, badges: badgesJson.badges }));
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Failed to fetch LeetCode badges:", e);
                 }
 
             } catch (error) {
-                console.error("Error fetching LeetCode stats:", error);
+                console.error("Critical error in LeetCode section:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchLeetCodeStats();
+        fetchAllData();
     }, []);
 
     const difficultyColor = {

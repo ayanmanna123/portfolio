@@ -467,6 +467,8 @@ export const socialLinks = [
   { icon: <Twitter size={18} />, href: "https://x.com/@AyanMan13756317", label: "Twitter" }
 ];
 
+export const leetcodeUsername = "ayanmanna123";
+
 export const quickLinks = [
   { name: "Home", href: "#hero" },
   { name: "About", href: "#about" },

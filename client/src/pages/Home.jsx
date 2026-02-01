@@ -12,6 +12,7 @@ const ContactSection = React.lazy(() => import("../components/ContactSection").t
 const Footer = React.lazy(() => import("../components/Footer").then(module => ({ default: module.Footer })));
 const TestimonialSection = React.lazy(() => import("../components/Testimonial").then(module => ({ default: module.TestimonialSection })));
 const TimelineSection = React.lazy(() => import("../components/TimelineSection"));
+const LeetCodeStatsSection = React.lazy(() => import("../components/LeetCodeStatsSection"));
 
 
 const Loader = () => (
@@ -38,6 +39,7 @@ export const Home = () => {
           <TimelineSection />
           <ProjectsSection />
           <GithubStatsSection />
+          <LeetCodeStatsSection />
           <TestimonialSection />
           <ContactSection />
         </Suspense>

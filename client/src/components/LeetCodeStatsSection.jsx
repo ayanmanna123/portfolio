@@ -59,6 +59,14 @@ const LeetCodeStatsSection = () => {
                     setCalendarData(formattedData);
                 }
 
+                // Fetch Badges
+                const badgesResponse = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
+                const badgesJson = await badgesResponse.json();
+
+                if (badgesJson && badgesJson.badges) {
+                    setStats(prev => ({ ...prev, badges: badgesJson.badges }));
+                }
+
             } catch (error) {
                 console.error("Error fetching LeetCode stats:", error);
             } finally {
@@ -81,7 +89,7 @@ const LeetCodeStatsSection = () => {
         Hard: "bg-rose-400/20"
     };
 
-    // LeetCode Green Theme for the graph (matching GitHub's contribution green)
+    // LeetCode Green Theme for the graph
     const leetCodeTheme = {
         dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
     };
@@ -223,6 +231,38 @@ const LeetCodeStatsSection = () => {
                     </motion.div>
                 </div>
 
+                {/* Badges Section */}
+                {stats?.badges && stats.badges.length > 0 && (
+                    <motion.div
+                        className="mb-12 bg-card/50 backdrop-blur-sm border border-border/50 p-8 rounded-2xl shadow-xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="flex items-center gap-2 mb-6">
+                            <Trophy className="w-5 h-5 text-yellow-500" />
+                            <h3 className="text-xl font-semibold text-foreground">Badges</h3>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                            {stats.badges.map((badge, index) => (
+                                <div key={index} className="flex flex-col items-center text-center group">
+                                    <div className="w-20 h-20 mb-3 relative flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
+                                        <img
+                                            src={badge.icon.startsWith("http") ? badge.icon : `https://leetcode.com${badge.icon}`}
+                                            alt={badge.displayName}
+                                            className="w-full h-full object-contain drop-shadow-lg"
+                                        />
+                                    </div>
+                                    <span className="text-sm font-medium text-foreground/90">{badge.displayName}</span>
+                                    <span className="text-xs text-muted-foreground mt-1">{badge.creationDate}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
                 {/* Activity Calendar */}
                 <motion.div
                     className="bg-card/50 backdrop-blur-sm border border-border/50 p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center overflow-x-auto"
@@ -231,40 +271,45 @@ const LeetCodeStatsSection = () => {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     viewport={{ once: true }}
                 >
-                    <h3 className="text-xl font-semibold mb-6 self-start text-foreground">Submission Map</h3>
+                    <div className="flex items-center gap-2 self-start mb-6">
+                        <CalendarIcon className="w-5 h-5 text-muted-foreground" />
+                        <h3 className="text-xl font-semibold text-foreground">Submission Map</h3>
+                    </div>
                     {loading ? (
                         <div className="h-[160px] w-full flex items-center justify-center text-muted-foreground animate-pulse">Loading activity...</div>
                     ) : (
-                        <ActivityCalendar
-                            data={calendarData}
-                            theme={leetCodeTheme}
-                            colorScheme="dark"
-                            blockSize={14}
-                            blockMargin={4}
-                            fontSize={14}
-                            hideColorLegend={false}
-                            hideTotalCount={false}
-                            loading={loading}
-                            labels={{
-                                legend: {
-                                    less: 'Less',
-                                    more: 'More',
-                                },
-                                months: [
-                                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                                ],
-                                totalCount: '{{count}} submissions in the last year',
-                            }}
-                            renderBlock={(block, activity) =>
-                                React.cloneElement(block, {
-                                    "data-tooltip-id": "leetcode-tooltip",
-                                    "data-tooltip-content": `${activity.count} submissions on ${activity.date}`,
-                                })
-                            }
-                        >
-                            <Tooltip id="leetcode-tooltip" />
-                        </ActivityCalendar>
+                        <div className="w-full flex justify-center min-w-[800px]">
+                            <ActivityCalendar
+                                data={calendarData}
+                                theme={leetCodeTheme}
+                                colorScheme="dark"
+                                blockSize={14}
+                                blockMargin={4}
+                                fontSize={14}
+                                hideColorLegend={false}
+                                hideTotalCount={false}
+                                loading={loading}
+                                labels={{
+                                    legend: {
+                                        less: 'Less',
+                                        more: 'More',
+                                    },
+                                    months: [
+                                        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                                    ],
+                                    totalCount: '{{count}} submissions in the last year',
+                                }}
+                                renderBlock={(block, activity) =>
+                                    React.cloneElement(block, {
+                                        "data-tooltip-id": "leetcode-tooltip",
+                                        "data-tooltip-content": `${activity.count} submissions on ${activity.date}`,
+                                    })
+                                }
+                            >
+                                <Tooltip id="leetcode-tooltip" />
+                            </ActivityCalendar>
+                        </div>
                     )}
                 </motion.div>
             </div>

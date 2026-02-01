@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const navItems = [
   { name: "Home", href: "#hero", icon: Home },
@@ -60,12 +62,14 @@ const ThemeToggle = () => {
 };
 
 export const Navbar = () => {
+  const { toast } = useToast();
   const [activeSection, setActiveSection] = useState("#hero");
   const [showNavbar, setShowNavbar] = useState(true);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
   const lastScrollYRef = useRef(0);
   const audioRef = useRef(null);
+  const hasShownToast = useRef(false);
 
   const musicUrl = "/music.mp3";
 
@@ -101,6 +105,22 @@ export const Navbar = () => {
 
     setIsMusicPlaying(!isMusicPlaying);
   };
+
+  useEffect(() => {
+    if (isAudioReady && !hasShownToast.current) {
+      toast({
+        title: "Experience the Vibe 🎵",
+        description: "Would you like to enable background music for a better experience?",
+        action: (
+          <ToastAction altText="Enable Music" onClick={toggleMusic}>
+            Enable
+          </ToastAction>
+        ),
+        duration: 8000,
+      });
+      hasShownToast.current = true;
+    }
+  }, [isAudioReady, toast]);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -1,0 +1,30 @@
+.profile-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000 !important;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.repo-cards-div-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.dark-mode {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .profile-title {
+    font-size: 2rem;
+  }
+  
+  .repo-cards-div-main {
+    grid-template-columns: 1fr;
+  }
+}

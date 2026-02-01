@@ -1,0 +1,75 @@
+.talk-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: #fff;
+  height: 100%;
+}
+
+.talk-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #000000 !important;
+  text-align: center;
+}
+
+.talk-card-subtitle {
+  font-size: 1rem;
+  margin: 0 0 15px 0;
+  color: #000000 !important;
+  text-align: center;
+}
+
+.talk-card-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.talk-card-link {
+  background: #55198b;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.talk-card-link:hover {
+  background: #8c43ce;
+}
+
+.dark-mode {
+  background: #171c28 !important;
+  color: #ffffff !important;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .talk-card {
+    padding: 15px;
+  }
+  
+  .talk-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .talk-card-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .talk-card-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

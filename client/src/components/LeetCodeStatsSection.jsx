@@ -29,14 +29,32 @@ const LeetCodeStatsSection = () => {
 
                 if (calendarJson && calendarJson.submissionCalendar) {
                     const submissionMap = JSON.parse(calendarJson.submissionCalendar);
-                    const formattedData = Object.keys(submissionMap).map(timestamp => {
+
+                    // Generate last 365 days to match GitHub's size
+                    const today = new Date();
+                    const dateMap = new Map();
+
+                    for (let i = 0; i < 365; i++) {
+                        const date = new Date(today);
+                        date.setDate(date.getDate() - i);
+                        const dateString = date.toISOString().split('T')[0];
+                        dateMap.set(dateString, 0);
+                    }
+
+                    // Fill in actual submissions
+                    Object.keys(submissionMap).forEach(timestamp => {
                         const date = new Date(parseInt(timestamp) * 1000).toISOString().split('T')[0];
-                        return {
-                            date: date,
-                            count: submissionMap[timestamp],
-                            level: Math.min(4, Math.ceil(submissionMap[timestamp] / 3)) // Simple level calculation
-                        };
-                    }).sort((a, b) => new Date(a.date) - new Date(b.date));
+                        if (dateMap.has(date)) {
+                            dateMap.set(date, submissionMap[timestamp]);
+                        }
+                    });
+
+                    // Convert to array and sort
+                    const formattedData = Array.from(dateMap.entries()).map(([date, count]) => ({
+                        date,
+                        count,
+                        level: count === 0 ? 0 : Math.min(4, Math.ceil(count / 3))
+                    })).sort((a, b) => new Date(a.date) - new Date(b.date));
 
                     setCalendarData(formattedData);
                 }
@@ -63,9 +81,9 @@ const LeetCodeStatsSection = () => {
         Hard: "bg-rose-400/20"
     };
 
-    // LeetCode Green Theme for the graph
+    // LeetCode Green Theme for the graph (matching GitHub's contribution green)
     const leetCodeTheme = {
-        dark: ['#1f2937', '#0e4429', '#006d32', '#26a641', '#39d353'],
+        dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
     };
 
     return (
@@ -213,45 +231,40 @@ const LeetCodeStatsSection = () => {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     viewport={{ once: true }}
                 >
-                    <div className="flex items-center gap-2 self-start mb-6">
-                        <CalendarIcon className="w-5 h-5 text-muted-foreground" />
-                        <h3 className="text-xl font-semibold text-foreground">Submission Activity</h3>
-                    </div>
+                    <h3 className="text-xl font-semibold mb-6 self-start text-foreground">Submission Map</h3>
                     {loading ? (
                         <div className="h-[160px] w-full flex items-center justify-center text-muted-foreground animate-pulse">Loading activity...</div>
                     ) : (
-                        <div className="w-full flex justify-center min-w-[800px]">
-                            <ActivityCalendar
-                                data={calendarData}
-                                theme={leetCodeTheme}
-                                colorScheme="dark"
-                                blockSize={14}
-                                blockMargin={4}
-                                fontSize={14}
-                                hideColorLegend={false}
-                                hideTotalCount={false}
-                                loading={loading}
-                                labels={{
-                                    legend: {
-                                        less: 'Less',
-                                        more: 'More',
-                                    },
-                                    months: [
-                                        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                                    ],
-                                    totalCount: '{{count}} submissions in the last year',
-                                }}
-                                renderBlock={(block, activity) =>
-                                    React.cloneElement(block, {
-                                        "data-tooltip-id": "leetcode-tooltip",
-                                        "data-tooltip-content": `${activity.count} submissions on ${activity.date}`,
-                                    })
-                                }
-                            >
-                                <Tooltip id="leetcode-tooltip" />
-                            </ActivityCalendar>
-                        </div>
+                        <ActivityCalendar
+                            data={calendarData}
+                            theme={leetCodeTheme}
+                            colorScheme="dark"
+                            blockSize={14}
+                            blockMargin={4}
+                            fontSize={14}
+                            hideColorLegend={false}
+                            hideTotalCount={false}
+                            loading={loading}
+                            labels={{
+                                legend: {
+                                    less: 'Less',
+                                    more: 'More',
+                                },
+                                months: [
+                                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                                ],
+                                totalCount: '{{count}} submissions in the last year',
+                            }}
+                            renderBlock={(block, activity) =>
+                                React.cloneElement(block, {
+                                    "data-tooltip-id": "leetcode-tooltip",
+                                    "data-tooltip-content": `${activity.count} submissions on ${activity.date}`,
+                                })
+                            }
+                        >
+                            <Tooltip id="leetcode-tooltip" />
+                        </ActivityCalendar>
                     )}
                 </motion.div>
             </div>

@@ -170,7 +170,7 @@ export const Navbar = () => {
 
         {/* GitHub Button */}
         <motion.a
-          href="https://github.com/sahilmd01"
+          href="https://github.com/ayanmanna123"
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
@@ -189,7 +189,7 @@ export const Navbar = () => {
 
         {/* LinkedIn Button */}
         <motion.a
-          href="https://linkedin.com/in/codewithkinu"
+          href="https://www.linkedin.com/in/ayan-manna-4a67ab34a/"
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
@@ -208,7 +208,7 @@ export const Navbar = () => {
 
         {/* YouTube Button */}
         <motion.a
-          href="https://www.youtube.com/@codewithkinu"
+          href="https://www.youtube.com/@ayanmanna1007"
           target="_blank"
           rel="noopener noreferrer"
           className={cn(

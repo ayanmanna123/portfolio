@@ -9,7 +9,7 @@ const fallbackData = [
     {
         name: "React-Portfolio",
         description: "A modern, interactive portfolio website built with React and Three.js.",
-        html_url: "https://github.com/sahilmd01",
+        html_url: "https://github.com/ayanmanna123",
         stargazers_count: 12,
         forks_count: 4,
         language: "JavaScript"
@@ -17,7 +17,7 @@ const fallbackData = [
     {
         name: "E-Commerce-App",
         description: "Full-stack e-commerce solution using MERN stack.",
-        html_url: "https://github.com/sahilmd01",
+        html_url: "https://github.com/ayanmanna123",
         stargazers_count: 8,
         forks_count: 2,
         language: "TypeScript"
@@ -25,7 +25,7 @@ const fallbackData = [
     {
         name: "AI-Chat-Bot",
         description: "Intelligent chatbot powered by OpenAI API.",
-        html_url: "https://github.com/sahilmd01",
+        html_url: "https://github.com/ayanmanna123",
         stargazers_count: 25,
         forks_count: 5,
         language: "Python"
@@ -41,14 +41,14 @@ const GithubStatsSection = () => {
         const fetchData = async () => {
             try {
                 // Fetch Contributions
-                const contributionsRes = await fetch("https://github-contributions-api.jogruber.de/v4/sahilmd01?y=last");
+                const contributionsRes = await fetch("https://github-contributions-api.jogruber.de/v4/ayanmanna123?y=last");
                 const contributionsData = await contributionsRes.json();
                 if (contributionsData.contributions) {
                     setContributions(contributionsData.contributions);
                 }
 
                 // Fetch Repos
-                const reposRes = await fetch("https://api.github.com/users/sahilmd01/repos?sort=updated&per_page=6");
+                const reposRes = await fetch("https://api.github.com/users/ayanmanna123/repos?sort=updated&per_page=6");
                 const reposData = await reposRes.json();
 
                 if (Array.isArray(reposData)) {

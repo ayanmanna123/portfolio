@@ -126,7 +126,7 @@ export const NotFound = () => {
           </Link>
 
           <motion.a
-            href="https://github.com/sahilmd01"
+            href="https://github.com/ayanmanna123"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative overflow-hidden px-6 py-3 rounded-xl font-semibold border border-primary/50 text-foreground hover:border-primary transition-all duration-300 bg-background/80 backdrop-blur-sm flex items-center gap-2"

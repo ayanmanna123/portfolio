@@ -27,15 +27,15 @@ import MySQLIcon from "@/assets/icons/mysql.png";
 
 // Hero Data
 export const heroData = {
-  title: "I'm Sahil",
+  title: "I'm Ayan Manna",
   subtitle: "Full-Stack Engineer",
   description: "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises.",
   status: "Available Immediately",
   codeSnippets: [
-    "import { FullStackDeveloper } from 'sahil.dev';",
+    "import { FullStackDeveloper } from 'ayanmanna.dev';",
     "",
     "const developer = new FullStackDeveloper({",
-    "  name: 'Sahil',",
+    "  name: 'Ayan Manna',",
     "  stack: ['React', 'Next.js', 'Node.js', 'TypeScript'],",
     "  focus: 'Building scalable web applications',",
     "  status: 'Open to new opportunities'",
@@ -60,7 +60,7 @@ export const projects = [
     video: "/projects/videos/genaxix-demo.mp4",
     tags: ["PERN Stack", "Clerk Auth", "Google Gemini", "Clerk Billing", "OPEN SOURCE"],
     demoUrl: "https://genaxis.vercel.app",
-    githubUrl: "https://github.com/Sahilmd01/genaxis",
+    githubUrl: "https://github.com/ayanmanna123/genaxis",
     featured: true,
     accentColor: "from-emerald-500 to-teal-600",
     status: "Live",
@@ -99,7 +99,7 @@ export const projects = [
     video: "/projects/videos/nauracare-demo.mp4",
     tags: ["React", "Node.js", "MongoDB", "Stripe", "JWT Auth"],
     demoUrl: "https://nauracare.vercel.app",
-    githubUrl: "https://github.com/Sahilmd01/neuracare",
+    githubUrl: "https://github.com/ayanmanna123/neuracare",
     featured: true,
     accentColor: "from-emerald-500 to-teal-600",
     status: "Live",
@@ -138,7 +138,7 @@ export const projects = [
     video: "/projects/videos/vante-demo.mp4",
     tags: ["React", "Node.js", "Stripe", "Redis"],
     demoUrl: "https://e-commerce-website-4w6a.vercel.app",
-    githubUrl: "https://github.com/Sahilmd01/E-commerce-website",
+    githubUrl: "https://github.com/ayanmanna123/E-commerce-website",
     featured: true,
     accentColor: "from-purple-500 to-indigo-600",
     status: "Live",
@@ -177,7 +177,7 @@ export const projects = [
     video: "/projects/videos/converse-demo.mp4",
     tags: ["Socket.IO", "MongoDB", "React", "WebRTC"],
     demoUrl: "https://converse-pro-frontend.vercel.app",
-    githubUrl: "https://github.com/Sahilmd01/converse-pro",
+    githubUrl: "https://github.com/ayanmanna123/converse-pro",
     featured: true,
     accentColor: "from-blue-500 to-cyan-600",
     status: "Live",
@@ -216,7 +216,7 @@ export const projects = [
     video: "/projects/videos/blogni-demo.mp4",
     tags: ["Next.js", "Gemini AI", "Clerk Auth", "Redis"],
     demoUrl: "https://blogni.vercel.app",
-    githubUrl: "https://github.com/Sahilmd01/Blogni",
+    githubUrl: "https://github.com/ayanmanna123/Blogni",
     accentColor: "from-amber-500 to-orange-600",
     status: "Live",
     highlights: ["AI content generation", "Multi-language", "User accounts"],
@@ -254,7 +254,7 @@ export const projects = [
     video: "/projects/videos/spendlix-demo.mp4",
     tags: ["React", "Chart.js", "Node.js", "Firebase"],
     demoUrl: "https://spendlix.vercel.app/login",
-    githubUrl: "https://github.com/Sahilmd01/Spendlix",
+    githubUrl: "https://github.com/ayanmanna123/Spendlix",
     accentColor: "from-rose-500 to-pink-600",
     status: "Live",
     highlights: ["Expense tracking", "Data visualization", "Budget planning"],
@@ -292,7 +292,7 @@ export const projects = [
     video: "/projects/videos/eattoo-demo.mp4",
     tags: ["React", "Redux", "Mapbox", "Stripe"],
     demoUrl: "https://eattoo-food-delivery-website-frontend.onrender.com/",
-    githubUrl: "https://github.com/Sahilmd01/Eattoo-food-delivery-website",
+    githubUrl: "https://github.com/ayanmanna123/Eattoo-food-delivery-website",
     accentColor: "from-violet-500 to-purple-600",
     status: "Live",
     highlights: ["Restaurant listings", "Order system", "Location services"],
@@ -397,17 +397,17 @@ export const features = ["Full-stack expertise", "Clean, maintainable code", "Pe
 
 // Contact Info
 export const contactInfo = [
-  { icon: <Mail size={16} />, text: "codewithkinu@gmail.com", href: "mailto:codewithkinu@gmail.com", label: "Email" },
-  { icon: <Phone size={16} />, text: "+91 9315145594", href: "tel:+919315145594", label: "Phone" },
-  { icon: <MapPin size={16} />, text: "Bengaluru, Karnataka India", href: null, label: "Location" }
+  { icon: <Mail size={16} />, text: "mannaayan777@gmail.com", href: "mailto:mannaayan777@gmail.com", label: "Email" },
+  { icon: <Phone size={16} />, text: "9907072795", href: "tel:9907072795", label: "Phone" },
+  { icon: <MapPin size={16} />, text: "kolkata , westbengal india", href: null, label: "Location" }
 ];
 
 export const socialLinks = [
-  { icon: <Linkedin size={18} />, href: "https://linkedin.com/in/codewithkinu", label: "LinkedIn" },
+  { icon: <Linkedin size={18} />, href: "https://www.linkedin.com/in/ayan-manna-4a67ab34a/", label: "LinkedIn" },
   { icon: <Instagram size={18} />, href: "https://instagram.com/dubbinut", label: "Instagram" },
-  { icon: <Youtube size={18} />, href: "https://youtube.com/@codewithkinu", label: "YouTube" },
-  { icon: <Github size={18} />, href: "https://github.com/sahilmd01", label: "GitHub" },
-  { icon: <Twitter size={18} />, href: "#", label: "Twitter" }
+  { icon: <Youtube size={18} />, href: "https://www.youtube.com/@ayanmanna1007", label: "YouTube" },
+  { icon: <Github size={18} />, href: "https://github.com/ayanmanna123", label: "GitHub" },
+  { icon: <Twitter size={18} />, href: "https://x.com/@AyanMan13756317", label: "Twitter" }
 ];
 
 export const quickLinks = [
@@ -492,7 +492,7 @@ export const testimonials = [
     id: 1,
     name: "Alex Johnson",
     role: "Product Director at TechCorp",
-    content: "Working with Sahil was seamless from day one. Not only did they deliver a full-stack solution ahead of schedule, but they also communicated clearly throughout the project. It's rare to find a developer who understands both the tech and the business side so well",
+    content: "Working with Ayan Manna was seamless from day one. Not only did they deliver a full-stack solution ahead of schedule, but they also communicated clearly throughout the project. It's rare to find a developer who understands both the tech and the business side so well",
     rating: 5,
     image: "/testimonials/alex-johnson.png"
   },
@@ -508,7 +508,7 @@ export const testimonials = [
     id: 3,
     name: "David Wilson",
     role: "CTO at Startup Ventures",
-    content: "From wireframes to deployment, Sahil owned the entire stack with confidence and creativity. The final product is fast, reliable, and looks incredible. I wouldn't hesitate to work with them again.",
+    content: "From wireframes to deployment, Ayan Manna owned the entire stack with confidence and creativity. The final product is fast, reliable, and looks incredible. I wouldn't hesitate to work with them again.",
     rating: 5,
     image: "/testimonials/David Wilson.png"
   },

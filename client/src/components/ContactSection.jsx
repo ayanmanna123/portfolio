@@ -95,7 +95,7 @@ export const ContactSection = () => {
     } catch (error) {
       toast({
         title: "Oops! Something went wrong",
-        description: "Please try again or email me directly at codewithkinu@gmail.com",
+        description: "Please try again or email me directly at mannaayan777@gmail.com",
         variant: "destructive"
       });
     } finally {

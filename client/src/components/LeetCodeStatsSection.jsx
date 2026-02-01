@@ -13,17 +13,15 @@ const LeetCodeStatsSection = () => {
     useEffect(() => {
         const fetchLeetCodeStats = async () => {
             try {
-                const response = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/solved`);
+                // Fetch Stats from stricter API that provides total counts
+                const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${leetcodeUsername}`);
                 const data = await response.json();
 
-                const profileResponse = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}`);
-                const profileData = await profileResponse.json();
-
-                if (data && profileData) {
-                    setStats({ ...data, ...profileData });
+                if (data && data.status === "success") {
+                    setStats(data);
                 }
 
-                // Fetch Calendar Data
+                // Fetch Calendar Data (Keep using Alfa for consistency if it works, or switch if needed. Alfa works for calendar)
                 const calendarResponse = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/calendar`);
                 const calendarJson = await calendarResponse.json();
 
@@ -142,12 +140,12 @@ const LeetCodeStatsSection = () => {
                                                 strokeWidth="8"
                                                 fill="transparent"
                                                 strokeDasharray={2 * Math.PI * 80}
-                                                strokeDashoffset={2 * Math.PI * 80 * (1 - (stats?.solvedProblem || 0) / (stats?.totalQuestions || 1))}
+                                                strokeDashoffset={2 * Math.PI * 80 * (1 - (stats?.totalSolved || 0) / (stats?.totalQuestions || 1))}
                                                 className="text-primary transition-all duration-1000 ease-out"
                                             />
                                         </svg>
                                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                            <span className="text-4xl font-bold">{stats?.solvedProblem || 0}</span>
+                                            <span className="text-4xl font-bold">{stats?.totalSolved || 0}</span>
                                             <span className="text-sm text-muted-foreground">Solved</span>
                                         </div>
                                     </>

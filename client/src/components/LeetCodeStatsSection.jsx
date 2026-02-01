@@ -34,37 +34,24 @@ const LeetCodeStatsSection = () => {
             // Set initial empty calendar
             setCalendarData(formatData(dateMap));
 
+            const CACHE_KEY = "leetcode_data";
+            const BADGES_CACHE_KEY = "leetcode_badges";
+            const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
             try {
-                // 2. Fetch Stats & Calendar (New Reliable API)
-                try {
-                    const response = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${leetcodeUsername}`);
-                    if (response.ok) {
-                        const data = await response.json();
+                // --- Check Cache for Stats & Calendar ---
+                const cachedStats = localStorage.getItem(CACHE_KEY);
+                let useCachedStats = false;
 
-                        // Calculate Acceptance Rate
-                        let acceptanceRate = 0;
-                        if (data.matchedUserStats?.acSubmissionNum?.[0]?.count && data.matchedUserStats?.totalSubmissionNum?.[0]?.count) {
-                            acceptanceRate = (data.matchedUserStats.acSubmissionNum[0].count / data.matchedUserStats.totalSubmissionNum[0].count * 100).toFixed(2);
-                        }
+                if (cachedStats) {
+                    const { data, timestamp } = JSON.parse(cachedStats);
+                    if (Date.now() - timestamp < CACHE_DURATION) {
+                        console.log("Using cached LeetCode stats");
+                        setStats(prev => ({ ...prev, ...data.stats }));
 
-                        setStats({
-                            totalSolved: data.totalSolved,
-                            totalQuestions: data.totalQuestions,
-                            easySolved: data.easySolved,
-                            totalEasy: data.totalEasy,
-                            mediumSolved: data.mediumSolved,
-                            totalMedium: data.totalMedium,
-                            hardSolved: data.hardSolved,
-                            totalHard: data.totalHard,
-                            ranking: data.ranking,
-                            acceptanceRate: acceptanceRate
-                        });
-
-                        // Process Calendar Data
+                        // Process cached calendar
                         if (data.submissionCalendar) {
-                            // API returns object directly, no parsing needed
                             const submissionMap = data.submissionCalendar;
-
                             Object.keys(submissionMap).forEach(timestamp => {
                                 const date = new Date(parseInt(timestamp) * 1000).toISOString().split('T')[0];
                                 if (dateMap.has(date)) {
@@ -73,22 +60,92 @@ const LeetCodeStatsSection = () => {
                             });
                             setCalendarData(formatData(dateMap));
                         }
+                        useCachedStats = true;
                     }
-                } catch (e) {
-                    console.warn("Failed to fetch LeetCode data:", e);
                 }
 
-                // 3. Fetch Badges (Keep old API for badges only)
-                try {
-                    const badgesRes = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
-                    if (badgesRes.ok) {
-                        const badgesJson = await badgesRes.json();
-                        if (badgesJson && badgesJson.badges) {
-                            setStats(prev => ({ ...prev, badges: badgesJson.badges }));
+                // If no valid cache, fetch from API
+                if (!useCachedStats) {
+                    try {
+                        const response = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${leetcodeUsername}`);
+                        if (response.ok) {
+                            const data = await response.json();
+
+                            // Calculate Acceptance Rate
+                            let acceptanceRate = 0;
+                            if (data.matchedUserStats?.acSubmissionNum?.[0]?.count && data.matchedUserStats?.totalSubmissionNum?.[0]?.count) {
+                                acceptanceRate = (data.matchedUserStats.acSubmissionNum[0].count / data.matchedUserStats.totalSubmissionNum[0].count * 100).toFixed(2);
+                            }
+
+                            const statsPayload = {
+                                totalSolved: data.totalSolved,
+                                totalQuestions: data.totalQuestions,
+                                easySolved: data.easySolved,
+                                totalEasy: data.totalEasy,
+                                mediumSolved: data.mediumSolved,
+                                totalMedium: data.totalMedium,
+                                hardSolved: data.hardSolved,
+                                totalHard: data.totalHard,
+                                ranking: data.ranking,
+                                acceptanceRate: acceptanceRate
+                            };
+
+                            setStats(prev => ({ ...prev, ...statsPayload }));
+
+                            // Process Calendar Data
+                            if (data.submissionCalendar) {
+                                const submissionMap = data.submissionCalendar;
+                                Object.keys(submissionMap).forEach(timestamp => {
+                                    const date = new Date(parseInt(timestamp) * 1000).toISOString().split('T')[0];
+                                    if (dateMap.has(date)) {
+                                        dateMap.set(date, submissionMap[timestamp]);
+                                    }
+                                });
+                                setCalendarData(formatData(dateMap));
+
+                                // Save to Cache
+                                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                                    data: { stats: statsPayload, submissionCalendar: submissionMap },
+                                    timestamp: Date.now()
+                                }));
+                            }
                         }
+                    } catch (e) {
+                        console.warn("Failed to fetch LeetCode data:", e);
                     }
-                } catch (e) {
-                    console.warn("Failed to fetch LeetCode badges:", e);
+                }
+
+                // --- Check Cache for Badges ---
+                const cachedBadges = localStorage.getItem(BADGES_CACHE_KEY);
+                let useCachedBadges = false;
+
+                if (cachedBadges) {
+                    const { badges, timestamp } = JSON.parse(cachedBadges);
+                    if (Date.now() - timestamp < CACHE_DURATION) {
+                        console.log("Using cached LeetCode badges");
+                        setStats(prev => ({ ...prev, badges: badges }));
+                        useCachedBadges = true;
+                    }
+                }
+
+                if (!useCachedBadges) {
+                    try {
+                        const badgesRes = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
+                        if (badgesRes.ok) {
+                            const badgesJson = await badgesRes.json();
+                            if (badgesJson && badgesJson.badges) {
+                                setStats(prev => ({ ...prev, badges: badgesJson.badges }));
+
+                                // Save Badges to Cache
+                                localStorage.setItem(BADGES_CACHE_KEY, JSON.stringify({
+                                    badges: badgesJson.badges,
+                                    timestamp: Date.now()
+                                }));
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("Failed to fetch LeetCode badges:", e);
+                    }
                 }
 
             } catch (error) {

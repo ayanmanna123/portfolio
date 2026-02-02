@@ -1,4 +1,4 @@
-import { Briefcase, Calendar, Target, User, Github, Linkedin, Twitter, Mail, Shield, TrendingUp, Award, Zap, Instagram, Youtube, Phone, MapPin } from 'lucide-react';
+import { Briefcase, Calendar, Target, User, Github, Linkedin, Twitter, Mail, Shield, TrendingUp, Award, Zap, Instagram, Youtube, Phone, MapPin, Code2, GitFork } from 'lucide-react';
 import React from 'react';
 
 // Skill Icons
@@ -437,10 +437,10 @@ export const achievements = [
 ];
 
 export const heroAchievements = [
-  { number: "1+", label: "Years in Production", icon: <Shield className="h-3 w-3" /> },
-  { number: "15+", label: "Projects Delivered", icon: <TrendingUp className="h-3 w-3" /> },
-  { number: "100%", label: "Client Satisfaction", icon: <Award className="h-3 w-3" /> },
-  { number: "15+", label: "Projects completed", icon: <Zap className="h-3 w-3" /> }
+  { number: "0+", label: "Github Contributions", icon: <Github className="h-3 w-3" /> },
+  { number: "0+", label: "Total Repositories", icon: <GitFork className="h-3 w-3" /> },
+  { number: "0+", label: "Total Projects", icon: <Briefcase className="h-3 w-3" /> },
+  { number: "0+", label: "LeetCode Problems", icon: <Code2 className="h-3 w-3" /> }
 ];
 
 // Tech Stack

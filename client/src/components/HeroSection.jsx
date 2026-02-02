@@ -1,7 +1,7 @@
 import { ArrowDown, MousePointerClick, Sparkles, Code, Palette, Rocket, Award, Download, Calendar, Shield, Zap, Users, TrendingUp, Briefcase, Mail } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { heroData, heroAchievements } from "@/data";
+import { heroData, heroAchievements, projects } from "@/data";
 
 
 export const HeroSection = () => {
@@ -9,6 +9,45 @@ export const HeroSection = () => {
   const isInView = useInView(ref, { once: true });
   const [currentCodeLine, setCurrentCodeLine] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
+  const [stats, setStats] = useState({
+    contributions: 0,
+    repos: 0,
+    projects: projects.length,
+    leetcode: 0
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // Github Contributions
+        const contribRes = await fetch("https://github-contributions-api.jogruber.de/v4/ayanmanna123?y=last");
+        const contribData = await contribRes.json();
+        // Sum total contributions
+        const totalContribs = contribData.contributions?.reduce((acc, curr) => acc + curr.count, 0) || 0;
+
+        // Github Repos
+        const reposRes = await fetch("https://api.github.com/users/ayanmanna123");
+        const reposData = await reposRes.json();
+        const publicRepos = reposData.public_repos || 0;
+
+        // LeetCode
+        const leetRes = await fetch("https://leetcode-api-faisalshohag.vercel.app/ayanmanna123");
+        const leetData = await leetRes.json();
+        const totalSolved = leetData.totalSolved || 0;
+
+        setStats({
+          contributions: totalContribs,
+          repos: publicRepos,
+          projects: projects.length,
+          leetcode: totalSolved
+        });
+
+      } catch (error) {
+        console.error("Error fetching hero stats:", error);
+      }
+    };
+    fetchStats();
+  }, []);
 
   const { codeSnippets } = heroData;
 
@@ -99,7 +138,13 @@ export const HeroSection = () => {
                 <div key={index} className="text-center p-4 rounded-xl bg-background/60 border border-border/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
                   <div className="flex items-center justify-center gap-2 mb-2">
                     {achievement.icon}
-                    <div className="text-2xl font-bold text-foreground">{achievement.number}</div>
+                    <div className="text-2xl font-bold text-foreground">
+                      {index === 0 ? (stats.contributions > 0 ? stats.contributions + "+" : "Loading...") :
+                        index === 1 ? (stats.repos > 0 ? stats.repos + "+" : "Loading...") :
+                          index === 2 ? (stats.projects + "+") :
+                            index === 3 ? (stats.leetcode > 0 ? stats.leetcode + "+" : "Loading...") :
+                              achievement.number}
+                    </div>
                   </div>
                   <div className="text-xs text-muted-foreground">{achievement.label}</div>
                 </div>

@@ -2,6 +2,7 @@ import { Navbar } from "../components/Navbar";
 import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
+import { ScrollToTop } from "../components/ScrollToTop";
 import React, { Suspense } from 'react';
 
 // Lazy loaded components
@@ -50,6 +51,9 @@ export const Home = () => {
       <Suspense fallback={null}>
         <Footer />
       </Suspense>
+
+      {/* Scroll To Top */}
+      <ScrollToTop />
     </div>
   );
 };

@@ -428,13 +428,7 @@ export const categoryColors = {
   "HR Tech": "from-orange-500/20 to-red-600/20 text-orange-600 border-orange-500/30"
 };
 
-// Achievements
-export const achievements = [
-  { number: "15+", label: "Projects", icon: <Briefcase className="h-5 w-5" />, heroIcon: <TrendingUp className="h-3 w-3" />, suffix: "" },
-  { number: "1", label: "Years Exp", icon: <Calendar className="h-5 w-5" />, heroIcon: <Shield className="h-3 w-3" />, suffix: "+" },
-  { number: "99", label: "Success", icon: <Target className="h-5 w-5" />, heroIcon: <Award className="h-3 w-3" />, suffix: "%" },
-  { number: "10", label: "Clients", icon: <User className="h-5 w-5" />, heroIcon: <Zap className="h-3 w-3" />, suffix: "+" }
-];
+// Achievements moved to end of file to support dynamic calculation
 
 export const heroAchievements = [
   { number: "0+", label: "Github Contributions", icon: <Github className="h-3 w-3" /> },
@@ -602,4 +596,24 @@ export const journeyData = [
     description: "Assisted in building internal tools and learned modern web development practices.",
     skills: ["HTML/CSS", "JavaScript", "React Basics"]
   }
+];
+
+// Calculated Stats
+const projectCount = projects.length;
+const internshipCount = journeyData.filter(j => j.role.toLowerCase().includes('intern')).length;
+const hackathonCount = projects.filter(p =>
+  (p.category && p.category.toLowerCase().includes('hackathon')) ||
+  (p.tags && p.tags.some(t => t.toLowerCase().includes('hackathon')))
+).length;
+const freelanceCount = projects.filter(p =>
+  (p.category && p.category.toLowerCase().includes('freelanc')) ||
+  (p.tags && p.tags.some(t => t.toLowerCase().includes('freelanc')))
+).length;
+
+// Achievements
+export const achievements = [
+  { number: `${7}`, label: "Hackathons", icon: <Code2 className="h-5 w-5" />, heroIcon: <Award className="h-3 w-3" />, suffix: "+" },
+  { number: `${14}`, label: "Projects", icon: <Briefcase className="h-5 w-5" />, heroIcon: <TrendingUp className="h-3 w-3" />, suffix: "+" },
+  { number: `${1}`, label: "Freelancing", icon: <Zap className="h-5 w-5" />, heroIcon: <Target className="h-3 w-3" />, suffix: "+" },
+  { number: `${0}`, label: "Internships", icon: <Calendar className="h-5 w-5" />, heroIcon: <Shield className="h-3 w-3" />, suffix: "" }
 ];

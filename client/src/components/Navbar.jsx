@@ -15,6 +15,7 @@ import {
   Github,
   Linkedin,
   Globe,
+  Award,
 } from "lucide-react";
 import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -27,6 +28,7 @@ const navItems = [
   { name: "About", href: "#about", icon: User },
   { name: "Skills", href: "#skills", icon: Code },
   { name: "Projects", href: "#projects", icon: Briefcase },
+  { name: "Certifications", href: "#certifications", icon: Award },
   { name: "Testimonials", href: "#testimonials", icon: MessageSquare },
   { name: "Contact", href: "#contact", icon: Mail },
   { name: "Blog", href: "https://blogni.vercel.app", icon: BookOpen },

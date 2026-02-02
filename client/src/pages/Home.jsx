@@ -8,6 +8,7 @@ import React, { Suspense } from 'react';
 // Lazy loaded components
 const SkillsSection = React.lazy(() => import("../components/SkillsSection").then(module => ({ default: module.SkillsSection })));
 const ProjectsSection = React.lazy(() => import("../components/ProjectsSection").then(module => ({ default: module.ProjectsSection })));
+const CertificatesSection = React.lazy(() => import("../components/CertificatesSection").then(module => ({ default: module.CertificatesSection })));
 const GithubStatsSection = React.lazy(() => import("../components/GithubStatsSection"));
 const ContactSection = React.lazy(() => import("../components/ContactSection").then(module => ({ default: module.ContactSection })));
 const Footer = React.lazy(() => import("../components/Footer").then(module => ({ default: module.Footer })));
@@ -41,6 +42,7 @@ export const Home = () => {
           <TimelineSection />
           <EducationSection />
           <ProjectsSection />
+          <CertificatesSection />
           <GithubStatsSection />
           <LeetCodeStatsSection />
           <TestimonialSection />

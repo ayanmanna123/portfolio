@@ -678,3 +678,84 @@ export const achievements = [
   { number: `${1}`, label: "Freelancing", icon: <Zap className="h-5 w-5" />, heroIcon: <Target className="h-3 w-3" />, suffix: "+" },
   { number: `${0}`, label: "Internships", icon: <Calendar className="h-5 w-5" />, heroIcon: <Shield className="h-3 w-3" />, suffix: "" }
 ];
+
+// Certificates Data
+export const certificates = [
+  {
+    id: 1,
+    title: "AWS Certified Solutions Architect",
+    issuer: "Amazon Web Services",
+    date: "2024",
+    image: "/certificates/certificates1.jpg",
+    verificationLink: "https://aws.amazon.com/verification",
+    featured: true,
+    category: "Cloud",
+    description: "Verified skills in designing distributed systems on AWS."
+  },
+  {
+    id: 2,
+    title: "Meta Front-End Developer",
+    issuer: "Meta",
+    date: "2023",
+    image: "/certificates/certificates2.png",
+    verificationLink: "https://coursera.org/verification",
+    featured: true,
+    category: "Frontend",
+    description: "Professional certification covering React, UX, and Testing."
+  },
+  {
+    id: 3,
+    title: "Google UX Design",
+    issuer: "Google",
+    date: "2023",
+    image: "/certificates/google-ux.png",
+    verificationLink: "https://coursera.org/verification",
+    featured: false,
+    category: "Design",
+    description: "Foundations of UX design, wireframing, and prototyping."
+  },
+  {
+    id: 4,
+    title: "MongoDB Associate Developer",
+    issuer: "MongoDB",
+    date: "2022",
+    image: "/certificates/mongodb-asso.png",
+    verificationLink: "https://university.mongodb.com/",
+    featured: false,
+    category: "Database",
+    description: "Validation of NoSQL database modeling and querying skills."
+  },
+  {
+    id: 5,
+    title: "JPMorgan Chase Software Engineering Lite",
+    issuer: "JPMorgan Chase & Co.",
+    date: "2022",
+    image: "/certificates/jpmorgan.png",
+    verificationLink: "https://www.theforage.com",
+    featured: false,
+    category: "Virtual Experience",
+    description: "Practical task simulation in agile software engineering."
+  },
+  {
+    id: 6,
+    title: "HackerRank React Basic",
+    issuer: "HackerRank",
+    date: "2023",
+    image: "/certificates/hackerrank-react.png",
+    verificationLink: "https://hackerrank.com",
+    featured: false,
+    category: "Skill Badge",
+    description: "Assessment of fundamental React concepts and problem solving."
+  },
+  {
+    id: 7,
+    title: "Algorithmic Toolbox",
+    issuer: "UC San Diego",
+    date: "2021",
+    image: "/certificates/algo-toolbox.png",
+    verificationLink: "https://coursera.org",
+    featured: false,
+    category: "Computer Science",
+    description: "Core data structures and algorithms mastery."
+  }
+];

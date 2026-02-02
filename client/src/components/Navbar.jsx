@@ -98,6 +98,7 @@ export const Navbar = () => {
   const { toast } = useToast();
   const [activeSection, setActiveSection] = useState("#hero");
   const [showNavbar, setShowNavbar] = useState(true);
+  const [isHoveringBottom, setIsHoveringBottom] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
   const lastScrollYRef = useRef(0);
@@ -140,6 +141,20 @@ export const Navbar = () => {
 
     setIsMusicPlaying(!isMusicPlaying);
   };
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      // Show navbar if cursor is within 150px of the bottom (increased from 100 for better UX)
+      if (e.clientY > window.innerHeight - 150) {
+        setIsHoveringBottom(true);
+      } else {
+        setIsHoveringBottom(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     if (isAudioReady && !hasShownToast.current) {
@@ -309,7 +324,7 @@ export const Navbar = () => {
         className={cn(
           "fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50",
           "transition-transform duration-300 ease-in-out",
-          showNavbar ? "translate-y-0" : "translate-y-full"
+          showNavbar || isHoveringBottom ? "translate-y-0" : "translate-y-full"
         )}
         style={{ willChange: "transform" }}
         initial={{ y: 20, opacity: 0 }}

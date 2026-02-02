@@ -1,4 +1,5 @@
 import { ArrowDown, MousePointerClick, Sparkles, Code, Palette, Rocket, Award, Download, Calendar, Shield, Zap, Users, TrendingUp, Briefcase, Mail } from "lucide-react";
+import { CountUp } from "./CountUp";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { heroData, heroAchievements, projects } from "@/data";
@@ -139,10 +140,10 @@ export const HeroSection = () => {
                   <div className="flex items-center justify-center gap-2 mb-2">
                     {achievement.icon}
                     <div className="text-2xl font-bold text-foreground">
-                      {index === 0 ? (stats.contributions > 0 ? stats.contributions + "+" : "Loading...") :
-                        index === 1 ? (stats.repos > 0 ? stats.repos + "+" : "Loading...") :
-                          index === 2 ? (stats.projects + "+") :
-                            index === 3 ? (stats.leetcode > 0 ? stats.leetcode + "+" : "Loading...") :
+                      {index === 0 ? <CountUp value={stats.contributions} suffix="+" /> :
+                        index === 1 ? <CountUp value={stats.repos} suffix="+" /> :
+                          index === 2 ? <CountUp value={stats.projects} suffix="+" /> :
+                            index === 3 ? <CountUp value={stats.leetcode} suffix="+" /> :
                               achievement.number}
                     </div>
                   </div>

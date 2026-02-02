@@ -16,7 +16,7 @@ import {
   Linkedin,
   Globe,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -52,12 +52,45 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+      className="p-3 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
       title="Toggle theme"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
     </button>
+  );
+};
+
+const DockIcon = ({ mouseX, item, isActive }) => {
+  const ref = useRef(null);
+
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    return val - bounds.x - bounds.width / 2;
+  });
+
+  const widthSync = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
+
+  return (
+    <motion.a
+      ref={ref}
+      href={item.href}
+      style={{ width }}
+      className={cn(
+        "aspect-square rounded-full flex items-center justify-center transition-colors relative group",
+        isActive
+          ? "bg-primary text-white"
+          : "text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary bg-gray-100/50 dark:bg-gray-800/50"
+      )}
+      aria-label={item.name}
+    >
+      <item.icon className="w-5 h-5" />
+      {/* Tooltip for larger screens since we're removing text label for dock look */}
+      <span className="absolute -top-10 bg-black/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+        {item.name}
+      </span>
+    </motion.a>
   );
 };
 
@@ -70,6 +103,8 @@ export const Navbar = () => {
   const lastScrollYRef = useRef(0);
   const audioRef = useRef(null);
   const hasShownToast = useRef(false);
+
+  const mouseX = useMotionValue(Infinity);
 
   const musicUrl = "/music.mp3";
 
@@ -281,25 +316,26 @@ export const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-md rounded-full shadow-lg p-2 border border-gray-200 dark:border-gray-700">
-          <div className="flex space-x-1 items-center">
+        <div className="flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-md rounded-2xl shadow-lg p-2 border border-gray-200 dark:border-gray-700 pb-2">
+          {/* Dock Container */}
+          <div
+            className="flex items-end gap-2 px-2"
+            onMouseMove={(e) => mouseX.set(e.pageX)}
+            onMouseLeave={() => mouseX.set(Infinity)}
+          >
             {navItems.map((item) => (
-              <a
+              <DockIcon
                 key={item.name}
-                href={item.href}
-                className={cn(
-                  "p-2 rounded-full transition-colors flex flex-col items-center",
-                  activeSection === item.href
-                    ? "bg-primary text-white"
-                    : "text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-                )}
-                aria-label={item.name}
-              >
-                <item.icon className="w-5 h-5" />
-                <span className="text-xs mt-1 hidden md:block">{item.name}</span>
-              </a>
+                item={item}
+                mouseX={mouseX}
+                isActive={activeSection === item.href}
+              />
             ))}
-            <div className="flex items-center px-2">
+
+            {/* Divider */}
+            <div className="w-px h-8 bg-gray-300 dark:bg-gray-700 mx-1 self-center" />
+
+            <div className="flex items-center justify-center h-10 w-10">
               <ThemeToggle />
             </div>
           </div>

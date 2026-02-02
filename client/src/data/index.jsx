@@ -27,7 +27,7 @@ import MySQLIcon from "@/assets/icons/mysql.png";
 
 // Hero Data
 export const heroData = {
-  title: "I'm Payel Jana",
+  title: "I'm Ayan Manna",
   subtitle: "Full-Stack Engineer",
   description: "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises.",
   status: "Available Immediately",

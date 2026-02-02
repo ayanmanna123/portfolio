@@ -88,7 +88,7 @@ const GithubStatsSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                 >
                     <div className="flex items-center justify-center gap-2 mb-4">
                         <Github className="w-8 h-8 text-primary" />
@@ -109,7 +109,7 @@ const GithubStatsSection = () => {
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                     >
                         <h3 className="text-xl font-semibold mb-6 self-start text-foreground">Contribution Map</h3>
                         {loading ? (
@@ -142,7 +142,7 @@ const GithubStatsSection = () => {
                             className="text-2xl font-bold text-center lg:text-left"
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false }}
                         >
                             Featured Repositories
                         </motion.h3>
@@ -155,7 +155,7 @@ const GithubStatsSection = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
+                                    viewport={{ once: false }}
                                 >
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-background transition-colors duration-300">

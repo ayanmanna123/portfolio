@@ -209,7 +209,7 @@ const LeetCodeStatsSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                 >
                     <div className="flex items-center justify-center gap-2 mb-4">
                         <Code2 className="w-8 h-8 text-primary" />
@@ -229,7 +229,7 @@ const LeetCodeStatsSection = () => {
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                     >
                         <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
                             {/* Circle Chart Area */}
@@ -290,7 +290,7 @@ const LeetCodeStatsSection = () => {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                     >
                         {/* Ranking Card */}
                         <div className="bg-card/50 backdrop-blur-sm border border-border/50 p-6 rounded-2xl shadow-xl flex items-center gap-4">
@@ -344,7 +344,7 @@ const LeetCodeStatsSection = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                     >
                         <div className="flex items-center gap-2 mb-6">
                             <Trophy className="w-5 h-5 text-yellow-500" />
@@ -375,7 +375,7 @@ const LeetCodeStatsSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                 >
                     <div className="flex items-center gap-2 self-start mb-6">
                         <CalendarIcon className="w-5 h-5 text-muted-foreground" />

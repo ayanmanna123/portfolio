@@ -87,14 +87,14 @@ export const ProjectsSection = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
         >
           <motion.div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
           >
             <Sparkles className="h-4 w-4" />
             My Projects
@@ -105,7 +105,7 @@ export const ProjectsSection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
           >
             Project
             <span className="block text-primary">Portfolio</span>
@@ -116,7 +116,7 @@ export const ProjectsSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
           >
             A collection of projects I've built to showcase my skills in full-stack development and modern web technologies.
           </motion.p>
@@ -128,7 +128,7 @@ export const ProjectsSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
         >
           <div className="inline-flex flex-wrap justify-center gap-2">
             {categories.map((category) => (
@@ -332,7 +332,7 @@ export const ProjectsSection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
           >
             <motion.button
               onClick={() => setShowAll(!showAll)}
@@ -364,7 +364,7 @@ export const ProjectsSection = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
         >
           <div className="bg-background border border-border rounded-2xl p-12 max-w-4xl mx-auto">
             <motion.div

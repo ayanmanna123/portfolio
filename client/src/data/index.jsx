@@ -605,7 +605,7 @@ export const educationData = [
   {
     id: 1,
     institution: "B.P. Poddar Institute of Management and Technology",
-    degree: "Bachelor of Technology - BTech, Computer Science and Engineering",
+    degree: "Bachelor of Technology - BTech, Electrical Engineering",
     year: "2023 - 2027",
     description: "Focused on core computer science concepts including Data Structures, Algorithms, and Database Management Systems. Active member of the coding club and tech fest organizer.",
     score: "DGPA: 8.72",
@@ -647,7 +647,7 @@ export const journeyData = [
     year: "2023",
     role: "Engineering Student",
     company: "B.P. Poddar Institute of Management and Technology",
-    description: "Started B.Tech in Computer Science and Engineering. Focusing on core CS fundamentals and web technologies.",
+    description: "Started B.Tech in Electrical Engineering. Focusing on core CS fundamentals and web technologies.",
     skills: ["Data Structures", "Algorithms", "C/C++", "Java"]
   },
   {

@@ -683,101 +683,102 @@ export const achievements = [
 export const certificates = [
   {
     id: 1,
-    title: "AWS Certified Solutions Architect",
-    issuer: "Amazon Web Services",
-    date: "2024",
+    title: "Complete Web Development Course",
+    issuer: "Udemy",
+    date: "Oct 29, 2025",
     image: "/certificates/certificates1.jpg",
-    verificationLink: "https://aws.amazon.com/verification",
+    verificationLink: "https://ude.my/",
     featured: true,
-    category: "Cloud",
-    description: "Verified skills in designing distributed systems on AWS."
+    category: "Web Development",
+    description: "Completed 97-hour full-stack web development course covering modern web technologies."
   },
   {
     id: 2,
-    title: "Meta Front-End Developer",
-    issuer: "Meta",
-    date: "2023",
+    title: "Python Coder Badge",
+    issuer: "Kaggle",
+    date: "Nov 10, 2025",
     image: "/certificates/certificates2.png",
-    verificationLink: "https://coursera.org/verification",
+    verificationLink: "https://kaggle.com/",
     featured: true,
-    category: "Frontend",
-    description: "Professional certification covering React, UX, and Testing."
+    category: "Programming",
+    description: "Earned Kaggle Python Coder badge demonstrating Python programming and data handling skills."
   },
   {
     id: 3,
-    title: "Google UX Design",
-    issuer: "Google",
-    date: "2023",
+    title: "Mini Project Completion – Diet & Body Composition Study",
+    issuer: "B.P. Poddar Institute of Management & Technology",
+    date: "2024",
     image: "/certificates/certificates3.jpg",
-    verificationLink: "https://coursera.org/verification",
+    verificationLink: "",
     featured: false,
-    category: "Design",
-    description: "Foundations of UX design, wireframing, and prototyping."
+    category: "Academic",
+    description: "Completed academic mini project on the effect of diet type on body composition parameters."
   },
   {
     id: 4,
-    title: "MongoDB Associate Developer",
-    issuer: "MongoDB",
-    date: "2022",
+    title: "TechStorm 2.25 – RO Navigator Participation",
+    issuer: "B.P. Poddar Institute of Management & Technology",
+    date: "March 2025",
     image: "/certificates/certificates4.jpg",
-    verificationLink: "https://university.mongodb.com/",
-    featured: false,
-    category: "Database",
-    description: "Validation of NoSQL database modeling and querying skills."
+    verificationLink: "",
+    featured: true,
+    category: "Hackathon",
+    description: "Participated in TechStorm 2.25 annual technical fest in RO Navigator event."
   },
   {
     id: 5,
-    title: "JPMorgan Chase Software Engineering Lite",
-    issuer: "JPMorgan Chase & Co.",
-    date: "2022",
+    title: "Code@Frost Participation",
+    issuer: "Asansol Engineering College",
+    date: "2025",
     image: "/certificates/certificates5.jpg",
-    verificationLink: "https://www.theforage.com",
+    verificationLink: "",
     featured: false,
-    category: "Virtual Experience",
-    description: "Practical task simulation in agile software engineering."
+    category: "Coding Competition",
+    description: "Participated in Code@Frost coding competition organized by AEC, West Bengal."
   },
   {
     id: 6,
-    title: "HackerRank React Basic",
-    issuer: "HackerRank",
-    date: "2023",
+    title: "Smart Coder 2.25 Prelims (Online)",
+    issuer: "B.P. Poddar Institute of Management & Technology",
+    date: "2025",
     image: "/certificates/certificates6.jpg",
-    verificationLink: "https://hackerrank.com",
+    verificationLink: "",
     featured: false,
-    category: "Skill Badge",
-    description: "Assessment of fundamental React concepts and problem solving."
+    category: "Coding Competition",
+    description: "Qualified/participated in Smart Coder 2.25 preliminary round."
   },
   {
     id: 7,
-    title: "Algorithmic Toolbox",
-    issuer: "UC San Diego",
-    date: "2021",
+    title: "PLUTUS 2025 – Price & Premium",
+    issuer: "Fintech Club, IIT (ISM) Dhanbad",
+    date: "2025",
     image: "/certificates/certificates7.jpg",
-    verificationLink: "https://coursera.org",
-    featured: false,
-    category: "Computer Science",
-    description: "Core data structures and algorithms mastery."
+    verificationLink: "",
+    featured: true,
+    category: "FinTech",
+    description: "Participated in fintech event PLUTUS 2025 organized by IIT ISM Dhanbad."
   },
   {
     id: 8,
-    title: "Algorithmic Toolbox",
-    issuer: "UC San Diego",
-    date: "2021",
+    title: "Code@Frost Submission via Unstop",
+    issuer: "Unstop / Asansol Engineering College",
+    date: "2025",
     image: "/certificates/certificates8.jpg",
-    verificationLink: "https://coursera.org",
+    verificationLink: "https://unstop.com/",
     featured: false,
-    category: "Computer Science",
-    description: "Core data structures and algorithms mastery."
+    category: "Coding Competition",
+    description: "Submitted project through Unstop platform for Code@Frost competition."
   },
   {
     id: 9,
-    title: "Algorithmic Toolbox",
-    issuer: "UC San Diego",
-    date: "2021",
+    title: "Educ-A-Thon 2.0 Prelims Participation",
+    issuer: "Techno Main Salt Lake",
+    date: "Oct–Nov 2025",
     image: "/certificates/certificates9.jpg",
-    verificationLink: "https://coursera.org",
+    verificationLink: "",
     featured: false,
-    category: "Computer Science",
-    description: "Core data structures and algorithms mastery."
+    category: "Hackathon",
+    description: "Participated in Educ-A-Thon 2.0 prelims conducted by Samarth, Techno Main Salt Lake."
   }
-];
+]
+

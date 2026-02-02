@@ -1,0 +1,189 @@
+{
+  "technologies": [
+    {
+      "name": "HTML",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "CSS",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "JavaScript",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "Python",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      "category": "Programming Language"
+    },
+    {
+      "name": "C",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+      "category": "Programming Language"
+    },
+    {
+      "name": "C++",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+      "category": "Programming Language"
+    },
+    {
+      "name": "SCSS",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "Figma",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+      "category": "Design Tool"
+    },
+    {
+      "name": "VS Code",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg",
+      "category": "Development Tool"
+    },
+    {
+      "name": "React",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "category": "Frontend Framework"
+    },
+    {
+      "name": "Vite",
+      "icon": "https://icon.icepanel.io/Technology/svg/Vite.js.svg",
+      "category": "Build Tool"
+    },
+    {
+      "name": "MySQL",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+      "category": "Database"
+    },
+    {
+      "name": "MongoDB",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      "category": "Database"
+    },
+    {
+      "name": "Express",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      "category": "Backend Framework"
+    },
+    {
+      "name": "MongoDB Atlas",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      "category": "Cloud Database"
+    },
+    {
+      "name": "Google Cloud",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+      "category": "Cloud Platform"
+    },
+    {
+      "name": "Bootstrap",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+      "category": "CSS Framework"
+    },
+    {
+      "name": "Tailwind CSS",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
+      "category": "CSS Framework"
+    },
+    {
+      "name": "Vercel",
+      "icon": "https://registry.npmmirror.com/@lobehub/icons-static-png/1.46.0/files/dark/vercel.png",
+      "category": "Deployment Platform"
+    },
+    {
+      "name": "Netlify",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
+      "category": "Deployment Platform"
+    },
+    {
+      "name": "AWS",
+      "icon": "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/aws-color.png",
+      "category": "Cloud Platform"
+    },
+    {
+      "name": "Git",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      "category": "Version Control"
+    },
+    {
+      "name": "GitHub",
+      "icon": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
+      "category": "Version Control Platform"
+    },
+    {
+      "name": "GitLab",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+      "category": "Version Control Platform"
+    },
+    {
+      "name": "Redux",
+      "icon": "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.png",
+      "category": "State Management"
+    },
+    {
+      "name": "n8n",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTVC1k-iS7Bx1ySL43nPK8EEjn-Ct3kHqj3Q&s",
+      "category": "Automation Tool"
+    },
+    {
+      "name": "MySQL",
+      "icon": "https://www.freepnglogos.com/uploads/logo-mysql-png/logo-mysql-mysql-logo-png-transparent-svg-vector-bie-supply-2.png",
+      "category": "Database"
+    },
+    {
+      "name": "NumPy",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQH_UD8CmG1k13eSzI-sYQyQHsDmXq-HOeG5UhE1Fg6gGLmryLP-2f-IA_JKdclff0MToxu3UnjUr463m9rGi5uoojh45tQ6JTR5XfWSM&s",
+      "category": "Data Science"
+    },
+    {
+      "name": "Pandas",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-NEICv1aGTvDRncdvM_fXoah5SNWx4pXAvg&s",
+      "category": "Data Science"
+    },
+    {
+      "name": "OpenCV",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJp_RsPVdUBHHqz0fEsLTsUmCfK3-G2JIcvA&s",
+      "category": "Computer Vision"
+    },
+    {
+      "name": "Seaborn",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO7DsVeQubPVKVj8GWyHVhMr6oQg8eqsZaEw&s",
+      "category": "Data Visualization"
+    },
+    {
+      "name": "Matplotlib",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZaWRWUBqTxaKJi-aAovlpbDffHnuim6RWww&s",
+      "category": "Data Visualization"
+    },
+    {
+      "name": "Scikit-learn",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3ioErrXCaT2yZgsMaefs8irg9dRTWVk882Q&s",
+      "category": "Machine Learning"
+    },
+    {
+      "name": "TensorFlow",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/TensorFlow_logo.svg/1200px-TensorFlow_logo.svg.png",
+      "category": "Machine Learning"
+    },
+    {
+      "name": "Transformers",
+      "icon": "https://repository-images.githubusercontent.com/155220641/a16c4880-a501-11ea-9e8f-646cf611702e",
+      "category": "Machine Learning"
+    },
+    {
+      "name": "PyTorch",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtAniCw22R1oYThcRHwkGHIsQdbkdByEN6Tw&s",
+      "category": "Machine Learning"
+    },
+    {
+      "name": "Keras",
+      "icon": "https://editor.analyticsvidhya.com/uploads/70574124120f1b1b40-08f0-467d-9a35-0f0fe71e0a43.jpg",
+      "category": "Machine Learning"
+    }
+  ]
+}

@@ -482,6 +482,7 @@ export const skillCategories = [
   { id: "frontend", label: "Frontend", color: "bg-gradient-to-r from-blue-500 to-cyan-500" },
   { id: "backend", label: "Backend", color: "bg-gradient-to-r from-green-500 to-emerald-500" },
   { id: "tools", label: "Tools", color: "bg-gradient-to-r from-orange-500 to-yellow-500" },
+  { id: "aiml", label: "AI / ML", color: "bg-gradient-to-r from-indigo-500 to-violet-500" },
 ];
 
 export const iconImages = {
@@ -511,32 +512,48 @@ export const iconImages = {
 
 export const skillsData = [
   // Frontend
-  { name: "HTML5", level: 95, category: "frontend", icon: "html" },
-  { name: "CSS3", level: 90, category: "frontend", icon: "css" },
-  { name: "SASS", level: 85, category: "frontend", icon: "sass" },
-  { name: "JavaScript", level: 90, category: "frontend", icon: "javascript" },
-  { name: "TypeScript", level: 75, category: "frontend", icon: "typescript" },
-  { name: "React", level: 90, category: "frontend", icon: "react" },
-  { name: "Next.js", level: 75, category: "frontend", icon: "nextjs" },
+  { name: "HTML", level: 95, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS", level: 90, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript", level: 90, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "SCSS", level: 85, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" },
+  { name: "React", level: 90, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Figma", level: 80, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "Bootstrap", level: 85, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
+  { name: "Tailwind CSS", level: 90, category: "frontend", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
+  { name: "Redux", level: 80, category: "frontend", icon: "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.png" },
 
   // Backend
-  { name: "Node.js", level: 90, category: "backend", icon: "nodejs" },
-  { name: "Express", level: 85, category: "backend", icon: "express" },
-  { name: "MongoDB", level: 90, category: "backend", icon: "mongodb" },
-  { name: "PostgreSQL", level: 65, category: "backend", icon: "postgresql" },
-  { name: "GraphQL", level: 60, category: "backend", icon: "graphql" },
-  { name: "Java", level: 60, category: "backend", icon: "java" },
-  { name: "Python", level: 60, category: "backend", icon: "python" },
+  { name: "Python", level: 80, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "C", level: 70, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+  { name: "C++", level: 75, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+  { name: "MySQL", level: 85, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "MongoDB", level: 90, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Express", level: 85, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+  { name: "MongoDB Atlas", level: 85, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
 
   // Tools
-  { name: "Git", level: 90, category: "tools", icon: "git" },
-  { name: "GitHub", level: 90, category: "tools", icon: "github" },
-  { name: "Docker", level: 70, category: "tools", icon: "docker" },
-  { name: "Firebase", level: 80, category: "tools", icon: "firebase" },
-  { name: "VS Code", level: 95, category: "tools", icon: "vscode" },
-  { name: "Cleark", level: 90, category: "tools", icon: "cleark" },
-  { name: "SQL", level: 90, category: "tools", icon: "sql" },
-  { name: "MySQL", level: 90, category: "tools", icon: "mysql" },
+  { name: "VS Code", level: 95, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" },
+  { name: "Vite", level: 85, category: "tools", icon: "https://icon.icepanel.io/Technology/svg/Vite.js.svg" },
+  { name: "Google Cloud", level: 70, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" },
+  { name: "Vercel", level: 85, category: "tools", icon: "https://registry.npmmirror.com/@lobehub/icons-static-png/1.46.0/files/dark/vercel.png" },
+  { name: "Netlify", level: 80, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg" },
+  { name: "AWS", level: 70, category: "tools", icon: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/aws-color.png" },
+  { name: "Git", level: 90, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub", level: 90, category: "tools", icon: "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" },
+  { name: "GitLab", level: 75, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" },
+  { name: "n8n", level: 65, category: "tools", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTVC1k-iS7Bx1ySL43nPK8EEjn-Ct3kHqj3Q&s" },
+
+  // AI / ML
+  { name: "NumPy", level: 75, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQH_UD8CmG1k13eSzI-sYQyQHsDmXq-HOeG5UhE1Fg6gGLmryLP-2f-IA_JKdclff0MToxu3UnjUr463m9rGi5uoojh45tQ6JTR5XfWSM&s" },
+  { name: "Pandas", level: 75, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-NEICv1aGTvDRncdvM_fXoah5SNWx4pXAvg&s" },
+  { name: "OpenCV", level: 70, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJp_RsPVdUBHHqz0fEsLTsUmCfK3-G2JIcvA&s" },
+  { name: "Seaborn", level: 70, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO7DsVeQubPVKVj8GWyHVhMr6oQg8eqsZaEw&s" },
+  { name: "Matplotlib", level: 70, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZaWRWUBqTxaKJi-aAovlpbDffHnuim6RWww&s" },
+  { name: "Scikit-learn", level: 70, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3ioErrXCaT2yZgsMaefs8irg9dRTWVk882Q&s" },
+  { name: "TensorFlow", level: 65, category: "aiml", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/TensorFlow_logo.svg/1200px-TensorFlow_logo.svg.png" },
+  { name: "Transformers", level: 60, category: "aiml", icon: "https://repository-images.githubusercontent.com/155220641/a16c4880-a501-11ea-9e8f-646cf611702e" },
+  { name: "PyTorch", level: 60, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtAniCw22R1oYThcRHwkGHIsQdbkdByEN6Tw&s" },
+  { name: "Keras", level: 60, category: "aiml", icon: "https://editor.analyticsvidhya.com/uploads/70574124120f1b1b40-08f0-467d-9a35-0f0fe71e0a43.jpg" },
 ];
 
 // Testimonials

@@ -29,7 +29,7 @@ const InfiniteScrollSkills = ({ skills }) => {
         {duplicatedSkills.map((skill, index) => (
           <div key={`${skill.name}-${index}`} className="flex-shrink-0 flex flex-col items-center gap-2">
             <div className="w-16 h-16 rounded-full bg-card border-2 border-primary/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-              <img src={iconImages[skill.icon]} alt={skill.name} className="w-8 h-8 object-contain" />
+              <img src={iconImages[skill.icon] || skill.icon} alt={skill.name} className="w-8 h-8 object-contain" />
             </div>
             <span className="text-sm font-medium text-center">{skill.name}</span>
           </div>
@@ -44,7 +44,7 @@ const InfiniteScrollSkills = ({ skills }) => {
         {[...duplicatedSkills].reverse().map((skill, index) => (
           <div key={`${skill.name}-reverse-${index}`} className="flex-shrink-0 flex flex-col items-center gap-2">
             <div className="w-16 h-16 rounded-full bg-card border-2 border-primary/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-              <img src={iconImages[skill.icon]} alt={skill.name} className="w-8 h-8 object-contain" />
+              <img src={iconImages[skill.icon] || skill.icon} alt={skill.name} className="w-8 h-8 object-contain" />
             </div>
             <span className="text-sm font-medium text-center">{skill.name}</span>
           </div>
@@ -109,7 +109,7 @@ export const SkillsSection = () => {
                 >
                   <div className="flex items-start gap-4 mb-5">
                     <div className="w-12 h-12 rounded-full bg-card border-2 border-primary/50 flex items-center justify-center">
-                      <img src={iconImages[skill.icon]} alt={skill.name} className="w-6 h-6 object-contain" />
+                      <img src={iconImages[skill.icon] || skill.icon} alt={skill.name} className="w-6 h-6 object-contain" />
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-center mb-2">

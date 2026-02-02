@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { ArrowLeft, Search, Zap, Code, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const NotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/10 flex items-center justify-center px-4 relative overflow-hidden">
+      <Helmet>
+        <title>404 - Page Not Found | Ayan Manna</title>
+        <meta name="description" content="The page you are looking for does not exist." />
+      </Helmet>
       {/* Animated Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 opacity-30">

@@ -1,4 +1,5 @@
 import { Navbar } from "../components/Navbar";
+import { Helmet } from "react-helmet-async";
 import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
@@ -27,6 +28,10 @@ const Loader = () => (
 export const Home = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <Helmet>
+        <title>Home | Ayan Manna | Portfolio</title>
+        <meta name="description" content="Welcome to Ayan Manna's portfolio. Explore projects, skills, and achievements." />
+      </Helmet>
       {/* Theme Toggle */}
       {/* Background Effects */}
       <StarBackground />

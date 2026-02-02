@@ -443,7 +443,8 @@ export const techStack = [
   { category: "Backend", items: ["Node.js", "Express", "Python", "MongoDB", "MySQL"] },
   { category: "Tools & Cloud", items: ["AWS", "Docker", "Vercel", "Git", "GitHub", "VS Code"] },
   { category: "AI / ML", items: ["NumPy", "Pandas", "Scikit-learn", "TensorFlow", "PyTorch"] },
-  { category: "App Dev", items: ["React Native", "Android Studio", "Capacitor"] }
+  { category: "App Dev", items: ["React Native", "Android Studio", "Capacitor"] },
+  { category: "Deep Learning / LLM", items: ["Transformers", "Hugging Face", "LangChain", "OpenAI API", "LlamaIndex"] }
 ];
 
 export const features = ["Full-stack expertise", "Clean, maintainable code", "Performance optimization", "Agile methodology", "24/7 support", "Timely delivery"];
@@ -486,6 +487,7 @@ export const skillCategories = [
   { id: "tools", label: "Tools", color: "bg-gradient-to-r from-orange-500 to-yellow-500" },
   { id: "aiml", label: "AI / ML", color: "bg-gradient-to-r from-indigo-500 to-violet-500" },
   { id: "appdev", label: "App Dev", color: "bg-gradient-to-r from-pink-500 to-rose-500" },
+  { id: "deeplearning", label: "Deep Learning / LLM", color: "bg-gradient-to-r from-violet-600 to-indigo-600" },
 ];
 
 export const iconImages = {
@@ -562,6 +564,13 @@ export const skillsData = [
   { name: "React Native", level: 85, category: "appdev", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "Android Studio", level: 75, category: "appdev", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" },
   { name: "Capacitor", level: 80, category: "appdev", icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/capacitorjs_logo_icon_169340.png" },
+
+  // Deep Learning / LLM
+  { name: "Transformers", level: 85, category: "deeplearning", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
+  { name: "Hugging Face", level: 85, category: "deeplearning", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
+  { name: "LangChain", level: 80, category: "deeplearning", icon: "https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/img/langchain_logo.png" },
+  { name: "OpenAI API", level: 90, category: "deeplearning", icon: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" },
+  { name: "LlamaIndex", level: 75, category: "deeplearning", icon: "https://i.imgur.com/8QqQ8qM.png" },
 ];
 
 // Testimonials

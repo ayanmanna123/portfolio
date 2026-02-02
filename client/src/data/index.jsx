@@ -601,6 +601,33 @@ export const testimonials = [
   },
 ];
 
+export const educationData = [
+  {
+    id: 1,
+    institution: "B.P. Poddar Institute of Management and Technology",
+    degree: "Bachelor of Technology - BTech, Computer Science and Engineering",
+    year: "2021 - 2025",
+    description: "Focused on core computer science concepts including Data Structures, Algorithms, and Database Management Systems. Active member of the coding club and tech fest organizer.",
+    score: "DGPA: 8.72",
+  },
+  {
+    id: 2,
+    institution: "Adarshana Vidyalaya",
+    degree: "Higher Secondary Education (Class XII)",
+    year: "2019 - 2021",
+    description: "Completed higher secondary education with a focus on Science (Physics, Chemistry, Mathematics).",
+    score: "Percentage: 92%",
+  },
+  {
+    id: 3,
+    institution: "Adarshana Vidyalaya",
+    degree: "Secondary Education (Class X)",
+    year: "2019",
+    description: "Completed secondary education with distinction.",
+    score: "Percentage: 94%",
+  }
+];
+
 export const journeyData = [
   {
     year: "2024",

@@ -65,6 +65,9 @@ export const NotFound = () => {
             <div className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
               404
             </div>
+            <div className="absolute -top-4 -right-4 bg-red-500 text-white text-xs font-mono px-2 py-1 rounded">
+              Exception
+            </div>
           </div>
         </motion.div>
 
@@ -75,40 +78,72 @@ export const NotFound = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Page Not Found
+            Component Not Found
           </h1>
           <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto leading-relaxed">
-            The page you're looking for seems to have vanished into the digital
-            void. Even the best developers encounter missing pages sometimes.
+            The component you're looking for is undefined. It may have been unmounted,
+            garbage collected, or simply lost in the dependency tree.
           </p>
         </motion.div>
 
         {/* Animated Code Snippet */}
         <motion.div
-          className="bg-background/80 border border-border rounded-xl p-6 mb-8 backdrop-blur-sm max-w-md mx-auto"
+          className="bg-background/80 border border-border rounded-xl p-6 mb-8 backdrop-blur-sm max-w-md mx-auto relative overflow-hidden group"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <div className="flex items-center gap-2 mb-4">
+          {/* Scanline effect */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
+
+          <div className="flex items-center gap-2 mb-4 border-b border-border pb-2">
             <div className="flex gap-1">
               <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
               <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
             </div>
-            <div className="text-sm font-mono text-muted-foreground">
-              error.js
+            <div className="text-sm font-mono text-muted-foreground flex-1 text-center">
+              stack_trace.js
             </div>
           </div>
 
-          <div className="font-mono text-sm text-left">
-            <div className="text-red-400">// 404: Page not found</div>
-            <div className="text-blue-400">const page = </div>
-            <div className="text-amber-400 pl-4">window.location.pathname;</div>
-            <div className="text-purple-400">if (!pageExists(page)) </div>
-            <div className="text-red-400 pl-4">throw new Error(</div>
-            <div className="text-green-400 pl-8">"404: Page not found"</div>
-            <div className="text-red-400 pl-4">);</div>
+          <div className="font-mono text-sm text-left overflow-x-auto">
+            <div className="text-muted-foreground italic mb-2">// 404: Uncaught ReferenceError</div>
+            <div>
+              <span className="text-purple-400">try</span> <span className="text-yellow-400">{`{`}</span>
+            </div>
+            <div className="pl-4">
+              <span className="text-blue-400">renderPage</span>
+              <span className="text-purple-400">(</span>
+              <span className="text-green-400">"{window.location.pathname}"</span>
+              <span className="text-purple-400">)</span>
+              <span className="text-foreground">;</span>
+            </div>
+            <div>
+              <span className="text-yellow-400">{`}`}</span> <span className="text-purple-400">catch</span> <span className="text-yellow-400">(</span>
+              <span className="text-red-400">err</span>
+              <span className="text-yellow-400">)</span> <span className="text-yellow-400">{`{`}</span>
+            </div>
+            <div className="pl-4">
+              <span className="text-blue-400">console</span>
+              <span className="text-foreground">.</span>
+              <span className="text-yellow-300">error</span>
+              <span className="text-purple-400">(</span>
+              <span className="text-green-400">"404: Page not found"</span>
+              <span className="text-purple-400">)</span>
+              <span className="text-foreground">;</span>
+            </div>
+            <div className="pl-4">
+              <span className="text-blue-400">window</span>
+              <span className="text-foreground">.</span>
+              <span className="text-cyan-400">location</span>
+              <span className="text-foreground">.</span>
+              <span className="text-blue-400">href</span>
+              <span className="text-foreground"> = </span>
+              <span className="text-green-400">"/"</span>
+              <span className="text-foreground">;</span>
+            </div>
+            <div><span className="text-yellow-400">{`}`}</span></div>
           </div>
         </motion.div>
 
@@ -153,7 +188,7 @@ export const NotFound = () => {
           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           <span>System operational, just lost in space</span>
         </motion.div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };

@@ -16,10 +16,11 @@ import {
   Linkedin,
   Globe,
 } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import Dock from "./Dock";
 
 const navItems = [
   { name: "Home", href: "#hero", icon: Home },
@@ -31,9 +32,23 @@ const navItems = [
   { name: "Blog", href: "https://blogni.vercel.app", icon: BookOpen },
 ];
 
-const ThemeToggle = () => {
+export const Navbar = () => {
+  const { toast } = useToast();
+  const [activeSection, setActiveSection] = useState("#hero");
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [isHoveringBottom, setIsHoveringBottom] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isAudioReady, setIsAudioReady] = useState(false);
   const [theme, setTheme] = useState("light");
+  const lastScrollYRef = useRef(0);
+  const audioRef = useRef(null);
+  const hasShownToast = useRef(false);
 
+  const mouseX = useMotionValue(Infinity);
+
+  const musicUrl = "/music.mp3";
+
+  // Theme Logic
   useEffect(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "dark") {
@@ -44,71 +59,16 @@ const ThemeToggle = () => {
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
-    document.documentElement.classList.toggle("dark");
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     localStorage.setItem("theme", newTheme);
     setTheme(newTheme);
   };
 
-  return (
-    <button
-      onClick={toggleTheme}
-      className="p-3 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-      title="Toggle theme"
-      aria-label="Toggle theme"
-    >
-      {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-    </button>
-  );
-};
-
-const DockIcon = ({ mouseX, item, isActive }) => {
-  const ref = useRef(null);
-
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
-  });
-
-  const widthSync = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
-
-  return (
-    <motion.a
-      ref={ref}
-      href={item.href}
-      style={{ width }}
-      className={cn(
-        "aspect-square rounded-full flex items-center justify-center transition-colors relative group",
-        isActive
-          ? "bg-primary text-white"
-          : "text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary bg-gray-100/50 dark:bg-gray-800/50"
-      )}
-      aria-label={item.name}
-    >
-      <item.icon className="w-5 h-5" />
-      {/* Tooltip for larger screens since we're removing text label for dock look */}
-      <span className="absolute -top-10 bg-black/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-        {item.name}
-      </span>
-    </motion.a>
-  );
-};
-
-export const Navbar = () => {
-  const { toast } = useToast();
-  const [activeSection, setActiveSection] = useState("#hero");
-  const [showNavbar, setShowNavbar] = useState(true);
-  const [isHoveringBottom, setIsHoveringBottom] = useState(false);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [isAudioReady, setIsAudioReady] = useState(false);
-  const lastScrollYRef = useRef(0);
-  const audioRef = useRef(null);
-  const hasShownToast = useRef(false);
-
-  const mouseX = useMotionValue(Infinity);
-
-  const musicUrl = "/music.mp3";
-
+  // Audio Logic
   useEffect(() => {
     if (typeof window !== "undefined") {
       audioRef.current = new Audio(musicUrl);
@@ -144,7 +104,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      // Show navbar if cursor is within 150px of the bottom (increased from 100 for better UX)
+      // Show navbar if cursor is within 150px of the bottom
       if (e.clientY > window.innerHeight - 150) {
         setIsHoveringBottom(true);
       } else {
@@ -209,6 +169,30 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prepare Dock Items
+  const dockItems = [
+    ...navItems.map((item) => ({
+      icon: <item.icon className="w-5 h-5 pointer-events-none" />,
+      label: item.name,
+      onClick: () => {
+        if (item.href.startsWith("#")) {
+          const element = document.querySelector(item.href);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        } else {
+          window.open(item.href, "_blank", "noopener,noreferrer");
+        }
+      },
+      className: activeSection === item.href ? "text-primary" : "text-gray-500",
+    })),
+    {
+      icon: theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />,
+      label: theme === "dark" ? "Light Mode" : "Dark Mode",
+      onClick: toggleTheme,
+    },
+  ];
 
   return (
     <>
@@ -319,7 +303,7 @@ export const Navbar = () => {
         </motion.button>
       </motion.div>
 
-      {/* Bottom Navbar */}
+      {/* Dock Bottom Navbar */}
       <motion.div
         className={cn(
           "fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50",
@@ -331,30 +315,12 @@ export const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-md rounded-2xl shadow-lg p-2 border border-gray-200 dark:border-gray-700 pb-2">
-          {/* Dock Container */}
-          <div
-            className="flex items-end gap-2 px-2"
-            onMouseMove={(e) => mouseX.set(e.pageX)}
-            onMouseLeave={() => mouseX.set(Infinity)}
-          >
-            {navItems.map((item) => (
-              <DockIcon
-                key={item.name}
-                item={item}
-                mouseX={mouseX}
-                isActive={activeSection === item.href}
-              />
-            ))}
-
-            {/* Divider */}
-            <div className="w-px h-8 bg-gray-300 dark:bg-gray-700 mx-1 self-center" />
-
-            <div className="flex items-center justify-center h-10 w-10">
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
+        <Dock
+          items={dockItems}
+          panelHeight={68}
+          baseItemSize={50}
+          magnification={70}
+        />
       </motion.div>
     </>
   );

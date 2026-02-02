@@ -439,9 +439,11 @@ export const heroAchievements = [
 
 // Tech Stack
 export const techStack = [
-  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "Tailwind"] },
-  { category: "Backend", items: ["Node.js", "Express", "Java", "Python"] },
-  { category: "Cloud", items: ["AWS", "Docker", "Vercel", "MongoDB"] }
+  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind"] },
+  { category: "Backend", items: ["Node.js", "Express", "Python", "MongoDB", "MySQL"] },
+  { category: "Tools & Cloud", items: ["AWS", "Docker", "Vercel", "Git", "GitHub", "VS Code"] },
+  { category: "AI / ML", items: ["NumPy", "Pandas", "Scikit-learn", "TensorFlow", "PyTorch"] },
+  { category: "App Dev", items: ["React Native", "Android Studio", "Capacitor"] }
 ];
 
 export const features = ["Full-stack expertise", "Clean, maintainable code", "Performance optimization", "Agile methodology", "24/7 support", "Timely delivery"];
@@ -483,6 +485,7 @@ export const skillCategories = [
   { id: "backend", label: "Backend", color: "bg-gradient-to-r from-green-500 to-emerald-500" },
   { id: "tools", label: "Tools", color: "bg-gradient-to-r from-orange-500 to-yellow-500" },
   { id: "aiml", label: "AI / ML", color: "bg-gradient-to-r from-indigo-500 to-violet-500" },
+  { id: "appdev", label: "App Dev", color: "bg-gradient-to-r from-pink-500 to-rose-500" },
 ];
 
 export const iconImages = {
@@ -554,6 +557,11 @@ export const skillsData = [
   { name: "Transformers", level: 60, category: "aiml", icon: "https://repository-images.githubusercontent.com/155220641/a16c4880-a501-11ea-9e8f-646cf611702e" },
   { name: "PyTorch", level: 60, category: "aiml", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtAniCw22R1oYThcRHwkGHIsQdbkdByEN6Tw&s" },
   { name: "Keras", level: 60, category: "aiml", icon: "https://editor.analyticsvidhya.com/uploads/70574124120f1b1b40-08f0-467d-9a35-0f0fe71e0a43.jpg" },
+
+  // App Development
+  { name: "React Native", level: 85, category: "appdev", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Android Studio", level: 75, category: "appdev", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" },
+  { name: "Capacitor", level: 80, category: "appdev", icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/capacitorjs_logo_icon_169340.png" },
 ];
 
 // Testimonials

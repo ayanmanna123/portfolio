@@ -139,7 +139,7 @@ export const AboutSection = () => {
               <h3 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
                 <Code className="h-4 sm:h-6 w-4 sm:w-6 text-primary" />Tech Stack Overview
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {techStack.map((stack, index) => (
                   <div key={index} className="bg-background/50 border border-border rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:border-primary/30 hover:scale-105 group">
                     <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">

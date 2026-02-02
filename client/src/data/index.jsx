@@ -606,23 +606,23 @@ export const educationData = [
     id: 1,
     institution: "B.P. Poddar Institute of Management and Technology",
     degree: "Bachelor of Technology - BTech, Computer Science and Engineering",
-    year: "2021 - 2025",
+    year: "2023 - 2027",
     description: "Focused on core computer science concepts including Data Structures, Algorithms, and Database Management Systems. Active member of the coding club and tech fest organizer.",
     score: "DGPA: 8.72",
   },
   {
     id: 2,
-    institution: "Adarshana Vidyalaya",
+    institution: "Gujarpur Surendranath Vidyapith",
     degree: "Higher Secondary Education (Class XII)",
-    year: "2019 - 2021",
+    year: "2021 - 2023",
     description: "Completed higher secondary education with a focus on Science (Physics, Chemistry, Mathematics).",
     score: "Percentage: 92%",
   },
   {
     id: 3,
-    institution: "Adarshana Vidyalaya",
+    institution: "Gujarpur Surendranath Vidyapith",
     degree: "Secondary Education (Class X)",
-    year: "2019",
+    year: "2019 - 2021",
     description: "Completed secondary education with distinction.",
     score: "Percentage: 94%",
   }
@@ -630,32 +630,39 @@ export const educationData = [
 
 export const journeyData = [
   {
+    year: "2025",
+    role: "Hackathon Participant & Competitive Coder",
+    company: "TechStorm | PLUTUS | Code@Frost",
+    description: "Active participant in national-level hackathons and coding competitions. Secured positions in various tech fests like TechStorm and PLUTUS.",
+    skills: ["Problem Solving", "Rapid Prototyping", "Team Collaboration"]
+  },
+  {
     year: "2024",
-    role: "Senior Frontend Engineer",
-    company: "Tech Solutions Inc.",
-    description: "Leading the frontend team in rebuilding the legacy platform using Next.js and Micro-frontends.",
-    skills: ["Next.js", "Module Federation", "Team Leadership"]
+    role: "Full Stack Developer",
+    company: "Personal Projects",
+    description: "Designed and developed scalability-focused web applications including 'Where Is My Bus', 'CollabLearn', and 'JobFlux'.",
+    skills: ["MERN Stack", "System Design", "Real-time Architecture"]
   },
   {
     year: "2023",
-    role: "Full Stack Developer",
-    company: "Creative Agency",
-    description: "Developed and deployed 15+ client websites and web applications. Optimized performance by 40%.",
-    skills: ["React", "Node.js", "AWS", "Framer Motion"]
-  },
-  {
-    year: "2022",
-    role: "Frontend Developer",
-    company: "Startup Hub",
-    description: "Collaborated with UX/UI designers to implement pixel-perfect responsive interfaces.",
-    skills: ["React", "Redux", "SASS", "Firebase"]
+    role: "Engineering Student",
+    company: "B.P. Poddar Institute of Management and Technology",
+    description: "Started B.Tech in Computer Science and Engineering. Focusing on core CS fundamentals and web technologies.",
+    skills: ["Data Structures", "Algorithms", "C/C++", "Java"]
   },
   {
     year: "2021",
-    role: "Web Development Intern",
-    company: "Digital Academy",
-    description: "Assisted in building internal tools and learned modern web development practices.",
-    skills: ["HTML/CSS", "JavaScript", "React Basics"]
+    role: "Higher Secondary Student",
+    company: "Gujarpur Surendranath Vidyapith",
+    description: "Completed Class XII with Science stream (Physics, Chemistry, Maths). Achieved 92%.",
+    skills: ["Physics", "Chemistry", "Mathematics"]
+  },
+  {
+    year: "2019",
+    role: "Secondary School Student",
+    company: "Gujarpur Surendranath Vidyapith",
+    description: "Completed Class X with distinction. Achieved 94%.",
+    skills: ["Science", "Mathematics", "Foundational Studies"]
   }
 ];
 

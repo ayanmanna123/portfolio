@@ -11,4 +11,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/leetcode-proxy": {
+        target: "https://leetcode.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/leetcode-proxy/, ""),
+        secure: false,
+        headers: {
+          Referer: "https://leetcode.com",
+          Origin: "https://leetcode.com",
+        },
+      },
+    },
+  },
 });

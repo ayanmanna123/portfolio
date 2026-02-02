@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/leetcode-proxy/(.*)",
+      "destination": "https://leetcode.com/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }

@@ -130,18 +130,43 @@ const LeetCodeStatsSection = () => {
 
                 if (!useCachedBadges) {
                     try {
-                        const badgesRes = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
-                        if (badgesRes.ok) {
-                            const badgesJson = await badgesRes.json();
-                            if (badgesJson && badgesJson.badges) {
-                                setStats(prev => ({ ...prev, badges: badgesJson.badges }));
-
-                                // Save Badges to Cache
-                                localStorage.setItem(BADGES_CACHE_KEY, JSON.stringify({
-                                    badges: badgesJson.badges,
-                                    timestamp: Date.now()
-                                }));
+                        const badgesQuery = `
+                            query userBadges($username: String!) {
+                                matchedUser(username: $username) {
+                                    badges {
+                                        id
+                                        name
+                                        shortName
+                                        displayName
+                                        icon
+                                        creationDate
+                                    }
+                                }
                             }
+                        `;
+
+                        const response = await fetch('/leetcode-proxy/graphql', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                query: badgesQuery,
+                                variables: { username: leetcodeUsername }
+                            })
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            const badges = data?.data?.matchedUser?.badges || [];
+
+                            setStats(prev => ({ ...prev, badges: badges }));
+
+                            // Save Badges to Cache
+                            localStorage.setItem(BADGES_CACHE_KEY, JSON.stringify({
+                                badges: badges,
+                                timestamp: Date.now()
+                            }));
                         }
                     } catch (e) {
                         console.warn("Failed to fetch LeetCode badges:", e);

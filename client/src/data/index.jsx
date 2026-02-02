@@ -1,4 +1,4 @@
-import { Briefcase, Calendar, Target, User, Github, Linkedin, Twitter, Mail, Shield, TrendingUp, Award, Zap, Instagram, Youtube, Phone, MapPin, Code2, GitFork } from 'lucide-react';
+import { Briefcase, Calendar, Target, User, Github, Linkedin, Twitter, Mail, Shield, TrendingUp, Award, Zap, Instagram, Youtube, Phone, MapPin, Code2, GitFork, Gamepad2, Camera, Plane, Music, Puzzle, Utensils } from 'lucide-react';
 import React from 'react';
 
 // Skill Icons
@@ -448,6 +448,13 @@ export const techStack = [
 ];
 
 export const features = ["Full-stack expertise", "Clean, maintainable code", "Performance optimization", "Agile methodology", "24/7 support", "Timely delivery"];
+
+export const hobbies = [
+  { name: "Cubing", icon: <Puzzle size={16} />, desc: "High-speed solving" },
+  { name: "Music", icon: <Music size={16} />, desc: "Vibe & Rhythm" },
+  { name: "Foodie", icon: <Utensils size={16} />, desc: "Tasting world" },
+  { name: "Traveling", icon: <Plane size={16} />, desc: "Exploring places" }
+];
 
 // Contact Info
 export const contactInfo = [

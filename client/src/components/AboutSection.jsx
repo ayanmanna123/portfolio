@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, Code, User, Download, Calendar, Sparkles, Target, Github, Linkedin, Twitter, Mail, Star } from 'lucide-react';
+import { Briefcase, Code, User, Download, Calendar, Sparkles, Target, Github, Linkedin, Twitter, Mail, Star, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { achievements, techStack, features, socialLinks, tabContent } from "@/data";
+import { achievements, techStack, features, socialLinks, tabContent, hobbies } from "@/data";
 
 export const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('personal');
@@ -220,6 +220,25 @@ export const AboutSection = () => {
               </div>
               <div className="text-[10px] sm:text-xs text-muted-foreground text-center bg-background/50 rounded-lg p-1 sm:p-2">
                 ⚡ Response time: Under 24 hours
+              </div>
+            </div>
+
+            {/* Hobbies & Interests */}
+            <div className="bg-card/50 border border-border rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:shadow-3xl hover:border-primary/40 hover:bg-card/60">
+              <h3 className="text-base sm:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
+                <Heart className="h-4 sm:h-5 w-4 sm:w-5 text-primary" />
+                Beyond Code
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {hobbies.map((hobby, index) => (
+                  <div key={index} className="flex flex-col p-2 rounded-xl bg-background/30 border border-border/50 hover:bg-background/50 transition-colors duration-300">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="text-primary scale-90">{hobby.icon}</div>
+                      <span className="font-medium text-xs sm:text-sm">{hobby.name}</span>
+                    </div>
+                    <span className="text-[10px] text-muted-foreground ml-1">{hobby.desc}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

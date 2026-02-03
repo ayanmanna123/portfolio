@@ -1,10 +1,10 @@
-# 🚀 Sahil's Developer Portfolio
+# 🚀 Ayan's Developer Portfolio
 
 A modern, animated portfolio website showcasing full-stack development skills and projects. Built with React, Vite, and Tailwind CSS.
 
 ## 🌐 Live Demo
 
-[https://sahil-portfolio.vercel.app](https://sahil-portfolio.vercel.app)
+[https://avoliq.vercel.app](https://avoliq.vercel.app)
 
 ## 🛠️ Tech Stack
 
@@ -40,7 +40,7 @@ A modern, animated portfolio website showcasing full-stack development skills an
 
 ```bash
 # Clone the repository
-git clone https://github.com/sahilmd01/React-Portfolio.git
+git clone https://github.com/ayanmanna123/portfolio.git
 cd React-Portfolio/client
 
 # Install dependencies
@@ -133,11 +133,11 @@ npm run preview
 
 ## 📬 Contact
 
-- **Email**: codeithkinu@gmail.com
-- **LinkedIn**: [linkedin.com/in/codewithkinu](https://linkedin.com/in/codewithkinu)
-- **GitHub**: [github.com/sahilmd01](https://github.com/sahilmd01)
-- **YouTube**: [@codewithkinu](https://www.youtube.com/@codewithkinu)
-- **Website**: [avoliq.vercel.app](https://avoliq.vercel.app)
+- **Email**: mannaayan20@gmail.com
+- **LinkedIn**: [linkedin.com/in/ayan-manna](https://www.linkedin.com/in/ayan-manna-4a67ab34a/)
+- **GitHub**: [github.com/ayanmanna123](https://github.com/ayanmanna123)
+- **YouTube**: [@ayanmanna1007](https://www.youtube.com/@ayanmanna1007)
+
 
 ## 📄 License
 
@@ -145,4 +145,4 @@ This project is open source and available under the [MIT License](../LICENSE).
 
 ---
 
-**Built with ❤️ by [Sahil](https://github.com/sahilmd01)**
+**Built with ❤️ by [Ayan Manna](https://github.com/ayanmanna123)**

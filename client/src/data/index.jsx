@@ -32,7 +32,7 @@ export const heroData = {
   description: "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises.",
   status: "Available Immediately",
   codeSnippets: [
-    "import { FullStackDeveloper } from 'ayanmanna.dev';",
+    "import { FullStackDeveloper } from 'ayanmanna.in';",
     "",
     "const developer = new FullStackDeveloper({",
     "  name: 'Ayan Manna',",
@@ -465,7 +465,7 @@ export const contactInfo = [
 
 export const socialLinks = [
   { icon: <Linkedin size={18} />, href: "https://www.linkedin.com/in/ayan-manna-4a67ab34a/", label: "LinkedIn" },
-  { icon: <Instagram size={18} />, href: "https://instagram.com/dubbinut", label: "Instagram" },
+  { icon: <Instagram size={18} />, href: "https://www.instagram.com/ayan.manna.90834", label: "Instagram" },
   { icon: <Youtube size={18} />, href: "https://www.youtube.com/@ayanmanna1007", label: "YouTube" },
   { icon: <Github size={18} />, href: "https://github.com/ayanmanna123", label: "GitHub" },
   { icon: <Twitter size={18} />, href: "https://x.com/@AyanMan13756317", label: "Twitter" }
@@ -615,7 +615,7 @@ export const educationData = [
     degree: "Bachelor of Technology - BTech, Electrical Engineering",
     year: "2023 - 2027",
     description: "Focused on core computer science concepts including Data Structures, Algorithms, and Database Management Systems. Active member of the coding club and tech fest organizer.",
-    score: "DGPA: 8.72",
+    score: "SGPA: 7.32",
   },
   {
     id: 2,
@@ -623,7 +623,7 @@ export const educationData = [
     degree: "Higher Secondary Education (Class XII)",
     year: "2021 - 2023",
     description: "Completed higher secondary education with a focus on Science (Physics, Chemistry, Mathematics).",
-    score: "Percentage: 92%",
+    score: "Percentage: 66.4%",
   },
   {
     id: 3,
@@ -631,7 +631,7 @@ export const educationData = [
     degree: "Secondary Education (Class X)",
     year: "2019 - 2021",
     description: "Completed secondary education with distinction.",
-    score: "Percentage: 94%",
+    score: "Percentage: 81.7%",
   }
 ];
 

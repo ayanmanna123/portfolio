@@ -16,6 +16,7 @@ import {
   Linkedin,
   Globe,
   Award,
+  Code2,
 } from "lucide-react";
 import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -29,9 +30,10 @@ const navItems = [
   { name: "Skills", href: "#skills", icon: Code },
   { name: "Projects", href: "#projects", icon: Briefcase },
   { name: "Certifications", href: "#certifications", icon: Award },
+  { name: "GitHub", href: "#github-stats", icon: Github },
+  { name: "LeetCode", href: "#leetcode-stats", icon: Code2 },
   { name: "Testimonials", href: "#testimonials", icon: MessageSquare },
   { name: "Contact", href: "#contact", icon: Mail },
-  { name: "Blog", href: "https://blogni.vercel.app", icon: BookOpen },
 ];
 
 export const Navbar = () => {

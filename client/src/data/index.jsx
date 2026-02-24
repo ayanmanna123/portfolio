@@ -25,6 +25,11 @@ import clearkIcon from "@/assets/icons/cleark.png";
 import SQLIcon from "@/assets/icons/sql.png";
 import MySQLIcon from "@/assets/icons/mysql.png";
 
+// Branding
+import logo from "@/assets/logo.svg";
+export { logo };
+
+
 // Hero Data
 export const heroData = {
   title: "I'm Ayan Manna",

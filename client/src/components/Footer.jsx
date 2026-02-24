@@ -111,7 +111,10 @@ export const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Branding */}
             <motion.div variants={itemVariants} className="space-y-4">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">AYAN MANNA</h3>
+              <div className="flex items-center gap-3">
+                <img src="/logo.svg" alt="Logo" className="w-8 h-8 object-contain" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">AYAN MANNA</h3>
+              </div>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
                 Digital designer & developer creating meaningful experiences.
               </p>

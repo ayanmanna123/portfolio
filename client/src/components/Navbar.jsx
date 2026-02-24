@@ -200,6 +200,21 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* Brand Logo and Name */}
+      <motion.div
+        className="fixed top-4 left-4 z-50 flex items-center gap-2 pointer-events-auto cursor-pointer"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      >
+        <div className="p-2 rounded-xl bg-white/80 dark:bg-black/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-sm flex items-center gap-2">
+          <img src="/logo.svg" alt="Logo" className="w-6 h-6 object-contain" />
+          <span className="text-sm font-bold tracking-tighter text-gray-900 dark:text-white hidden sm:block pr-1">
+            AYAN MANNA
+          </span>
+        </div>
+      </motion.div>
       {/* Top Right Buttons */}
       <motion.div
         className="fixed top-4 right-4 z-50 flex gap-2"

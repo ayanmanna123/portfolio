@@ -10,6 +10,7 @@ export const Terms = () => {
             <Helmet>
                 <title>Terms of Service | Ayan Manna | Portfolio</title>
                 <meta name="description" content="Terms of Service for Ayan Manna's portfolio." />
+                <link rel="canonical" href="https://ayanmanna.in/terms" />
             </Helmet>
 
             <StarBackground />

@@ -31,6 +31,7 @@ export const Home = () => {
       <Helmet>
         <title>Home | Ayan Manna | Portfolio</title>
         <meta name="description" content="Welcome to Ayan Manna's portfolio. Explore projects, skills, and achievements." />
+        <link rel="canonical" href="https://ayanmanna.in/" />
       </Helmet>
       {/* Theme Toggle */}
       {/* Background Effects */}

@@ -10,6 +10,7 @@ export const PrivacyPolicy = () => {
             <Helmet>
                 <title>Privacy Policy | Ayan Manna | Portfolio</title>
                 <meta name="description" content="Privacy Policy for Ayan Manna's portfolio. Learn how your data is handled." />
+                <link rel="canonical" href="https://ayanmanna.in/privacy" />
             </Helmet>
 
             <StarBackground />

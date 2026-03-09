@@ -1,33 +1,31 @@
-# 🚀 Sahil's Developer Portfolio
+# 🚀 Ayan Manna's Developer Portfolio
 
 A modern, animated portfolio website showcasing my full-stack development skills and projects. Built with React, Vite, and Tailwind CSS with smooth animations and responsive design.
 
 ## 🌐 Live Demo
 
-[https://sahil-portfolio.vercel.app](https://sahil-portfolio.vercel.app)
+[https://ayanmanna.in](https://ayanmanna.in)
 
 ## 🛠️ Tech Stack
 
-- **React 18** - Component-based UI library
-- **Vite** - Fast build tool and development server
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Production-ready motion library
-- **Lucide React** - Beautiful SVG icons
-- **React Router** - Declarative routing
-- **Vercel** - Deployment and hosting
+- **Frontend** - React, Next.js, TypeScript, JavaScript, HTML, CSS, Tailwind
+- **Backend** - Node.js, Express, Python, MongoDB, MySQL
+- **Tools & Cloud** - AWS, Docker, Vercel, Git, GitHub, VS Code
+- **AI / ML** - NumPy, Pandas, Scikit-learn, TensorFlow, PyTorch
+- **App Dev** - React Native, Android Studio, Capacitor
+- **Deep Learning / LLM** - Transformers, Hugging Face, LangChain, OpenAI API, LlamaIndex
 
 ## ✨ Features
 
-- 🎨 **Animated Hero Section** - Interactive code terminal with typing effect
-- 👨‍💻 **About Section** - Professional introduction with achievements
-- 💻 **Skills Showcase** - Interactive skill cards with progress indicators
-- 📁 **Projects Gallery** - Filterable project showcase with live demos
-- 💬 **Testimonials** - Client feedback with animated cards
-- 📞 **Contact Section** - Social links and contact information
+- 🎨 **Full-stack expertise** - End-to-end application development
+- 👨‍💻 **Clean, maintainable code** - Industry best practices
+- 💻 **Performance optimization** - Fast and efficient web apps
+- 📁 **Agile methodology** - Iterative development and delivery
+- 💬 **24/7 support** - Continuous maintenance and assistance
+- 📞 **Timely delivery** - On-time project completion
 - 🌙 **Dark/Light Mode** - Theme switching with localStorage persistence
 - 📱 **Fully Responsive** - Mobile-first design approach
 - ⚡ **Performance Optimized** - 95+ Lighthouse scores
-- 🎵 **Background Music** - Interactive audio player
 
 ## 🚀 Getting Started
 
@@ -40,8 +38,8 @@ A modern, animated portfolio website showcasing my full-stack development skills
 
 ```bash
 # Clone the repository
-git clone https://github.com/sahilmd01/React-Portfolio.git
-cd React-Portfolio/client
+git clone https://github.com/ayanmanna123/portfolio.git
+cd portfolio/client
 
 # Install dependencies
 npm install
@@ -81,29 +79,14 @@ client/
 └── vite.config.js
 ```
 
-## 🎯 Key Components
+## 🎯 Featured Projects
 
-### HeroSection
-- Animated code terminal with typing effect
-- Gradient text and floating elements
-- Interactive call-to-action buttons
+- **CollabLearn** - EdTech SaaS / Mentorship Platform
+- **JobFlux** - Professional Networking / Job Portal SaaS
+- **Where Is My Bus** - Real-time Bus Tracking Platform
+- **BPPIMT Quiz** - Interactive Quiz Platform
 
-### SkillsSection
-- Categorized skill display
-- Animated progress bars
-- Interactive filtering
-
-### ProjectsSection
-- Project cards with tech stack tags
-- Live demo and GitHub links
-- Filter by technology
-
-### ContactSection
-- Social media integration
-- Contact information
-- Smooth animations
-
-## 📈 Performance
+## 📊 Performance
 
 - **Lighthouse Score**: 95+
 - **First Contentful Paint**: < 1.5s
@@ -130,11 +113,11 @@ npm run preview
 
 ## 📬 Contact
 
-- **Email**: codeithkinu@gmail.com
-- **LinkedIn**: [linkedin.com/in/codewithkinu](https://linkedin.com/in/codewithkinu)
-- **GitHub**: [github.com/sahilmd01](https://github.com/sahilmd01)
-- **YouTube**: [@codewithkinu](https://www.youtube.com/@codewithkinu)
-- **Website**: [avoliq.vercel.app](https://avoliq.vercel.app)
+- **Email**: mannaayan777@gmail.com
+- **LinkedIn**: [linkedin.com/in/ayan-manna-4a67ab34a/](https://www.linkedin.com/in/ayan-manna-4a67ab34a/)
+- **GitHub**: [github.com/ayanmanna123](https://github.com/ayanmanna123)
+- **YouTube**: [@ayanmanna1007](https://www.youtube.com/@ayanmanna1007)
+- **Website**: [ayanmanna.in](https://ayanmanna.in)
 
 ## 📄 License
 
@@ -142,4 +125,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Built with ❤️ by [Sahil](https://github.com/sahilmd01)**
+**Built with ❤️ by [Ayan Manna](https://github.com/ayanmanna123)**

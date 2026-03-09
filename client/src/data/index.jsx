@@ -575,12 +575,12 @@ export const skillsData = [
   // App Development
   { name: "React Native", level: 85, category: "appdev", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "Android Studio", level: 75, category: "appdev", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" },
-  { name: "Capacitor", level: 80, category: "appdev", icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/capacitorjs_logo_icon_169340.png" },
+  { name: "Capacitor", level: 80, category: "appdev", icon: "https://bendyworks.com/assets/images/blog/2018-07-13-capacitor-elm-5c00aa6a.png" },
 
   // Deep Learning / LLM
   { name: "Transformers", level: 85, category: "deeplearning", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
   { name: "Hugging Face", level: 85, category: "deeplearning", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
-  { name: "LangChain", level: 80, category: "deeplearning", icon: "https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/img/langchain_logo.png" },
+  { name: "LangChain", level: 80, category: "deeplearning", icon: "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*MqiaQ3ydE_evyiSXtSR8pg.jpeg" },
   { name: "OpenAI API", level: 90, category: "deeplearning", icon: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" },
   { name: "LlamaIndex", level: 75, category: "deeplearning", icon: "https://i.imgur.com/8QqQ8qM.png" },
 ];

@@ -417,20 +417,98 @@ export const projects = [
         "desktop": ["/projects/project11-desktop.png"]
       }
     }
+  },
+  {
+    "id": 12,
+    "title": "Live Canvas",
+    "category": "Collaborative Workspace / Real-time Application",
+    "description": "A real-time collaborative workspace designed for couples, featuring shared drawing canvases, integrated video calls, synchronized watch parties, AI image generation, and romantic interactive widgets.",
+    "image": "/projects/project12.png",
+    "video": "",
+    "tags": [
+      "MERN Stack",
+      "Socket.io",
+      "WebRTC",
+      "Generative AI",
+      "Real-Time Collaboration"
+    ],
+    "demoUrl": "",
+    "githubUrl": "https://github.com/ayanmanna123/Live_canvas-",
+    "featured": true,
+    "accentColor": "from-pink-500 to-rose-600",
+    "status": "Live",
+    "highlights": [
+      "Real-Time Collaborative Drawing",
+      "Integrated Video Calls & Watch Parties",
+      "Memory Vault & Snapshot Gallery",
+      "Interactive Romantic Widgets",
+      "AI Image Generation Integration"
+    ],
+    "details": {
+      "problem": "Couples in long-distance relationships or those wanting shared digital experiences often lack a unified platform that combines creative collaboration, communication, and shared activities.",
+      "solution": "Live Canvas provides an intimate digital space where couples can draw together, watch media synchronously, video chat, and interact through special romantic widgets, all in real-time.",
+      "features": [
+        {
+          "title": "Collaborative Canvas",
+          "description": "Draw together in real-time with synchronized strokes, customizable brushes, and a shared memory vault."
+        },
+        {
+          "title": "Watch Parties & Video Calls",
+          "description": "Watch videos together perfectly synced while maintaining video and audio communication via WebRTC."
+        },
+        {
+          "title": "Romantic Widgets",
+          "description": "Interactive elements like shared vibe trackers, hidden sticky notes, and countdowns."
+        },
+        {
+          "title": "AI Enhancements",
+          "description": "Integrated generative AI for creating images or enhancing the creative process together."
+        }
+      ],
+      "techStack": {
+        "Frontend": [
+          "React 19",
+          "Vite",
+          "Tailwind CSS 4",
+          "Framer Motion",
+          "Socket.io Client",
+          "Simple-Peer (WebRTC)"
+        ],
+        "Backend": [
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Socket.io",
+          "Google Generative AI"
+        ]
+      },
+      "challenges": [
+        "Synchronizing canvas strokes in real-time without noticeable latency.",
+        "Managing WebRTC peer connections for reliable video and audio streams.",
+        "Ensuring perfect sync for watch parties across different network conditions.",
+        "Integrating AI generation workflows smoothly into the collaborative experience."
+      ],
+      "screenshots": {
+        "mobile": ["/projects/project12.png"],
+        "desktop": ["/projects/project12.png"]
+      }
+    }
   }
-
-
-
 ];
 
 export const categoryColors = {
-  "Healthcare SaaS": "from-emerald-500/20 to-teal-600/20 text-emerald-600 border-emerald-500/30",
-  "E-commerce": "from-purple-500/20 to-indigo-600/20 text-purple-600 border-purple-500/30",
-  "Real-time Communication": "from-blue-500/20 to-cyan-600/20 text-blue-600 border-blue-500/30",
-  "Artificial Intelligence": "from-amber-500/20 to-orange-600/20 text-amber-600 border-amber-500/30",
-  "FinTech": "from-rose-500/20 to-pink-600/20 text-rose-600 border-rose-500/30",
-  "Food Tech": "from-violet-500/20 to-purple-600/20 text-violet-600 border-violet-500/30",
-  "HR Tech": "from-orange-500/20 to-red-600/20 text-orange-600 border-orange-500/30"
+  "Healthcare SaaS": "bg-gradient-to-r from-emerald-500/20 to-teal-600/20 text-emerald-600 border-emerald-500/30",
+  "E-commerce": "bg-gradient-to-r from-purple-500/20 to-indigo-600/20 text-purple-600 border-purple-500/30",
+  "Real-time Communication": "bg-gradient-to-r from-blue-500/20 to-cyan-600/20 text-blue-600 border-blue-500/30",
+  "Artificial Intelligence": "bg-gradient-to-r from-amber-500/20 to-orange-600/20 text-amber-600 border-amber-500/30",
+  "FinTech": "bg-gradient-to-r from-rose-500/20 to-pink-600/20 text-rose-600 border-rose-500/30",
+  "Food Tech": "bg-gradient-to-r from-violet-500/20 to-purple-600/20 text-violet-600 border-violet-500/30",
+  "HR Tech": "bg-gradient-to-r from-orange-500/20 to-red-600/20 text-orange-600 border-orange-500/30",
+  "Web Application": "bg-gradient-to-r from-indigo-500/20 to-purple-600/20 text-indigo-700 dark:text-indigo-400 border-indigo-500/30",
+  "Full Stack Web Application / Smart Transport": "bg-gradient-to-r from-cyan-500/20 to-blue-600/20 text-cyan-800 dark:text-cyan-400 border-cyan-500/30",
+  "EdTech SaaS / Mentorship Platform": "bg-gradient-to-r from-violet-500/20 to-fuchsia-600/20 text-violet-800 dark:text-violet-400 border-violet-500/30",
+  "Professional Networking / Job Portal SaaS": "bg-gradient-to-r from-sky-500/20 to-blue-600/20 text-sky-800 dark:text-sky-400 border-sky-500/30",
+  "Collaborative Workspace / Real-time Application": "bg-gradient-to-r from-slate-300/80 to-slate-200/80 text-slate-900 font-bold border-slate-400/50 dark:from-slate-800/80 dark:to-slate-900/80 dark:text-white"
 };
 
 // Achievements moved to end of file to support dynamic calculation

@@ -432,7 +432,7 @@ export const projects = [
       "Generative AI",
       "Real-Time Collaboration"
     ],
-    "demoUrl": "",
+    "demoUrl": "https://live-canvas-phxf.vercel.app/",
     "githubUrl": "https://github.com/ayanmanna123/Live_canvas-",
     "featured": true,
     "accentColor": "from-pink-500 to-rose-600",
@@ -491,6 +491,91 @@ export const projects = [
       "screenshots": {
         "mobile": ["/projects/project12.png"],
         "desktop": ["/projects/project12.png"]
+      }
+    }
+  },
+  {
+    "id": 13,
+    "title": "Off-Road Semantic Segmentation",
+    "category": "Artificial Intelligence",
+    "description": "A full pipeline for semantic segmentation in unstructured, off-road environments. Leverages DINOv2 and DeepLabV3+ architectures to achieve robust navigation features for autonomous driving.",
+    "image": "/projects/project2.jpg",
+    "video": "https://ik.imagekit.io/h0gbowxm32/offroad_path_demonstration_realtime.mp4",
+    "tags": [
+      "PyTorch",
+      "DeepLabV3+",
+      "DINOv2",
+      "Computer Vision",
+      "OpenCV"
+    ],
+    "demoUrl": "",
+    "githubUrl": "https://github.com/ayanmanna123/Duality-AI-s-Offroad-Semantic-Scene-Segmentation",
+    "featured": true,
+    "accentColor": "from-amber-500 to-orange-600",
+    "status": "Completed",
+    "highlights": [
+      "DeepLabV3+ with EfficientNet-B3",
+      "Hybrid Dice & Focal Loss",
+      "Final IoU of 0.4036",
+      "Real-time Inference",
+      "Per-class IoU visualization"
+    ],
+    "details": {
+      "problem": "Autonomous navigation in unstructured off-road environments requires precise semantic understanding of scenes, such as distinguishing between dry grass, rocks, deep puddles, and sky to make safe driving decisions.",
+      "solution": "Built a deep learning pipeline leveraging DINOv2 and DeepLabV3+ with an EfficientNet-B3 backbone. The model was trained using custom augmentations and hybrid loss functions to robustly segment diverse off-road obstacles and terrains.",
+      "features": [
+        {
+          "title": "DINOv2 & DeepLabV3+",
+          "description": "Advanced backbone and segmentation head integration for high-quality pixel-level predictions."
+        },
+        {
+          "title": "Robust Augmentation",
+          "description": "Utilized aggressive augmentations (HorizontalFlip, Rotate90, ColorJitter) to improve model generalization."
+        },
+        {
+          "title": "Performance Metrics",
+          "description": "Tracked per-class IoU, Dice Score, and Pixel Accuracy with detailed plot generation."
+        },
+        {
+          "title": "Real-time Inference",
+          "description": "Optimized models to run rapid inference on video frames and continuous camera feeds."
+        }
+      ],
+      "techStack": {
+        "Machine_Learning": [
+          "Python",
+          "PyTorch",
+          "TorchVision",
+          "Albumentations"
+        ],
+        "Models": [
+          "DINOv2",
+          "DeepLabV3+",
+          "EfficientNet-B3"
+        ],
+        "Data_and_Visualization": [
+          "OpenCV",
+          "Matplotlib",
+          "Ultralytics"
+        ]
+      },
+      "challenges": [
+        "Handling extreme class imbalances between common features like 'Sky' and rare obstacles like 'Logs'.",
+        "Optimizing hyper-parameters and choosing the right combination of Hybrid Dice and Focal loss.",
+        "Ensuring smooth, jitter-free real-time inference on high-resolution off-road video footage."
+      ],
+      "screenshots": {
+        "mobile": [
+          "/projects/deep-learning-graphs/full_report.png",
+          "/projects/deep-learning-graphs/metrics_plot.png"
+        ],
+        "desktop": [
+          "/projects/deep-learning-graphs/full_report.png",
+          "/projects/deep-learning-graphs/class_distribution.png",
+          "/projects/deep-learning-graphs/confusion_matrix.png",
+          "/projects/deep-learning-graphs/metrics_plot.png",
+          "/projects/deep-learning-graphs/per_class_iou.png"
+        ]
       }
     }
   }

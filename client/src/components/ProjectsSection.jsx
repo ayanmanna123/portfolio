@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 
 import { projects, categoryColors } from "@/data";
 import { ProjectDetailsModal } from "./ProjectDetailsModal";
+import { VideoPlayer } from "./VideoPlayer";
 
 export const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
@@ -43,10 +44,6 @@ export const ProjectsSection = () => {
 
   const handleCloseVideo = () => {
     setSelectedVideo(null);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   };
 
   const handleOpenDeepDive = (project) => {
@@ -283,16 +280,21 @@ export const ProjectsSection = () => {
 
                       <div className="flex gap-3">
                         <motion.a
-                          href={project.demoUrl}
-                          target="_blank"
+                          href={project.demoUrl || "#"}
+                          target={(!project.demoUrl || project.demoUrl === "#") ? undefined : "_blank"}
                           rel="noopener noreferrer"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium border transition-all duration-300 ${project.demoUrl === "#"
+                          className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium border transition-all duration-300 ${(!project.demoUrl || project.demoUrl === "#")
                             ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
                             : "bg-background text-foreground border-border hover:border-primary hover:bg-primary/5"
                             }`}
-                          onClick={(e) => project.demoUrl === "#" && e.preventDefault()}
+                          onClick={(e) => {
+                            if (!project.demoUrl || project.demoUrl === "#") {
+                              e.preventDefault();
+                              alert("Website is not available");
+                            }
+                          }}
                         >
                           <Eye size={16} />
                           Demo
@@ -449,17 +451,8 @@ export const ProjectsSection = () => {
               </div>
 
               {/* Video Player */}
-              <div className="aspect-video bg-black">
-                <video
-                  ref={videoRef}
-                  src={selectedVideo.video}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-contain"
-                  onEnded={handleCloseVideo}
-                >
-                  Your browser does not support the video tag.
-                </video>
+              <div className="w-full h-full bg-black">
+                <VideoPlayer src={selectedVideo.video} onEnded={handleCloseVideo} />
               </div>
 
               {/* Modal Footer */}
@@ -470,16 +463,21 @@ export const ProjectsSection = () => {
                   </p>
                   <div className="flex gap-3">
                     <motion.a
-                      href={selectedVideo.demoUrl}
-                      target="_blank"
+                      href={selectedVideo.demoUrl || "#"}
+                      target={(!selectedVideo.demoUrl || selectedVideo.demoUrl === "#") ? undefined : "_blank"}
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${selectedVideo.demoUrl === "#"
+                      className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${(!selectedVideo.demoUrl || selectedVideo.demoUrl === "#")
                         ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
                         : "bg-primary text-primary-foreground hover:bg-primary/90"
                         }`}
-                      onClick={(e) => selectedVideo.demoUrl === "#" && e.preventDefault()}
+                      onClick={(e) => {
+                        if (!selectedVideo.demoUrl || selectedVideo.demoUrl === "#") {
+                          e.preventDefault();
+                          alert("Website is not available");
+                        }
+                      }}
                     >
                       Visit Live Site
                     </motion.a>

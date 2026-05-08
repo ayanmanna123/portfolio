@@ -44,6 +44,7 @@ export const Navbar = () => {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
   const [theme, setTheme] = useState("light");
+  const [isMobile, setIsMobile] = useState(false);
   const lastScrollYRef = useRef(0);
   const audioRef = useRef(null);
   const hasShownToast = useRef(false);
@@ -118,6 +119,15 @@ export const Navbar = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -320,9 +330,9 @@ export const Navbar = () => {
       >
         <Dock
           items={dockItems}
-          panelHeight={68}
-          baseItemSize={50}
-          magnification={70}
+          panelHeight={isMobile ? 52 : 68}
+          baseItemSize={isMobile ? 30 : 50}
+          magnification={isMobile ? 40 : 70}
         />
       </motion.div>
     </>

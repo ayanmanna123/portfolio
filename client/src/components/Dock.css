@@ -20,6 +20,14 @@
     padding: 0 0.5rem 0.5rem;
 }
 
+@media (max-width: 768px) {
+    .dock-panel {
+        gap: 0.35rem;
+        padding: 0 0.35rem 0.35rem;
+        border-radius: 0.85rem;
+    }
+}
+
 .dock-item {
     position: relative;
     display: inline-flex;

@@ -13,7 +13,7 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/((?!admin|uploads|certificates|projects|testimonials|assets|logo.svg|robots.txt|sitemap.xml).*)",
+      "source": "/((?!admin|api|uploads|certificates|projects|testimonials|assets|logo.svg|robots.txt|sitemap.xml).*)",
       "destination": "/index.html"
     }
   ]

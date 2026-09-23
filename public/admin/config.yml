@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: ayanmanna123/portfolio
   branch: main
+  base_url: https://ayanmanna.in
+  auth_endpoint: api/auth
 
 local_backend: true
 

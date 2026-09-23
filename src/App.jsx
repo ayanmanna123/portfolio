@@ -26,6 +26,7 @@ function App() {
       enableSystem
       disableTransitionOnChange
     >
+      
       <Helmet>
         <title>Ayan Manna | Portfolio</title>
         <meta name="description" content="Portfolio of Ayan Manna, a Full Stack Developer." />

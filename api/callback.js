@@ -25,27 +25,36 @@ export default async function handler(req, res) {
       return;
     }
 
-    const content = `
-      <!DOCTYPE html>
-      <html>
-      <head><title>Authorizing...</title></head>
-      <body>
-      <script>
-        (function() {
-          function receiveMessage(e) {
-            console.log("receiveMessage", e);
-            window.opener.postMessage(
-              'authorization:github:success:${JSON.stringify({ token, provider: 'github' })}',
-              e.origin
-            );
-          }
-          window.addEventListener("message", receiveMessage, false);
-          window.opener.postMessage("authorizing:github", "*");
-        })();
-      </script>
-      </body>
-      </html>
-    `;
+    const tokenPayload = JSON.stringify({ token, provider: 'github' });
+
+    const content = `<!DOCTYPE html>
+<html>
+<head><title>Authorizing Decap CMS...</title></head>
+<body>
+<p>Authorizing Decap CMS, please wait...</p>
+<script>
+  (function() {
+    function receiveMessage(e) {
+      console.log("receiveMessage event:", e);
+      if (e.data === "authorizing:github") {
+        window.opener.postMessage(
+          'authorization:github:success:${tokenPayload}',
+          e.origin
+        );
+        window.removeEventListener("message", receiveMessage, false);
+        setTimeout(function() { window.close(); }, 500);
+      }
+    }
+    window.addEventListener("message", receiveMessage, false);
+    
+    // Send handshake to main window
+    if (window.opener) {
+      window.opener.postMessage("authorizing:github", "*");
+    }
+  })();
+</script>
+</body>
+</html>`;
 
     res.setHeader("Content-Type", "text/html");
     res.send(content);

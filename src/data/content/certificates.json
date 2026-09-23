@@ -1,0 +1,103 @@
+{
+  "certificates": [
+    {
+      "id": 1,
+      "title": "Complete Web Development Course",
+      "issuer": "Udemy",
+      "date": "Oct 29, 2025",
+      "image": "/certificates/certificates1.jpg",
+      "verificationLink": "https://ude.my/",
+      "featured": true,
+      "category": "Web Development",
+      "description": "Completed 97-hour full-stack web development course covering modern web technologies."
+    },
+    {
+      "id": 2,
+      "title": "Python Coder Badge",
+      "issuer": "Kaggle",
+      "date": "Nov 10, 2025",
+      "image": "/certificates/certificates2.png",
+      "verificationLink": "https://kaggle.com/",
+      "featured": true,
+      "category": "Programming",
+      "description": "Earned Kaggle Python Coder badge demonstrating Python programming and data handling skills."
+    },
+    {
+      "id": 3,
+      "title": "Mini Project Completion – Diet & Body Composition Study",
+      "issuer": "B.P. Poddar Institute of Management & Technology",
+      "date": "2024",
+      "image": "/certificates/certificates3.jpg",
+      "verificationLink": "",
+      "featured": false,
+      "category": "Academic",
+      "description": "Completed academic mini project on the effect of diet type on body composition parameters."
+    },
+    {
+      "id": 4,
+      "title": "TechStorm 2.25 – RO Navigator Participation",
+      "issuer": "B.P. Poddar Institute of Management & Technology",
+      "date": "March 2025",
+      "image": "/certificates/certificates4.jpg",
+      "verificationLink": "",
+      "featured": true,
+      "category": "Hackathon",
+      "description": "Participated in TechStorm 2.25 annual technical fest in RO Navigator event."
+    },
+    {
+      "id": 5,
+      "title": "Code@Frost Participation",
+      "issuer": "Asansol Engineering College",
+      "date": "2025",
+      "image": "/certificates/certificates5.jpg",
+      "verificationLink": "",
+      "featured": false,
+      "category": "Coding Competition",
+      "description": "Participated in Code@Frost coding competition organized by AEC, West Bengal."
+    },
+    {
+      "id": 6,
+      "title": "Smart Coder 2.25 Prelims (Online)",
+      "issuer": "B.P. Poddar Institute of Management & Technology",
+      "date": "2025",
+      "image": "/certificates/certificates6.jpg",
+      "verificationLink": "",
+      "featured": false,
+      "category": "Coding Competition",
+      "description": "Qualified/participated in Smart Coder 2.25 preliminary round."
+    },
+    {
+      "id": 7,
+      "title": "PLUTUS 2025 – Price & Premium",
+      "issuer": "Fintech Club, IIT (ISM) Dhanbad",
+      "date": "2025",
+      "image": "/certificates/certificates7.jpg",
+      "verificationLink": "",
+      "featured": true,
+      "category": "FinTech",
+      "description": "Participated in fintech event PLUTUS 2025 organized by IIT ISM Dhanbad."
+    },
+    {
+      "id": 8,
+      "title": "Code@Frost Submission via Unstop",
+      "issuer": "Unstop / Asansol Engineering College",
+      "date": "2025",
+      "image": "/certificates/certificates8.jpg",
+      "verificationLink": "https://unstop.com/",
+      "featured": false,
+      "category": "Coding Competition",
+      "description": "Submitted project through Unstop platform for Code@Frost competition."
+    },
+    {
+      "id": 9,
+      "title": "Educ-A-Thon 2.0 Prelims Participation",
+      "issuer": "Techno Main Salt Lake",
+      "date": "Oct–Nov 2025",
+      "image": "/certificates/certificates9.jpg",
+      "verificationLink": "",
+      "featured": false,
+      "category": "Hackathon",
+      "description": "Participated in Educ-A-Thon 2.0 prelims conducted by Samarth, Techno Main Salt Lake."
+    }
+  ]
+}

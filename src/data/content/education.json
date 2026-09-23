@@ -1,0 +1,28 @@
+{
+  "education": [
+    {
+      "id": 1,
+      "institution": "B.P. Poddar Institute of Management and Technology",
+      "degree": "Bachelor of Technology - BTech, Electrical Engineering",
+      "year": "2023 - 2027",
+      "description": "Focused on core computer science concepts including Data Structures, Algorithms, and Database Management Systems. Active member of the coding club and tech fest organizer.",
+      "score": "SGPA: 7.32"
+    },
+    {
+      "id": 2,
+      "institution": "Gujarpur Surendranath Vidyapith",
+      "degree": "Higher Secondary Education (Class XII)",
+      "year": "2021 - 2023",
+      "description": "Completed higher secondary education with a focus on Science (Physics, Chemistry, Mathematics).",
+      "score": "Percentage: 66.4%"
+    },
+    {
+      "id": 3,
+      "institution": "Gujarpur Surendranath Vidyapith",
+      "degree": "Secondary Education (Class X)",
+      "year": "2019 - 2021",
+      "description": "Completed secondary education with distinction.",
+      "score": "Percentage: 81.7%"
+    }
+  ]
+}

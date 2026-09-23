@@ -1,0 +1,39 @@
+{
+  "journey": [
+    {
+      "year": "2025",
+      "role": "Hackathon Participant & Competitive Coder",
+      "company": "TechStorm | PLUTUS | Code@Frost",
+      "description": "Active participant in national-level hackathons and coding competitions. Secured positions in various tech fests like TechStorm and PLUTUS.",
+      "skills": ["Problem Solving", "Rapid Prototyping", "Team Collaboration"]
+    },
+    {
+      "year": "2024",
+      "role": "Full Stack Developer",
+      "company": "Personal Projects",
+      "description": "Designed and developed scalability-focused web applications including 'Where Is My Bus', 'CollabLearn', and 'JobFlux'.",
+      "skills": ["MERN Stack", "System Design", "Real-time Architecture"]
+    },
+    {
+      "year": "2023",
+      "role": "Engineering Student",
+      "company": "B.P. Poddar Institute of Management and Technology",
+      "description": "Started B.Tech in Electrical Engineering. Focusing on core CS fundamentals and web technologies.",
+      "skills": ["Data Structures", "Algorithms", "C/C++", "Java"]
+    },
+    {
+      "year": "2021",
+      "role": "Higher Secondary Student",
+      "company": "Gujarpur Surendranath Vidyapith",
+      "description": "Completed Class XII with Science stream (Physics, Chemistry, Maths). Achieved 92%.",
+      "skills": ["Physics", "Chemistry", "Mathematics"]
+    },
+    {
+      "year": "2019",
+      "role": "Secondary School Student",
+      "company": "Gujarpur Surendranath Vidyapith",
+      "description": "Completed Class X with distinction. Achieved 94%.",
+      "skills": ["Science", "Mathematics", "Foundational Studies"]
+    }
+  ]
+}

@@ -5,7 +5,15 @@
       "destination": "https://leetcode.com/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/((?!admin).*)",
       "destination": "/"
     }
   ]

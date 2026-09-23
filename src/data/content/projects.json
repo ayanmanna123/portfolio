@@ -1,0 +1,504 @@
+{
+  "projects": [
+    {
+      "id": 8,
+      "title": "BPPIMT Quiz",
+      "category": "Web Application",
+      "description": "An interactive quiz platform developed for B.P. Poddar Institute of Management and Technology, facilitating engaging quizzes for students.",
+      "image": "/projects/project8.png",
+      "video": "/projects/videos/bppimt-quiz-demo.mp4",
+      "tags": ["React", "Node.js", "Express", "MongoDB", "Vercel", "Educational"],
+      "demoUrl": "https://bppimt-quiz.vercel.app",
+      "githubUrl": "https://github.com/ayanmanna123/bppimt_quiz",
+      "featured": true,
+      "accentColor": "from-indigo-500 to-purple-600",
+      "status": "Live",
+      "highlights": ["User Authentication", "Dynamic Quiz Generation", "Real-time Scoring", "Responsive Design"],
+      "details": {
+        "problem": "Traditional quiz methods lacked interactivity and real-time feedback, making assessments less engaging for students.",
+        "solution": "BPPIMT Quiz offers a dynamic platform where quizzes can be created, managed, and taken interactively, providing immediate feedback and enhancing the learning experience.",
+        "features": [
+          {
+            "title": "User Authentication",
+            "description": "Secure login system ensuring authorized access for quiz participants and administrators."
+          },
+          {
+            "title": "Dynamic Quiz Management",
+            "description": "Admins can create and manage quizzes with various question types and difficulty levels."
+          },
+          {
+            "title": "Real-time Scoring",
+            "description": "Immediate feedback and scoring upon quiz completion to aid learning."
+          }
+        ],
+        "techStack": {
+          "Frontend": ["React", "TailwindCSS"],
+          "Backend": ["Node.js", "Express", "MongoDB"],
+          "Infrastructure": ["Vercel"]
+        },
+        "challenges": [
+          "Implementing a flexible quiz structure to accommodate various question types.",
+          "Ensuring real-time performance and scalability for multiple concurrent users.",
+          "Maintaining data integrity and security across the platform."
+        ],
+        "screenshots": {
+          "mobile": ["/projects/project1.png"],
+          "desktop": ["/projects/project1.png"]
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Where Is My Bus",
+      "category": "Full Stack Web Application / Smart Transport",
+      "description": "Real-time bus tracking and smart public transport platform with live location tracking, route planning, and secure booking system.",
+      "image": "/projects/project9.png",
+      "video": "/projects/videos/where-is-my-bus-demo.mp4",
+      "tags": [
+        "MERN Stack",
+        "Real-Time Tracking",
+        "Google Maps API",
+        "Socket.io",
+        "Razorpay Payments",
+        "JWT Auth"
+      ],
+      "demoUrl": "https://gps-tracker-umber.vercel.app/",
+      "githubUrl": "https://github.com/ayanmanna123/GPS_Tracker",
+      "featured": true,
+      "accentColor": "from-blue-500 to-cyan-600",
+      "status": "Live",
+      "highlights": [
+        "Live Bus Location Tracking",
+        "Smart Route Planning",
+        "Secure Ticket Booking",
+        "Real-Time Bus Updates",
+        "Interactive Map UI"
+      ],
+      "details": {
+        "problem": "Public transport users often face uncertainty about bus arrival times, routes, and seat availability. Traditional systems lack real-time tracking and centralized booking capabilities.",
+        "solution": "Where Is My Bus provides real-time GPS-based bus tracking, intelligent route visualization, and secure ticket booking through a unified platform. It enhances commuter confidence and transport system efficiency.",
+        "features": [
+          {
+            "title": "Real-Time Bus Tracking",
+            "description": "Track buses live on map using GPS and real-time socket communication."
+          },
+          {
+            "title": "Interactive Map Navigation",
+            "description": "Google Maps integration for route visualization and location-based tracking."
+          },
+          {
+            "title": "Secure Booking System",
+            "description": "Integrated payment gateway for seamless ticket booking."
+          },
+          {
+            "title": "Authentication & Security",
+            "description": "JWT-based authentication for secure user sessions."
+          },
+          {
+            "title": "Real-Time Notifications",
+            "description": "Socket-based updates for live bus status and movement."
+          }
+        ],
+        "techStack": {
+          "Frontend": [
+            "React 18",
+            "Vite 4",
+            "JavaScript ES6+",
+            "Tailwind CSS 3",
+            "Google Maps API v3"
+          ],
+          "Backend": [
+            "Node.js 18",
+            "Express.js 4",
+            "MongoDB 6",
+            "Redis 7",
+            "JWT Authentication"
+          ],
+          "Additional_Tools": [
+            "Auth0 (Identity Management)",
+            "Razorpay (Payment Gateway)",
+            "OpenAI API (AI Features if used)",
+            "Socket.io (Real-Time Communication)"
+          ],
+          "Infrastructure": [
+            "Vercel (Frontend Hosting)",
+            "Cloud Backend Deployment"
+          ]
+        },
+        "challenges": [
+          "Handling real-time GPS data streaming efficiently.",
+          "Maintaining low latency socket communication.",
+          "Ensuring secure payment and booking flow.",
+          "Optimizing map rendering performance for multiple buses.",
+          "Scaling backend for concurrent users."
+        ],
+        "screenshots": {
+          "mobile": ["/projects/project9-mobile.png"],
+          "desktop": ["/projects/project9-desktop.png"]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "CollabLearn",
+      "category": "EdTech SaaS / Mentorship Platform",
+      "description": "A full-stack mentorship and collaborative learning platform enabling students to connect with mentors through real-time chat, video sessions, task management, and progress tracking.",
+      "image": "/projects/project10.jpeg",
+      "video": "/projects/videos/collablearn-demo.mp4",
+      "tags": [
+        "MERN Stack",
+        "Real-Time Chat",
+        "Video Conferencing",
+        "EdTech SaaS",
+        "JWT Auth",
+        "Razorpay Payments",
+        "Socket.io"
+      ],
+      "demoUrl": "https://collab-learn-ruby.vercel.app/",
+      "githubUrl": "https://github.com/ayanmanna123/CollabLearn",
+      "featured": true,
+      "accentColor": "from-purple-500 to-indigo-600",
+      "status": "Live",
+      "highlights": [
+        "Smart Mentor Discovery",
+        "Real-Time Chat & Video Sessions",
+        "Task & Progress Tracking",
+        "Karma Reward System",
+        "Community Forum",
+        "Secure Payment Integration"
+      ],
+      "details": {
+        "problem": "Students often struggle to find the right mentors, schedule sessions, track learning progress, and maintain structured learning communication in one unified platform.",
+        "solution": "CollabLearn provides an all-in-one mentorship ecosystem where students can discover mentors based on skills and ratings, book sessions, communicate in real time, and track learning progress while mentors manage students, sessions, and earnings efficiently.",
+        "features": [
+          {
+            "title": "Smart Mentor Discovery",
+            "description": "AI-assisted mentor discovery based on skills, ratings, and expertise."
+          },
+          {
+            "title": "Real-Time Communication",
+            "description": "Instant chat using Stream Chat and WebSocket communication."
+          },
+          {
+            "title": "Video Mentoring Sessions",
+            "description": "High-quality live video sessions powered by ZegoCloud."
+          },
+          {
+            "title": "Task & Progress Management",
+            "description": "Mentors assign tasks and students track learning progress."
+          },
+          {
+            "title": "Karma & Engagement System",
+            "description": "Gamified engagement system rewarding active participation."
+          },
+          {
+            "title": "Secure Payment & Booking",
+            "description": "Razorpay integration for secure mentoring session payments."
+          }
+        ],
+        "techStack": {
+          "Frontend": [
+            "React 19.1.1",
+            "Vite 7.1.7",
+            "TailwindCSS 3.4.18",
+            "React Router 7.9.6",
+            "Axios 1.13.2",
+            "Socket.io Client 4.8.1",
+            "Stream Chat 9.26.1",
+            "ZegoCloud 2.17.1",
+            "Framer Motion 12.23.26",
+            "Lucide React 0.553.0",
+            "React Toastify 11.0.5",
+            "JWT Decode 4.0.0",
+            "Date-fns 4.1.0"
+          ],
+          "Backend": [
+            "Node.js >=18",
+            "Express 5.1.0",
+            "MongoDB 8.19.3",
+            "Mongoose 8.19.3",
+            "Socket.io 4.7.5",
+            "JWT 9.0.2",
+            "Bcrypt 6.0.0",
+            "Cloudinary 2.8.0",
+            "Razorpay 2.9.6",
+            "Nodemailer 6.9.16",
+            "Zod 4.1.12"
+          ]
+        },
+        "challenges": [
+          "Maintaining low-latency real-time messaging and notifications.",
+          "Handling video session stability and signaling.",
+          "Designing scalable mentor-student matching algorithms.",
+          "Managing secure payment workflows and session booking.",
+          "Synchronizing real-time chat, video, and task updates."
+        ],
+        "screenshots": {
+          "mobile": ["/projects/project10-mobile.png"],
+          "desktop": ["/projects/project10-desktop.png"]
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "JobFlux",
+      "category": "Professional Networking / Job Portal SaaS",
+      "description": "A full-stack professional networking and job portal platform similar to LinkedIn, enabling users to build professional profiles, connect with others, apply for jobs, and communicate in real time.",
+      "image": "/projects/project11.png",
+      "video": "/projects/videos/jobflux-demo.mp4",
+      "tags": [
+        "MERN Stack",
+        "Professional Networking",
+        "Job Portal",
+        "Real-Time Chat",
+        "JWT Auth",
+        "Cloud Media Storage"
+      ],
+      "demoUrl": "https://jobflux-full-stack-8sja.vercel.app/",
+      "githubUrl": "https://github.com/ayanmanna123/Jobflux_FullStack",
+      "featured": true,
+      "accentColor": "from-sky-500 to-blue-600",
+      "status": "Live",
+      "highlights": [
+        "Professional Profile System",
+        "Job Posting & Applications",
+        "Real-Time Messaging",
+        "Connection System",
+        "Activity Feed",
+        "Secure Authentication"
+      ],
+      "details": {
+        "problem": "Job seekers and professionals often rely on multiple platforms for networking, job applications, and communication, resulting in fragmented professional management.",
+        "solution": "JobFlux provides a unified professional ecosystem where users can build career profiles, connect with professionals, apply for jobs, and communicate in real time — all in a single platform.",
+        "features": [
+          {
+            "title": "Professional Profile Builder",
+            "description": "Create detailed profiles including skills, experience, education, and achievements."
+          },
+          {
+            "title": "Job Portal System",
+            "description": "Companies can post jobs and users can apply directly through the platform."
+          },
+          {
+            "title": "Connection & Networking",
+            "description": "Send connection requests and build a professional network."
+          },
+          {
+            "title": "Real-Time Messaging",
+            "description": "Instant chat system powered by WebSocket communication."
+          },
+          {
+            "title": "Activity Feed",
+            "description": "Share posts, updates, and professional achievements."
+          },
+          {
+            "title": "Media Upload & Storage",
+            "description": "Upload profile pictures, resumes, and documents securely."
+          }
+        ],
+        "techStack": {
+          "Frontend": [
+            "React 19.1.1",
+            "Vite 7.1.7",
+            "TailwindCSS 3.4.18",
+            "React Router 7.9.6",
+            "Axios 1.13.2",
+            "Socket.io Client 4.8.1",
+            "Stream Chat 9.26.1",
+            "ZegoCloud 2.17.1",
+            "Framer Motion 12.23.26",
+            "Lucide React 0.553.0",
+            "React Toastify 11.0.5",
+            "JWT Decode 4.0.0",
+            "Date-fns 4.1.0"
+          ],
+          "Backend": [
+            "Node.js >=18",
+            "Express 5.1.0",
+            "MongoDB 8.19.3",
+            "Mongoose 8.19.3",
+            "Socket.io 4.7.5",
+            "JWT 9.0.2",
+            "Bcrypt 6.0.0",
+            "Cloudinary 2.8.0",
+            "Razorpay 2.9.6",
+            "Nodemailer 6.9.16",
+            "Zod 4.1.12"
+          ]
+        },
+        "challenges": [
+          "Designing scalable social graph connection system.",
+          "Managing real-time chat and notification delivery.",
+          "Optimizing feed rendering and post retrieval performance.",
+          "Ensuring secure authentication and session management.",
+          "Handling large media uploads efficiently."
+        ],
+        "screenshots": {
+          "mobile": ["/projects/project11-mobile.png"],
+          "desktop": ["/projects/project11-desktop.png"]
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Live Canvas",
+      "category": "Collaborative Workspace / Real-time Application",
+      "description": "A real-time collaborative workspace designed for couples, featuring shared drawing canvases, integrated video calls, synchronized watch parties, AI image generation, and romantic interactive widgets.",
+      "image": "/projects/project12.png",
+      "video": "",
+      "tags": [
+        "MERN Stack",
+        "Socket.io",
+        "WebRTC",
+        "Generative AI",
+        "Real-Time Collaboration"
+      ],
+      "demoUrl": "https://live-canvas-phxf.vercel.app/",
+      "githubUrl": "https://github.com/ayanmanna123/Live_canvas-",
+      "featured": true,
+      "accentColor": "from-pink-500 to-rose-600",
+      "status": "Live",
+      "highlights": [
+        "Real-Time Collaborative Drawing",
+        "Integrated Video Calls & Watch Parties",
+        "Memory Vault & Snapshot Gallery",
+        "Interactive Romantic Widgets",
+        "AI Image Generation Integration"
+      ],
+      "details": {
+        "problem": "Couples in long-distance relationships or those wanting shared digital experiences often lack a unified platform that combines creative collaboration, communication, and shared activities.",
+        "solution": "Live Canvas provides an intimate digital space where couples can draw together, watch media synchronously, video chat, and interact through special romantic widgets, all in real-time.",
+        "features": [
+          {
+            "title": "Collaborative Canvas",
+            "description": "Draw together in real-time with synchronized strokes, customizable brushes, and a shared memory vault."
+          },
+          {
+            "title": "Watch Parties & Video Calls",
+            "description": "Watch videos together perfectly synced while maintaining video and audio communication via WebRTC."
+          },
+          {
+            "title": "Romantic Widgets",
+            "description": "Interactive elements like shared vibe trackers, hidden sticky notes, and countdowns."
+          },
+          {
+            "title": "AI Enhancements",
+            "description": "Integrated generative AI for creating images or enhancing the creative process together."
+          }
+        ],
+        "techStack": {
+          "Frontend": [
+            "React 19",
+            "Vite",
+            "Tailwind CSS 4",
+            "Framer Motion",
+            "Socket.io Client",
+            "Simple-Peer (WebRTC)"
+          ],
+          "Backend": [
+            "Node.js",
+            "Express",
+            "MongoDB",
+            "Socket.io",
+            "Google Generative AI"
+          ]
+        },
+        "challenges": [
+          "Synchronizing canvas strokes in real-time without noticeable latency.",
+          "Managing WebRTC peer connections for reliable video and audio streams.",
+          "Ensuring perfect sync for watch parties across different network conditions.",
+          "Integrating AI generation workflows smoothly into the collaborative experience."
+        ],
+        "screenshots": {
+          "mobile": ["/projects/project12.png"],
+          "desktop": ["/projects/project12.png"]
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Off-Road Semantic Segmentation",
+      "category": "Artificial Intelligence",
+      "description": "A full pipeline for semantic segmentation in unstructured, off-road environments. Leverages DINOv2 and DeepLabV3+ architectures to achieve robust navigation features for autonomous driving.",
+      "image": "/projects/project2.jpg",
+      "video": "https://ik.imagekit.io/h0gbowxm32/offroad_path_demonstration_realtime.mp4",
+      "tags": [
+        "PyTorch",
+        "DeepLabV3+",
+        "DINOv2",
+        "Computer Vision",
+        "OpenCV"
+      ],
+      "demoUrl": "",
+      "githubUrl": "https://github.com/ayanmanna123/Duality-AI-s-Offroad-Semantic-Scene-Segmentation",
+      "featured": true,
+      "accentColor": "from-amber-500 to-orange-600",
+      "status": "Completed",
+      "highlights": [
+        "DeepLabV3+ with EfficientNet-B3",
+        "Hybrid Dice & Focal Loss",
+        "Final IoU of 0.4036",
+        "Real-time Inference",
+        "Per-class IoU visualization"
+      ],
+      "details": {
+        "problem": "Autonomous navigation in unstructured off-road environments requires precise semantic understanding of scenes, such as distinguishing between dry grass, rocks, deep puddles, and sky to make safe driving decisions.",
+        "solution": "Built a deep learning pipeline leveraging DINOv2 and DeepLabV3+ with an EfficientNet-B3 backbone. The model was trained using custom augmentations and hybrid loss functions to robustly segment diverse off-road obstacles and terrains.",
+        "features": [
+          {
+            "title": "DINOv2 & DeepLabV3+",
+            "description": "Advanced backbone and segmentation head integration for high-quality pixel-level predictions."
+          },
+          {
+            "title": "Robust Augmentation",
+            "description": "Utilized aggressive augmentations (HorizontalFlip, Rotate90, ColorJitter) to improve model generalization."
+          },
+          {
+            "title": "Performance Metrics",
+            "description": "Tracked per-class IoU, Dice Score, and Pixel Accuracy with detailed plot generation."
+          },
+          {
+            "title": "Real-time Inference",
+            "description": "Optimized models to run rapid inference on video frames and continuous camera feeds."
+          }
+        ],
+        "techStack": {
+          "Machine_Learning": [
+            "Python",
+            "PyTorch",
+            "TorchVision",
+            "Albumentations"
+          ],
+          "Models": [
+            "DINOv2",
+            "DeepLabV3+",
+            "EfficientNet-B3"
+          ],
+          "Data_and_Visualization": [
+            "OpenCV",
+            "Matplotlib",
+            "Ultralytics"
+          ]
+        },
+        "challenges": [
+          "Handling extreme class imbalances between common features like 'Sky' and rare obstacles like 'Logs'.",
+          "Optimizing hyper-parameters and choosing the right combination of Hybrid Dice and Focal loss.",
+          "Ensuring smooth, jitter-free real-time inference on high-resolution off-road video footage."
+        ],
+        "screenshots": {
+          "mobile": [
+            "/projects/deep-learning-graphs/full_report.png",
+            "/projects/deep-learning-graphs/metrics_plot.png"
+          ],
+          "desktop": [
+            "/projects/deep-learning-graphs/full_report.png",
+            "/projects/deep-learning-graphs/class_distribution.png",
+            "/projects/deep-learning-graphs/confusion_matrix.png",
+            "/projects/deep-learning-graphs/metrics_plot.png",
+            "/projects/deep-learning-graphs/per_class_iou.png"
+          ]
+        }
+      }
+    }
+  ]
+}

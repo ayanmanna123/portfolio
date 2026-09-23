@@ -1,0 +1,22 @@
+{
+  "title": "I'm Ayan Manna",
+  "subtitle": "Full-Stack Engineer",
+  "description": "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises.",
+  "status": "Available Immediately",
+  "codeSnippets": [
+    "import { FullStackDeveloper } from 'ayanmanna.in';",
+    "",
+    "const developer = new FullStackDeveloper({",
+    "  name: 'Ayan Manna',",
+    "  stack: ['React', 'Next.js', 'Node.js', 'TypeScript'],",
+    "  focus: 'Building scalable web applications',",
+    "  status: 'Open to new opportunities'",
+    "});",
+    "",
+    "await developer.launchPortfolio();",
+    "// Featured: E-commerce, SaaS, Enterprise, Startup MVPs",
+    "",
+    "developer.connect();",
+    "console.log('🚀 Let\\'s build something exceptional together!');"
+  ]
+}

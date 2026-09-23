@@ -5,7 +5,22 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      name: "admin-static-middleware",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = req.url.split('?')[0];
+          if (url === "/admin" || url === "/admin/") {
+            req.url = "/admin/index.html";
+          }
+          next();
+        });
+      },
+    },
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

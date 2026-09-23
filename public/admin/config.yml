@@ -1,0 +1,140 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "data"
+    label: "Portfolio Data"
+    files:
+      - name: "hero"
+        label: "Hero Section"
+        file: "src/data/content/hero.json"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Status", name: "status", widget: "string" }
+          - { label: "Code Snippets", name: "codeSnippets", widget: "list" }
+
+      - name: "projects"
+        label: "Projects"
+        file: "src/data/content/projects.json"
+        fields:
+          - label: "Projects List"
+            name: "projects"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Video URL / Path", name: "video", widget: "string", required: false }
+              - { label: "Tags", name: "tags", widget: "list" }
+              - { label: "Demo URL", name: "demoUrl", widget: "string", required: false }
+              - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
+              - { label: "Featured", name: "featured", widget: "boolean", default: true }
+              - { label: "Accent Color Class", name: "accentColor", widget: "string" }
+              - { label: "Status", name: "status", widget: "string" }
+              - { label: "Highlights", name: "highlights", widget: "list" }
+
+      - name: "certificates"
+        label: "Certificates"
+        file: "src/data/content/certificates.json"
+        fields:
+          - label: "Certificates List"
+            name: "certificates"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Issuer", name: "issuer", widget: "string" }
+              - { label: "Date", name: "date", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Verification Link", name: "verificationLink", widget: "string", required: false }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false }
+              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+      - name: "skills"
+        label: "Skills & Categories"
+        file: "src/data/content/skills.json"
+        fields:
+          - label: "Skills Data"
+            name: "skillsData"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.category}})"
+            fields:
+              - { label: "Skill Name", name: "name", widget: "string" }
+              - { label: "Level (%)", name: "level", widget: "number", value_type: "int" }
+              - { label: "Category", name: "category", widget: "select", options: ["frontend", "backend", "tools", "aiml", "appdev", "deeplearning"] }
+              - { label: "Icon URL / Path", name: "icon", widget: "string" }
+
+      - name: "testimonials"
+        label: "Testimonials"
+        file: "src/data/content/testimonials.json"
+        fields:
+          - label: "Testimonials List"
+            name: "testimonials"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Client Name", name: "name", widget: "string" }
+              - { label: "Role / Company", name: "role", widget: "string" }
+              - { label: "Content", name: "content", widget: "text" }
+              - { label: "Rating (1-5)", name: "rating", widget: "number", value_type: "int" }
+              - { label: "Client Image", name: "image", widget: "image" }
+
+      - name: "education"
+        label: "Education"
+        file: "src/data/content/education.json"
+        fields:
+          - label: "Education List"
+            name: "education"
+            widget: "list"
+            summary: "{{fields.institution}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Institution", name: "institution", widget: "string" }
+              - { label: "Degree / Course", name: "degree", widget: "string" }
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Score / Grade", name: "score", widget: "string" }
+
+      - name: "journey"
+        label: "Experience & Journey"
+        file: "src/data/content/journey.json"
+        fields:
+          - label: "Journey Items"
+            name: "journey"
+            widget: "list"
+            summary: "{{fields.year}} - {{fields.role}}"
+            fields:
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Company / Event", name: "company", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Skills Tagged", name: "skills", widget: "list" }
+
+      - name: "contact"
+        label: "Contact & Bio Settings"
+        file: "src/data/content/contact.json"
+        fields:
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Location", name: "location", widget: "string" }
+          - { label: "LeetCode Username", name: "leetcodeUsername", widget: "string" }
+          - label: "Social Links"
+            name: "socialLinks"
+            widget: "list"
+            fields:
+              - { label: "Platform", name: "platform", widget: "string" }
+              - { label: "Link URL", name: "href", widget: "string" }

@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Admin Panel - Decap CMS</title>
-  <!-- Decap CMS Identity Widget (optional for identity auth) -->
+  <!-- Explicitly specify config URL to ensure Decap CMS loads config.yml correctly -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <!-- Decap CMS Core Script -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

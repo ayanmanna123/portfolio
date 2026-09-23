@@ -34,23 +34,40 @@ export default async function handler(req, res) {
 <p>Authorizing Decap CMS, please wait...</p>
 <script>
   (function() {
-    function receiveMessage(e) {
-      console.log("receiveMessage event:", e);
-      if (e.data === "authorizing:github") {
-        window.opener.postMessage(
-          'authorization:github:success:${tokenPayload}',
-          e.origin
-        );
-        window.removeEventListener("message", receiveMessage, false);
-        setTimeout(function() { window.close(); }, 500);
+    function sendAuthSuccess(targetOrigin) {
+      if (window.opener) {
+        try {
+          window.opener.postMessage(
+            'authorization:github:success:${tokenPayload}',
+            targetOrigin || '*'
+          );
+        } catch (err) {
+          console.error("Error sending postMessage:", err);
+        }
       }
     }
+
+    function receiveMessage(e) {
+      console.log("receiveMessage event:", e);
+      sendAuthSuccess(e.origin);
+    }
+
     window.addEventListener("message", receiveMessage, false);
-    
-    // Send handshake to main window
+
+    // Send token immediately to opener window
+    sendAuthSuccess('*');
+
+    // Notify opener that GitHub authorization is in progress
     if (window.opener) {
       window.opener.postMessage("authorizing:github", "*");
     }
+
+    // Auto-close popup after sending authorization token
+    setTimeout(function() {
+      try {
+        window.close();
+      } catch (e) {}
+    }, 500);
   })();
 </script>
 </body>

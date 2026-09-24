@@ -74,7 +74,14 @@ const getIcon = (name, defaultProps = {}) => {
 };
 
 // Hero Data
-export const heroData = heroContent;
+export const heroData = {
+  ...heroContent,
+  codeSnippets: Array.isArray(heroContent.codeSnippets)
+    ? heroContent.codeSnippets
+    : typeof heroContent.codeSnippets === 'string'
+      ? heroContent.codeSnippets.split('\n')
+      : []
+};
 
 // Projects Data
 export const projects = projectsContent.projects || projectsContent;

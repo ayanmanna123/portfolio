@@ -26,10 +26,7 @@ collections:
           - { label: "Resume URL / Path", name: "resumeUrl", widget: "string", required: false }
           - { label: "GitHub Username", name: "githubUsername", widget: "string", required: false }
           - { label: "LeetCode Username", name: "leetcodeUsername", widget: "string", required: false }
-          - label: "Code Snippets"
-            name: "codeSnippets"
-            widget: "list"
-            field: { label: "Code Line", name: "line", widget: "string" }
+          - { label: "Code Snippets", name: "codeSnippets", widget: "text" }
           - label: "Hero Achievement Counters"
             name: "heroAchievements"
             widget: "list"

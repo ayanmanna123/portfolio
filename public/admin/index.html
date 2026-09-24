@@ -4,6 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Admin Panel - Decap CMS</title>
+  <script>
+    // Ensure canonical domain for OAuth cross-window postMessage compatibility
+    if (window.location.hostname === 'ayanmanna.in') {
+      window.location.replace('https://www.ayanmanna.in' + window.location.pathname + window.location.search + window.location.hash);
+    }
+  </script>
   <!-- Explicitly specify config URL to ensure Decap CMS loads config.yml correctly -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

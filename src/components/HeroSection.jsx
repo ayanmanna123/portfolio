@@ -186,10 +186,10 @@ export const HeroSection = () => {
           </div>
 
           <motion.div className="flex-1 flex justify-center lg:justify-end w-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
-            <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl">
-              <motion.div className="bg-background/90 border border-border rounded-2xl p-8 backdrop-blur-sm shadow-2xl w-full group hover:shadow-3xl transition-all duration-500" whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-[440px]">
+              <motion.div className="bg-background/90 border border-border rounded-2xl p-6 sm:p-7 backdrop-blur-sm shadow-2xl w-full group hover:shadow-3xl transition-all duration-500" whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
 
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-4 mb-5">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
@@ -201,8 +201,8 @@ export const HeroSection = () => {
                   <div className="w-4 h-4 bg-green-400/20 rounded-full animate-pulse"></div>
                 </div>
 
-                <div className="font-mono text-sm bg-primary/5 rounded-lg border border-primary/10 min-h-[280px] flex">
-                  <div className="p-6 w-full">
+                <div className="font-mono text-xs sm:text-sm bg-primary/5 rounded-lg border border-primary/10 min-h-[280px] flex">
+                  <div className="p-4 sm:p-5 w-full">
                     <div className="grid grid-cols-1 gap-1 h-full content-start">
                       {heroData.codeSnippets.map((line, index) => (
                         <div

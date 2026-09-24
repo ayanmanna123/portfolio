@@ -29,7 +29,7 @@ collections:
           - label: "Code Snippets"
             name: "codeSnippets"
             widget: "list"
-            field: { label: "Code Line", widget: "string" }
+            field: { label: "Code Line", name: "line", widget: "string" }
           - label: "Hero Achievement Counters"
             name: "heroAchievements"
             widget: "list"
@@ -76,7 +76,7 @@ collections:
               - label: "Technologies & Tools (Each Written Separately)"
                 name: "items"
                 widget: "list"
-                field: { label: "Technology / Tool Name", widget: "string" }
+                field: { label: "Technology / Tool Name", name: "item", widget: "string" }
           - label: "Hobbies & Interests"
             name: "hobbies"
             widget: "list"
@@ -88,7 +88,7 @@ collections:
           - label: "Key Features / Highlights"
             name: "features"
             widget: "list"
-            field: { label: "Feature / Highlight", widget: "string" }
+            field: { label: "Feature / Highlight", name: "feature", widget: "string" }
 
       - name: "projects"
         label: "Projects"
@@ -108,7 +108,7 @@ collections:
               - label: "Tags"
                 name: "tags"
                 widget: "list"
-                field: { label: "Tag", widget: "string" }
+                field: { label: "Tag", name: "tag", widget: "string" }
               - { label: "Demo URL", name: "demoUrl", widget: "string", required: false }
               - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
               - { label: "Featured", name: "featured", widget: "boolean", default: true }
@@ -117,7 +117,7 @@ collections:
               - label: "Highlights"
                 name: "highlights"
                 widget: "list"
-                field: { label: "Highlight Item", widget: "string" }
+                field: { label: "Highlight Item", name: "highlight", widget: "string" }
               - label: "Details Modal"
                 name: "details"
                 widget: "object"
@@ -136,7 +136,7 @@ collections:
                   - label: "Challenges"
                     name: "challenges"
                     widget: "list"
-                    field: { label: "Challenge Item", widget: "string" }
+                    field: { label: "Challenge Item", name: "challenge", widget: "string" }
 
       - name: "certificates"
         label: "Certificates"
@@ -227,7 +227,7 @@ collections:
               - label: "Skills Tagged"
                 name: "skills"
                 widget: "list"
-                field: { label: "Skill Tag", widget: "string" }
+                field: { label: "Skill Tag", name: "skill", widget: "string" }
 
       - name: "contact"
         label: "Contact & Links"

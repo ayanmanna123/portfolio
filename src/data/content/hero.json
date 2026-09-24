@@ -1,12 +1,12 @@
 {
-<<<<<<< HEAD
-  "resumeUrl": "/resume.pdf",
-=======
   "title": "I'm Ayan Manna",
   "subtitle": "Full-Stack Engineer",
-  "description": "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises. this is for test ",
+  "description": "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises. this is for test",
   "status": "Available Immediately",
->>>>>>> 600fd644b6f2a98366b2496314266c37ffe189d7
+  "roles": "Full-Stack and Frontend roles",
+  "resumeUrl": "/resume.pdf",
+  "githubUsername": "ayanmanna123",
+  "leetcodeUsername": "ayanmanna123",
   "codeSnippets": [
     "import { FullStackDeveloper } from 'ayanmanna.in';",
     "",
@@ -23,13 +23,6 @@
     "developer.connect();",
     "console.log('🚀 Let\\'s build something exceptional together!');"
   ],
-  "leetcodeUsername": "ayanmanna123",
-  "status": "Available Immediately",
-  "subtitle": "Full-Stack Engineer",
-  "title": "I'm Ayan Manna",
-  "githubUsername": "ayanmanna123",
-  "description": "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises. this is for test",
-  "roles": "Full-Stack and Frontend roles",
   "heroAchievements": [
     {
       "label": "Github Contributions",

@@ -10,9 +10,6 @@ local_backend: true
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-media_library:
-  name: supabase
-
 collections:
   - name: "data"
     label: "Portfolio Data"
@@ -26,7 +23,7 @@ collections:
           - { label: "Description", name: "description", widget: "text" }
           - { label: "Status Badge", name: "status", widget: "string" }
           - { label: "Target Roles", name: "roles", widget: "string", required: false }
-          - { label: "Resume URL / Path", name: "resumeUrl", widget: "file", required: false }
+          - { label: "Resume URL / Path", name: "resumeUrl", widget: "string", required: false }
           - { label: "GitHub Username", name: "githubUsername", widget: "string", required: false }
           - { label: "LeetCode Username", name: "leetcodeUsername", widget: "string", required: false }
           - { label: "Code Snippets", name: "codeSnippets", widget: "text" }
@@ -46,7 +43,7 @@ collections:
           - { label: "Full Name", name: "name", widget: "string" }
           - { label: "Professional Role", name: "role", widget: "string" }
           - { label: "Profile Photo", name: "profileImage", widget: "image" }
-          - { label: "Resume URL / Path", name: "resumeUrl", widget: "file", required: false }
+          - { label: "Resume URL / Path", name: "resumeUrl", widget: "string", required: false }
           - { label: "Heading Text", name: "title", widget: "string" }
           - { label: "Heading Highlight", name: "subtitle", widget: "string" }
           - { label: "Bio / Tagline", name: "bio", widget: "text" }

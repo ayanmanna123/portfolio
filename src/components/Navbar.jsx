@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Dock from "./Dock";
@@ -38,12 +39,13 @@ const navItems = [
 
 export const Navbar = () => {
   const { toast } = useToast();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("#hero");
   const [showNavbar, setShowNavbar] = useState(true);
   const [isHoveringBottom, setIsHoveringBottom] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
-  const [theme, setTheme] = useState("light");
   const [isMobile, setIsMobile] = useState(false);
   const lastScrollYRef = useRef(0);
   const audioRef = useRef(null);
@@ -53,24 +55,14 @@ export const Navbar = () => {
 
   const musicUrl = "/music.mp3";
 
-  // Theme Logic
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "dark") {
-      document.documentElement.classList.add("dark");
-      setTheme("dark");
-    }
+    setMounted(true);
   }, []);
 
+  const isDark = mounted ? (resolvedTheme === "dark") : false;
+
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
+    setTheme(isDark ? "light" : "dark");
   };
 
   // Audio Logic
@@ -202,8 +194,8 @@ export const Navbar = () => {
       className: activeSection === item.href ? "text-primary" : "text-gray-500",
     })),
     {
-      icon: theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />,
-      label: theme === "dark" ? "Light Mode" : "Dark Mode",
+      icon: isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />,
+      label: isDark ? "Light Mode" : "Dark Mode",
       onClick: toggleTheme,
     },
   ];

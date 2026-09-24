@@ -3,6 +3,7 @@ import { ActivityCalendar } from "react-activity-calendar";
 import { Tooltip } from "react-tooltip";
 import { motion } from "framer-motion";
 import { Github, Star, GitFork, ExternalLink } from "lucide-react";
+import { useTheme } from "next-themes";
 import { githubUsername } from "@/data";
 
 // Fallback data in case API fails
@@ -34,6 +35,8 @@ const fallbackData = [
 ];
 
 const GithubStatsSection = () => {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
     const [contributions, setContributions] = useState([]);
     const [repos, setRepos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -74,10 +77,10 @@ const GithubStatsSection = () => {
         fetchData();
     }, []);
 
-    // Theme colors (Purple/Blue/Pink gradient inspired)
-    const theme = {
-        light: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-        dark: ['#1f2937', '#312e81', '#4338ca', '#6366f1', '#8b5cf6'], // Dark gray -> Indigo -> Violet
+    // Theme colors
+    const calendarTheme = {
+        light: ['#ebedf0', '#c084fc', '#a855f7', '#9333ea', '#7e22ce'], // Light mode: subtle gray to vibrant purple
+        dark: ['#1f2937', '#312e81', '#4338ca', '#6366f1', '#8b5cf6'], // Dark mode: dark gray to indigo/violet
     };
 
     return (
@@ -119,8 +122,8 @@ const GithubStatsSection = () => {
                         ) : (
                             <ActivityCalendar
                                 data={contributions}
-                                theme={theme}
-                                colorScheme="dark"
+                                theme={calendarTheme}
+                                colorScheme={isDark ? "dark" : "light"}
                                 blockSize={14}
                                 blockMargin={4}
                                 fontSize={14}

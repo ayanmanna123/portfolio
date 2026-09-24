@@ -133,11 +133,14 @@ export const hobbies = (aboutContent.hobbies || [
   icon: typeof item.icon === 'string' ? getIcon(item.icon, { size: 16 }) : item.icon
 }));
 
+// Google Map Link
+export const mapUrl = contactContent.mapUrl || "https://maps.app.goo.gl/xBHkkrbX2DACnEt16";
+
 // Contact Info
 export const contactInfo = [
   { icon: <Mail size={16} />, text: contactContent.email, href: `mailto:${contactContent.email}`, label: "Email" },
   { icon: <Phone size={16} />, text: contactContent.phone, href: `tel:${contactContent.phone}`, label: "Phone" },
-  { icon: <MapPin size={16} />, text: contactContent.location, href: null, label: "Location" }
+  { icon: <MapPin size={16} />, text: contactContent.location, href: mapUrl, label: "Location" }
 ];
 
 const socialIconMap = {

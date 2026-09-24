@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Code2, Trophy, Target, TrendingUp, Calendar as CalendarIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { leetcodeUsername } from "../data";
 import { ActivityCalendar } from "react-activity-calendar";
 import { Tooltip } from "react-tooltip";
 
 const LeetCodeStatsSection = () => {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
     const [stats, setStats] = useState(null);
     const [calendarData, setCalendarData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -197,6 +200,7 @@ const LeetCodeStatsSection = () => {
 
     // LeetCode Green Theme for the graph
     const leetCodeTheme = {
+        light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
         dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
     };
 
@@ -388,7 +392,7 @@ const LeetCodeStatsSection = () => {
                             <ActivityCalendar
                                 data={calendarData}
                                 theme={leetCodeTheme}
-                                colorScheme="dark"
+                                colorScheme={isDark ? "dark" : "light"}
                                 blockSize={14}
                                 blockMargin={4}
                                 fontSize={14}

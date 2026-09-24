@@ -7,10 +7,11 @@ import {
   Mail,
   Phone,
   MapPin,
+  ExternalLink,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { socialLinks, quickLinks, contactInfo } from "@/data";
+import { socialLinks, quickLinks, contactInfo, mapUrl } from "@/data";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -102,7 +103,7 @@ export const Footer = () => {
       <div className="max-w-6xl mx-auto">
         {/* Glass background container */}
         <motion.div
-          className="backdrop-blur-lg bg-white/70 dark:bg-gray-900/70 rounded-xl p-8 border border-white/20 dark:border-gray-700/50 shadow-lg"
+          className="backdrop-blur-lg bg-card/90 dark:bg-gray-900/70 rounded-xl p-8 border border-border shadow-lg"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -113,9 +114,9 @@ export const Footer = () => {
             <motion.div variants={itemVariants} className="space-y-4">
               <div className="flex items-center gap-3">
                 <img src="/logo.svg" alt="Logo" className="w-8 h-8 object-contain" />
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">AYAN MANNA</h3>
+                <h3 className="text-xl font-bold text-foreground">AYAN MANNA</h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-muted-foreground text-sm">
                 Digital designer & developer creating meaningful experiences.
               </p>
               <div className="flex space-x-4">
@@ -126,7 +127,7 @@ export const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-300"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -138,7 +139,7 @@ export const Footer = () => {
 
             {/* Navigation */}
             <motion.div variants={itemVariants}>
-              <h4 className="text-gray-900 dark:text-white font-medium mb-4 text-sm uppercase tracking-wider">Navigation</h4>
+              <h4 className="text-foreground font-semibold mb-4 text-sm uppercase tracking-wider">Navigation</h4>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <motion.li
@@ -148,7 +149,7 @@ export const Footer = () => {
                   >
                     <a
                       href={link.href}
-                      className="hover:text-gray-900 dark:hover:text-white transition-colors duration-300 text-sm text-gray-600 dark:text-gray-300"
+                      className="hover:text-foreground transition-colors duration-300 text-sm text-muted-foreground"
                     >
                       {link.name}
                     </a>
@@ -158,8 +159,8 @@ export const Footer = () => {
             </motion.div>
 
             {/* Contact */}
-            <motion.div variants={itemVariants}>
-              <h4 className="text-gray-900 dark:text-white font-medium mb-4 text-sm uppercase tracking-wider">Contact</h4>
+            <motion.div variants={itemVariants} className="space-y-4">
+              <h4 className="text-foreground font-semibold text-sm uppercase tracking-wider">Contact</h4>
               <ul className="space-y-3">
                 {contactInfo.map((info, index) => (
                   <motion.li
@@ -167,26 +168,61 @@ export const Footer = () => {
                     className="flex items-start space-x-3 text-sm"
                     whileHover={{ scale: 1.02 }}
                   >
-                    <span className="text-gray-600 dark:text-gray-400 mt-0.5">{info.icon}</span>
+                    <span className="text-muted-foreground mt-0.5">{info.icon}</span>
                     {info.href ? (
                       <a
                         href={info.href}
-                        className="hover:text-gray-900 dark:hover:text-white transition-colors duration-300 text-gray-600 dark:text-gray-300"
+                        target={info.href.startsWith("http") ? "_blank" : undefined}
+                        rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="hover:text-foreground transition-colors duration-300 text-muted-foreground hover:underline"
                       >
                         {info.text}
                       </a>
                     ) : (
-                      <span className="text-gray-600 dark:text-gray-300">{info.text}</span>
+                      <span className="text-muted-foreground">{info.text}</span>
                     )}
                   </motion.li>
                 ))}
               </ul>
+
+              {/* Interactive Kolkata Map Preview */}
+              <div className="pt-1">
+                <motion.a
+                  href={mapUrl || "https://maps.app.goo.gl/xBHkkrbX2DACnEt16"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Kolkata in Google Maps"
+                  className="group relative block w-full h-28 rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <iframe
+                    title="Kolkata Map"
+                    src="https://maps.google.com/maps?q=Kolkata,West+Bengal,India&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0 pointer-events-none filter dark:invert-[0.9] dark:hue-rotate-180 dark:contrast-125 opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-between p-2.5">
+                    <div className="flex items-center gap-1.5 text-white">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                      </span>
+                      <span className="text-xs font-semibold tracking-tight drop-shadow">Kolkata, India</span>
+                    </div>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-medium text-white group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
+                      Open Map
+                      <ExternalLink className="w-2.5 h-2.5" />
+                    </span>
+                  </div>
+                </motion.a>
+              </div>
             </motion.div>
 
             {/* Newsletter */}
             <motion.div variants={itemVariants} className="space-y-4">
-              <h4 className="text-gray-900 dark:text-white font-medium text-sm uppercase tracking-wider">Newsletter</h4>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <h4 className="text-foreground font-semibold text-sm uppercase tracking-wider">Newsletter</h4>
+              <p className="text-muted-foreground text-sm">
                 Subscribe to get updates on my latest work.
               </p>
               <form className="space-y-3" onSubmit={handleNewsletterSubmit}>
@@ -195,14 +231,14 @@ export const Footer = () => {
                   placeholder="Your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 dark:bg-gray-800/50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-900 dark:focus:ring-gray-300 focus:border-gray-900 dark:focus:border-gray-300 w-full"
+                  className="px-3 py-2 text-sm border border-input text-foreground bg-background rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full"
                   required
                   disabled={isSubmitting || isSuccess}
                 />
                 <button
                   type="submit"
                   disabled={isSubmitting || isSuccess}
-                  className="bg-gray-900 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 dark:text-gray-900 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 w-full flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 w-full flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed shadow-sm"
                 >
                   {isSubmitting ? "Subscribing..." : isSuccess ? "Subscribed!" : "Subscribe"}
                 </button>
@@ -218,7 +254,7 @@ export const Footer = () => {
 
           {/* Bottom bar */}
           <motion.div
-            className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700/50 flex flex-col items-center text-xs text-gray-600 dark:text-gray-400 space-y-4 sm:space-y-0 sm:flex-row sm:justify-between"
+            className="mt-12 pt-8 border-t border-border flex flex-col items-center text-xs text-muted-foreground space-y-4 sm:space-y-0 sm:flex-row sm:justify-between"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -229,13 +265,13 @@ export const Footer = () => {
             </div>
 
             <div className="flex items-center space-x-6">
-              <Link to="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">Privacy</Link>
-              <Link to="/terms" className="hover:text-gray-900 dark:hover:text-white transition-colors">Terms</Link>
-              <a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Cookies</a>
+              <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+              <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
+              <a href="#" className="hover:text-foreground transition-colors">Cookies</a>
               <motion.a
                 href="#hero"
                 aria-label="Back to top"
-                className="p-2 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300"
+                className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground border border-primary/20 transition-all duration-300"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >

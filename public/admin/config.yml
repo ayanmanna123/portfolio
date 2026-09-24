@@ -233,6 +233,7 @@ collections:
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Phone", name: "phone", widget: "string" }
           - { label: "Location", name: "location", widget: "string" }
+          - { label: "Google Maps URL", name: "mapUrl", widget: "string", required: false }
           - { label: "LeetCode Username", name: "leetcodeUsername", widget: "string" }
           - { label: "GitHub Username", name: "githubUsername", widget: "string", required: false }
           - label: "Social Links"

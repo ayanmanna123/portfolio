@@ -90,15 +90,13 @@ export default function TiltedCard({
             )}
 
             <motion.div
-                className="tilted-card-inner"
+                className={`tilted-card-inner rounded-[20px] transition-colors duration-300 ${!imageSrc ? 'bg-card/90 dark:bg-slate-900/60 border border-border shadow-md dark:shadow-none backdrop-blur-md' : ''}`}
                 style={{
                     width: imageWidth,
                     height: imageHeight,
                     rotateX,
                     rotateY,
                     scale,
-                    background: imageSrc ? 'transparent' : 'rgba(30, 41, 59, 0.5)',
-                    border: imageSrc ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: '20px',
                 }}
             >

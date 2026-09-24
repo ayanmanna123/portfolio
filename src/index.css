@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
@@ -9,6 +11,15 @@
   --color-primary-foreground: hsl(var(--primary-foreground));
 
   --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-input: hsl(var(--input));
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
@@ -78,11 +89,19 @@
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
 
     --primary: 250 47% 60%;
     --primary-foreground: 210 40% 98%;
 
     --border: 214 32% 91%;
+    --input: 214 32% 91%;
 
     --dock-bg: #ffffff;
     --dock-border: rgba(0, 0, 0, 0.1);
@@ -94,11 +113,19 @@
     --foreground: 213 31% 91%;
 
     --card: 222 47% 8%;
+    --card-foreground: 213 31% 91%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 213 31% 91%;
 
     --primary: 250 65% 65%;
     --primary-foreground: 213 31% 91%;
 
     --border: 217 33% 20%;
+    --input: 217 33% 20%;
 
     --dock-bg: #060010;
     --dock-border: #222222;

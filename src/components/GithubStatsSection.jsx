@@ -3,6 +3,7 @@ import { ActivityCalendar } from "react-activity-calendar";
 import { Tooltip } from "react-tooltip";
 import { motion } from "framer-motion";
 import { Github, Star, GitFork, ExternalLink } from "lucide-react";
+import { githubUsername } from "@/data";
 
 // Fallback data in case API fails
 const fallbackData = [
@@ -40,15 +41,16 @@ const GithubStatsSection = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const user = githubUsername || "ayanmanna123";
                 // Fetch Contributions
-                const contributionsRes = await fetch("https://github-contributions-api.jogruber.de/v4/ayanmanna123?y=last");
+                const contributionsRes = await fetch(`https://github-contributions-api.jogruber.de/v4/${user}?y=last`);
                 const contributionsData = await contributionsRes.json();
                 if (contributionsData.contributions) {
                     setContributions(contributionsData.contributions);
                 }
 
                 // Fetch Repos
-                const reposRes = await fetch("https://api.github.com/users/ayanmanna123/repos?sort=updated&per_page=6");
+                const reposRes = await fetch(`https://api.github.com/users/${user}/repos?sort=updated&per_page=6`);
                 const reposData = await reposRes.json();
 
                 if (Array.isArray(reposData)) {

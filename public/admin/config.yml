@@ -18,11 +18,77 @@ collections:
         label: "Hero Section"
         file: "src/data/content/hero.json"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Main Title", name: "title", widget: "string" }
           - { label: "Subtitle", name: "subtitle", widget: "string" }
           - { label: "Description", name: "description", widget: "text" }
-          - { label: "Status", name: "status", widget: "string" }
-          - { label: "Code Snippets", name: "codeSnippets", widget: "list" }
+          - { label: "Status Badge", name: "status", widget: "string" }
+          - { label: "Target Roles", name: "roles", widget: "string", required: false }
+          - { label: "Resume URL / Path", name: "resumeUrl", widget: "string", required: false }
+          - { label: "GitHub Username", name: "githubUsername", widget: "string", required: false }
+          - { label: "LeetCode Username", name: "leetcodeUsername", widget: "string", required: false }
+          - label: "Code Snippets"
+            name: "codeSnippets"
+            widget: "list"
+            field: { label: "Code Line", widget: "string" }
+          - label: "Hero Achievement Counters"
+            name: "heroAchievements"
+            widget: "list"
+            summary: "{{fields.label}}: {{fields.number}}"
+            fields:
+              - { label: "Topic / Label (e.g. Total Projects, LeetCode)", name: "label", widget: "string" }
+              - { label: "Number / Value", name: "number", widget: "string" }
+              - { label: "Icon Name", name: "icon", widget: "select", options: ["Github", "GitFork", "Briefcase", "Code2", "Award", "TrendingUp", "Zap", "Target", "Calendar", "Shield"] }
+
+      - name: "about"
+        label: "About Section"
+        file: "src/data/content/about.json"
+        fields:
+          - { label: "Full Name", name: "name", widget: "string" }
+          - { label: "Professional Role", name: "role", widget: "string" }
+          - { label: "Profile Photo", name: "profileImage", widget: "image" }
+          - { label: "Resume URL / Path", name: "resumeUrl", widget: "string", required: false }
+          - { label: "Heading Text", name: "title", widget: "string" }
+          - { label: "Heading Highlight", name: "subtitle", widget: "string" }
+          - { label: "Bio / Tagline", name: "bio", widget: "text" }
+          - label: "Bio Tabs"
+            name: "tabContent"
+            widget: "object"
+            fields:
+              - { label: "Personal Story", name: "personal", widget: "text" }
+              - { label: "Professional Experience", name: "professional", widget: "text" }
+              - { label: "Development Approach", name: "approach", widget: "text" }
+          - label: "Key Achievements"
+            name: "achievements"
+            widget: "list"
+            summary: "{{fields.label}}: {{fields.number}}{{fields.suffix}}"
+            fields:
+              - { label: "Achievement Topic / Name (e.g. Hackathons, Projects, Freelancing, Internships)", name: "label", widget: "string" }
+              - { label: "Count / Value (e.g. 7, 14, 1, 0)", name: "number", widget: "string" }
+              - { label: "Suffix (+, etc)", name: "suffix", widget: "string", default: "+" }
+              - { label: "Card Icon", name: "icon", widget: "select", options: ["Code2", "Briefcase", "Zap", "Calendar", "Award", "Target", "TrendingUp", "Shield"] }
+              - { label: "Hero Icon", name: "heroIcon", widget: "select", options: ["Award", "TrendingUp", "Target", "Shield", "Code2", "Zap"] }
+          - label: "Tech Stack Categories"
+            name: "techStack"
+            widget: "list"
+            summary: "{{fields.category}}"
+            fields:
+              - { label: "Category Name (e.g. Frontend, Backend, AI / ML)", name: "category", widget: "string" }
+              - label: "Technologies & Tools (Each Written Separately)"
+                name: "items"
+                widget: "list"
+                field: { label: "Technology / Tool Name", widget: "string" }
+          - label: "Hobbies & Interests"
+            name: "hobbies"
+            widget: "list"
+            summary: "{{fields.name}} - {{fields.desc}}"
+            fields:
+              - { label: "Hobby Name (e.g. Cubing, Music, Traveling)", name: "name", widget: "string" }
+              - { label: "Description", name: "desc", widget: "string" }
+              - { label: "Icon", name: "icon", widget: "select", options: ["Puzzle", "Music", "Utensils", "Plane", "Gamepad2", "Camera"] }
+          - label: "Key Features / Highlights"
+            name: "features"
+            widget: "list"
+            field: { label: "Feature / Highlight", widget: "string" }
 
       - name: "projects"
         label: "Projects"
@@ -39,13 +105,38 @@ collections:
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Video URL / Path", name: "video", widget: "string", required: false }
-              - { label: "Tags", name: "tags", widget: "list" }
+              - label: "Tags"
+                name: "tags"
+                widget: "list"
+                field: { label: "Tag", widget: "string" }
               - { label: "Demo URL", name: "demoUrl", widget: "string", required: false }
               - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
               - { label: "Featured", name: "featured", widget: "boolean", default: true }
               - { label: "Accent Color Class", name: "accentColor", widget: "string" }
               - { label: "Status", name: "status", widget: "string" }
-              - { label: "Highlights", name: "highlights", widget: "list" }
+              - label: "Highlights"
+                name: "highlights"
+                widget: "list"
+                field: { label: "Highlight Item", widget: "string" }
+              - label: "Details Modal"
+                name: "details"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Problem", name: "problem", widget: "text", required: false }
+                  - { label: "Solution", name: "solution", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    summary: "{{fields.title}}"
+                    required: false
+                    fields:
+                      - { label: "Feature Title", name: "title", widget: "string" }
+                      - { label: "Feature Description", name: "description", widget: "text" }
+                  - label: "Challenges"
+                    name: "challenges"
+                    widget: "list"
+                    field: { label: "Challenge Item", widget: "string" }
 
       - name: "certificates"
         label: "Certificates"
@@ -70,6 +161,14 @@ collections:
         label: "Skills & Categories"
         file: "src/data/content/skills.json"
         fields:
+          - label: "Skill Categories"
+            name: "skillCategories"
+            widget: "list"
+            summary: "{{fields.label}} ({{fields.id}})"
+            fields:
+              - { label: "Category ID", name: "id", widget: "string" }
+              - { label: "Display Label", name: "label", widget: "string" }
+              - { label: "Color Classes", name: "color", widget: "string" }
           - label: "Skills Data"
             name: "skillsData"
             widget: "list"
@@ -77,7 +176,7 @@ collections:
             fields:
               - { label: "Skill Name", name: "name", widget: "string" }
               - { label: "Level (%)", name: "level", widget: "number", value_type: "int" }
-              - { label: "Category", name: "category", widget: "select", options: ["frontend", "backend", "tools", "aiml", "appdev", "deeplearning"] }
+              - { label: "Category ID", name: "category", widget: "string" }
               - { label: "Icon URL / Path", name: "icon", widget: "string" }
 
       - name: "testimonials"
@@ -125,19 +224,31 @@ collections:
               - { label: "Role", name: "role", widget: "string" }
               - { label: "Company / Event", name: "company", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
-              - { label: "Skills Tagged", name: "skills", widget: "list" }
+              - label: "Skills Tagged"
+                name: "skills"
+                widget: "list"
+                field: { label: "Skill Tag", widget: "string" }
 
       - name: "contact"
-        label: "Contact & Bio Settings"
+        label: "Contact & Links"
         file: "src/data/content/contact.json"
         fields:
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Phone", name: "phone", widget: "string" }
           - { label: "Location", name: "location", widget: "string" }
           - { label: "LeetCode Username", name: "leetcodeUsername", widget: "string" }
+          - { label: "GitHub Username", name: "githubUsername", widget: "string", required: false }
           - label: "Social Links"
             name: "socialLinks"
             widget: "list"
+            summary: "{{fields.platform}} ({{fields.href}})"
             fields:
               - { label: "Platform", name: "platform", widget: "string" }
               - { label: "Link URL", name: "href", widget: "string" }
+          - label: "Quick Navigation Links"
+            name: "quickLinks"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.href}})"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Target (#section or URL)", name: "href", widget: "string" }

@@ -38,6 +38,40 @@ import educationContent from './content/education.json';
 import journeyContent from './content/journey.json';
 import certificatesContent from './content/certificates.json';
 import contactContent from './content/contact.json';
+import aboutContent from './content/about.json';
+
+// Helper Icon Map
+const iconComponentMap = {
+  Github: (props) => <Github {...props} />,
+  GitFork: (props) => <GitFork {...props} />,
+  Briefcase: (props) => <Briefcase {...props} />,
+  Code2: (props) => <Code2 {...props} />,
+  Award: (props) => <Award {...props} />,
+  TrendingUp: (props) => <TrendingUp {...props} />,
+  Zap: (props) => <Zap {...props} />,
+  Target: (props) => <Target {...props} />,
+  Calendar: (props) => <Calendar {...props} />,
+  Shield: (props) => <Shield {...props} />,
+  Puzzle: (props) => <Puzzle {...props} />,
+  Music: (props) => <Music {...props} />,
+  Utensils: (props) => <Utensils {...props} />,
+  Plane: (props) => <Plane {...props} />,
+  Mail: (props) => <Mail {...props} />,
+  Phone: (props) => <Phone {...props} />,
+  MapPin: (props) => <MapPin {...props} />,
+  Linkedin: (props) => <Linkedin {...props} />,
+  Instagram: (props) => <Instagram {...props} />,
+  Youtube: (props) => <Youtube {...props} />,
+  Twitter: (props) => <Twitter {...props} />,
+  User: (props) => <User {...props} />,
+  Gamepad2: (props) => <Gamepad2 {...props} />,
+  Camera: (props) => <Camera {...props} />
+};
+
+const getIcon = (name, defaultProps = {}) => {
+  const IconComp = iconComponentMap[name];
+  return IconComp ? IconComp(defaultProps) : <Code2 {...defaultProps} />;
+};
 
 // Hero Data
 export const heroData = heroContent;
@@ -45,7 +79,8 @@ export const heroData = heroContent;
 // Projects Data
 export const projects = projectsContent.projects || projectsContent;
 
-export const categoryColors = {
+// Category Colors
+export const categoryColors = projectsContent.categoryColors || {
   "Healthcare SaaS": "bg-gradient-to-r from-emerald-500/20 to-teal-600/20 text-emerald-600 border-emerald-500/30",
   "E-commerce": "bg-gradient-to-r from-purple-500/20 to-indigo-600/20 text-purple-600 border-purple-500/30",
   "Real-time Communication": "bg-gradient-to-r from-blue-500/20 to-cyan-600/20 text-blue-600 border-blue-500/30",
@@ -60,31 +95,36 @@ export const categoryColors = {
   "Collaborative Workspace / Real-time Application": "bg-gradient-to-r from-slate-300/80 to-slate-200/80 text-slate-900 font-bold border-slate-400/50 dark:from-slate-800/80 dark:to-slate-900/80 dark:text-white"
 };
 
-export const heroAchievements = [
-  { number: "0+", label: "Github Contributions", icon: <Github className="h-3 w-3" /> },
-  { number: "0+", label: "Total Repositories", icon: <GitFork className="h-3 w-3" /> },
-  { number: "0+", label: "Total Projects", icon: <Briefcase className="h-3 w-3" /> },
-  { number: "0+", label: "LeetCode Problems", icon: <Code2 className="h-3 w-3" /> }
-];
+// Hero Achievements
+export const heroAchievements = (heroContent.heroAchievements || [
+  { number: "0+", label: "Github Contributions", icon: "Github" },
+  { number: "0+", label: "Total Repositories", icon: "GitFork" },
+  { number: "0+", label: "Total Projects", icon: "Briefcase" },
+  { number: "0+", label: "LeetCode Problems", icon: "Code2" }
+]).map(item => ({
+  ...item,
+  icon: typeof item.icon === 'string' ? getIcon(item.icon, { className: "h-3 w-3" }) : item.icon
+}));
 
 // Tech Stack
-export const techStack = [
-  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind"] },
-  { category: "Backend", items: ["Node.js", "Express", "Python", "MongoDB", "MySQL"] },
-  { category: "Tools & Cloud", items: ["AWS", "Docker", "Vercel", "Git", "GitHub", "VS Code"] },
-  { category: "AI / ML", items: ["NumPy", "Pandas", "Scikit-learn", "TensorFlow", "PyTorch"] },
-  { category: "App Dev", items: ["React Native", "Android Studio", "Capacitor"] },
-  { category: "Deep Learning / LLM", items: ["Transformers", "Hugging Face", "LangChain", "OpenAI API", "LlamaIndex"] }
-];
+export const techStack = (aboutContent.techStack || []).map(group => ({
+  ...group,
+  items: (group.items || []).map(it => typeof it === 'string' ? it : (it?.name || it?.item || String(it)))
+}));
 
-export const features = contactContent.features || ["Full-stack expertise", "Clean, maintainable code", "Performance optimization", "Agile methodology", "24/7 support", "Timely delivery"];
+// Features
+export const features = aboutContent.features || contactContent.features || ["Full-stack expertise", "Clean, maintainable code", "Performance optimization", "Agile methodology", "24/7 support", "Timely delivery"];
 
-export const hobbies = [
-  { name: "Cubing", icon: <Puzzle size={16} />, desc: "High-speed solving" },
-  { name: "Music", icon: <Music size={16} />, desc: "Vibe & Rhythm" },
-  { name: "Foodie", icon: <Utensils size={16} />, desc: "Tasting world" },
-  { name: "Traveling", icon: <Plane size={16} />, desc: "Exploring places" }
-];
+// Hobbies
+export const hobbies = (aboutContent.hobbies || [
+  { name: "Cubing", icon: "Puzzle", desc: "High-speed solving" },
+  { name: "Music", icon: "Music", desc: "Vibe & Rhythm" },
+  { name: "Foodie", icon: "Utensils", desc: "Tasting world" },
+  { name: "Traveling", icon: "Plane", desc: "Exploring places" }
+]).map(item => ({
+  ...item,
+  icon: typeof item.icon === 'string' ? getIcon(item.icon, { size: 16 }) : item.icon
+}));
 
 // Contact Info
 export const contactInfo = [
@@ -108,6 +148,7 @@ export const socialLinks = (contactContent.socialLinks || []).map(link => ({
 }));
 
 export const leetcodeUsername = contactContent.leetcodeUsername || "ayanmanna123";
+export const githubUsername = contactContent.githubUsername || heroContent.githubUsername || "ayanmanna123";
 
 export const quickLinks = contactContent.quickLinks || [
   { name: "Home", href: "#hero" },
@@ -116,7 +157,9 @@ export const quickLinks = contactContent.quickLinks || [
   { name: "Contact", href: "#contact" },
 ];
 
-export const tabContent = contactContent.tabContent;
+// About & Tab Content
+export const aboutData = aboutContent;
+export const tabContent = aboutContent.tabContent || contactContent.tabContent;
 
 // Skills Data
 export const skillCategories = skillsContent.skillCategories;
@@ -158,12 +201,16 @@ export const educationData = educationContent.education || educationContent;
 export const journeyData = journeyContent.journey || journeyContent;
 
 // Achievements
-export const achievements = [
-  { number: `${7}`, label: "Hackathons", icon: <Code2 className="h-5 w-5" />, heroIcon: <Award className="h-3 w-3" />, suffix: "+" },
-  { number: `${14}`, label: "Projects", icon: <Briefcase className="h-5 w-5" />, heroIcon: <TrendingUp className="h-3 w-3" />, suffix: "+" },
-  { number: `${1}`, label: "Freelancing", icon: <Zap className="h-5 w-5" />, heroIcon: <Target className="h-3 w-3" />, suffix: "+" },
-  { number: `${0}`, label: "Internships", icon: <Calendar className="h-5 w-5" />, heroIcon: <Shield className="h-3 w-3" />, suffix: "" }
-];
+export const achievements = (aboutContent.achievements || [
+  { number: `${7}`, label: "Hackathons", icon: "Code2", heroIcon: "Award", suffix: "+" },
+  { number: `${14}`, label: "Projects", icon: "Briefcase", heroIcon: "TrendingUp", suffix: "+" },
+  { number: `${1}`, label: "Freelancing", icon: "Zap", heroIcon: "Target", suffix: "+" },
+  { number: `${0}`, label: "Internships", icon: "Calendar", heroIcon: "Shield", suffix: "" }
+]).map(item => ({
+  ...item,
+  icon: typeof item.icon === 'string' ? getIcon(item.icon, { className: "h-5 w-5" }) : item.icon,
+  heroIcon: typeof item.heroIcon === 'string' ? getIcon(item.heroIcon, { className: "h-3 w-3" }) : item.heroIcon
+}));
 
 // Certificates Data
 export const certificates = certificatesContent.certificates || certificatesContent;

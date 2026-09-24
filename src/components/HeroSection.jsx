@@ -20,19 +20,22 @@ export const HeroSection = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
+        const ghUser = heroData.githubUsername || "ayanmanna123";
+        const ltUser = heroData.leetcodeUsername || "ayanmanna123";
+
         // Github Contributions
-        const contribRes = await fetch("https://github-contributions-api.jogruber.de/v4/ayanmanna123?y=last");
+        const contribRes = await fetch(`https://github-contributions-api.jogruber.de/v4/${ghUser}?y=last`);
         const contribData = await contribRes.json();
         // Sum total contributions
         const totalContribs = contribData.contributions?.reduce((acc, curr) => acc + curr.count, 0) || 0;
 
         // Github Repos
-        const reposRes = await fetch("https://api.github.com/users/ayanmanna123");
+        const reposRes = await fetch(`https://api.github.com/users/${ghUser}`);
         const reposData = await reposRes.json();
         const publicRepos = reposData.public_repos || 0;
 
         // LeetCode
-        const leetRes = await fetch("https://leetcode-api-faisalshohag.vercel.app/ayanmanna123");
+        const leetRes = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${ltUser}`);
         const leetData = await leetRes.json();
         const totalSolved = leetData.totalSolved || 0;
 
@@ -75,7 +78,7 @@ export const HeroSection = () => {
 
   const handleViewResume = () => {
     // Open resume in new tab
-    window.open('/resume.pdf', '_blank', 'noopener,noreferrer');
+    window.open(heroData.resumeUrl || '/resume.pdf', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -177,7 +180,7 @@ export const HeroSection = () => {
 
             <motion.div className="mt-6 text-center lg:text-left" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <div className="text-sm text-muted-foreground">
-                🚀 <span className="text-primary font-semibold">Available Immediately</span> for Full-Stack and Frontend roles
+                🚀 <span className="text-primary font-semibold">{heroData.status || "Available Immediately"}</span> for {heroData.roles || "Full-Stack and Frontend roles"}
               </div>
             </motion.div>
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Briefcase, Code, User, Download, Calendar, Sparkles, Target, Github, Linkedin, Twitter, Mail, Star, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { achievements, techStack, features, socialLinks, tabContent, hobbies } from "@/data";
+import { achievements, techStack, features, socialLinks, tabContent, hobbies, aboutData } from "@/data";
 
 export const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('personal');
@@ -23,7 +23,7 @@ export const AboutSection = () => {
   // Programmatic download function
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = '/resume.pdf'; // Must be in public folder
+    link.href = aboutData?.resumeUrl || '/resume.pdf'; // Must be in public folder
     link.download = 'resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -52,11 +52,13 @@ export const AboutSection = () => {
             <span className="text-sm sm:text-base font-semibold text-primary tracking-wide">ABOUT ME</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
-            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Transforming</span>
-            <span className="block text-primary animate-pulse">Ideas Into Reality</span>
+            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">{aboutData?.title || "Transforming"}</span>
+            <span className="block text-primary animate-pulse">{aboutData?.subtitle || "Ideas Into Reality"}</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Building digital experiences that combine <span className="text-primary font-semibold">innovation</span>, <span className="text-primary font-semibold">performance</span>, and <span className="text-primary font-semibold">elegance</span>
+            {aboutData?.bio || (
+              <>Building digital experiences that combine <span className="text-primary font-semibold">innovation</span>, <span className="text-primary font-semibold">performance</span>, and <span className="text-primary font-semibold">elegance</span></>
+            )}
           </p>
         </div>
 
@@ -76,7 +78,7 @@ export const AboutSection = () => {
                   {/* Profile Image */}
                   <div className="relative flex-shrink-0">
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:scale-105 md:group-hover:scale-110 relative">
-                      <img src="/profile-logo.jpeg" alt="Ayan Manna" className="w-full h-full object-cover" />
+                      <img src={aboutData?.profileImage || "/profile-logo.jpeg"} alt={aboutData?.name || "Ayan Manna"} className="w-full h-full object-cover" />
                       <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full border-4 border-background flex items-center justify-center">
                         <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
                       </div>
@@ -85,8 +87,8 @@ export const AboutSection = () => {
 
                   {/* Achievements */}
                   <div className="flex-1 text-center md:text-left">
-                    <h2 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">Ayan Manna</h2>
-                    <p className="text-primary text-base sm:text-lg font-semibold mb-3 sm:mb-4">Full Stack Developer</p>
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">{aboutData?.name || "Ayan Manna"}</h2>
+                    <p className="text-primary text-base sm:text-lg font-semibold mb-3 sm:mb-4">{aboutData?.role || "Full Stack Developer"}</p>
                     <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
                       {achievements.map((achievement, index) => (
                         <div key={index} className={`p-2 sm:p-3 rounded-xl bg-background/50 border border-border transition-all duration-300 hover:scale-105 hover:border-primary/30 ${counter === index ? 'bg-primary/10 border-primary/50' : ''}`}>
@@ -149,7 +151,7 @@ export const AboutSection = () => {
                     <div className="space-y-1 sm:space-y-2">
                       {stack.items.map((item, itemIndex) => (
                         <div key={itemIndex} className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />{item}
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />{typeof item === 'string' ? item : (item?.name || item?.item || String(item))}
                         </div>
                       ))}
                     </div>

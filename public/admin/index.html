@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,8 +13,389 @@
   <!-- Explicitly specify config URL to ensure Decap CMS loads config.yml correctly -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* Supabase Media Library Modal Styling */
+    #sb-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 999999;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #sb-modal-container {
+      background: #1e293b;
+      color: #f8fafc;
+      width: 90%;
+      max-width: 820px;
+      max-height: 85vh;
+      border-radius: 16px;
+      border: 1px solid #334155;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sb-header {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+    .sb-header h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sb-badge {
+      background: #0284c7;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .sb-close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .sb-close-btn:hover {
+      color: #f8fafc;
+      background: #334155;
+    }
+    .sb-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .sb-dropzone {
+      border: 2px dashed #0284c7;
+      border-radius: 12px;
+      padding: 32px 20px;
+      text-align: center;
+      background: rgba(2, 132, 199, 0.05);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sb-dropzone:hover, .sb-dropzone.dragover {
+      background: rgba(2, 132, 199, 0.15);
+      border-color: #38bdf8;
+    }
+    .sb-dropzone-icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+    .sb-dropzone-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+    }
+    .sb-dropzone-sub {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+    .sb-progress {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #0f172a;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      align-items: center;
+      gap: 10px;
+    }
+    .sb-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #0284c7;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: sb-spin 0.8s linear infinite;
+    }
+    @keyframes sb-spin {
+      to { transform: rotate(360deg); }
+    }
+    .sb-gallery-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin: 24px 0 12px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sb-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .sb-card {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .sb-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+    }
+    .sb-card-preview {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 1.5rem;
+    }
+    .sb-card-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .sb-card-name {
+      padding: 8px;
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
 </head>
 <body>
+  <!-- Modal DOM -->
+  <div id="sb-modal-backdrop">
+    <div id="sb-modal-container">
+      <div class="sb-header">
+        <h2>
+          <span>☁️ Supabase Storage</span>
+          <span class="sb-badge">portfolio-assets</span>
+        </h2>
+        <button class="sb-close-btn" id="sb-close-btn">&times;</button>
+      </div>
+      <div class="sb-body">
+        <div class="sb-dropzone" id="sb-dropzone">
+          <div class="sb-dropzone-icon">📤</div>
+          <div class="sb-dropzone-text">Click to choose a file or drag & drop here</div>
+          <div class="sb-dropzone-sub">Images, PDF documents, and media upload directly to Supabase Storage</div>
+          <input type="file" id="sb-file-input" style="display:none" />
+        </div>
+
+        <div class="sb-progress" id="sb-progress">
+          <div class="sb-spinner"></div>
+          <span id="sb-progress-text">Uploading to Supabase...</span>
+        </div>
+
+        <div class="sb-gallery-title">
+          <span>Recent Files in Bucket</span>
+          <span id="sb-count" style="font-weight: normal; font-size: 0.75rem;">Loading...</span>
+        </div>
+        <div class="sb-gallery-grid" id="sb-gallery"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Enable manual CMS initialization to register Supabase Media Library before boot
+    window.CMS_MANUAL_INIT = true;
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    // Supabase Configuration from portfolio_backend/.env
+    const SUPABASE_URL = "https://rhcaijeebyyftohqxhjw.supabase.co";
+    const SUPABASE_SERVICE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJoY2FpamVlYnl5ZnRvaHF4aGp3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzQyNzg3MSwiZXhwIjoyMTAzMDAzODcxfQ.rDl2qPwFxr1ML0YDemR78ZGWF4LQD6Pb0wyZuFYvYEA";
+    const SUPABASE_BUCKET = "portfolio-assets";
+
+    const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY) : null;
+
+    let handleInsertCallback = null;
+    let allowMultipleSelection = false;
+
+    const modalBackdrop = document.getElementById('sb-modal-backdrop');
+    const closeBtn = document.getElementById('sb-close-btn');
+    const dropzone = document.getElementById('sb-dropzone');
+    const fileInput = document.getElementById('sb-file-input');
+    const progressEl = document.getElementById('sb-progress');
+    const progressText = document.getElementById('sb-progress-text');
+    const galleryEl = document.getElementById('sb-gallery');
+    const countEl = document.getElementById('sb-count');
+
+    function openSupabaseModal(allowMultiple) {
+      allowMultipleSelection = !!allowMultiple;
+      modalBackdrop.style.display = 'flex';
+      loadRecentFiles();
+    }
+
+    function closeSupabaseModal() {
+      modalBackdrop.style.display = 'none';
+      progressEl.style.display = 'none';
+    }
+
+    closeBtn.addEventListener('click', closeSupabaseModal);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeSupabaseModal();
+    });
+
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleUpload(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        handleUpload(e.target.files[0]);
+      }
+    });
+
+    async function handleUpload(file) {
+      if (!sb) {
+        alert("Supabase client failed to load. Check your network connection.");
+        return;
+      }
+
+      progressEl.style.display = 'flex';
+      progressText.textContent = `Uploading "${file.name}" to Supabase Storage...`;
+
+      try {
+        const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const fileName = `${Date.now()}_${cleanName}`;
+
+        const { data, error } = await sb.storage
+          .from(SUPABASE_BUCKET)
+          .upload(fileName, file, {
+            contentType: file.type || 'application/octet-stream',
+            upsert: true
+          });
+
+        if (error) throw error;
+
+        const { data: pubData } = sb.storage.from(SUPABASE_BUCKET).getPublicUrl(fileName);
+        const publicUrl = pubData.publicUrl;
+
+        progressText.textContent = "Upload successful! Inserting into CMS...";
+        setTimeout(() => {
+          selectAsset(publicUrl);
+        }, 500);
+      } catch (err) {
+        console.error("Supabase upload error:", err);
+        alert("Upload to Supabase failed: " + (err.message || err));
+        progressEl.style.display = 'none';
+      }
+    }
+
+    function selectAsset(publicUrl) {
+      if (typeof handleInsertCallback === 'function') {
+        handleInsertCallback(allowMultipleSelection ? [publicUrl] : publicUrl);
+      }
+      closeSupabaseModal();
+    }
+
+    async function loadRecentFiles() {
+      if (!sb) return;
+      countEl.textContent = "Loading...";
+      galleryEl.innerHTML = "";
+
+      try {
+        const { data, error } = await sb.storage
+          .from(SUPABASE_BUCKET)
+          .list('', { limit: 50, sortBy: { column: 'created_at', order: 'desc' } });
+
+        if (error) throw error;
+
+        const files = (data || []).filter(item => item.name && item.name !== '.emptyFolderPlaceholder');
+        countEl.textContent = `${files.length} files`;
+
+        if (files.length === 0) {
+          galleryEl.innerHTML = '<div style="color:#64748b; font-size:0.8rem; grid-column: 1 / -1; padding:12px 0;">No files uploaded yet in portfolio-assets.</div>';
+          return;
+        }
+
+        files.forEach(file => {
+          const { data: pubData } = sb.storage.from(SUPABASE_BUCKET).getPublicUrl(file.name);
+          const url = pubData.publicUrl;
+          const isImg = /\.(png|jpe?g|gif|webp|svg)$/i.test(file.name);
+
+          const card = document.createElement('div');
+          card.className = 'sb-card';
+          card.title = `Click to insert: ${file.name}`;
+          card.innerHTML = `
+            <div class="sb-card-preview">
+              ${isImg ? `<img src="${url}" alt="${file.name}" loading="lazy" />` : '📄'}
+            </div>
+            <div class="sb-card-name">${file.name}</div>
+          `;
+          card.addEventListener('click', () => selectAsset(url));
+          galleryEl.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Failed to load bucket files:", err);
+        countEl.textContent = "Error loading";
+      }
+    }
+
+    // Register custom Supabase Media Library in Decap CMS
+    CMS.registerMediaLibrary({
+      name: 'supabase',
+      init: ({ options, handleInsert }) => {
+        handleInsertCallback = handleInsert;
+      },
+      show: (params = {}) => {
+        if (params.handleInsert) {
+          handleInsertCallback = params.handleInsert;
+        }
+        openSupabaseModal(params.allowMultiple);
+      },
+      enable: () => true
+    });
+
+    // Boot CMS
+    CMS.init();
+  </script>
 </body>
 </html>

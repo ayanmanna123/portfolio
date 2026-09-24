@@ -1,13 +1,13 @@
 {
-  "title": "I'm Ayan Manna",
-  "subtitle": "Full-Stack Engineer",
-  "description": "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises. this is for test",
-  "status": "Available Immediately",
-  "roles": "Full-Stack and Frontend roles",
-  "resumeUrl": "/resume.pdf",
-  "githubUsername": "ayanmanna123",
-  "leetcodeUsername": "ayanmanna123",
+  "resumeUrl": "/uploads/ayan-manna.pdf",
   "codeSnippets": "import { FullStackDeveloper } from 'ayanmanna.in';\n\nconst developer = new FullStackDeveloper({\n  name: 'Ayan Manna',\n  stack: ['React', 'Next.js', 'Node.js', 'TypeScript'],\n  focus: 'Building scalable web applications',\n  status: 'Open to new opportunities'\n});\n\nawait developer.launchPortfolio();\n// Featured: E-commerce, SaaS, Enterprise, Startup MVPs\n\ndeveloper.connect();\nconsole.log('🚀 Let\\'s build something exceptional together!');",
+  "leetcodeUsername": "ayanmanna123",
+  "status": "Available Immediately",
+  "subtitle": "Full-Stack Engineer",
+  "title": "I'm Ayan Manna",
+  "githubUsername": "ayanmanna123",
+  "description": "I build high-performance web applications that drive business growth. Specializing in React, Node.js, and scalable architecture for startups and enterprises. this is for test",
+  "roles": "Full-Stack and Frontend roles",
   "heroAchievements": [
     {
       "label": "Github Contributions",

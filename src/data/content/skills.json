@@ -300,6 +300,12 @@
       "level": 80,
       "category": "deeplearning",
       "icon": "https://i.imgur.com/8QqQ8qM.png"
+    },
+    {
+      "name": "NCP",
+      "level": 56,
+      "category": "deeplearning",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsu6bYNVeE6ZelaXwPS7iiC1vILQI-07TfKOIaPEEj-N_-NBZbxJ4aJ4Ph&s=10"
     }
   ]
 }

@@ -5,6 +5,92 @@ import { useRef, useState, useEffect } from "react";
 import { heroData, heroAchievements, projects } from "@/data";
 
 
+// Realistic JS Syntax Highlighter for Code Snippet Card
+const highlightJsCode = (codeText) => {
+  if (!codeText) return null;
+
+  if (codeText.trim().startsWith("//")) {
+    return <span className="text-slate-400/80 italic font-mono whitespace-pre">{codeText}</span>;
+  }
+
+  const tokenRegex = /('(?:\\[\s\S]|[^'\\])*'?|"(?:\\[\s\S]|[^"\\])*"?|`(?:\\[\s\S]|[^`\\])*`?|\/\/.*|\b(?:import|from|const|new|await|function|return|export|default|class|if|else)\b|\b(?:console)\b|\b[A-Za-z_$][A-Za-z0-9_$]*(?=\s*:)|[A-Za-z_$][A-Za-z0-9_$]*|[0-9]+|[{}(),;:[\]=.]|\s+|.+?)/g;
+
+  const tokens = [];
+  let match;
+  let keyIndex = 0;
+
+  while ((match = tokenRegex.exec(codeText)) !== null) {
+    const token = match[0];
+    const rest = codeText.slice(tokenRegex.lastIndex);
+
+    if (token.startsWith("'") || token.startsWith('"') || token.startsWith("`")) {
+      tokens.push(
+        <span key={keyIndex++} className="text-amber-300 whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (token.startsWith("//")) {
+      tokens.push(
+        <span key={keyIndex++} className="text-slate-400/80 italic whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (["import", "from", "const", "new", "await", "function", "return", "export", "default", "class", "if", "else"].includes(token)) {
+      tokens.push(
+        <span key={keyIndex++} className="text-purple-400 font-semibold whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (token === "console") {
+      tokens.push(
+        <span key={keyIndex++} className="text-cyan-400 font-medium whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(token) && rest.trimStart().startsWith("(")) {
+      tokens.push(
+        <span key={keyIndex++} className="text-yellow-300 font-medium whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(token) && rest.trimStart().startsWith(":")) {
+      tokens.push(
+        <span key={keyIndex++} className="text-sky-300 whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (/^[A-Z][A-Za-z0-9_$]*$/.test(token)) {
+      tokens.push(
+        <span key={keyIndex++} className="text-emerald-400 font-semibold whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (/^[a-z_$][A-Za-z0-9_$]*$/.test(token)) {
+      tokens.push(
+        <span key={keyIndex++} className="text-blue-300 whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (/^\d+$/.test(token)) {
+      tokens.push(
+        <span key={keyIndex++} className="text-cyan-300 whitespace-pre">
+          {token}
+        </span>
+      );
+    } else if (/^[{}(),;:[\]=.]+$/.test(token)) {
+      tokens.push(
+        <span key={keyIndex++} className="text-slate-300 font-mono whitespace-pre">
+          {token}
+        </span>
+      );
+    } else {
+      tokens.push(<span key={keyIndex++} className="whitespace-pre">{token}</span>);
+    }
+  }
+
+  return tokens;
+};
+
 export const HeroSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -186,9 +272,14 @@ export const HeroSection = () => {
           </div>
 
           <motion.div className="flex-1 flex justify-center lg:justify-end w-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
-            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-[440px]">
-              <motion.div className="bg-background/90 border border-border rounded-2xl p-6 sm:p-7 backdrop-blur-sm shadow-2xl w-full group hover:shadow-3xl transition-all duration-500" whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
-
+            <div className="relative w-full max-w-md sm:max-w-xl lg:max-w-[510px]">
+              {/* Code Snippet Card Window */}
+              <motion.div
+                className="bg-[#0b0f19]/90 border border-slate-800 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl w-full group hover:shadow-3xl transition-all duration-300"
+                whileHover={{ y: -4 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                {/* Window Header */}
                 <div className="flex items-center gap-4 mb-5">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
@@ -196,46 +287,39 @@ export const HeroSection = () => {
                     <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
                   </div>
                   <div className="flex-1 text-center">
-                    <div className="text-sm font-mono font-semibold text-muted-foreground">portfolio.js</div>
+                    <div className="text-sm font-mono font-semibold text-slate-300">portfolio.js</div>
                   </div>
                   <div className="w-4 h-4 bg-green-400/20 rounded-full animate-pulse"></div>
                 </div>
 
-                <div className="font-mono text-xs sm:text-sm bg-primary/5 rounded-lg border border-primary/10 min-h-[280px] flex">
+                {/* Code Container */}
+                <div className="font-mono text-xs sm:text-sm bg-[#050811] rounded-lg border border-slate-800/80 min-h-[300px] flex shadow-inner overflow-x-auto">
                   <div className="p-4 sm:p-5 w-full">
-                    <div className="grid grid-cols-1 gap-1 h-full content-start">
+                    <div className="grid grid-cols-1 gap-1.5 h-full content-start">
                       {heroData.codeSnippets.map((line, index) => (
                         <div
                           key={index}
                           className={`
-                            min-h-[20px] flex items-start
+                            min-h-[22px] py-0.5 whitespace-pre font-mono leading-relaxed flex items-center flex-wrap
                             ${index < currentCodeLine ? 'opacity-100' : 'opacity-0'}
                             ${index === currentCodeLine ? 'opacity-100' : ''}
                             transition-opacity duration-150 ease-in-out
-                            ${line.includes("import") ? "text-purple-400 font-semibold" :
-                              line.includes("const") || line.includes("new") ? "text-blue-400 font-semibold" :
-                                line.includes("React") || line.includes("Node.js") || line.includes("TypeScript") ? "text-cyan-400" :
-                                  line.includes("FullStackDeveloper") ? "text-emerald-400 font-semibold" :
-                                    line.includes("//") ? "text-muted-foreground italic" :
-                                      line.includes("await") || line.includes("connect") ? "text-yellow-400" :
-                                        line.includes("'") ? "text-amber-400" :
-                                          "text-foreground"}
                           `}
                         >
-                          {index < currentCodeLine ? line : ''}
+                          {index < currentCodeLine ? highlightJsCode(line) : ''}
                           {index === currentCodeLine ? (
                             <>
-                              {displayedCode}
+                              {highlightJsCode(displayedCode)}
                               <motion.span
                                 animate={{ opacity: [1, 0, 1] }}
                                 transition={{ duration: 0.8, repeat: Infinity }}
-                                className="ml-1 text-primary inline-block"
+                                className="ml-0.5 text-amber-400 inline-block font-bold"
                               >
                                 ▊
                               </motion.span>
                             </>
                           ) : ''}
-                          {line === '' && '‎'}
+                          {line === '' && <span className="inline-block min-h-[22px]">&nbsp;</span>}
                         </div>
                       ))}
                     </div>

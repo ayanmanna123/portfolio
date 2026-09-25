@@ -11,6 +11,7 @@ const SkillsSection = React.lazy(() => import("../components/SkillsSection").the
 const ProjectsSection = React.lazy(() => import("../components/ProjectsSection").then(module => ({ default: module.ProjectsSection })));
 const CertificatesSection = React.lazy(() => import("../components/CertificatesSection").then(module => ({ default: module.CertificatesSection })));
 const GithubStatsSection = React.lazy(() => import("../components/GithubStatsSection"));
+const GithubStarredSection = React.lazy(() => import("../components/GithubStarredSection"));
 const ContactSection = React.lazy(() => import("../components/ContactSection").then(module => ({ default: module.ContactSection })));
 const Footer = React.lazy(() => import("../components/Footer").then(module => ({ default: module.Footer })));
 const TestimonialSection = React.lazy(() => import("../components/Testimonial").then(module => ({ default: module.TestimonialSection })));
@@ -50,6 +51,7 @@ export const Home = () => {
           <ProjectsSection />
           <CertificatesSection />
           <GithubStatsSection />
+          <GithubStarredSection />
           <LeetCodeStatsSection />
           <TestimonialSection />
           <ContactSection />

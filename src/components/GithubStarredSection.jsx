@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, GitFork, ExternalLink, ChevronDown, ChevronUp, Github, Sparkles, Code2, Eye } from "lucide-react";
+import {
+  Star,
+  GitFork,
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Github,
+  Sparkles,
+  ArrowRight,
+  ArrowLeft,
+  ArrowDown,
+  Clock,
+  Calendar
+} from "lucide-react";
 import { githubUsername } from "@/data";
 
-// Fallback starred repos in case of API rate limits or network issues
+// Fallback starred repos in case of API rate limits or network issues (ordered newest first)
 const fallbackStarredRepos = [
   {
     id: 101,
@@ -18,6 +31,7 @@ const fallbackStarredRepos = [
     stargazers_count: 226000,
     forks_count: 45000,
     language: "JavaScript",
+    created_at: "2026-09-01T00:00:00Z",
     topics: ["react", "frontend", "ui", "javascript"]
   },
   {
@@ -33,6 +47,7 @@ const fallbackStarredRepos = [
     stargazers_count: 124000,
     forks_count: 26000,
     language: "JavaScript",
+    created_at: "2026-08-15T00:00:00Z",
     topics: ["nextjs", "react", "framework", "ssr"]
   },
   {
@@ -48,6 +63,7 @@ const fallbackStarredRepos = [
     stargazers_count: 81000,
     forks_count: 4300,
     language: "TypeScript",
+    created_at: "2026-07-20T00:00:00Z",
     topics: ["css", "tailwindcss", "styling", "ui"]
   },
   {
@@ -63,6 +79,7 @@ const fallbackStarredRepos = [
     stargazers_count: 68000,
     forks_count: 5800,
     language: "TypeScript",
+    created_at: "2026-06-10T00:00:00Z",
     topics: ["vite", "build-tool", "frontend", "bundler"]
   },
   {
@@ -78,6 +95,7 @@ const fallbackStarredRepos = [
     stargazers_count: 24000,
     forks_count: 900,
     language: "TypeScript",
+    created_at: "2026-05-01T00:00:00Z",
     topics: ["react", "animation", "framer-motion", "ui"]
   },
   {
@@ -93,6 +111,7 @@ const fallbackStarredRepos = [
     stargazers_count: 14500,
     forks_count: 600,
     language: "TypeScript",
+    created_at: "2026-04-12T00:00:00Z",
     topics: ["icons", "svg", "ui-components", "react"]
   }
 ];
@@ -119,16 +138,22 @@ export const GithubStarredSection = () => {
     const fetchStarredRepos = async () => {
       try {
         const user = githubUsername || "ayanmanna123";
-        // Fetch starred repositories for the user
-        const res = await fetch(`https://api.github.com/users/${user}/starred?per_page=100`);
+        // Fetch starred repositories sorted by created/starred date descending so newest is first
+        const res = await fetch(`https://api.github.com/users/${user}/starred?per_page=100&sort=created&direction=desc`);
         
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
-            setStarredRepos(data);
+            // Ensure data is sorted newest first by starred/created date
+            const sorted = [...data].sort((a, b) => {
+              const dA = new Date(a.starred_at || a.created_at || a.pushed_at || 0).getTime();
+              const dB = new Date(b.starred_at || b.created_at || b.pushed_at || 0).getTime();
+              return dB - dA;
+            });
+            setStarredRepos(sorted);
           } else {
-            // Fallback: If no starred repos or rate-limited, try user's own repos sorted by stars
-            const fallbackRes = await fetch(`https://api.github.com/users/${user}/repos?sort=stars&per_page=100`);
+            // Fallback: fetch user's repos sorted by pushed date
+            const fallbackRes = await fetch(`https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=100`);
             if (fallbackRes.ok) {
               const fallbackData = await fallbackRes.json();
               if (Array.isArray(fallbackData) && fallbackData.length > 0) {
@@ -156,12 +181,25 @@ export const GithubStarredSection = () => {
 
   const displayedRepos = showAll ? starredRepos : starredRepos.slice(0, 3);
 
+  // Group displayed repositories into chunks of 3 for serpentine row layout
+  const chunkedRows = [];
+  for (let i = 0; i < displayedRepos.length; i += 3) {
+    chunkedRows.push(displayedRepos.slice(i, i + 3));
+  }
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return null;
+    return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  };
+
   return (
-    <section id="github-starred" className="relative py-20 md:py-32 overflow-hidden bg-background/50 z-10">
+    <section id="github-starred" className="relative py-20 md:py-32 pb-44 md:pb-52 overflow-hidden bg-background/50 z-10">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[30%] left-[5%] w-80 h-80 bg-amber-500/5 rounded-full blur-3xl opacity-60" />
-        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 bg-purple-500/5 rounded-full blur-3xl opacity-60" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
@@ -180,21 +218,21 @@ export const GithubStarredSection = () => {
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
-            GitHub Starred Repositories
+            <Clock className="h-4 w-4 text-amber-500" />
+            GitHub Starred Timeline
           </motion.div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-primary to-purple-500">
-            Starred & Inspired Projects
+            Timeline of Starred Projects
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-            A curated collection of awesome repositories and open-source projects that I follow, star, and draw inspiration from.
+            A chronological serpentine timeline of repositories I've starred, starting with the newest additions.
           </p>
         </motion.div>
 
-        {/* Repositories Grid */}
+        {/* Repositories Timeline Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[1, 2, 3].map((n) => (
               <div
                 key={n}
@@ -210,100 +248,200 @@ export const GithubStarredSection = () => {
             ))}
           </div>
         ) : (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            layout
-          >
+          <div className="space-y-20 relative">
             <AnimatePresence>
-              {displayedRepos.map((repo, index) => {
-                const langColorClass =
-                  languageColors[repo.language] || languageColors.Default;
+              {chunkedRows.map((rowRepos, rowIndex) => {
+                const isEvenRow = rowIndex % 2 === 0;
+                const hasNextRow = rowIndex < chunkedRows.length - 1;
+                const placeholdersNeeded = 3 - rowRepos.length;
 
                 return (
-                  <motion.div
-                    key={repo.id || repo.name}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="group relative bg-card/50 hover:bg-card/80 backdrop-blur-md border border-border/50 hover:border-amber-500/40 rounded-2xl p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:shadow-amber-500/5 transition-all duration-300 hover:-translate-y-1"
+                  <div
+                    key={rowIndex}
+                    className={`relative flex flex-col ${
+                      isEvenRow ? "md:flex-row" : "md:flex-row-reverse"
+                    } gap-8 items-stretch`}
                   >
-                    {/* Top Info */}
-                    <div>
-                      {/* Owner & Stars */}
-                      <div className="flex items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-2 overflow-hidden">
-                          {repo.owner?.avatar_url ? (
-                            <img
-                              src={repo.owner.avatar_url}
-                              alt={repo.owner.login}
-                              className="w-7 h-7 rounded-full border border-border/60"
-                            />
-                          ) : (
-                            <div className="p-1.5 bg-primary/10 rounded-lg text-primary">
-                              <Github className="w-4 h-4" />
+                    {rowRepos.map((repo, itemIndex) => {
+                      const globalIndex = rowIndex * 3 + itemIndex;
+                      const hasNextInRow = itemIndex < rowRepos.length - 1;
+                      const isEndOfRowOfThree = itemIndex === 2;
+                      const langColorClass =
+                        languageColors[repo.language] || languageColors.Default;
+                      const dateText = formatDate(repo.starred_at || repo.created_at || repo.pushed_at);
+
+                      return (
+                        <motion.div
+                          key={repo.id || repo.name}
+                          className="relative flex-1 w-full min-w-0"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          transition={{ duration: 0.4, delay: globalIndex * 0.05 }}
+                        >
+                          {/* Card Content */}
+                          <div className="group relative h-full bg-card/60 hover:bg-card/95 backdrop-blur-md border border-border/60 hover:border-amber-500/40 rounded-2xl p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 hover:-translate-y-1">
+                            {/* Top Info */}
+                            <div>
+                              {/* Timeline Badge & Owner */}
+                              <div className="flex items-center justify-between gap-3 mb-4">
+                                <div className="flex items-center gap-2 overflow-hidden">
+                                  {globalIndex === 0 ? (
+                                    <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md flex items-center gap-1 shrink-0">
+                                      <Sparkles className="w-3 h-3" /> #1 NEWEST
+                                    </span>
+                                  ) : (
+                                    <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+                                      #{globalIndex + 1}
+                                    </span>
+                                  )}
+
+                                  {dateText && (
+                                    <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1 shrink-0">
+                                      <Calendar className="w-3 h-3" /> {dateText}
+                                    </span>
+                                  )}
+                                </div>
+
+                                <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 text-amber-500 px-2.5 py-1 rounded-full text-xs font-semibold shrink-0">
+                                  <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                                  <span>{repo.stargazers_count?.toLocaleString()}</span>
+                                </div>
+                              </div>
+
+                              {/* Owner avatar & login */}
+                              <div className="flex items-center gap-2 mb-3">
+                                {repo.owner?.avatar_url ? (
+                                  <img
+                                    src={repo.owner.avatar_url}
+                                    alt={repo.owner.login}
+                                    className="w-6 h-6 rounded-full border border-border/60"
+                                  />
+                                ) : (
+                                  <div className="p-1 bg-primary/10 rounded-lg text-primary">
+                                    <Github className="w-3.5 h-3.5" />
+                                  </div>
+                                )}
+                                <span className="text-xs font-mono text-muted-foreground truncate">
+                                  {repo.owner?.login || repo.full_name?.split('/')[0] || "github"}
+                                </span>
+                              </div>
+
+                              {/* Title */}
+                              <h3 className="text-xl font-bold mb-2 group-hover:text-amber-400 transition-colors line-clamp-1">
+                                {repo.name}
+                              </h3>
+
+                              {/* Description */}
+                              <p className="text-muted-foreground text-sm line-clamp-3 mb-4 min-h-[60px]">
+                                {repo.description || "No description provided for this repository."}
+                              </p>
+                            </div>
+
+                            {/* Bottom Metadata & Link */}
+                            <div className="pt-4 border-t border-border/40 flex items-center justify-between gap-2 mt-2">
+                              <div className="flex items-center gap-3 overflow-hidden">
+                                {repo.language && (
+                                  <span className={`text-xs font-medium px-2.5 py-1 rounded-md border ${langColorClass}`}>
+                                    {repo.language}
+                                  </span>
+                                )}
+                                {repo.forks_count !== undefined && (
+                                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                    <GitFork className="w-3.5 h-3.5" />
+                                    <span>{repo.forks_count}</span>
+                                  </div>
+                                )}
+                              </div>
+
+                              <a
+                                href={repo.html_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-amber-400 transition-colors py-1 px-2 rounded-lg hover:bg-amber-500/10"
+                                title="View on GitHub"
+                              >
+                                View Repo <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                            </div>
+                          </div>
+
+                          {/* Desktop Horizontal Arrow within Row */}
+                          {hasNextInRow && (
+                            isEvenRow ? (
+                              <div className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-20 items-center pointer-events-none">
+                                <div className="w-4 h-0.5 bg-gradient-to-r from-amber-500 to-amber-400" />
+                                <ArrowRight className="w-5 h-5 text-amber-400 animate-pulse -ml-1" />
+                              </div>
+                            ) : (
+                              <div className="hidden md:flex absolute top-1/2 -left-6 -translate-y-1/2 z-20 items-center pointer-events-none">
+                                <ArrowLeft className="w-5 h-5 text-amber-400 animate-pulse -mr-1" />
+                                <div className="w-4 h-0.5 bg-gradient-to-r from-amber-400 to-amber-500" />
+                              </div>
+                            )
+                          )}
+
+                          {/* Desktop U-Turn Curve at End of Row */}
+                          {isEndOfRowOfThree && hasNextRow && (
+                            isEvenRow ? (
+                              // Right U-Turn Curve (loops around right side down into Row 1 rightmost card)
+                              <div className="hidden md:flex absolute -bottom-16 left-1/2 -translate-x-1/2 z-20 flex-col items-center pointer-events-none">
+                                <svg width="56" height="64" viewBox="0 0 56 64" fill="none" className="text-amber-400">
+                                  <path
+                                    d="M 28 2 C 54 2, 54 58, 28 58"
+                                    stroke="currentColor"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeDasharray="5 3"
+                                    fill="none"
+                                  />
+                                  <polygon points="32,52 20,58 32,64" fill="currentColor" />
+                                </svg>
+                              </div>
+                            ) : (
+                              // Left U-Turn Curve (loops around left side down into Row 2 leftmost card)
+                              <div className="hidden md:flex absolute -bottom-16 left-1/2 -translate-x-1/2 z-20 flex-col items-center pointer-events-none">
+                                <svg width="56" height="64" viewBox="0 0 56 64" fill="none" className="text-amber-400">
+                                  <path
+                                    d="M 28 2 C 2 2, 2 58, 28 58"
+                                    stroke="currentColor"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeDasharray="5 3"
+                                    fill="none"
+                                  />
+                                  <polygon points="24,52 36,58 24,64" fill="currentColor" />
+                                </svg>
+                              </div>
+                            )
+                          )}
+
+                          {/* Mobile Downward Arrow */}
+                          {globalIndex < displayedRepos.length - 1 && (
+                            <div className="flex md:hidden justify-center my-3 text-amber-400">
+                              <ArrowDown className="w-5 h-5 text-amber-400 animate-bounce" />
                             </div>
                           )}
-                          <span className="text-xs font-mono text-muted-foreground truncate">
-                            {repo.owner?.login || repo.full_name?.split('/')[0] || "github"}
-                          </span>
-                        </div>
+                        </motion.div>
+                      );
+                    })}
 
-                        <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 text-amber-500 px-2.5 py-1 rounded-full text-xs font-semibold shrink-0">
-                          <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                          <span>{repo.stargazers_count?.toLocaleString()}</span>
-                        </div>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-amber-400 transition-colors line-clamp-1">
-                        {repo.name}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-muted-foreground text-sm line-clamp-3 mb-4 min-h-[60px]">
-                        {repo.description || "No description provided for this repository."}
-                      </p>
-                    </div>
-
-                    {/* Bottom Metadata & Link */}
-                    <div className="pt-4 border-t border-border/40 flex items-center justify-between gap-2 mt-2">
-                      <div className="flex items-center gap-3 overflow-hidden">
-                        {repo.language && (
-                          <span className={`text-xs font-medium px-2.5 py-1 rounded-md border ${langColorClass}`}>
-                            {repo.language}
-                          </span>
-                        )}
-                        {repo.forks_count !== undefined && (
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <GitFork className="w-3.5 h-3.5" />
-                            <span>{repo.forks_count}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <a
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-amber-400 transition-colors py-1 px-2 rounded-lg hover:bg-amber-500/10"
-                        title="View on GitHub"
-                      >
-                        View Repo <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    </div>
-                  </motion.div>
+                    {/* Placeholders for rows with fewer than 3 items to preserve 3-column spacing */}
+                    {placeholdersNeeded > 0 &&
+                      [...Array(placeholdersNeeded)].map((_, pIdx) => (
+                        <div key={`placeholder-${pIdx}`} className="hidden md:block flex-1 min-w-0" />
+                      ))}
+                  </div>
                 );
               })}
             </AnimatePresence>
-          </motion.div>
+          </div>
         )}
 
         {/* View More / Show Less Button */}
         {!loading && starredRepos.length > 3 && (
           <motion.div
-            className="text-center mt-12"
+            className="text-center mt-20"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}

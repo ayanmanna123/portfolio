@@ -1,6 +1,6 @@
 {
   "resumeUrl": "/uploads/ayan-manna.pdf",
-  "codeSnippets": "import { FullStackDeveloper } from 'ayanmanna.in';\n\nconst developer = new FullStackDeveloper({\n  name: 'Ayan Manna',\n  stack: ['React', 'Next.js', 'Node.js', 'TypeScript'],\n  focus: 'Building scalable web applications',\n  status: 'Open to new opportunities'\n});\n\nawait developer.launchPortfolio();\n// Featured: E-commerce, SaaS, Enterprise, Startup MVPs\n\ndeveloper.connect();\nconsole.log('🚀 Let\\'s build something exceptional together!');",
+  "codeSnippets": "import { FullStackDeveloper } from 'ayanmanna.in';\nconst developer = new FullStackDeveloper({\n  name: 'Ayan Manna',\n  stack: ['React', 'Next.js', 'Node.js', 'TypeScript'],\n  focus: 'Building scalable web applications',\n  status: 'Open to new opportunities'\n});\nawait developer.launchPortfolio();\n// Featured: E-commerce, SaaS, Enterprise, Startup MVPs\ndeveloper.connect();\nconsole.log('🚀 Let\\'s build something exceptional together!');",
   "leetcodeUsername": "ayanmanna123",
   "status": "Available Immediately",
   "subtitle": "Full-Stack Engineer",

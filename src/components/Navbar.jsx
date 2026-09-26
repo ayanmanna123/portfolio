@@ -59,10 +59,11 @@ export const Navbar = () => {
     setMounted(true);
   }, []);
 
-  const isDark = mounted ? (resolvedTheme === "dark") : false;
+  const isDark = mounted ? ((resolvedTheme || theme) === "dark") : false;
 
   const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark");
+    const current = resolvedTheme || theme;
+    setTheme(current === "dark" ? "light" : "dark");
   };
 
   // Audio Logic
@@ -194,7 +195,7 @@ export const Navbar = () => {
       className: activeSection === item.href ? "text-primary" : "text-gray-500",
     })),
     {
-      icon: isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />,
+      icon: isDark ? <Sun className="w-5 h-5 pointer-events-none" /> : <Moon className="w-5 h-5 pointer-events-none" />,
       label: isDark ? "Light Mode" : "Dark Mode",
       onClick: toggleTheme,
     },
@@ -209,8 +210,26 @@ export const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        {/* Website Globe Button */}
-
+        {/* Theme Toggle Button */}
+        <motion.button
+          onClick={toggleTheme}
+          className={cn(
+            "p-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-md",
+            "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50",
+            "border border-gray-200 dark:border-gray-700 shadow-sm",
+            "flex items-center justify-center cursor-pointer"
+          )}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          {isDark ? (
+            <Sun className="w-5 h-5 text-amber-500 pointer-events-none" />
+          ) : (
+            <Moon className="w-5 h-5 text-slate-700 pointer-events-none" />
+          )}
+        </motion.button>
 
         {/* GitHub Button */}
         <motion.a

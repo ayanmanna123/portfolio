@@ -47,6 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
 }
 
 .dock-label {
@@ -62,4 +63,5 @@
     font-size: 0.75rem;
     color: var(--dock-text);
     transform: translateX(-50%);
+    pointer-events: none;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -8,6 +8,14 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
   const [exitAnimation, setExitAnimation] = useState(false);
   const [typedText, setTypedText] = useState("");
   const { theme } = useTheme();
+
+  const typingIntervalRef = useRef(null);
+  const typingStartedRef = useRef(false);
+  const onCompleteRef = useRef(onWelcomeComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onWelcomeComplete;
+  }, [onWelcomeComplete]);
 
   // Theme-based colors
   const colors = {
@@ -32,17 +40,22 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
   const welcomeMessages = [
     "Crafting digital experiences",
     "Software Engineer",
-    "Full-stack development"
+    "Full-stack development",
+    "Welcome to my portfolio"
   ];
 
   useEffect(() => {
     const phase1 = setTimeout(() => setPhase(1), 800);
     const phase2 = setTimeout(() => setPhase(2), 1600);
-    const phase3 = setTimeout(() => setPhase(3), 2400);
+    const phase3 = setTimeout(() => setPhase(3), 2800);
     const complete = setTimeout(() => {
       setExitAnimation(true);
-      setTimeout(onWelcomeComplete, 1000);
-    }, 5000);
+      setTimeout(() => {
+        if (onCompleteRef.current) {
+          onCompleteRef.current();
+        }
+      }, 1000);
+    }, 4800);
 
     return () => {
       clearTimeout(phase1);
@@ -50,23 +63,31 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
       clearTimeout(phase3);
       clearTimeout(complete);
     };
-  }, [onWelcomeComplete]);
+  }, []);
 
   useEffect(() => {
-    if (phase >= 2) {
+    if (phase >= 2 && !typingStartedRef.current) {
+      typingStartedRef.current = true;
       let i = 0;
-      const typingInterval = setInterval(() => {
+      typingIntervalRef.current = setInterval(() => {
+        i++;
         if (i <= portfolioUrl.length) {
           setTypedText(portfolioUrl.substring(0, i));
-          i++;
         } else {
-          clearInterval(typingInterval);
+          clearInterval(typingIntervalRef.current);
+          typingIntervalRef.current = null;
         }
       }, 40);
-
-      return () => clearInterval(typingInterval);
     }
   }, [phase]);
+
+  useEffect(() => {
+    return () => {
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current);
+      }
+    };
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -183,7 +204,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
                   animate={{ scale: 1, opacity: 1 }}
                 >
                   <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
-                  {welcomeMessages[phase % welcomeMessages.length]}
+                  {welcomeMessages[Math.min(phase, welcomeMessages.length - 1)]}
                 </motion.div>
               </motion.div>
             )}
@@ -235,7 +256,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
                   style={{ color: currentColors.muted }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.5 }}
+                  transition={{ delay: 0.8 }}
                 >
                   (This is my portfolio website)
                 </motion.p>

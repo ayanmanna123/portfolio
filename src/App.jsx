@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
@@ -12,6 +12,10 @@ import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [welcomeComplete, setWelcomeComplete] = useState(false);
+
+  const handleWelcomeComplete = useCallback(() => {
+    setWelcomeComplete(true);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined" && (window.location.pathname === "/admin" || window.location.pathname === "/admin/")) {
@@ -33,7 +37,7 @@ function App() {
       </Helmet>
       <Toaster />
       {!welcomeComplete ? (
-        <WelcomeScreen onWelcomeComplete={() => setWelcomeComplete(true)} />
+        <WelcomeScreen onWelcomeComplete={handleWelcomeComplete} />
       ) : (
         <BrowserRouter>
           <Routes>

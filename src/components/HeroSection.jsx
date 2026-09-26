@@ -10,7 +10,7 @@ const highlightJsCode = (codeText) => {
   if (!codeText) return null;
 
   if (codeText.trim().startsWith("//")) {
-    return <span className="text-slate-400/80 italic font-mono whitespace-pre">{codeText}</span>;
+    return <span className="text-slate-500 dark:text-slate-400/80 italic font-mono whitespace-pre">{codeText}</span>;
   }
 
   const tokenRegex = /('(?:\\[\s\S]|[^'\\])*'?|"(?:\\[\s\S]|[^"\\])*"?|`(?:\\[\s\S]|[^`\\])*`?|\/\/.*|\b(?:import|from|const|new|await|function|return|export|default|class|if|else)\b|\b(?:console)\b|\b[A-Za-z_$][A-Za-z0-9_$]*(?=\s*:)|[A-Za-z_$][A-Za-z0-9_$]*|[0-9]+|[{}(),;:[\]=.]|\s+|.+?)/g;
@@ -25,66 +25,66 @@ const highlightJsCode = (codeText) => {
 
     if (token.startsWith("'") || token.startsWith('"') || token.startsWith("`")) {
       tokens.push(
-        <span key={keyIndex++} className="text-amber-300 whitespace-pre">
+        <span key={keyIndex++} className="text-amber-600 dark:text-amber-300 whitespace-pre">
           {token}
         </span>
       );
     } else if (token.startsWith("//")) {
       tokens.push(
-        <span key={keyIndex++} className="text-slate-400/80 italic whitespace-pre">
+        <span key={keyIndex++} className="text-slate-500 dark:text-slate-400/80 italic whitespace-pre">
           {token}
         </span>
       );
     } else if (["import", "from", "const", "new", "await", "function", "return", "export", "default", "class", "if", "else"].includes(token)) {
       tokens.push(
-        <span key={keyIndex++} className="text-purple-400 font-semibold whitespace-pre">
+        <span key={keyIndex++} className="text-purple-600 dark:text-purple-400 font-semibold whitespace-pre">
           {token}
         </span>
       );
     } else if (token === "console") {
       tokens.push(
-        <span key={keyIndex++} className="text-cyan-400 font-medium whitespace-pre">
+        <span key={keyIndex++} className="text-cyan-600 dark:text-cyan-400 font-medium whitespace-pre">
           {token}
         </span>
       );
     } else if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(token) && rest.trimStart().startsWith("(")) {
       tokens.push(
-        <span key={keyIndex++} className="text-yellow-300 font-medium whitespace-pre">
+        <span key={keyIndex++} className="text-amber-600 dark:text-yellow-300 font-medium whitespace-pre">
           {token}
         </span>
       );
     } else if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(token) && rest.trimStart().startsWith(":")) {
       tokens.push(
-        <span key={keyIndex++} className="text-sky-300 whitespace-pre">
+        <span key={keyIndex++} className="text-sky-600 dark:text-sky-300 whitespace-pre">
           {token}
         </span>
       );
     } else if (/^[A-Z][A-Za-z0-9_$]*$/.test(token)) {
       tokens.push(
-        <span key={keyIndex++} className="text-emerald-400 font-semibold whitespace-pre">
+        <span key={keyIndex++} className="text-emerald-600 dark:text-emerald-400 font-semibold whitespace-pre">
           {token}
         </span>
       );
     } else if (/^[a-z_$][A-Za-z0-9_$]*$/.test(token)) {
       tokens.push(
-        <span key={keyIndex++} className="text-blue-300 whitespace-pre">
+        <span key={keyIndex++} className="text-blue-600 dark:text-blue-300 whitespace-pre">
           {token}
         </span>
       );
     } else if (/^\d+$/.test(token)) {
       tokens.push(
-        <span key={keyIndex++} className="text-cyan-300 whitespace-pre">
+        <span key={keyIndex++} className="text-teal-600 dark:text-cyan-300 whitespace-pre">
           {token}
         </span>
       );
     } else if (/^[{}(),;:[\]=.]+$/.test(token)) {
       tokens.push(
-        <span key={keyIndex++} className="text-slate-300 font-mono whitespace-pre">
+        <span key={keyIndex++} className="text-slate-700 dark:text-slate-300 font-mono whitespace-pre">
           {token}
         </span>
       );
     } else {
-      tokens.push(<span key={keyIndex++} className="whitespace-pre">{token}</span>);
+      tokens.push(<span key={keyIndex++} className="text-foreground dark:text-slate-200 whitespace-pre">{token}</span>);
     }
   }
 
@@ -275,7 +275,7 @@ export const HeroSection = () => {
             <div className="relative w-full max-w-md sm:max-w-xl lg:max-w-[510px]">
               {/* Code Snippet Card Window */}
               <motion.div
-                className="bg-[#0b0f19]/90 border border-slate-800 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl w-full group hover:shadow-3xl transition-all duration-300"
+                className="bg-card/95 dark:bg-[#0b0f19]/90 border border-border dark:border-slate-800 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl w-full group hover:shadow-3xl transition-all duration-300"
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
@@ -287,13 +287,13 @@ export const HeroSection = () => {
                     <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
                   </div>
                   <div className="flex-1 text-center">
-                    <div className="text-sm font-mono font-semibold text-slate-300">portfolio.js</div>
+                    <div className="text-sm font-mono font-semibold text-foreground/80 dark:text-slate-300">portfolio.js</div>
                   </div>
-                  <div className="w-4 h-4 bg-green-400/20 rounded-full animate-pulse"></div>
+                  <div className="w-4 h-4 bg-green-500/20 dark:bg-green-400/20 rounded-full animate-pulse"></div>
                 </div>
 
                 {/* Code Container */}
-                <div className="font-mono text-xs sm:text-sm bg-[#050811] rounded-lg border border-slate-800/80 min-h-[300px] flex shadow-inner overflow-x-auto">
+                <div className="font-mono text-xs sm:text-sm bg-muted/50 dark:bg-[#050811] rounded-lg border border-border/80 dark:border-slate-800/80 min-h-[300px] flex shadow-inner overflow-x-auto">
                   <div className="p-4 sm:p-5 w-full">
                     <div className="grid grid-cols-1 gap-1.5 h-full content-start">
                       {heroData.codeSnippets.map((line, index) => (
@@ -313,7 +313,7 @@ export const HeroSection = () => {
                               <motion.span
                                 animate={{ opacity: [1, 0, 1] }}
                                 transition={{ duration: 0.8, repeat: Infinity }}
-                                className="ml-0.5 text-amber-400 inline-block font-bold"
+                                className="ml-0.5 text-primary dark:text-amber-400 inline-block font-bold"
                               >
                                 ▊
                               </motion.span>

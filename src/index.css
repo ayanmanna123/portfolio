@@ -1,8 +1,11 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --font-sans: 'JetBrains Mono', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -134,15 +137,22 @@
 
   * {
     @apply border-border;
+    font-family: 'JetBrains Mono', monospace;
   }
 
   html {
     @apply scroll-smooth;
+    font-family: 'JetBrains Mono', monospace;
   }
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
+    font-family: 'JetBrains Mono', monospace;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  input, textarea, button, select {
+    font-family: 'JetBrains Mono', monospace;
   }
 }
 

@@ -5,21 +5,21 @@ import { Link } from "react-router-dom";
 
 export const NotFound = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/10 flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-[#29bc88]/10 flex items-center justify-center px-4 relative overflow-hidden">
       <Helmet>
         <title>404 - Page Not Found | Ayan Manna</title>
         <meta name="description" content="The page you are looking for does not exist." />
       </Helmet>
       {/* Animated Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
+        <div className="absolute inset-0 opacity-25">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(41,188,136,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(41,188,136,0.08)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
         </div>
 
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-lg"
+            className="absolute bg-gradient-to-r from-[#29bc88]/15 to-emerald-400/10 rounded-lg"
             style={{
               width: Math.random() * 60 + 20 + "px",
               height: Math.random() * 60 + 20 + "px",
@@ -42,12 +42,12 @@ export const NotFound = () => {
         ))}
 
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 rounded-full bg-gradient-to-r from-primary/10 to-purple-600/10 blur-[100px]"
+          className="absolute top-20 left-10 w-72 h-72 rounded-full bg-gradient-to-r from-[#29bc88]/15 to-teal-500/10 blur-[100px]"
           animate={{ x: [0, 30, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 15, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-72 h-72 rounded-full bg-gradient-to-r from-cyan-400/10 to-emerald-500/10 blur-[100px]"
+          className="absolute bottom-20 right-10 w-72 h-72 rounded-full bg-gradient-to-r from-[#29bc88]/15 to-emerald-400/10 blur-[100px]"
           animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 20, repeat: Infinity, delay: 2 }}
         />
@@ -62,7 +62,7 @@ export const NotFound = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="relative inline-block">
-            <div className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+            <div className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-[#29bc88] via-[#3ddc97] to-[#20b57e] bg-clip-text text-transparent mb-4">
               404
             </div>
             <div className="absolute -top-4 -right-4 bg-red-500 text-white text-xs font-mono px-2 py-1 rounded">
@@ -100,7 +100,7 @@ export const NotFound = () => {
             <div className="flex gap-1">
               <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-              <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
+              <div className="w-3 h-3 rounded-full bg-[#29bc88]"></div>
             </div>
             <div className="text-sm font-mono text-muted-foreground flex-1 text-center">
               stack_trace.js
@@ -110,17 +110,17 @@ export const NotFound = () => {
           <div className="font-mono text-sm text-left overflow-x-auto">
             <div className="text-muted-foreground italic mb-2">// 404: Uncaught ReferenceError</div>
             <div>
-              <span className="text-purple-400">try</span> <span className="text-yellow-400">{`{`}</span>
+              <span className="text-[#29bc88]">try</span> <span className="text-yellow-400">{`{`}</span>
             </div>
             <div className="pl-4">
               <span className="text-blue-400">renderPage</span>
-              <span className="text-purple-400">(</span>
-              <span className="text-green-400">"{window.location.pathname}"</span>
-              <span className="text-purple-400">)</span>
+              <span className="text-[#29bc88]">(</span>
+              <span className="text-[#29bc88]">"{window.location.pathname}"</span>
+              <span className="text-[#29bc88]">)</span>
               <span className="text-foreground">;</span>
             </div>
             <div>
-              <span className="text-yellow-400">{`}`}</span> <span className="text-purple-400">catch</span> <span className="text-yellow-400">(</span>
+              <span className="text-yellow-400">{`}`}</span> <span className="text-[#29bc88]">catch</span> <span className="text-yellow-400">(</span>
               <span className="text-red-400">err</span>
               <span className="text-yellow-400">)</span> <span className="text-yellow-400">{`{`}</span>
             </div>
@@ -128,9 +128,9 @@ export const NotFound = () => {
               <span className="text-blue-400">console</span>
               <span className="text-foreground">.</span>
               <span className="text-yellow-300">error</span>
-              <span className="text-purple-400">(</span>
-              <span className="text-green-400">"404: Page not found"</span>
-              <span className="text-purple-400">)</span>
+              <span className="text-[#29bc88]">(</span>
+              <span className="text-[#29bc88]">"404: Page not found"</span>
+              <span className="text-[#29bc88]">)</span>
               <span className="text-foreground">;</span>
             </div>
             <div className="pl-4">
@@ -140,7 +140,7 @@ export const NotFound = () => {
               <span className="text-foreground">.</span>
               <span className="text-blue-400">href</span>
               <span className="text-foreground"> = </span>
-              <span className="text-green-400">"/"</span>
+              <span className="text-[#29bc88]">"/"</span>
               <span className="text-foreground">;</span>
             </div>
             <div><span className="text-yellow-400">{`}`}</span></div>
@@ -156,7 +156,7 @@ export const NotFound = () => {
         >
           <Link to="/">
             <motion.button
-              className="group relative overflow-hidden px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-primary to-purple-600 text-primary-foreground shadow-lg hover:shadow-xl flex items-center gap-2"
+              className="group relative overflow-hidden px-6 py-3 rounded-xl font-bold bg-[#29bc88] hover:bg-[#22a879] text-slate-950 shadow-lg shadow-[#29bc88]/25 hover:shadow-[0_0_25px_rgba(41,188,136,0.4)] flex items-center gap-2 cursor-pointer transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -169,11 +169,11 @@ export const NotFound = () => {
             href="https://github.com/ayanmanna123"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative overflow-hidden px-6 py-3 rounded-xl font-semibold border border-primary/50 text-foreground hover:border-primary transition-all duration-300 bg-background/80 backdrop-blur-sm flex items-center gap-2"
+            className="group relative overflow-hidden px-6 py-3 rounded-xl font-semibold border border-[#29bc88]/50 text-foreground hover:border-[#29bc88] hover:bg-[#29bc88]/10 hover:text-[#29bc88] transition-all duration-300 bg-background/80 backdrop-blur-sm flex items-center gap-2"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Code className="h-4 w-4" />
+            <Code className="h-4 w-4 text-[#29bc88]" />
             <span>View GitHub</span>
           </motion.a>
         </motion.div>

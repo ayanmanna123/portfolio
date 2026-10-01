@@ -199,7 +199,7 @@ export const GithubStarredSection = () => {
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[30%] left-[5%] w-80 h-80 bg-amber-500/5 rounded-full blur-3xl opacity-60" />
-        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 bg-purple-500/5 rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 bg-[#29bc88]/5 rounded-full blur-3xl opacity-60" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
@@ -222,7 +222,7 @@ export const GithubStarredSection = () => {
             GitHub Starred Timeline
           </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-primary to-purple-500">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
             Timeline of Starred Projects
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">

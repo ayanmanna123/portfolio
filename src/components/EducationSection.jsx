@@ -8,8 +8,8 @@ const EducationSection = () => {
         <section id="education" className="py-20 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 right-0 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+                <div className="absolute top-1/4 right-0 w-72 h-72 bg-[#29bc88]/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -19,7 +19,7 @@ const EducationSection = () => {
                     viewport={{ once: false }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
                         Education
                     </h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -52,8 +52,8 @@ const EducationSection = () => {
                                 overlayContent={
                                     <div className="p-8 h-full flex flex-col relative z-10 w-full">
                                         <div className="flex items-start justify-between mb-6">
-                                            <div className="p-3 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
-                                                <GraduationCap className="w-8 h-8" />
+                                            <div className="p-3 rounded-lg bg-[#29bc88]/10 text-[#29bc88]">
+                                                <GraduationCap className="w-8 h-8 text-[#29bc88]" />
                                             </div>
                                             <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/80 dark:bg-black/40 px-3 py-1 rounded-full border border-border dark:border-white/5 backdrop-blur-md">
                                                 <Calendar className="w-4 h-4" />
@@ -65,7 +65,7 @@ const EducationSection = () => {
                                             {item.institution}
                                         </h3>
 
-                                        <p className="text-blue-600 dark:text-blue-400 font-medium mb-4 text-sm">
+                                        <p className="text-[#29bc88] font-medium mb-4 text-sm">
                                             {item.degree}
                                         </p>
 
@@ -74,8 +74,8 @@ const EducationSection = () => {
                                         </p>
 
                                         {item.score && (
-                                            <div className="flex items-center gap-2 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 rounded-lg w-fit backdrop-blur-sm">
-                                                <Award className="w-4 h-4" />
+                                            <div className="flex items-center gap-2 text-sm font-medium text-[#29bc88] bg-[#29bc88]/10 border border-[#29bc88]/20 px-3 py-2 rounded-lg w-fit backdrop-blur-sm">
+                                                <Award className="w-4 h-4 text-[#29bc88]" />
                                                 {item.score}
                                             </div>
                                         )}

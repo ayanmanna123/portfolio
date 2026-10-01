@@ -200,8 +200,8 @@ const LeetCodeStatsSection = () => {
 
     // LeetCode Green Theme for the graph
     const leetCodeTheme = {
-        light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-        dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+        light: ['#ebedf0', '#8eedcb', '#52d9a6', '#29bc88', '#1c9167'],
+        dark: ['#111827', '#134e38', '#1b7956', '#29bc88', '#4be0ac'],
     };
 
     return (
@@ -216,8 +216,8 @@ const LeetCodeStatsSection = () => {
                     viewport={{ once: false }}
                 >
                     <div className="flex items-center justify-center gap-2 mb-4">
-                        <Code2 className="w-8 h-8 text-primary" />
-                        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-600">
+                        <Code2 className="w-8 h-8 text-[#29bc88]" />
+                        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
                             Problem Solving
                         </h2>
                     </div>

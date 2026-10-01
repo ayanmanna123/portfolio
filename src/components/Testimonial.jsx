@@ -255,11 +255,11 @@ export const TestimonialSection = () => {
       <motion.div
         className="absolute inset-0 -z-10 overflow-hidden"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }}
+        animate={{ opacity: 0.12 }}
         transition={{ delay: 1, duration: 1.5 }}
       >
         <motion.div
-          className="absolute top-1/4 left-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-primary to-purple-500 blur-[80px] sm:blur-[100px] opacity-30"
+          className="absolute top-1/4 left-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-[#29bc88] to-emerald-400 blur-[80px] sm:blur-[100px] opacity-30"
           animate={{
             x: [0, 20, 0],
             y: [0, -30, 0],
@@ -272,7 +272,7 @@ export const TestimonialSection = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-blue-500 to-primary blur-[80px] sm:blur-[100px] opacity-30"
+          className="absolute bottom-1/4 right-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-teal-400 to-[#29bc88] blur-[80px] sm:blur-[100px] opacity-30"
           animate={{
             x: [0, -20, 0],
             y: [0, 30, 0],

@@ -97,14 +97,14 @@
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222 47% 11%;
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 159 64% 45%;
+    --primary-foreground: 0 0% 100%;
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
 
     --dock-bg: #ffffff;
-    --dock-border: rgba(0, 0, 0, 0.1);
+    --dock-border: rgba(41, 188, 136, 0.2);
     --dock-text: #000000;
   }
 
@@ -121,14 +121,14 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 213 31% 91%;
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --primary: 159 64% 50%;
+    --primary-foreground: 222 47% 4%;
 
     --border: 217 33% 20%;
     --input: 217 33% 20%;
 
     --dock-bg: #060010;
-    --dock-border: #222222;
+    --dock-border: rgba(41, 188, 136, 0.25);
     --dock-text: #ffffff;
   }
 
@@ -173,7 +173,7 @@
 
 @utility text-glow {
   @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  text-shadow: 0 0 10px rgba(41, 188, 136, 0.5);
 }
 
 @utility card-hover {
@@ -191,7 +191,7 @@
   @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium transition-all duration-300 hover:scale-105 active:scale-95;
 
   &:hover {
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 10px rgba(41, 188, 136, 0.5);
   }
 }
 

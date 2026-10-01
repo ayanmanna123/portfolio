@@ -168,17 +168,17 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/10" ref={ref}>
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#29bc88]/10" ref={ref}>
 
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
+        <div className="absolute inset-0 opacity-25">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(41,188,136,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(41,188,136,0.08)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
         </div>
 
         {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-lg"
+            className="absolute bg-gradient-to-r from-[#29bc88]/15 to-emerald-400/10 rounded-lg"
             style={{
               width: Math.random() * 60 + 20 + 'px',
               height: Math.random() * 60 + 20 + 'px',
@@ -200,21 +200,21 @@ export const HeroSection = () => {
           />
         ))}
 
-        <motion.div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-gradient-to-r from-primary/10 to-purple-600/10 blur-[100px]" animate={{ x: [0, 30, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }} transition={{ duration: 15, repeat: Infinity }} />
-        <motion.div className="absolute bottom-20 right-10 w-72 h-72 rounded-full bg-gradient-to-r from-cyan-400/10 to-emerald-500/10 blur-[100px]" animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }} transition={{ duration: 20, repeat: Infinity, delay: 2 }} />
+        <motion.div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-gradient-to-r from-[#29bc88]/15 to-teal-500/10 blur-[100px]" animate={{ x: [0, 30, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }} transition={{ duration: 15, repeat: Infinity }} />
+        <motion.div className="absolute bottom-20 right-10 w-72 h-72 rounded-full bg-gradient-to-r from-[#29bc88]/15 to-emerald-400/10 blur-[100px]" animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }} transition={{ duration: 20, repeat: Infinity, delay: 2 }} />
       </div>
 
       <div className="w-full max-w-[1600px] mx-auto mt-16 sm:mt-0">
         <motion.div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14 xl:gap-20" initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.25, delayChildren: 0.5 } } }}>
 
           <div className="flex-1 text-center lg:text-left max-w-2xl xl:max-w-3xl mx-auto lg:mx-0">
-            <motion.div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 backdrop-blur-sm" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+            <motion.div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#29bc88]/10 border border-[#29bc88]/30 text-[#29bc88] text-sm font-medium mb-8 backdrop-blur-sm shadow-[0_0_15px_rgba(41,188,136,0.15)]" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <Briefcase className="h-4 w-4" /> {heroData.status}
             </motion.div>
 
             <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <span className="block text-foreground">{heroData.title}</span>
-              <motion.span className="block bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent mt-2" animate={{ backgroundPosition: ['0%', '100%', '0%'] }} transition={{ duration: 8, repeat: Infinity }} style={{ backgroundSize: '200% 100%' }}>
+              <motion.span className="block bg-gradient-to-r from-[#29bc88] via-[#3ddc97] to-[#20b57e] bg-clip-text text-transparent mt-2" animate={{ backgroundPosition: ['0%', '100%', '0%'] }} transition={{ duration: 8, repeat: Infinity }} style={{ backgroundSize: '200% 100%' }}>
                 {heroData.subtitle}
               </motion.span>
             </motion.h1>
@@ -225,9 +225,9 @@ export const HeroSection = () => {
 
             <motion.div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-8" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               {heroAchievements.map((achievement, index) => (
-                <div key={index} className="text-center p-4 rounded-xl bg-background/60 border border-border/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
+                <div key={index} className="text-center p-4 rounded-xl bg-background/60 border border-border/50 backdrop-blur-sm hover:border-[#29bc88]/40 hover:shadow-[0_0_20px_rgba(41,188,136,0.1)] transition-all duration-300">
                   <div className="flex items-center justify-center gap-2 mb-2">
-                    {achievement.icon}
+                    <span className="text-[#29bc88]">{achievement.icon}</span>
                     <div className="text-2xl font-bold text-foreground">
                       {index === 0 ? <CountUp value={stats.contributions} suffix="+" /> :
                         index === 1 ? <CountUp value={stats.repos} suffix="+" /> :
@@ -242,20 +242,20 @@ export const HeroSection = () => {
             </motion.div>
 
             <motion.div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
-              <motion.a href="#projects" className="group relative overflow-hidden px-8 py-4 rounded-xl font-semibold bg-gradient-to-r from-primary to-purple-600 text-primary-foreground shadow-lg hover:shadow-xl text-sm flex items-center justify-center gap-3" whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-                <Code className="h-5 w-5" />
+              <motion.a href="#projects" className="group relative overflow-hidden px-8 py-4 rounded-xl font-bold bg-[#29bc88] hover:bg-[#22a879] text-slate-950 shadow-lg shadow-[#29bc88]/25 hover:shadow-[0_0_25px_rgba(41,188,136,0.4)] text-sm flex items-center justify-center gap-3 transition-all duration-300" whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                <Code className="h-5 w-5 text-slate-950" />
                 <span>View Case Studies</span>
-                <TrendingUp className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <TrendingUp className="h-4 w-4 group-hover:translate-x-1 transition-transform text-slate-950" />
               </motion.a>
 
-              <motion.a href="#contact" className="group relative overflow-hidden px-8 py-4 rounded-xl font-semibold border border-primary/50 text-foreground hover:border-primary transition-all duration-300 bg-background/80 backdrop-blur-sm text-sm flex items-center justify-center gap-3" whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-                <Mail className="h-4 w-4" />
+              <motion.a href="#contact" className="group relative overflow-hidden px-8 py-4 rounded-xl font-semibold border border-[#29bc88]/50 text-foreground hover:border-[#29bc88] hover:bg-[#29bc88]/10 hover:text-[#29bc88] transition-all duration-300 bg-background/80 backdrop-blur-sm text-sm flex items-center justify-center gap-3" whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                <Mail className="h-4 w-4 text-[#29bc88]" />
                 <span>Technical Interview</span>
               </motion.a>
 
               <motion.button
                 onClick={handleViewResume}
-                className="group relative overflow-hidden px-6 py-4 rounded-xl font-semibold border border-border text-muted-foreground hover:border-primary/30 transition-all duration-300 bg-background/60 backdrop-blur-sm text-sm flex items-center justify-center gap-2"
+                className="group relative overflow-hidden px-6 py-4 rounded-xl font-semibold border border-border text-muted-foreground hover:border-[#29bc88]/40 hover:text-foreground transition-all duration-300 bg-background/60 backdrop-blur-sm text-sm flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -266,7 +266,7 @@ export const HeroSection = () => {
 
             <motion.div className="mt-6 text-center lg:text-left" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <div className="text-sm text-muted-foreground">
-                🚀 <span className="text-primary font-semibold">{heroData.status || "Available Immediately"}</span> for {heroData.roles || "Full-Stack and Frontend roles"}
+                🚀 <span className="text-[#29bc88] font-semibold">{heroData.status || "Available Immediately"}</span> for {heroData.roles || "Full-Stack and Frontend roles"}
               </div>
             </motion.div>
           </div>
@@ -275,7 +275,7 @@ export const HeroSection = () => {
             <div className="relative w-full max-w-md sm:max-w-xl lg:max-w-[510px]">
               {/* Code Snippet Card Window */}
               <motion.div
-                className="bg-card/95 dark:bg-[#0b0f19]/90 border border-border dark:border-slate-800 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl w-full group hover:shadow-3xl transition-all duration-300"
+                className="bg-card/95 dark:bg-[#0b0f19]/90 border border-border dark:border-[#29bc88]/20 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl w-full group hover:shadow-[0_0_35px_rgba(41,188,136,0.15)] transition-all duration-300"
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
@@ -284,12 +284,14 @@ export const HeroSection = () => {
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#29bc88]"></div>
                   </div>
                   <div className="flex-1 text-center">
                     <div className="text-sm font-mono font-semibold text-foreground/80 dark:text-slate-300">portfolio.js</div>
                   </div>
-                  <div className="w-4 h-4 bg-green-500/20 dark:bg-green-400/20 rounded-full animate-pulse"></div>
+                  <div className="w-4 h-4 bg-[#29bc88]/20 rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-[#29bc88] animate-pulse"></div>
+                  </div>
                 </div>
 
                 {/* Code Container */}
@@ -313,7 +315,7 @@ export const HeroSection = () => {
                               <motion.span
                                 animate={{ opacity: [1, 0, 1] }}
                                 transition={{ duration: 0.8, repeat: Infinity }}
-                                className="ml-0.5 text-primary dark:text-amber-400 inline-block font-bold"
+                                className="ml-0.5 text-[#29bc88] inline-block font-bold"
                               >
                                 ▊
                               </motion.span>
@@ -326,12 +328,12 @@ export const HeroSection = () => {
                   </div>
                 </div>
 
-                <motion.div className="absolute -bottom-3 -right-3 w-14 h-14 bg-gradient-to-r from-primary to-purple-600 rounded-xl flex items-center justify-center border-2 border-background shadow-2xl" animate={{ y: [0, -5, 0], rotate: [0, -2, 0], scale: [1, 1.03, 1] }} transition={{ duration: 4, repeat: Infinity }}>
-                  <Code className="h-5 w-5 text-white" />
+                <motion.div className="absolute -bottom-3 -right-3 w-14 h-14 bg-gradient-to-r from-[#29bc88] to-[#1fa275] rounded-xl flex items-center justify-center border-2 border-background shadow-2xl shadow-[#29bc88]/30" animate={{ y: [0, -5, 0], rotate: [0, -2, 0], scale: [1, 1.03, 1] }} transition={{ duration: 4, repeat: Infinity }}>
+                  <Code className="h-5 w-5 text-slate-950" />
                 </motion.div>
 
                 <motion.div className="absolute -top-3 -left-3 bg-background/90 backdrop-blur-sm px-4 py-2 rounded-xl border border-border shadow-lg flex items-center gap-2" initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 1.5, type: "spring" }}>
-                  <Award className="h-4 w-4 text-amber-500" />
+                  <Award className="h-4 w-4 text-[#29bc88]" />
                   <span className="text-sm font-semibold text-foreground">Solutions</span>
                 </motion.div>
 
@@ -346,12 +348,12 @@ export const HeroSection = () => {
       </div>
 
       <motion.div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: [0, 1, 1, 0], y: [0, 6, 0, -6] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 0.5 }}>
-        <motion.div className="text-xs text-primary mb-3 flex items-center gap-2 px-4 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg" whileHover={{ scale: 1.05 }}>
-          <MousePointerClick className="h-3 w-3" />
+        <motion.div className="text-xs text-[#29bc88] mb-3 flex items-center gap-2 px-4 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-[#29bc88]/30 shadow-lg" whileHover={{ scale: 1.05 }}>
+          <MousePointerClick className="h-3 w-3 text-[#29bc88]" />
           <span>Explore Technical Portfolio</span>
         </motion.div>
-        <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-5 h-8 border-2 border-primary/30 rounded-full flex justify-center">
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-1 h-2 bg-primary rounded-full mt-2" />
+        <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-5 h-8 border-2 border-[#29bc88]/40 rounded-full flex justify-center">
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-1 h-2 bg-[#29bc88] rounded-full mt-2" />
         </motion.div>
       </motion.div>
     </section>

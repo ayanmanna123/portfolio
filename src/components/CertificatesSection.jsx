@@ -14,8 +14,8 @@ export const CertificatesSection = () => {
         <section id="certifications" className="relative py-20 md:py-32 overflow-hidden bg-background">
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[20%] right-[10%] w-72 h-72 bg-primary/5 rounded-full blur-3xl opacity-50" />
-                <div className="absolute bottom-[20%] left-[10%] w-96 h-96 bg-purple-500/5 rounded-full blur-3xl opacity-50" />
+                <div className="absolute top-[20%] right-[10%] w-72 h-72 bg-[#29bc88]/10 rounded-full blur-3xl opacity-50" />
+                <div className="absolute bottom-[20%] left-[10%] w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl opacity-50" />
             </div>
 
             <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
@@ -28,7 +28,7 @@ export const CertificatesSection = () => {
                     viewport={{ once: true }}
                 >
                     <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#29bc88]/10 text-[#29bc88] border border-[#29bc88]/20 text-sm font-medium mb-6 shadow-[0_0_15px_rgba(41,188,136,0.1)]"
                         initial={{ scale: 0.8, opacity: 0 }}
                         whileInView={{ scale: 1, opacity: 1 }}
                         transition={{ delay: 0.2 }}
@@ -39,7 +39,7 @@ export const CertificatesSection = () => {
                     </motion.div>
 
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-                        Verified <span className="text-primary">Skills</span>
+                        Verified <span className="text-[#29bc88]">Skills</span>
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         A collection of professional certifications validating my technical expertise and commitment to continuous learning.
@@ -56,7 +56,7 @@ export const CertificatesSection = () => {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
                             className={`
-                                group relative overflow-hidden rounded-3xl border border-border/50 bg-card hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500
+                                group relative overflow-hidden rounded-3xl border border-border/50 bg-card hover:border-[#29bc88]/40 hover:shadow-2xl hover:shadow-[#29bc88]/10 transition-all duration-500
                                 md:col-span-1
                             `}
                         >
@@ -82,8 +82,8 @@ export const CertificatesSection = () => {
                                 <div className="flex-1 flex flex-col p-6 relative">
                                     {/* Header: Icon & Date */}
                                     <div className="flex justify-between items-start mb-4">
-                                        <div className={`p-2 rounded-xl bg-primary/10 text-primary border border-primary/20`}>
-                                            <BadgeCheck className="w-5 h-5" />
+                                        <div className={`p-2 rounded-xl bg-[#29bc88]/10 text-[#29bc88] border border-[#29bc88]/20`}>
+                                            <BadgeCheck className="w-5 h-5 text-[#29bc88]" />
                                         </div>
                                         <span className="text-xs font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground border border-border">
                                             {cert.date}
@@ -92,7 +92,7 @@ export const CertificatesSection = () => {
 
                                     {/* Title & Issuer */}
                                     <div className="mb-4">
-                                        <h3 className={`font-bold text-foreground mb-1 leading-tight group-hover:text-primary transition-colors ${cert.featured ? "text-xl md:text-2xl" : "text-lg"}`}>
+                                        <h3 className={`font-bold text-foreground mb-1 leading-tight group-hover:text-[#29bc88] transition-colors ${cert.featured ? "text-xl md:text-2xl" : "text-lg"}`}>
                                             {cert.title}
                                         </h3>
                                         <p className="text-sm text-muted-foreground font-medium">
@@ -114,7 +114,7 @@ export const CertificatesSection = () => {
                                             href={cert.verificationLink}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+                                            className="flex items-center gap-1.5 text-xs font-medium text-[#29bc88] hover:underline"
                                             title="Verify Certificate"
                                         >
                                             Verify <ExternalLink size={12} />
@@ -139,9 +139,9 @@ export const CertificatesSection = () => {
                             onClick={() => setShowAll(!showAll)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${showAll
+                            className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${showAll
                                 ? "bg-muted text-foreground border border-border hover:bg-muted/80"
-                                : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                                : "bg-[#29bc88] hover:bg-[#22a879] text-slate-950 shadow-lg shadow-[#29bc88]/25"
                                 }`}
                         >
                             {showAll ? (

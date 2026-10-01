@@ -130,10 +130,13 @@ export const TestimonialSection = () => {
               <Star className="h-3 w-3 sm:h-4 sm:w-4" />
             </motion.div>
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
               variants={itemVariants}
             >
-              What People Say
+              <span className="block text-foreground">What</span>
+              <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                People Say
+              </span>
             </motion.h2>
             <motion.p
               className="text-base sm:text-lg text-muted-foreground mt-3 sm:mt-4 max-w-2xl mx-auto"

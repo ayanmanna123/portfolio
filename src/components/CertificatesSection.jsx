@@ -38,8 +38,11 @@ export const CertificatesSection = () => {
                         Certifications
                     </motion.div>
 
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-                        Verified <span className="text-[#29bc88]">Skills</span>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                        <span className="block text-foreground">Verified</span>
+                        <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                            Certifications
+                        </span>
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         A collection of professional certifications validating my technical expertise and commitment to continuous learning.

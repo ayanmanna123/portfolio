@@ -95,11 +95,14 @@ const GithubStatsSection = () => {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: false }}
                 >
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <Github className="w-8 h-8 text-[#29bc88]" />
-                        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
-                            Coding Activity
-                        </h2>
+                    <div className="flex flex-col items-center justify-center mb-4">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Github className="w-7 h-7 text-[#29bc88]" />
+                            <span className="text-3xl md:text-4xl font-bold text-foreground">GitHub</span>
+                        </div>
+                        <span className="block font-rakyat text-4xl md:text-5xl text-[#29bc88] font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                            Activity & Contributions
+                        </span>
                     </div>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
                         A snapshop of my open source contributions and active repositories.

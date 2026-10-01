@@ -110,8 +110,11 @@ export const ContactSection = () => {
           <span className="inline-block px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-primary/10 text-primary mb-3 sm:mb-4 border border-primary/20">
             Let's Connect
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
-            Get In Touch
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
+            <span className="block text-foreground">Let's</span>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+              Get In Touch
+            </span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind or just want to say hi? My inbox is always open.

@@ -51,9 +51,11 @@ export const AboutSection = () => {
             </div>
             <span className="text-sm sm:text-base font-semibold text-primary tracking-wide">ABOUT ME</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
-            <span className="bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">{aboutData?.title || "Transforming"}</span>
-            <span className="block text-primary">{aboutData?.subtitle || "Ideas Into Reality"}</span>
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+            <span className="block text-foreground">{aboutData?.title || "Transforming"}</span>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+              {aboutData?.subtitle || "Ideas Into Reality"}
+            </span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             {aboutData?.bio || (

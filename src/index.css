@@ -1,11 +1,29 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+@font-face {
+  font-family: 'Rakyat';
+  src: url('/fonts/Rakyat.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Analogist';
+  src: url('/fonts/Analogist.ttf') format('truetype'),
+       url('/fonts/Analogist.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: 'JetBrains Mono', monospace;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-rakyat: 'Rakyat', cursive, sans-serif;
+  --font-analogist: 'Analogist', serif, sans-serif;
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -137,12 +155,10 @@
 
   * {
     @apply border-border;
-    font-family: 'JetBrains Mono', monospace;
   }
 
   html {
     @apply scroll-smooth;
-    font-family: 'JetBrains Mono', monospace;
   }
 
   body {
@@ -184,6 +200,14 @@
 @utility text-glow {
   @apply relative;
   text-shadow: 0 0 10px rgba(41, 188, 136, 0.5);
+}
+
+@utility font-rakyat {
+  font-family: 'Rakyat', cursive, sans-serif !important;
+}
+
+@utility font-analogist {
+  font-family: 'Analogist', serif, sans-serif !important;
 }
 
 @utility card-hover {

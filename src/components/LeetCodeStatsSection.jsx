@@ -215,11 +215,14 @@ const LeetCodeStatsSection = () => {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: false }}
                 >
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <Code2 className="w-8 h-8 text-[#29bc88]" />
-                        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
+                    <div className="flex flex-col items-center justify-center mb-4">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Code2 className="w-7 h-7 text-[#29bc88]" />
+                            <span className="text-3xl md:text-4xl font-bold text-foreground">LeetCode</span>
+                        </div>
+                        <span className="block font-rakyat text-4xl md:text-5xl text-[#29bc88] font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Problem Solving
-                        </h2>
+                        </span>
                     </div>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
                         My comprehensive problem-solving statistics and achievements on LeetCode.

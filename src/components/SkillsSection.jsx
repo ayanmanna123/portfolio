@@ -68,8 +68,11 @@ export const SkillsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-emerald-400">
-            My Skills
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            <span className="block text-foreground">Technical</span>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+              Skills & Expertise
+            </span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Technologies I've mastered and my proficiency levels

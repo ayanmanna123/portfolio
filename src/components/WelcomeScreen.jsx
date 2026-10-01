@@ -211,19 +211,19 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
 
             {phase >= 1 && (
               <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-tight"
-                style={{ color: currentColors.primary }}
+                className="font-analogist text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-normal tracking-wide leading-tight"
+                style={{ color: currentColors.primary, fontFamily: "'Analogist', serif" }}
                 variants={contentVariants}
               >
                 <span className="inline-block">Hello</span>
                 <motion.span
-                  className="inline-block ml-2 sm:ml-3 relative"
+                  className="inline-block ml-2 sm:ml-4 relative"
                   style={{ color: currentColors.secondary }}
                   variants={contentVariants}
                 >
                   There !
                   <motion.span
-                    className="absolute -bottom-1 sm:-bottom-2 left-0 h-0.5 sm:h-1 w-full"
+                    className="absolute -bottom-1 sm:-bottom-2 left-0 h-0.5 sm:h-1 w-full rounded-full"
                     style={{ backgroundColor: currentColors.secondary }}
                     variants={underlineVariants}
                   />

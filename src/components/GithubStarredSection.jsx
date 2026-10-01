@@ -222,8 +222,11 @@ export const GithubStarredSection = () => {
             GitHub Starred Timeline
           </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-[#29bc88]">
-            Timeline of Starred Projects
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            <span className="block text-foreground">Timeline of</span>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+              Starred Projects
+            </span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
             A chronological serpentine timeline of repositories I've starred, starting with the newest additions.

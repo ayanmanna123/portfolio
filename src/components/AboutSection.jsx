@@ -44,11 +44,8 @@ export const AboutSection = () => {
       <div className="container mx-auto max-w-7xl relative">
         {/* Header */}
         <div className="text-center mb-16 md:mb-20 px-2 sm:px-6">
-          <div className="inline-flex items-center gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl bg-[#EC844D]/10 border border-[#EC844D]/20 mb-6 transition-all duration-500 hover:bg-[#EC844D]/15 hover:scale-105 group cursor-pointer shadow-[0_0_15px_rgba(236,132,77,0.15)]">
-            <div className="relative">
-              <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-[#EC844D] dark:text-[#FFAE80] animate-pulse" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#EC844D] rounded-full animate-ping" />
-            </div>
+          <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl bg-[#EC844D]/10 border border-[#EC844D]/20 mb-6 transition-all duration-500 hover:bg-[#EC844D]/15 hover:scale-105 group cursor-pointer shadow-[0_0_15px_rgba(236,132,77,0.15)]">
+            <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-[#EC844D] dark:text-[#FFAE80]" />
             <span className="text-sm sm:text-base font-semibold text-[#EC844D] dark:text-[#FFAE80] tracking-wide">ABOUT ME</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-normal sm:leading-tight">
@@ -81,9 +78,6 @@ export const AboutSection = () => {
                   <div className="relative flex-shrink-0">
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:scale-105 md:group-hover:scale-110 relative">
                       <img src={aboutData?.profileImage || "/profile-logo.jpeg"} alt={aboutData?.name || "Ayan Manna"} className="w-full h-full object-cover" />
-                      <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-[#EC844D] rounded-full border-4 border-background flex items-center justify-center shadow-lg shadow-[#EC844D]/30">
-                        <div className="w-2 h-2 bg-[#FFD8B2] rounded-full animate-pulse" />
-                      </div>
                     </div>
                   </div>
 
@@ -208,24 +202,6 @@ export const AboutSection = () => {
               </div>
             </div>
 
-            {/* Availability */}
-            <div className="bg-card/60 border border-border rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:shadow-3xl hover:border-primary/40 hover:bg-card-70">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0 mb-2 sm:mb-3">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="relative">
-                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-[#EC844D] rounded-full animate-pulse" />
-                    <div className="absolute inset-0 w-2 sm:w-3 h-2 sm:h-3 bg-[#EC844D] rounded-full animate-ping" />
-                  </div>
-                  <span className="font-semibold text-xs sm:text-sm">Available</span>
-                </div>
-                <span className="text-xs sm:text-sm text-[#EC844D] dark:text-[#FFAE80] bg-[#EC844D]/10 px-2.5 py-1 rounded-lg font-medium border border-[#EC844D]/20">
-                  For new projects
-                </span>
-              </div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground text-center bg-background/50 rounded-lg p-1 sm:p-2">
-                ⚡ Response time: Under 24 hours
-              </div>
-            </div>
 
             {/* Hobbies & Interests */}
             <div className="bg-card/50 border border-border rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:shadow-3xl hover:border-primary/40 hover:bg-card/60">

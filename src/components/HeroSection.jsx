@@ -168,7 +168,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10" ref={ref}>
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-12 xl:px-16 pt-20 pb-36 sm:pb-40 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10" ref={ref}>
 
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 opacity-30 dark:opacity-20">
@@ -280,18 +280,16 @@ export const HeroSection = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {/* Window Header */}
-                <div className="flex items-center gap-4 mb-5">
+                <div className="flex items-center justify-between mb-5">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
                     <div className="w-3 h-3 rounded-full bg-[#FFD8B2]"></div>
                     <div className="w-3 h-3 rounded-full bg-[#EC844D]"></div>
                   </div>
-                  <div className="flex-1 text-center">
-                    <div className="text-sm font-mono font-semibold text-foreground/80 dark:text-stone-300">portfolio.js</div>
+                  <div className="text-sm font-mono font-semibold text-foreground/80 dark:text-stone-300">
+                    portfolio.js
                   </div>
-                  <div className="w-4 h-4 bg-[#EC844D]/20 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-[#EC844D] animate-pulse"></div>
-                  </div>
+                  <div className="w-12"></div>
                 </div>
 
                 {/* Code Container */}
@@ -347,8 +345,17 @@ export const HeroSection = () => {
         </motion.div>
       </div>
 
-      <motion.div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: [0, 1, 1, 0], y: [0, 6, 0, -6] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 0.5 }}>
-        <motion.div className="text-xs text-[#EC844D] dark:text-[#FFAE80] mb-3 flex items-center gap-2 px-4 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-[#EC844D]/30 shadow-lg" whileHover={{ scale: 1.05 }}>
+      <motion.div 
+        className="absolute bottom-24 sm:bottom-28 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-30 pointer-events-auto" 
+        onClick={() => {
+          const aboutSection = document.getElementById('about');
+          if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+        }}
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: [0, 1, 1, 0], y: [0, 6, 0, -6] }} 
+        transition={{ duration: 3, repeat: Infinity, repeatDelay: 0.5 }}
+      >
+        <motion.div className="text-xs text-[#EC844D] dark:text-[#FFAE80] mb-2 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-[#EC844D]/30 shadow-lg hover:border-[#EC844D]/60 transition-colors" whileHover={{ scale: 1.05 }}>
           <MousePointerClick className="h-3 w-3 text-[#EC844D] dark:text-[#FFAE80]" />
           <span>Explore Technical Portfolio</span>
         </motion.div>

@@ -211,13 +211,13 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
 
             {phase >= 1 && (
               <motion.h1
-                className="font-analogist text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-normal tracking-wide leading-tight"
-                style={{ color: currentColors.primary, fontFamily: "'Analogist', serif" }}
+                className="font-rakyat text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-normal leading-normal pb-2 sm:pb-3"
+                style={{ fontFamily: "'Rakyat', cursive" }}
                 variants={contentVariants}
               >
-                <span className="inline-block">Hello</span>
+                <span className="inline-block" style={{ color: currentColors.primary }}>Hello</span>
                 <motion.span
-                  className="inline-block ml-2 sm:ml-4 relative"
+                  className="inline-block ml-3 sm:ml-5 relative"
                   style={{ color: currentColors.secondary }}
                   variants={contentVariants}
                 >
@@ -263,34 +263,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
               </motion.div>
             )}
 
-            {phase >= 3 && (
-              <motion.div
-                className="pt-4 sm:pt-6 md:pt-8"
-                variants={contentVariants}
-              >
-                <motion.div
-                  className="h-1 sm:h-2 w-16 sm:w-20 rounded-full mx-auto"
-                  style={{ backgroundColor: currentColors.secondary + '80' }}
-                  animate={{
-                    scaleX: [1, 1.5, 1],
-                    opacity: [1, 0.7, 1]
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity
-                  }}
-                />
-                <motion.p
-                  className="mt-2 sm:mt-4 text-xs sm:text-sm opacity-70"
-                  style={{ color: currentColors.muted }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  Loading my best work for you...
-                </motion.p>
-              </motion.div>
-            )}
+
           </motion.div>
         </div>
       </motion.div>

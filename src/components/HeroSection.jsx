@@ -11,11 +11,11 @@ export const HeroSection = () => {
     <section
       id="hero"
       ref={ref}
-      className="relative min-h-screen flex items-start justify-center px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-28 sm:pb-36 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10"
+      className="relative min-h-screen flex items-start justify-center px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-28 sm:pb-36 overflow-hidden bg-transparent dark:bg-gradient-to-br dark:from-background dark:via-background/95 dark:to-[#EC844D]/10"
     >
       {/* Background Animated Ambient Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 opacity-30 dark:opacity-20">
+        <div className="hidden dark:block absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(236,132,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(236,132,77,0.08)_1px,transparent_1px)] bg-[size:50px_50px] sm:bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
         </div>
 

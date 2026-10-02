@@ -28,7 +28,7 @@ const Loader = () => (
 
 export const Home = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-transparent dark:bg-background text-foreground overflow-x-hidden">
       <Helmet>
         <title>Home | Ayan Manna | Portfolio</title>
         <meta name="description" content="Welcome to Ayan Manna's portfolio. Explore projects, skills, and achievements." />

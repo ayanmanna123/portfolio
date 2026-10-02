@@ -106,23 +106,23 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 40 20% 97%;
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 18% 93%;
+    --muted-foreground: 215.4 16.3% 42%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 40 18% 94%;
     --secondary-foreground: 222 47% 11%;
 
     --primary: 21 82% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
 
     --dock-bg: #ffffff;
     --dock-border: rgba(236, 132, 77, 0.25);
@@ -162,8 +162,23 @@
     scroll-behavior: auto;
   }
 
+  /* Light mode full page griddle / graph paper pattern */
+  html:not(.dark),
+  html:not(.dark) body {
+    background-color: #f9f8f6;
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image: none;
+  }
+
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply text-foreground transition-colors duration-300;
     font-family: 'JetBrains Mono', monospace;
     font-feature-settings: "rlig" 1, "calt" 1;
   }

@@ -41,6 +41,8 @@ export const StarBackground = () => {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
+  if (!isDark) return null;
+
   return (
     <div className="w-full h-auto fixed inset-0 z-[20] pointer-events-none">
       <Canvas camera={{ position: [0, 0, 1] }} events={null} className="!pointer-events-none">

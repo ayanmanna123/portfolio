@@ -34,10 +34,10 @@ export const ScrollToTop = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.5 }}
                     onClick={scrollToTop}
-                    className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    className="fixed bottom-20 right-4 sm:bottom-8 sm:right-8 z-40 p-2.5 sm:p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:scale-110 active:scale-95"
                     aria-label="Scroll to top"
                 >
-                    <ArrowUp className="w-6 h-6" />
+                    <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6" />
                 </motion.button>
             )}
         </AnimatePresence>

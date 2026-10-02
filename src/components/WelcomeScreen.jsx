@@ -145,6 +145,23 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
+      {/* Skip Button */}
+      <motion.button
+        onClick={() => {
+          if (onCompleteRef.current) {
+            onCompleteRef.current();
+          }
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.8 }}
+        whileHover={{ opacity: 1, scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium border border-border/60 bg-background/60 backdrop-blur-md text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all cursor-pointer"
+        aria-label="Skip intro animation"
+      >
+        Skip ➔
+      </motion.button>
+
       {/* Welcome Screen */}
       <motion.div
         className="h-full w-full flex items-center justify-center p-4"
@@ -194,7 +211,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
             {phase >= 0 && (
               <motion.div variants={contentVariants}>
                 <motion.div
-                  className="text-sm md:text-lg lg:text-xl font-mono mb-2 md:mb-4 inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 rounded-full border"
+                  className="text-xs sm:text-sm md:text-lg lg:text-xl font-mono mb-2 md:mb-4 inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full border"
                   style={{
                     color: currentColors.primary,
                     backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
@@ -211,7 +228,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
 
             {phase >= 1 && (
               <motion.div
-                className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[500px] mx-auto py-2"
+                className="w-full max-w-[280px] sm:max-w-[380px] md:max-w-[500px] mx-auto py-2"
                 variants={contentVariants}
               >
                 <svg
@@ -252,7 +269,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
                 variants={contentVariants}
               >
                 <motion.div
-                  className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg font-mono flex justify-center items-center"
+                  className="mt-3 sm:mt-6 text-sm sm:text-base md:text-lg font-mono flex justify-center items-center"
                   style={{ color: currentColors.link }}
                 >
                   {typedText}

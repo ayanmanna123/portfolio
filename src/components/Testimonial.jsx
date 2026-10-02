@@ -147,33 +147,33 @@ export const TestimonialSection = () => {
           </motion.div>
 
           <div className="relative">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
               {visibleTestimonials.map((testimonial) => (
                 <motion.div
                   key={testimonial.id}
-                  className="bg-background/80 backdrop-blur-sm border rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all h-full flex flex-col group"
+                  className="bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-5 sm:p-8 shadow-sm hover:shadow-md transition-all h-full flex flex-col group hover:border-primary/40"
                   variants={itemVariants}
                   whileHover={{ y: -5 }}
                 >
                   <div className="flex flex-col h-full">
-                    <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-primary/30 mb-3 sm:mb-4 group-hover:text-primary/50 transition-colors" />
+                    <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-primary/30 mb-3 sm:mb-4 group-hover:text-primary/50 transition-colors shrink-0" />
 
-                    <p className="text-base sm:text-lg text-muted-foreground mb-4 sm:mb-6 flex-1">
+                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6 flex-1 leading-relaxed">
                       "{testimonial.content}"
                     </p>
 
-                    <div className="mt-auto">
+                    <div className="mt-auto pt-3 border-t border-border/40">
                       <div className="flex mb-2">
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-4 w-4 sm:h-5 sm:w-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/30'}`}
+                            className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${i < testimonial.rating ? 'text-amber-400 fill-amber-400' : 'text-muted-foreground/30'}`}
                           />
                         ))}
                       </div>
 
-                      <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4">
-                        <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full border-2 border-primary/20 group-hover:border-primary/50 overflow-hidden transition-all">
+                      <div className="flex items-center gap-3 sm:gap-4 mt-2 sm:mt-3">
+                        <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full border-2 border-primary/20 group-hover:border-primary/50 overflow-hidden transition-all shrink-0">
                           {testimonial.image ? (
                             <img
                               src={testimonial.image}
@@ -182,14 +182,14 @@ export const TestimonialSection = () => {
                               loading="lazy"
                             />
                           ) : (
-                            <div className="w-full h-full bg-primary/10 flex items-center justify-center text-primary/50">
+                            <div className="w-full h-full bg-primary/10 flex items-center justify-center text-primary/70 font-bold text-sm">
                               {testimonial.name.charAt(0)}
                             </div>
                           )}
                         </div>
-                        <div>
-                          <p className="font-medium text-sm sm:text-base">{testimonial.name}</p>
-                          <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.role}</p>
+                        <div className="min-w-0">
+                          <p className="font-semibold text-sm sm:text-base truncate">{testimonial.name}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{testimonial.role}</p>
                         </div>
                       </div>
                     </div>
@@ -198,12 +198,12 @@ export const TestimonialSection = () => {
               ))}
             </div>
 
-            {/* Navigation Arrows - Show only when needed */}
+            {/* Desktop Navigation Arrows - Show only when needed */}
             {totalPages > 1 && (
               <>
                 <button
                   onClick={prevTestimonial}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 p-2 sm:p-3 rounded-full border border-muted-foreground/20 hover:border-primary/50 bg-background/80 backdrop-blur-sm transition-all shadow-lg z-10 hidden sm:flex items-center justify-center hover:scale-110"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 p-2.5 sm:p-3 rounded-full border border-border hover:border-primary/50 bg-background/90 backdrop-blur-md transition-all shadow-lg z-10 hidden sm:flex items-center justify-center hover:scale-110 cursor-pointer"
                   aria-label="Previous testimonial"
                 >
                   <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -211,7 +211,7 @@ export const TestimonialSection = () => {
 
                 <button
                   onClick={nextTestimonial}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 p-2 sm:p-3 rounded-full border border-muted-foreground/20 hover:border-primary/50 bg-background/80 backdrop-blur-sm transition-all shadow-lg z-10 hidden sm:flex items-center justify-center hover:scale-110"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 p-2.5 sm:p-3 rounded-full border border-border hover:border-primary/50 bg-background/90 backdrop-blur-md transition-all shadow-lg z-10 hidden sm:flex items-center justify-center hover:scale-110 cursor-pointer"
                   aria-label="Next testimonial"
                 >
                   <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -220,23 +220,23 @@ export const TestimonialSection = () => {
             )}
           </div>
 
-          {/* Mobile Navigation - Show only when needed */}
+          {/* Mobile Navigation Controls */}
           {totalPages > 1 && (
-            <div className="flex justify-center gap-3 sm:gap-4 sm:hidden">
+            <div className="flex items-center justify-center gap-4 sm:hidden pt-2">
               <button
                 onClick={prevTestimonial}
-                className="p-1 sm:p-2 rounded-full border border-muted-foreground/20 hover:border-primary/50 bg-background/80 backdrop-blur-sm transition-all hover:scale-110"
+                className="p-2.5 rounded-xl border border-border bg-card/80 backdrop-blur-sm transition-all hover:bg-muted active:scale-95 cursor-pointer touch-manipulation"
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                <ChevronLeft className="h-4 w-4" />
               </button>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 px-2">
                 {Array.from({ length: totalPages }).map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all ${currentIndex === index ? 'bg-primary' : 'bg-muted-foreground/20'}`}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${currentIndex === index ? 'w-6 bg-[#EC844D]' : 'w-2 bg-muted-foreground/30'}`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}
@@ -244,10 +244,10 @@ export const TestimonialSection = () => {
 
               <button
                 onClick={nextTestimonial}
-                className="p-1 sm:p-2 rounded-full border border-muted-foreground/20 hover:border-primary/50 bg-background/80 backdrop-blur-sm transition-all hover:scale-110"
+                className="p-2.5 rounded-xl border border-border bg-card/80 backdrop-blur-sm transition-all hover:bg-muted active:scale-95 cursor-pointer touch-manipulation"
                 aria-label="Next testimonial"
               >
-                <ChevronRight className="h-4 w-4 sm:h-5 sm:h-5" />
+                <ChevronRight className="h-4 w-4" />
               </button>
             </div>
           )}

@@ -104,47 +104,47 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 relative bg-background">
+    <section id="contact" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 relative bg-background">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12 sm:mb-16">
-          <span className="inline-block px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-primary/10 text-primary mb-3 sm:mb-4 border border-primary/20">
+        <div className="text-center mb-10 sm:mb-16">
+          <span className="inline-block px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-full bg-primary/10 text-primary mb-3 sm:mb-4 border border-primary/20">
             Let's Connect
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-normal sm:leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-6 leading-normal sm:leading-tight">
             <span className="block text-foreground">Let's</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-2 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Get In Touch
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or just want to say hi? My inbox is always open.
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+            Have a project in mind, a question, or just want to say hi? My inbox is always open.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-12">
           {/* Contact Information */}
-          <div className="space-y-6 sm:space-y-8 p-6 sm:p-8 rounded-xl sm:rounded-2xl bg-gradient-to-br from-secondary/20 to-background border border-border">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+          <div className="space-y-6 sm:space-y-8 p-5 sm:p-8 rounded-2xl bg-gradient-to-br from-secondary/20 to-background border border-border">
+            <h3 className="text-lg sm:text-2xl font-bold">
               Contact Details
             </h3>
 
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-3 sm:space-y-5">
               {contactInfo.map((info, index) => (
-                <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-accent/30 rounded-lg sm:rounded-xl transition-all duration-300">
-                  <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-primary/10 text-primary">
+                <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-accent/30 rounded-xl transition-all duration-300">
+                  <div className="p-2.5 sm:p-3 rounded-xl bg-primary/10 text-primary shrink-0">
                     {info.icon}
                   </div>
-                  <div>
-                    <p className="text-xs sm:text-sm text-muted-foreground">{info.label}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs text-muted-foreground font-medium">{info.label}</p>
                     {info.href ? (
                       <a
                         href={info.href}
-                        className="text-sm sm:text-base font-medium hover:text-primary transition-colors"
+                        className="text-sm sm:text-base font-medium hover:text-primary transition-colors truncate block"
                       >
                         {info.text}
                       </a>
                     ) : (
-                      <span className="text-sm sm:text-base font-medium">
+                      <span className="text-sm sm:text-base font-medium truncate block">
                         {info.text}
                       </span>
                     )}
@@ -153,16 +153,16 @@ export const ContactSection = () => {
               ))}
             </div>
 
-            <div className="pt-6 sm:pt-8">
-              <h4 className="font-medium mb-3 sm:mb-4 text-xs sm:text-sm text-muted-foreground">Find me on</h4>
-              <div className="flex gap-2 sm:gap-3">
+            <div className="pt-4 sm:pt-6 border-t border-border/50">
+              <h4 className="font-semibold mb-3 text-xs sm:text-sm text-muted-foreground uppercase tracking-wider">Find me on</h4>
+              <div className="flex flex-wrap gap-2.5 sm:gap-3">
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-accent hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300"
+                    className="p-3 rounded-xl bg-accent hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px]"
                     aria-label={social.label}
                   >
                     {social.icon}
@@ -173,13 +173,13 @@ export const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="p-6 sm:p-8 rounded-xl sm:rounded-2xl bg-card border border-border shadow-sm">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+          <div className="p-5 sm:p-8 rounded-2xl bg-card border border-border shadow-sm">
+            <h3 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6">
               Send Me a Message
             </h3>
 
-            <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
-              <div className="space-y-1">
+            <form className="space-y-4 sm:space-y-5" onSubmit={handleSubmit}>
+              <div className="space-y-1.5">
                 <label
                   htmlFor="name"
                   className="text-xs sm:text-sm font-medium text-muted-foreground"
@@ -193,12 +193,12 @@ export const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all text-sm sm:text-base"
+                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all text-base"
                   placeholder="John Doe"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="email"
                   className="text-xs sm:text-sm font-medium text-muted-foreground"
@@ -212,12 +212,12 @@ export const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all text-sm sm:text-base"
+                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all text-base"
                   placeholder="john@example.com"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="message"
                   className="text-xs sm:text-sm font-medium text-muted-foreground"
@@ -231,7 +231,7 @@ export const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none text-sm sm:text-base"
+                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none text-base"
                   placeholder="Hey, I'd love to collaborate on..."
                 />
               </div>
@@ -240,7 +240,7 @@ export const ContactSection = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "w-full flex items-center justify-center gap-2 py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl bg-[#EC844D] hover:bg-[#DE743C] text-white font-bold transition-all duration-300 shadow-lg shadow-[#EC844D]/25 text-sm sm:text-base cursor-pointer",
+                  "w-full flex items-center justify-center gap-2 py-3 sm:py-3.5 px-6 rounded-xl bg-[#EC844D] hover:bg-[#DE743C] text-white font-bold transition-all duration-300 shadow-lg shadow-[#EC844D]/25 text-sm sm:text-base cursor-pointer min-h-[48px]",
                   isSubmitting && "opacity-80 cursor-not-allowed"
                 )}
               >

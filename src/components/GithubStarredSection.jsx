@@ -222,9 +222,9 @@ export const GithubStarredSection = () => {
             GitHub Starred Timeline
           </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-normal sm:leading-tight">
             <span className="block text-foreground">Timeline of</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-2 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Starred Projects
             </span>
           </h2>

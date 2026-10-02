@@ -98,14 +98,14 @@ export const ProjectsSection = () => {
           </motion.div>
 
           <motion.h2
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-normal sm:leading-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
             viewport={{ once: false }}
           >
             <span className="block text-foreground">Featured</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-2 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Projects
             </span>
           </motion.h2>

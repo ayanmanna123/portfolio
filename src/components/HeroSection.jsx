@@ -214,7 +214,7 @@ export const HeroSection = () => {
 
             <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <span className="block text-foreground">{heroData.title}</span>
-              <motion.span className="block font-rakyat text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-1 font-normal tracking-normal" animate={{ backgroundPosition: ['0%', '100%', '0%'] }} transition={{ duration: 8, repeat: Infinity }} style={{ backgroundSize: '200% 100%', fontFamily: "'Rakyat', cursive" }}>
+              <motion.span className="block font-rakyat text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-2 sm:pb-3 font-normal tracking-normal" animate={{ backgroundPosition: ['0%', '100%', '0%'] }} transition={{ duration: 8, repeat: Infinity }} style={{ backgroundSize: '200% 100%', fontFamily: "'Rakyat', cursive" }}>
                 {heroData.subtitle}
               </motion.span>
             </motion.h1>
@@ -275,7 +275,7 @@ export const HeroSection = () => {
             <div className="relative w-full max-w-md sm:max-w-xl lg:max-w-[510px]">
               {/* Code Snippet Card Window */}
               <motion.div
-                className="bg-card/95 dark:bg-[#18110b]/90 border border-border dark:border-[#EC844D]/25 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl w-full group hover:shadow-[0_0_35px_rgba(236,132,77,0.2)] transition-all duration-300"
+                className="bg-transparent backdrop-blur-md border border-border/60 dark:border-stone-800/80 rounded-2xl p-6 sm:p-7 shadow-2xl w-full group hover:shadow-[0_0_35px_rgba(236,132,77,0.15)] transition-all duration-300"
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
@@ -295,7 +295,7 @@ export const HeroSection = () => {
                 </div>
 
                 {/* Code Container */}
-                <div className="font-mono text-xs sm:text-sm bg-muted/50 dark:bg-[#0c0805] rounded-lg border border-border/80 dark:border-stone-800/80 min-h-[300px] flex shadow-inner overflow-x-auto">
+                <div className="font-mono text-xs sm:text-sm bg-transparent rounded-lg border border-border/60 dark:border-stone-800/70 min-h-[300px] flex shadow-inner overflow-x-auto">
                   <div className="p-4 sm:p-5 w-full">
                     <div className="grid grid-cols-1 gap-1.5 h-full content-start">
                       {heroData.codeSnippets.map((line, index) => (

@@ -100,7 +100,7 @@ const GithubStatsSection = () => {
                             <Github className="w-7 h-7 text-[#EC844D] dark:text-[#FFAE80]" />
                             <span className="text-3xl md:text-4xl font-bold text-foreground">GitHub</span>
                         </div>
-                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent pb-2 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Activity & Contributions
                         </span>
                     </div>

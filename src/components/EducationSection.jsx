@@ -19,9 +19,9 @@ const EducationSection = () => {
                     viewport={{ once: false }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-normal sm:leading-tight">
                         <span className="block text-foreground">Academic</span>
-                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-2 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Education & Degrees
                         </span>
                     </h2>

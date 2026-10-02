@@ -168,7 +168,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-12 xl:px-16 pt-20 pb-36 sm:pb-40 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10" ref={ref}>
+    <section id="hero" className="relative min-h-screen flex items-start justify-center px-4 sm:px-8 lg:px-12 xl:px-16 pt-4 sm:pt-6 lg:pt-8 pb-32 sm:pb-36 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10" ref={ref}>
 
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 opacity-30 dark:opacity-20">
@@ -204,11 +204,11 @@ export const HeroSection = () => {
         <motion.div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-gradient-to-r from-[#FFD8B2]/25 to-[#EC844D]/20 blur-[110px]" animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }} transition={{ duration: 20, repeat: Infinity, delay: 2 }} />
       </div>
 
-      <div className="w-full max-w-[1600px] mx-auto mt-16 sm:mt-0">
-        <motion.div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14 xl:gap-20" initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.25, delayChildren: 0.5 } } }}>
+      <div className="w-full max-w-[1600px] mx-auto mt-0">
+        <motion.div className="flex flex-col lg:flex-row items-start justify-between gap-10 lg:gap-14 xl:gap-16" initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.25, delayChildren: 0.5 } } }}>
 
           <div className="flex-1 text-center lg:text-left max-w-2xl xl:max-w-3xl mx-auto lg:mx-0">
-            <motion.div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EC844D]/10 border border-[#EC844D]/30 text-[#EC844D] dark:text-[#FFAE80] text-sm font-medium mb-8 backdrop-blur-sm shadow-[0_0_20px_rgba(236,132,77,0.18)]" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+            <motion.div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EC844D]/10 border border-[#EC844D]/30 text-[#EC844D] dark:text-[#FFAE80] text-sm font-medium mb-6 backdrop-blur-sm shadow-[0_0_20px_rgba(236,132,77,0.18)]" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <Briefcase className="h-4 w-4" /> {heroData.status}
             </motion.div>
 
@@ -271,7 +271,7 @@ export const HeroSection = () => {
             </motion.div>
           </div>
 
-          <motion.div className="flex-1 flex justify-center lg:justify-end w-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+          <motion.div className="flex-1 flex justify-center lg:justify-end w-full pt-8 sm:pt-10 lg:pt-14" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
             <div className="relative w-full max-w-md sm:max-w-xl lg:max-w-[510px]">
               {/* Code Snippet Card Window */}
               <motion.div
@@ -293,7 +293,7 @@ export const HeroSection = () => {
                 </div>
 
                 {/* Code Container */}
-                <div className="font-mono text-xs sm:text-sm bg-transparent rounded-lg border border-border/60 dark:border-stone-800/70 min-h-[300px] flex shadow-inner overflow-x-auto">
+                <div className="font-mono text-xs sm:text-sm bg-transparent rounded-lg border border-border/60 dark:border-stone-800/70 min-h-[380px] sm:min-h-[420px] flex shadow-inner overflow-x-auto">
                   <div className="p-4 sm:p-5 w-full">
                     <div className="grid grid-cols-1 gap-1.5 h-full content-start">
                       {heroData.codeSnippets.map((line, index) => (

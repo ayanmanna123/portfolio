@@ -96,10 +96,6 @@ export const AboutSection = () => {
       <div className="container mx-auto max-w-7xl relative">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
-          <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-1.5 sm:py-2.5 rounded-2xl bg-[#EC844D]/10 border border-[#EC844D]/20 mb-4 sm:mb-6 transition-all duration-500 hover:bg-[#EC844D]/15 hover:scale-105 group cursor-pointer shadow-[0_0_15px_rgba(236,132,77,0.15)]">
-            <Sparkles className="h-3.5 sm:h-4 w-3.5 sm:w-4 text-[#EC844D] dark:text-[#FFAE80]" />
-            <span className="text-xs sm:text-sm font-semibold text-[#EC844D] dark:text-[#FFAE80] tracking-wide">ABOUT ME</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
             <span className="block text-foreground">{aboutData?.title || "Transforming"}</span>
             <span className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>

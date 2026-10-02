@@ -158,7 +158,8 @@
   }
 
   html {
-    @apply scroll-smooth;
+    /* Smooth scrolling handled by Lenis physics engine */
+    scroll-behavior: auto;
   }
 
   body {
@@ -249,6 +250,26 @@
   padding: 0;
   text-align: center;
   overflow-x: hidden;
+}
+
+/* Custom sleek global scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(236, 132, 77, 0.25);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 132, 77, 0.6);
 }
 
 /* Custom scrollbar hiding and sleek mobile scrollbar */

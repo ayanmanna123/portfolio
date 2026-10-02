@@ -9,6 +9,8 @@ import { Terms } from "./pages/Terms";
 import { Toaster } from "@/components/ui/toaster";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import { Analytics } from "@vercel/analytics/react";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
 function App() {
   const [welcomeComplete, setWelcomeComplete] = useState(false);
@@ -30,7 +32,6 @@ function App() {
       enableSystem
       disableTransitionOnChange
     >
-      
       <Helmet>
         <title>Ayan Manna | Portfolio</title>
         <meta name="description" content="Portfolio of Ayan Manna, a Full Stack Developer." />
@@ -39,15 +40,18 @@ function App() {
       {!welcomeComplete ? (
         <WelcomeScreen onWelcomeComplete={handleWelcomeComplete} />
       ) : (
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="privacy" element={<PrivacyPolicy />} />
-            <Route path="terms" element={<Terms />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Analytics />
-        </BrowserRouter>
+        <SmoothScroll>
+          <ScrollProgressBar />
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="privacy" element={<PrivacyPolicy />} />
+              <Route path="terms" element={<Terms />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Analytics />
+          </BrowserRouter>
+        </SmoothScroll>
       )}
     </ThemeProvider>
   );

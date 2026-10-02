@@ -168,7 +168,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-start justify-center px-3 sm:px-8 lg:px-12 xl:px-16 pt-20 sm:pt-24 lg:pt-28 pb-28 sm:pb-36 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10" ref={ref}>
+    <section id="hero" className="relative min-h-screen flex items-start justify-center px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-28 sm:pb-36 overflow-hidden bg-gradient-to-br from-background via-background/95 to-[#FFD8B2]/20 dark:to-[#EC844D]/10" ref={ref}>
 
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 opacity-30 dark:opacity-20">
@@ -207,11 +207,7 @@ export const HeroSection = () => {
       <div className="w-full max-w-[1600px] mx-auto mt-0">
         <motion.div className="flex flex-col lg:flex-row items-start justify-between gap-8 sm:gap-12 lg:gap-14 xl:gap-16" initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } } }}>
 
-          <div className="flex-1 text-center lg:text-left max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 w-full">
-            <motion.div className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#EC844D]/10 border border-[#EC844D]/30 text-[#EC844D] dark:text-[#FFAE80] text-xs sm:text-sm font-medium mb-4 sm:mb-6 backdrop-blur-sm shadow-[0_0_20px_rgba(236,132,77,0.18)]" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.6 } } }}>
-              <Briefcase className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> {heroData.status}
-            </motion.div>
-
+          <div className="flex-1 text-center lg:text-left max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 w-full pt-0">
             <motion.h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.6 } } }}>
               <span className="block text-foreground">{heroData.title}</span>
               <motion.span className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal tracking-normal" animate={{ backgroundPosition: ['0%', '100%', '0%'] }} transition={{ duration: 8, repeat: Infinity }} style={{ backgroundSize: '200% 100%', fontFamily: "'Rakyat', cursive" }}>
@@ -263,12 +259,6 @@ export const HeroSection = () => {
                 <Download className="h-4 w-4" />
                 <span>View Resume</span>
               </motion.button>
-            </motion.div>
-
-            <motion.div className="mt-5 sm:mt-6 text-center lg:text-left" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.6 } } }}>
-              <div className="text-xs sm:text-sm text-muted-foreground">
-                🚀 <span className="text-[#EC844D] dark:text-[#FFAE80] font-semibold">{heroData.status || "Open to Work"}</span> for {heroData.roles || "Full-Stack and Frontend roles"}
-              </div>
             </motion.div>
           </div>
 
@@ -337,11 +327,6 @@ export const HeroSection = () => {
                   <Award className="h-4 w-4 text-[#EC844D] dark:text-[#FFAE80]" />
                   <span className="text-xs font-semibold text-foreground">Solutions</span>
                 </motion.div>
-
-                <motion.div className="hidden sm:block absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-background/95 backdrop-blur-sm px-3.5 py-1.5 rounded-xl border border-border shadow-lg text-center" initial={{ scale: 0, y: 15 }} animate={{ scale: 1, y: 0 }} transition={{ delay: 1.5, type: "spring" }}>
-                  <div className="text-[10px] font-mono text-muted-foreground">Built with</div>
-                  <div className="text-xs font-bold text-foreground">Modern Tech</div>
-                </motion.div>
               </motion.div>
             </div>
           </motion.div>
@@ -353,7 +338,17 @@ export const HeroSection = () => {
         className="absolute bottom-16 sm:bottom-20 md:bottom-24 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-20 pointer-events-auto" 
         onClick={() => {
           const aboutSection = document.getElementById('about');
-          if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+          if (aboutSection) {
+            if (window.lenis) {
+              window.lenis.scrollTo(aboutSection, {
+                offset: -40,
+                duration: 1.3,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+            } else {
+              aboutSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
         }}
         initial={{ opacity: 0, y: 10 }} 
         animate={{ opacity: [0, 1, 1, 0], y: [0, 6, 0, -6] }} 

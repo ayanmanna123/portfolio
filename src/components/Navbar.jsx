@@ -185,7 +185,15 @@ export const Navbar = () => {
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        if (window.lenis) {
+          window.lenis.scrollTo(element, {
+            offset: -40,
+            duration: 1.3,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        } else {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
       }
     } else {
       window.open(href, "_blank", "noopener,noreferrer");
@@ -226,24 +234,7 @@ export const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
-          {/* Brand logo / pill */}
-          <motion.a
-            href="#hero"
-            onClick={() => handleNavClick("#hero")}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md border border-border shadow-sm hover:border-primary/40 transition-all group"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-xs group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-              A
-            </div>
-            <span className="font-bold text-xs sm:text-sm text-foreground tracking-tight">
-              Ayan Manna
-            </span>
-            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          </motion.a>
-
+        <div className="max-w-7xl mx-auto flex items-center justify-end pointer-events-auto">
           {/* Top Right Action Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2">
             {/* Theme Toggle Button */}

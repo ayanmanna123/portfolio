@@ -24,17 +24,6 @@ export const CertificatesSection = () => {
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
                 >
-                    <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20 text-xs sm:text-sm font-medium mb-4 sm:mb-6 shadow-[0_0_15px_rgba(236,132,77,0.15)]"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        viewport={{ once: true }}
-                    >
-                        <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        Certifications
-                    </motion.div>
-
                     <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-6 leading-tight">
                         <span className="block text-foreground">Verified</span>
                         <span className="block font-rakyat text-3xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>

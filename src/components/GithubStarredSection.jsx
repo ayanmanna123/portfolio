@@ -211,17 +211,6 @@ export const GithubStarredSection = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-amber-500/10 text-amber-500 text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-amber-500/20"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-amber-500" />
-            GitHub Starred Timeline
-          </motion.div>
-
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 leading-normal sm:leading-tight">
             <span className="block text-foreground">Timeline of</span>
             <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>

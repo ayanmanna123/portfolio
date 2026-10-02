@@ -1,6 +1,27 @@
 {
   "journey": [
     {
+      "year": "2026",
+      "role": "Hackathon Finalist & Deep Learning Engineer",
+      "company": "DAKSHH 2026 – Hack Among Us (Team DreamInCode)",
+      "description": "Selected among the top 30 finalist teams out of 450+ applications at Heritage Institute of Technology, Kolkata.",
+      "skills": ["PyTorch", "Computer Vision", "DeepLabV3+", "Autonomous Driving", "Path Planning", "OpenCV"]
+    },
+    {
+      "year": "2025",
+      "role": "Industrial Visit Delegate",
+      "company": "Damodar Valley Corporation (DVC) - DSTPS",
+      "description": "Selected as one of only seven students from college by the Institution of Engineering and Technology (IET) for an intensive industrial visit to the Durgapur Steel Thermal Power Station (DSTPS), gaining first-hand insight into massive power-generating utilities and industrial control systems.",
+      "skills": ["Power Systems", "Industrial Infrastructure", "IET Member", "Electrical Engineering"]
+    },
+    {
+      "year": "2025",
+      "role": "Magazine Editor & Contributing Writer",
+      "company": "PROBAHO’25 | B.P. Poddar Institute of Management & Technology",
+      "description": "Contributed as 2nd Year Editor and Writer for 'PROBAHO’25', the departmental magazine published by the Department of Electrical Engineering at B.P. Poddar Institute of Management & Technology.",
+      "skills": ["Technical Writing", "Editorial Review", "Content Strategy", "Publication"]
+    },
+    {
       "year": "2025",
       "role": "Hackathon Participant & Competitive Coder",
       "company": "TechStorm | PLUTUS | Code@Frost",

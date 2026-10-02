@@ -266,7 +266,7 @@ export const HeroSection = () => {
 
             <motion.div className="mt-6 text-center lg:text-left" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               <div className="text-sm text-muted-foreground">
-                🚀 <span className="text-[#EC844D] dark:text-[#FFAE80] font-semibold">{heroData.status || "Available Immediately"}</span> for {heroData.roles || "Full-Stack and Frontend roles"}
+                🚀 <span className="text-[#EC844D] dark:text-[#FFAE80] font-semibold">{heroData.status || "Open to Work"}</span> for {heroData.roles || "Full-Stack and Frontend roles"}
               </div>
             </motion.div>
           </div>

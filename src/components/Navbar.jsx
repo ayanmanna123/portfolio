@@ -22,6 +22,7 @@ import {
   ExternalLink
 } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { useToast } from "@/hooks/use-toast";
@@ -43,6 +44,8 @@ const navItems = [
 export const Navbar = () => {
   const { toast } = useToast();
   const { theme, setTheme, resolvedTheme } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("#hero");
   const [showNavbar, setShowNavbar] = useState(true);
@@ -192,16 +195,25 @@ export const Navbar = () => {
 
   const handleNavClick = (href) => {
     if (href.startsWith("#")) {
+      if (location.pathname !== "/" && location.pathname !== "") {
+        navigate("/" + href);
+        setMobileMenuOpen(false);
+        return;
+      }
+
       const element = document.querySelector(href);
-      if (element) {
-        if (window.lenis) {
-          window.lenis.scrollTo(element, {
-            offset: -40,
-            duration: 1.3,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        } else {
-          element.scrollIntoView({ behavior: "smooth" });
+      if (window.lenis) {
+        window.lenis.scrollTo(element || href, {
+          offset: -40,
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      } else if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      } else {
+        const fallbackEl = document.getElementById(href.replace("#", ""));
+        if (fallbackEl) {
+          fallbackEl.scrollIntoView({ behavior: "smooth" });
         }
       }
     } else {
@@ -225,14 +237,21 @@ export const Navbar = () => {
       icon: <item.icon className="w-5 h-5 pointer-events-none" />,
       label: item.name,
       onClick: () => handleNavClick(item.href),
-      className: activeSection === item.href ? "text-primary font-bold" : "text-gray-500",
+      isActive: activeSection === item.href,
     })),
     {
-      icon: isDark ? <Sun className="w-5 h-5 pointer-events-none" /> : <Moon className="w-5 h-5 pointer-events-none" />,
+      icon: isDark ? (
+        <Sun className="w-5 h-5 pointer-events-none text-amber-500" />
+      ) : (
+        <Moon className="w-5 h-5 pointer-events-none text-slate-700" />
+      ),
       label: isDark ? "Light Mode" : "Dark Mode",
       onClick: toggleTheme,
+      isActive: false,
     },
   ];
+
+
 
   return (
     <>
@@ -464,9 +483,9 @@ export const Navbar = () => {
       {/* Desktop macOS Dock Bottom Navbar */}
       <motion.div
         className={cn(
-          "hidden md:block fixed bottom-4 left-1/2 transform -translate-x-1/2 z-40",
+          "hidden md:block fixed bottom-4 left-1/2 -translate-x-1/2 z-40",
           "transition-transform duration-300 ease-in-out",
-          showNavbar || isHoveringBottom ? "translate-y-0" : "translate-y-full"
+          showNavbar || isHoveringBottom ? "translate-y-0" : "translate-y-28"
         )}
         style={{ willChange: "transform" }}
         initial={{ y: 20, opacity: 0 }}
@@ -475,11 +494,12 @@ export const Navbar = () => {
       >
         <Dock
           items={dockItems}
-          panelHeight={68}
-          baseItemSize={50}
-          magnification={70}
+          baseItemSize={46}
+          magnification={68}
+          distance={140}
         />
       </motion.div>
+
 
       {/* Mobile Floating Bottom Bar for Quick Navigation */}
       <motion.div

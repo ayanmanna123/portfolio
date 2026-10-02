@@ -1,133 +1,130 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
-import { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
-
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { useRef, useState } from 'react';
 import './Dock.css';
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize }) {
+function DockItem({
+  icon,
+  label,
+  isActive,
+  onClick,
+  mouseX,
+  spring,
+  distance = 140,
+  magnification = 68,
+  baseItemSize = 46,
+}) {
   const ref = useRef(null);
-  const isHovered = useMotionValue(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const mouseDistance = useTransform(mouseX, val => {
-    const rect = ref.current?.getBoundingClientRect() ?? {
-      x: 0,
-      width: baseItemSize
-    };
-    return val - rect.x - baseItemSize / 2;
+  // Compute distance from mouseX to center of this item
+  const mouseDistance = useTransform(mouseX, (val) => {
+    if (val === Infinity || val === -Infinity || isNaN(val) || !ref.current) {
+      return distance + 100;
+    }
+    const rect = ref.current.getBoundingClientRect();
+    return val - (rect.left + rect.width / 2);
   });
 
-  const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+  // Calculate scaled target size with clamping to prevent negative or infinite extrapolations
+  const targetSize = useTransform(
+    mouseDistance,
+    [-distance, 0, distance],
+    [baseItemSize, magnification, baseItemSize],
+    { clamp: true }
+  );
+
   const size = useSpring(targetSize, spring);
 
   return (
-    <motion.div
-      ref={ref}
-      style={{
-        width: size,
-        height: size
-      }}
-      onHoverStart={() => isHovered.set(1)}
-      onHoverEnd={() => isHovered.set(0)}
-      onFocus={() => isHovered.set(1)}
-      onBlur={() => isHovered.set(0)}
-      onClick={onClick}
-      className={`dock-item ${className}`}
-      tabIndex={0}
-      role="button"
-      aria-haspopup="true"
-    >
-      {Children.map(children, child => cloneElement(child, { isHovered }))}
-    </motion.div>
-  );
-}
+    <div className="dock-item-wrapper">
+      {/* Tooltip Label */}
+      <AnimatePresence>
+        {isHovered && label && (
+          <motion.div
+            initial={{ opacity: 0, y: 0, scale: 0.85 }}
+            animate={{ opacity: 1, y: -6, scale: 1 }}
+            exit={{ opacity: 0, y: 0, scale: 0.85 }}
+            transition={{ duration: 0.15 }}
+            className="dock-label"
+            role="tooltip"
+          >
+            {label}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-function DockLabel({ children, className = '', ...rest }) {
-  const { isHovered } = rest;
-  const [isVisible, setIsVisible] = useState(false);
+      {/* Button */}
+      <motion.button
+        ref={ref}
+        type="button"
+        style={{
+          width: size,
+          height: size,
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
+        onClick={onClick}
+        whileTap={{ scale: 0.88 }}
+        className={`dock-item ${isActive ? 'dock-item-active' : ''}`}
+        aria-label={label}
+      >
+        <div className="dock-icon">
+          {icon}
+        </div>
+      </motion.button>
 
-  useEffect(() => {
-    const unsubscribe = isHovered.on('change', latest => {
-      setIsVisible(latest === 1);
-    });
-    return () => unsubscribe();
-  }, [isHovered]);
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
+      {/* Active Indicator Dot */}
+      {isActive && (
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -10 }}
-          exit={{ opacity: 0, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className={`dock-label ${className}`}
-          role="tooltip"
-          style={{ x: '-50%' }}
-        >
-          {children}
-        </motion.div>
+          layoutId="dockActiveDot"
+          className="dock-active-dot"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        />
       )}
-    </AnimatePresence>
+    </div>
   );
-}
-
-function DockIcon({ children, className = '' }) {
-  return <div className={`dock-icon ${className}`}>{children}</div>;
 }
 
 export default function Dock({
   items,
   className = '',
-  spring = { mass: 0.1, stiffness: 150, damping: 12 },
-  magnification = 70,
-  distance = 200,
-  panelHeight = 68,
-  dockHeight = 256,
-  baseItemSize = 50
+  spring = { mass: 0.1, stiffness: 170, damping: 14 },
+  magnification = 68,
+  distance = 140,
+  baseItemSize = 46,
 }) {
   const mouseX = useMotionValue(Infinity);
-  const isHovered = useMotionValue(0);
-
-  const maxHeight = useMemo(
-    () => Math.max(dockHeight, magnification + magnification / 2 + 4),
-    [magnification, dockHeight]
-  );
-  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
-  const height = useSpring(heightRow, spring);
 
   return (
-    <motion.div style={{ height, scrollbarWidth: 'none' }} className="dock-outer">
-      <motion.div
-        onMouseMove={({ pageX }) => {
-          isHovered.set(1);
-          mouseX.set(pageX);
-        }}
-        onMouseLeave={() => {
-          isHovered.set(0);
-          mouseX.set(Infinity);
-        }}
+    <div className="dock-outer">
+      <motion.nav
+        onMouseMove={(e) => mouseX.set(e.clientX)}
+        onMouseLeave={() => mouseX.set(Infinity)}
         className={`dock-panel ${className}`}
-        style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Application dock"
       >
         {items.map((item, index) => (
           <DockItem
-            key={index}
+            key={item.label || index}
+            icon={item.icon}
+            label={item.label}
+            isActive={item.isActive}
             onClick={item.onClick}
-            className={item.className}
             mouseX={mouseX}
             spring={spring}
             distance={distance}
             magnification={magnification}
             baseItemSize={baseItemSize}
-          >
-            <DockIcon>{item.icon}</DockIcon>
-            <DockLabel>{item.label}</DockLabel>
-          </DockItem>
+          />
         ))}
-      </motion.div>
-    </motion.div>
+      </motion.nav>
+    </div>
   );
 }
+
+

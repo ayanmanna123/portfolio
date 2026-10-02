@@ -1,30 +1,25 @@
-import { useEffect, useRef } from "react";
-import { ReactLenis } from "lenis/react";
+import { useEffect } from "react";
+import { ReactLenis, useLenis } from "lenis/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const SmoothScroll = ({ children }) => {
-  const lenisRef = useRef(null);
+function LenisSync() {
+  const lenis = useLenis();
 
   useEffect(() => {
-    const lenisInstance = lenisRef.current?.lenis;
-    if (lenisInstance) {
-      window.lenis = lenisInstance;
+    if (lenis) {
+      window.lenis = lenis;
 
       // Sync Lenis scroll position with GSAP ScrollTrigger to prevent jitter
-      lenisInstance.on("scroll", ScrollTrigger.update);
-
-      // Tell GSAP to use Lenis's raf for buttery 120fps synchronization
-      const updateScrollTrigger = (time) => {
-        lenisInstance.raf(time * 1000);
-      };
-
+      lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.lagSmoothing(0);
     }
+  }, [lenis]);
 
+  useEffect(() => {
     // Intercept standard anchor clicks for buttery smooth scrolling
     const handleAnchorClick = (e) => {
       const target = e.target.closest('a[href^="#"]');
@@ -34,13 +29,17 @@ export const SmoothScroll = ({ children }) => {
       if (!href || href === "#") return;
 
       const element = document.querySelector(href);
-      if (element && window.lenis) {
+      if (element) {
         e.preventDefault();
-        window.lenis.scrollTo(element, {
-          offset: -40,
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
+        if (window.lenis) {
+          window.lenis.scrollTo(element, {
+            offset: -40,
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        } else {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
       }
     };
 
@@ -50,9 +49,12 @@ export const SmoothScroll = ({ children }) => {
     };
   }, []);
 
+  return null;
+}
+
+export const SmoothScroll = ({ children }) => {
   return (
     <ReactLenis
-      ref={lenisRef}
       root
       options={{
         lerp: 0.09,
@@ -67,10 +69,12 @@ export const SmoothScroll = ({ children }) => {
         infinite: false,
       }}
     >
+      <LenisSync />
       {children}
     </ReactLenis>
   );
 };
 
 export default SmoothScroll;
+
 

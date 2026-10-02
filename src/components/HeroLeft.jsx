@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Code, Download, TrendingUp, Mail } from "lucide-react";
 import { CountUp } from "./CountUp";
 import { heroData, heroAchievements, projects } from "@/data";
+import SplitText from "./SplitText";
 
 export const HeroLeft = () => {
   const [stats, setStats] = useState({
@@ -57,26 +58,35 @@ export const HeroLeft = () => {
 
   return (
     <div className="flex-1 text-center lg:text-left max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 w-full pt-0">
-      <motion.h1
-        className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight"
-        variants={{
-          hidden: { y: 20, opacity: 0 },
-          visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
-        }}
-      >
-        <span className="block text-foreground">{heroData.title}</span>
+      <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
         <motion.span
-          className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal tracking-normal"
-          animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          style={{
-            backgroundSize: "200% 100%",
-            fontFamily: "'Rakyat', cursive",
+          className="block text-foreground"
+          variants={{
+            hidden: { y: 20, opacity: 0 },
+            visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
           }}
         >
-          {heroData.subtitle}
+          {heroData.title}
         </motion.span>
-      </motion.h1>
+        <SplitText
+          text={heroData.subtitle || "Full-Stack Engineer"}
+          className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal"
+          delay={50}
+          duration={1.25}
+          ease="power3.out"
+          splitType="chars"
+          from={{ opacity: 0, y: 40 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.1}
+          rootMargin="-100px"
+          textAlign="left"
+          tag="span"
+          onLetterAnimationComplete={() => {
+            console.log('All letters have animated!');
+          }}
+          showCallback
+        />
+      </h1>
 
       <motion.p
         className="text-sm sm:text-lg md:text-xl text-muted-foreground mt-4 sm:mt-6 leading-relaxed max-w-2xl mx-auto lg:mx-0"

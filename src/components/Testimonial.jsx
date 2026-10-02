@@ -51,13 +51,16 @@ export const TestimonialSection = () => {
     visibleTestimonials.push(testimonials[visibleTestimonials.length]);
   }
 
+  const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+  const cardsContainerRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
-    if (!headerRef.current) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       if (line1Ref.current) {
@@ -67,7 +70,7 @@ export const TestimonialSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -85,7 +88,7 @@ export const TestimonialSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -103,7 +106,7 @@ export const TestimonialSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -113,39 +116,60 @@ export const TestimonialSection = () => {
           }
         );
       }
-    }, headerRef);
+
+      // Testimonial Cards multi-directional entrance & visible reverse
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        let fromVars = { opacity: 0 };
+        let duration = 1.4;
+        let triggerStart = "top 68%";
+        const colPos = index % 3;
+
+        if (colPos === 0) {
+          // Card 1 (Left): Left to Right
+          fromVars = { x: -260, opacity: 0 };
+          duration = 1.4;
+          triggerStart = "top 68%";
+        } else if (colPos === 1) {
+          // Card 2 (Center): Bottom to Top
+          fromVars = { y: 80, opacity: 0 };
+          duration = 1.6;
+          triggerStart = "top 64%";
+        } else {
+          // Card 3 (Right): Right to Left
+          fromVars = { x: 260, opacity: 0 };
+          duration = 1.8;
+          triggerStart = "top 60%";
+        }
+
+        gsap.fromTo(
+          card,
+          fromVars,
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: duration,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsContainerRef.current || card,
+              start: triggerStart,
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1]
-      }
-    }
-  };
+  }, [currentIndex, itemsPerPage]);
 
   return (
     <section
       id="testimonials"
+      ref={sectionRef}
       className="relative py-14 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5"
-      ref={ref}
     >
       {/* Background Decor */}
       <div className="absolute inset-0 overflow-hidden -z-10 pointer-events-none">
@@ -183,13 +207,12 @@ export const TestimonialSection = () => {
           </div>
 
           <div className="relative">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
-              {visibleTestimonials.map((testimonial) => (
-                <motion.div
-                  key={testimonial.id}
-                  className="bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-5 sm:p-8 shadow-sm hover:shadow-md transition-all h-full flex flex-col group hover:border-primary/40"
-                  variants={itemVariants}
-                  whileHover={{ y: -5 }}
+            <div ref={cardsContainerRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
+              {visibleTestimonials.map((testimonial, index) => (
+                <div
+                  key={`${testimonial.id}-${currentIndex}`}
+                  ref={(el) => (cardRefs.current[index] = el)}
+                  className="bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-5 sm:p-8 shadow-sm hover:shadow-md transition-all h-full flex flex-col group hover:border-primary/40 will-change-transform will-change-opacity"
                 >
                   <div className="flex flex-col h-full">
                     <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-primary/30 mb-3 sm:mb-4 group-hover:text-primary/50 transition-colors shrink-0" />
@@ -230,7 +253,7 @@ export const TestimonialSection = () => {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 

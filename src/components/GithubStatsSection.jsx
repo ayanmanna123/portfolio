@@ -87,13 +87,17 @@ const GithubStatsSection = () => {
         dark: ['#1f140d', '#4a2815', '#8a441e', '#ec844d', '#ffa07a'],
     };
 
+    const sectionRef = useRef(null);
     const headerRef = useRef(null);
     const line1Ref = useRef(null);
     const line2Ref = useRef(null);
     const line3Ref = useRef(null);
+    const reposTitleRef = useRef(null);
+    const cardsContainerRef = useRef(null);
+    const cardRefs = useRef([]);
 
     useEffect(() => {
-        if (!headerRef.current) return;
+        if (!sectionRef.current) return;
 
         const ctx = gsap.context(() => {
             if (line1Ref.current) {
@@ -103,7 +107,7 @@ const GithubStatsSection = () => {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
+                        duration: 1.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
@@ -121,7 +125,7 @@ const GithubStatsSection = () => {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
+                        duration: 1.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
@@ -139,7 +143,7 @@ const GithubStatsSection = () => {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
+                        duration: 1.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
@@ -149,13 +153,76 @@ const GithubStatsSection = () => {
                     }
                 );
             }
-        }, headerRef);
+
+            // Featured Repositories Title
+            if (reposTitleRef.current) {
+                gsap.fromTo(
+                    reposTitleRef.current,
+                    { y: 40, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.4,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: reposTitleRef.current,
+                            start: "top 76%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
+            // Featured Repository Cards multi-directional entrance & visible reverse
+            cardRefs.current.forEach((card, index) => {
+                if (!card) return;
+
+                let fromVars = { opacity: 0 };
+                let duration = 1.4;
+                let triggerStart = "top 68%";
+
+                const colIndex = index % 3;
+                if (colIndex === 0) {
+                    // Left Column: Left to Right
+                    fromVars = { x: -260, opacity: 0 };
+                    duration = 1.4;
+                    triggerStart = "top 68%";
+                } else if (colIndex === 1) {
+                    // Center Column: Bottom to Top
+                    fromVars = { y: 80, opacity: 0 };
+                    duration = 1.6;
+                    triggerStart = "top 64%";
+                } else {
+                    // Right Column: Right to Left
+                    fromVars = { x: 260, opacity: 0 };
+                    duration = 1.8;
+                    triggerStart = "top 60%";
+                }
+
+                gsap.fromTo(
+                    card,
+                    fromVars,
+                    {
+                        x: 0,
+                        y: 0,
+                        opacity: 1,
+                        duration: duration,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: cardsContainerRef.current || card,
+                            start: triggerStart,
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            });
+        }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [repos]);
 
     return (
-        <section className="py-14 sm:py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5" id="github-stats">
+        <section ref={sectionRef} className="py-14 sm:py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5" id="github-stats">
             {/* Background Decor */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 left-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
@@ -234,24 +301,19 @@ const GithubStatsSection = () => {
 
                     {/* Top Repositories */}
                     <div className="space-y-6 sm:space-y-8 text-left">
-                        <motion.h3
-                            className="text-xl sm:text-2xl font-bold text-center lg:text-left"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: false }}
+                        <h3
+                            ref={reposTitleRef}
+                            className="text-xl sm:text-2xl font-bold text-center lg:text-left will-change-transform will-change-opacity"
                         >
                             Featured Repositories
-                        </motion.h3>
+                        </h3>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                             {repos.map((repo, index) => (
-                                <motion.div
+                                <div
                                     key={repo.name}
-                                    className="group relative bg-card/40 hover:bg-card/60 border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#EC844D]/40 hover:shadow-[#EC844D]/10 flex flex-col justify-between"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: false }}
+                                    ref={(el) => (cardRefs.current[index] = el)}
+                                    className="group relative bg-card/40 hover:bg-card/60 border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#EC844D]/40 hover:shadow-[#EC844D]/10 flex flex-col justify-between will-change-transform will-change-opacity"
                                 >
                                     <div>
                                         <div className="flex justify-between items-start mb-3 sm:mb-4">
@@ -283,7 +345,7 @@ const GithubStatsSection = () => {
                                             View <ExternalLink className="w-3 h-3" />
                                         </a>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>

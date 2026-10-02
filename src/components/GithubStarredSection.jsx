@@ -198,15 +198,19 @@ export const GithubStarredSection = () => {
     return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
   };
 
+  const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+  const cardsContainerRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
-    if (!headerRef.current) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      // Line 1: "Timeline of"
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
@@ -214,7 +218,7 @@ export const GithubStarredSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -225,6 +229,7 @@ export const GithubStarredSection = () => {
         );
       }
 
+      // Line 2: "Starred Projects"
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
@@ -232,7 +237,7 @@ export const GithubStarredSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -243,6 +248,7 @@ export const GithubStarredSection = () => {
         );
       }
 
+      // Line 3: Description
       if (line3Ref.current) {
         gsap.fromTo(
           line3Ref.current,
@@ -250,7 +256,7 @@ export const GithubStarredSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -260,13 +266,57 @@ export const GithubStarredSection = () => {
           }
         );
       }
-    }, headerRef);
+
+      // Starred Repository Cards with distinct multi-directional timing & visible reverse triggers
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        let fromVars = { opacity: 0 };
+        let duration = 1.4;
+        let triggerStart = "top 68%";
+        const colPos = index % 3;
+
+        if (colPos === 0) {
+          // Card 1 (Left): Left to Right
+          fromVars = { x: -260, opacity: 0 };
+          duration = 1.4;
+          triggerStart = "top 68%";
+        } else if (colPos === 1) {
+          // Card 2 (Center): Bottom to Top
+          fromVars = { y: 80, opacity: 0 };
+          duration = 1.6;
+          triggerStart = "top 64%";
+        } else {
+          // Card 3 (Right): Right to Left
+          fromVars = { x: 260, opacity: 0 };
+          duration = 1.8;
+          triggerStart = "top 60%";
+        }
+
+        gsap.fromTo(
+          card,
+          fromVars,
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: duration,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsContainerRef.current || card,
+              start: triggerStart,
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [showAll, starredRepos, loading]);
 
   return (
-    <section id="github-starred" className="relative py-14 sm:py-20 md:py-28 pb-28 sm:pb-36 md:pb-48 overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 z-10">
+    <section id="github-starred" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 pb-28 sm:pb-36 md:pb-48 overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 z-10">
       {/* Background Decor */}
       <div className="absolute inset-0 overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[30%] left-[5%] w-60 sm:w-80 h-60 sm:h-80 bg-amber-500/5 rounded-full blur-3xl opacity-60" />
@@ -315,7 +365,7 @@ export const GithubStarredSection = () => {
             ))}
           </div>
         ) : (
-          <div className="space-y-8 sm:space-y-12 md:space-y-20 relative">
+          <div ref={cardsContainerRef} className="space-y-8 sm:space-y-12 md:space-y-20 relative">
             <AnimatePresence>
               {chunkedRows.map((rowRepos, rowIndex) => {
                 const isEvenRow = rowIndex % 2 === 0;
@@ -338,13 +388,10 @@ export const GithubStarredSection = () => {
                       const dateText = formatDate(repo.starred_at || repo.created_at || repo.pushed_at);
 
                       return (
-                        <motion.div
+                        <div
                           key={repo.id || repo.name}
-                          className="relative flex-1 w-full min-w-0"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.9 }}
-                          transition={{ duration: 0.4, delay: globalIndex * 0.05 }}
+                          ref={(el) => (cardRefs.current[globalIndex] = el)}
+                          className="relative flex-1 w-full min-w-0 will-change-transform will-change-opacity"
                         >
                           {/* Card Content */}
                           <div className="group relative h-full bg-card/60 hover:bg-card/95 backdrop-blur-md border border-border/60 hover:border-amber-500/40 rounded-2xl p-4 sm:p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 hover:-translate-y-1">
@@ -491,7 +538,7 @@ export const GithubStarredSection = () => {
                               <div className="w-0.5 h-3 bg-gradient-to-b from-amber-400/80 to-amber-500/60" />
                             </div>
                           )}
-                        </motion.div>
+                        </div>
                       );
                     })}
 

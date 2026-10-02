@@ -27,12 +27,12 @@ export const CertificatesSection = () => {
             if (line1Ref.current) {
                 gsap.fromTo(
                     line1Ref.current,
-                    { y: 120, opacity: 0 },
+                    { y: 150, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2.2,
-                        ease: "power2.out",
+                        duration: 1.8,
+                        ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
                             start: "top 60%",
@@ -46,12 +46,12 @@ export const CertificatesSection = () => {
             if (line2Ref.current) {
                 gsap.fromTo(
                     line2Ref.current,
-                    { y: 120, opacity: 0 },
+                    { y: 150, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2.2,
-                        ease: "power2.out",
+                        duration: 1.8,
+                        ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
                             start: "top 40%",
@@ -65,12 +65,12 @@ export const CertificatesSection = () => {
             if (line3Ref.current) {
                 gsap.fromTo(
                     line3Ref.current,
-                    { y: 40, opacity: 0 },
+                    { y: 50, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2.2,
-                        ease: "power2.out",
+                        duration: 1.8,
+                        ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
                             start: "top 20%",
@@ -80,34 +80,30 @@ export const CertificatesSection = () => {
                 );
             }
 
-            // Certificate Cards with relaxed, cinematic glide & staggered delays
+            // Individual Certificate Cards with distinct timing, directions, and visible reverse trigger
             cardRefs.current.forEach((card, index) => {
                 if (!card) return;
 
                 let fromVars = { opacity: 0 };
-                let duration = 2.6;
-                let delay = 0;
-                let triggerStart = "top 72%";
+                let duration = 1.4;
+                let triggerStart = "top 68%";
                 const colPos = index % 3;
 
                 if (colPos === 0) {
-                    // Card 1 (Left): Left to Right (smooth 2.6s glide)
-                    fromVars = { x: -300, opacity: 0 };
-                    duration = 2.6;
-                    delay = 0;
-                    triggerStart = "top 72%";
-                } else if (colPos === 1) {
-                    // Card 2 (Center): Bottom to Top (graceful 2.8s float)
-                    fromVars = { y: 100, opacity: 0 };
-                    duration = 2.8;
-                    delay = 0.2;
-                    triggerStart = "top 70%";
-                } else {
-                    // Card 3 (Right): Right to Left (luxurious 3.0s slide)
-                    fromVars = { x: 300, opacity: 0 };
-                    duration = 3.0;
-                    delay = 0.4;
+                    // Card 1 (Left): Left to Right
+                    fromVars = { x: -260, opacity: 0 };
+                    duration = 1.4;
                     triggerStart = "top 68%";
+                } else if (colPos === 1) {
+                    // Card 2 (Center): Bottom to Top
+                    fromVars = { y: 80, opacity: 0 };
+                    duration = 1.6;
+                    triggerStart = "top 64%";
+                } else {
+                    // Card 3 (Right): Right to Left
+                    fromVars = { x: 260, opacity: 0 };
+                    duration = 1.8;
+                    triggerStart = "top 60%";
                 }
 
                 gsap.fromTo(
@@ -118,8 +114,7 @@ export const CertificatesSection = () => {
                         y: 0,
                         opacity: 1,
                         duration: duration,
-                        delay: delay,
-                        ease: "power2.out",
+                        ease: "power3.out",
                         scrollTrigger: {
                             trigger: cardsContainerRef.current || card,
                             start: triggerStart,
@@ -242,7 +237,7 @@ export const CertificatesSection = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                     >
                         <motion.button
                             onClick={() => setShowAll(!showAll)}

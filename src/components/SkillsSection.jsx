@@ -65,16 +65,20 @@ export const SkillsSection = () => {
     activeCategory === "all" || skill.category === activeCategory
   );
 
+  const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+  const filterContainerRef = useRef(null);
+  const cardsContainerRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
-    if (!headerRef.current) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Line 1: "Technical" - triggers on entering section
+      // Line 1: "Technical"
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
@@ -82,7 +86,7 @@ export const SkillsSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -93,7 +97,7 @@ export const SkillsSection = () => {
         );
       }
 
-      // Line 2: "Skills & Expertise" - requires significant further scrolling
+      // Line 2: "Skills & Expertise"
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
@@ -101,7 +105,7 @@ export const SkillsSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -112,7 +116,7 @@ export const SkillsSection = () => {
         );
       }
 
-      // Line 3: "Technologies I've mastered..." - requires deep scrolling
+      // Line 3: "Technologies I've mastered..."
       if (line3Ref.current) {
         gsap.fromTo(
           line3Ref.current,
@@ -120,7 +124,7 @@ export const SkillsSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -130,13 +134,96 @@ export const SkillsSection = () => {
           }
         );
       }
-    }, headerRef);
+
+      // Filter Pills Container
+      if (filterContainerRef.current) {
+        gsap.fromTo(
+          filterContainerRef.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: filterContainerRef.current,
+              start: "top 76%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Content Area (Infinite Scroll vs Category Grid Cards)
+      if (activeCategory === "all") {
+        if (cardsContainerRef.current) {
+          gsap.fromTo(
+            cardsContainerRef.current,
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.6,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: cardsContainerRef.current,
+                start: "top 72%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
+      } else {
+        cardRefs.current.forEach((card, index) => {
+          if (!card) return;
+
+          let fromVars = { opacity: 0 };
+          let duration = 1.4;
+          let triggerStart = "top 68%";
+          const colPos = index % 3;
+
+          if (colPos === 0) {
+            // Card 1 (Left): Left to Right
+            fromVars = { x: -260, opacity: 0 };
+            duration = 1.4;
+            triggerStart = "top 68%";
+          } else if (colPos === 1) {
+            // Card 2 (Center): Bottom to Top
+            fromVars = { y: 80, opacity: 0 };
+            duration = 1.6;
+            triggerStart = "top 64%";
+          } else {
+            // Card 3 (Right): Right to Left
+            fromVars = { x: 260, opacity: 0 };
+            duration = 1.8;
+            triggerStart = "top 60%";
+          }
+
+          gsap.fromTo(
+            card,
+            fromVars,
+            {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              duration: duration,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: cardsContainerRef.current || card,
+                start: triggerStart,
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
+      }
+    }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [activeCategory]);
 
   return (
-    <section id="skills" className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
+    <section id="skills" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
       {/* Background Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute w-60 sm:w-96 h-60 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl" />
@@ -167,60 +254,62 @@ export const SkillsSection = () => {
           </p>
         </div>
 
-        {/* Category Filter Pills (Desktop & Tablet) */}
-        <div className="hidden sm:flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-16">
-          {skillCategories.map((category) => (
-            <motion.button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border border-transparent hover:shadow-lg transition-all cursor-pointer ${activeCategory === category.id
-                ? `${category.color} text-white shadow-md shadow-primary/25 font-bold`
-                : "bg-secondary/50 text-foreground hover:bg-secondary/70"
-                }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category.label}
-            </motion.button>
-          ))}
-        </div>
+        {/* Category Filter Pills Container */}
+        <div ref={filterContainerRef} className="will-change-transform will-change-opacity">
+          {/* Desktop & Tablet */}
+          <div className="hidden sm:flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-16">
+            {skillCategories.map((category) => (
+              <motion.button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border border-transparent hover:shadow-lg transition-all cursor-pointer ${activeCategory === category.id
+                  ? `${category.color} text-white shadow-md shadow-primary/25 font-bold`
+                  : "bg-secondary/50 text-foreground hover:bg-secondary/70"
+                  }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {category.label}
+              </motion.button>
+            ))}
+          </div>
 
-        {/* Mobile Category Dropdown Selector */}
-        <div className="sm:hidden mb-8 max-w-xs mx-auto">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-primary">
-              <Filter className="h-4 w-4" />
-            </div>
-            <select
-              value={activeCategory}
-              onChange={(e) => setActiveCategory(e.target.value)}
-              className="w-full pl-10 pr-10 py-3 rounded-2xl bg-card border border-border text-foreground font-semibold text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm cursor-pointer"
-            >
-              {skillCategories.map((category) => (
-                <option key={category.id} value={category.id} className="bg-background text-foreground">
-                  {category.label}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-muted-foreground">
-              <ChevronDown className="h-4 w-4" />
+          {/* Mobile Category Dropdown Selector */}
+          <div className="sm:hidden mb-8 max-w-xs mx-auto">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-primary">
+                <Filter className="h-4 w-4" />
+              </div>
+              <select
+                value={activeCategory}
+                onChange={(e) => setActiveCategory(e.target.value)}
+                className="w-full pl-10 pr-10 py-3 rounded-2xl bg-card border border-border text-foreground font-semibold text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm cursor-pointer"
+              >
+                {skillCategories.map((category) => (
+                  <option key={category.id} value={category.id} className="bg-background text-foreground">
+                    {category.label}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-muted-foreground">
+                <ChevronDown className="h-4 w-4" />
+              </div>
             </div>
           </div>
         </div>
 
         {activeCategory === "all" ? (
-          <InfiniteScrollSkills skills={skillsData} />
+          <div ref={cardsContainerRef} className="will-change-transform will-change-opacity">
+            <InfiniteScrollSkills skills={skillsData} />
+          </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div ref={cardsContainerRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <AnimatePresence mode="popLayout">
-              {filteredSkills.map((skill) => (
-                <motion.div
+              {filteredSkills.map((skill, index) => (
+                <div
                   key={skill.name}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="bg-card p-4 sm:p-6 rounded-2xl border border-border/40 hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/10 group text-left"
+                  ref={(el) => (cardRefs.current[index] = el)}
+                  className="bg-card p-4 sm:p-6 rounded-2xl border border-border/40 hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/10 group text-left will-change-transform will-change-opacity"
                 >
                   <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-5">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-full bg-card border-2 border-primary/40 flex items-center justify-center shrink-0">
@@ -246,7 +335,7 @@ export const SkillsSection = () => {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </AnimatePresence>
           </div>

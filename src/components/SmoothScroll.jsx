@@ -1,18 +1,29 @@
 import { useEffect, useRef } from "react";
 import { ReactLenis } from "lenis/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const SmoothScroll = ({ children }) => {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    const updateLenis = () => {
-      if (lenisRef.current?.lenis) {
-        window.lenis = lenisRef.current.lenis;
-      }
-    };
+    const lenisInstance = lenisRef.current?.lenis;
+    if (lenisInstance) {
+      window.lenis = lenisInstance;
 
-    updateLenis();
+      // Sync Lenis scroll position with GSAP ScrollTrigger to prevent jitter
+      lenisInstance.on("scroll", ScrollTrigger.update);
+
+      // Tell GSAP to use Lenis's raf for buttery 120fps synchronization
+      const updateScrollTrigger = (time) => {
+        lenisInstance.raf(time * 1000);
+      };
+
+      gsap.ticker.lagSmoothing(0);
+    }
 
     // Intercept standard anchor clicks for buttery smooth scrolling
     const handleAnchorClick = (e) => {
@@ -27,7 +38,7 @@ export const SmoothScroll = ({ children }) => {
         e.preventDefault();
         window.lenis.scrollTo(element, {
           offset: -40,
-          duration: 1.4,
+          duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
       }
@@ -44,14 +55,15 @@ export const SmoothScroll = ({ children }) => {
       ref={lenisRef}
       root
       options={{
-        lerp: 0.08,
-        duration: 1.2,
+        lerp: 0.09,
+        duration: 1.1,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
-        wheelMultiplier: 1.0,
-        touchMultiplier: 1.6,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.5,
+        syncTouch: false,
         infinite: false,
       }}
     >
@@ -61,3 +73,4 @@ export const SmoothScroll = ({ children }) => {
 };
 
 export default SmoothScroll;
+

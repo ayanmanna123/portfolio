@@ -7,12 +7,14 @@ import * as random from "maath/random/dist/maath-random.esm";
 const StarBackgroundContent = ({ isDark, ...props }) => {
   const ref = useRef();
   const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(5001), { radius: 1.2 })
+    random.inSphere(new Float32Array(2400), { radius: 1.2 })
   );
 
   useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 10;
-    ref.current.rotation.y -= delta / 15;
+    if (ref.current) {
+      ref.current.rotation.x -= delta / 12;
+      ref.current.rotation.y -= delta / 18;
+    }
   });
 
   return (
@@ -27,8 +29,8 @@ const StarBackgroundContent = ({ isDark, ...props }) => {
         <PointMaterial
           transparent
           color={isDark ? "#ffffff" : "#EC844D"}
-          opacity={isDark ? 0.9 : 0.25}
-          size={0.002}
+          opacity={isDark ? 0.85 : 0.25}
+          size={0.0022}
           sizeAttenuation={true}
           depthWrite={false}
         />
@@ -45,7 +47,19 @@ export const StarBackground = () => {
 
   return (
     <div className="w-full h-auto fixed inset-0 z-[20] pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 1] }} events={null} className="!pointer-events-none">
+      <Canvas
+        camera={{ position: [0, 0, 1] }}
+        events={null}
+        dpr={[1, 1.5]}
+        gl={{
+          powerPreference: "high-performance",
+          antialias: false,
+          alpha: true,
+          stencil: false,
+          depth: false,
+        }}
+        className="!pointer-events-none"
+      >
         <Suspense fallback={null}>
           <StarBackgroundContent isDark={isDark} />
         </Suspense>

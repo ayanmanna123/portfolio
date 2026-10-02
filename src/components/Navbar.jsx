@@ -144,40 +144,49 @@ export const Navbar = () => {
   }, [isAudioReady, toast]);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollMetrics = () => {
       const currentScrollY = window.scrollY;
 
+      // Show/Hide navbar based on scroll direction
       if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
-        setShowNavbar(false);
+        setShowNavbar((prev) => (prev ? false : prev));
       } else {
-        setShowNavbar(true);
+        setShowNavbar((prev) => (!prev ? true : prev));
       }
-
       lastScrollYRef.current = currentScrollY;
 
+      // Detect active section with viewport calculation
       const sections = navItems
         .map((item) => item.href)
         .filter((href) => href.startsWith("#"));
-      const scrollPosition = currentScrollY + 140;
+      
+      const scrollPosition = currentScrollY + 160;
 
       for (const section of sections) {
         const element = document.querySelector(section);
         if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
 
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection((prev) => (prev !== section ? section : prev));
             break;
           }
         }
       }
+      ticking = false;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollMetrics);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

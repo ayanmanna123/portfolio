@@ -166,15 +166,20 @@
     @apply font-mono;
   }
 
-  /* Light mode full page griddle / graph paper pattern */
-  html:not(.dark),
-  html:not(.dark) body {
+  /* Light mode full page grid pattern (GPU-accelerated pseudo element with zero scroll repainting) */
+  html:not(.dark)::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    pointer-events: none;
     background-color: #f9f8f6;
     background-image: 
       linear-gradient(to right, rgba(0, 0, 0, 0.055) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
     background-size: 48px 48px;
-    background-attachment: fixed;
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   .dark body {
@@ -182,7 +187,7 @@
   }
 
   body {
-    @apply transition-colors duration-300 bg-background text-foreground;
+    @apply transition-colors duration-300 bg-transparent dark:bg-background text-foreground;
     font-family: 'JetBrains Mono', monospace;
     font-feature-settings: "rlig" 1, "calt" 1;
   }

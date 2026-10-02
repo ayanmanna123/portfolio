@@ -24,11 +24,15 @@ export const ProjectsSection = () => {
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+  const filterContainerRef = useRef(null);
+  const cardsContainerRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
-    if (!headerRef.current) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      // Line 1: "Featured"
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
@@ -36,7 +40,7 @@ export const ProjectsSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -47,6 +51,7 @@ export const ProjectsSection = () => {
         );
       }
 
+      // Line 2: "Projects"
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
@@ -54,7 +59,7 @@ export const ProjectsSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -65,6 +70,7 @@ export const ProjectsSection = () => {
         );
       }
 
+      // Line 3: Description
       if (line3Ref.current) {
         gsap.fromTo(
           line3Ref.current,
@@ -72,7 +78,7 @@ export const ProjectsSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -82,10 +88,73 @@ export const ProjectsSection = () => {
           }
         );
       }
-    }, headerRef);
+
+      // Filter Pills Container
+      if (filterContainerRef.current) {
+        gsap.fromTo(
+          filterContainerRef.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: filterContainerRef.current,
+              start: "top 76%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Project Cards with distinct multi-directional timings & visible reverse triggers
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        let fromVars = { opacity: 0 };
+        let duration = 1.4;
+        let triggerStart = "top 68%";
+        const colPos = index % 3;
+
+        if (colPos === 0) {
+          // Card 1 (Left): Left to Right
+          fromVars = { x: -260, opacity: 0 };
+          duration = 1.4;
+          triggerStart = "top 68%";
+        } else if (colPos === 1) {
+          // Card 2 (Center): Bottom to Top
+          fromVars = { y: 80, opacity: 0 };
+          duration = 1.6;
+          triggerStart = "top 64%";
+        } else {
+          // Card 3 (Right): Right to Left
+          fromVars = { x: 260, opacity: 0 };
+          duration = 1.8;
+          triggerStart = "top 60%";
+        }
+
+        gsap.fromTo(
+          card,
+          fromVars,
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: duration,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsContainerRef.current || card,
+              start: triggerStart,
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [activeFilter, showAll]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -177,12 +246,9 @@ export const ProjectsSection = () => {
         </div>
 
         {/* Filter Pills */}
-        <motion.div
-          className="flex justify-center mb-8 sm:mb-12 overflow-x-auto pb-2 scrollbar-none"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: false }}
+        <div
+          ref={filterContainerRef}
+          className="flex justify-center mb-8 sm:mb-12 overflow-x-auto pb-2 scrollbar-none will-change-transform will-change-opacity"
         >
           <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2 px-2">
             {categories.map((category) => (
@@ -200,23 +266,16 @@ export const ProjectsSection = () => {
               </motion.button>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+        <div ref={cardsContainerRef} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
           <AnimatePresence>
             {displayedProjects.map((project, index) => (
-              <motion.div
+              <div
                 key={project.id}
-                layout
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
-                }}
-                className="group text-left"
+                ref={(el) => (cardRefs.current[index] = el)}
+                className="group text-left will-change-transform will-change-opacity"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
@@ -378,7 +437,7 @@ export const ProjectsSection = () => {
                   {/* Accent Border */}
                   <div className={`h-1 bg-gradient-to-r ${project.accentColor}`} />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </AnimatePresence>
         </div>

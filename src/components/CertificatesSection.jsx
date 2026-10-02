@@ -11,24 +11,28 @@ export const CertificatesSection = () => {
     const [showAll, setShowAll] = useState(false);
     const displayedCertificates = showAll ? certificates : certificates.slice(0, 3);
 
+    const sectionRef = useRef(null);
     const headerRef = useRef(null);
     const line1Ref = useRef(null);
     const line2Ref = useRef(null);
     const line3Ref = useRef(null);
+    const cardsContainerRef = useRef(null);
+    const cardRefs = useRef([]);
 
     useEffect(() => {
-        if (!headerRef.current) return;
+        if (!sectionRef.current) return;
 
         const ctx = gsap.context(() => {
+            // Line 1: "Verified"
             if (line1Ref.current) {
                 gsap.fromTo(
                     line1Ref.current,
-                    { y: 150, opacity: 0 },
+                    { y: 120, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
-                        ease: "power3.out",
+                        duration: 2.2,
+                        ease: "power2.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
                             start: "top 60%",
@@ -38,15 +42,16 @@ export const CertificatesSection = () => {
                 );
             }
 
+            // Line 2: "Certifications"
             if (line2Ref.current) {
                 gsap.fromTo(
                     line2Ref.current,
-                    { y: 150, opacity: 0 },
+                    { y: 120, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
-                        ease: "power3.out",
+                        duration: 2.2,
+                        ease: "power2.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
                             start: "top 40%",
@@ -56,15 +61,16 @@ export const CertificatesSection = () => {
                 );
             }
 
+            // Line 3: Description
             if (line3Ref.current) {
                 gsap.fromTo(
                     line3Ref.current,
-                    { y: 50, opacity: 0 },
+                    { y: 40, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
-                        ease: "power3.out",
+                        duration: 2.2,
+                        ease: "power2.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
                             start: "top 20%",
@@ -73,13 +79,62 @@ export const CertificatesSection = () => {
                     }
                 );
             }
-        }, headerRef);
+
+            // Certificate Cards with relaxed, cinematic glide & staggered delays
+            cardRefs.current.forEach((card, index) => {
+                if (!card) return;
+
+                let fromVars = { opacity: 0 };
+                let duration = 2.6;
+                let delay = 0;
+                let triggerStart = "top 72%";
+                const colPos = index % 3;
+
+                if (colPos === 0) {
+                    // Card 1 (Left): Left to Right (smooth 2.6s glide)
+                    fromVars = { x: -300, opacity: 0 };
+                    duration = 2.6;
+                    delay = 0;
+                    triggerStart = "top 72%";
+                } else if (colPos === 1) {
+                    // Card 2 (Center): Bottom to Top (graceful 2.8s float)
+                    fromVars = { y: 100, opacity: 0 };
+                    duration = 2.8;
+                    delay = 0.2;
+                    triggerStart = "top 70%";
+                } else {
+                    // Card 3 (Right): Right to Left (luxurious 3.0s slide)
+                    fromVars = { x: 300, opacity: 0 };
+                    duration = 3.0;
+                    delay = 0.4;
+                    triggerStart = "top 68%";
+                }
+
+                gsap.fromTo(
+                    card,
+                    fromVars,
+                    {
+                        x: 0,
+                        y: 0,
+                        opacity: 1,
+                        duration: duration,
+                        delay: delay,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: cardsContainerRef.current || card,
+                            start: triggerStart,
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            });
+        }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [showAll]);
 
     return (
-        <section id="certifications" className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
+        <section id="certifications" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
             {/* Background Decor */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-[20%] right-[10%] w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
@@ -111,15 +166,12 @@ export const CertificatesSection = () => {
                 </div>
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                     {displayedCertificates.map((cert, index) => (
-                        <motion.div
-                            key={cert.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: index * 0.08 }}
-                            viewport={{ once: true }}
-                            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border/60 bg-card hover:border-[#EC844D]/40 hover:shadow-xl hover:shadow-[#EC844D]/10 transition-all duration-500 text-left flex flex-col justify-between"
+                        <div
+                            key={cert.id || index}
+                            ref={(el) => (cardRefs.current[index] = el)}
+                            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border/60 bg-card hover:border-[#EC844D]/40 hover:shadow-xl hover:shadow-[#EC844D]/10 transition-all duration-500 text-left flex flex-col justify-between will-change-transform will-change-opacity"
                         >
                             <div className="flex flex-col h-full">
                                 {/* Image Section */}
@@ -179,7 +231,7 @@ export const CertificatesSection = () => {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 

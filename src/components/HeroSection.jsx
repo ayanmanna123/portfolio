@@ -205,14 +205,8 @@ export const HeroSection = () => {
             transition={{ duration: 20, repeat: Infinity, delay: 2 }}
           />
         </div>
-
-        {/* Top Spacer / Subtle Tag */}
-        <div className="w-full flex justify-center hero-fade-element pt-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#EC844D]/25 bg-[#EC844D]/10 text-[#EC844D] text-[11px] font-mono tracking-wider uppercase backdrop-blur-md">
-            <Sparkles className="w-3 h-3 animate-pulse" />
-            <span>Portfolio 2026 Edition</span>
-          </div>
-        </div>
+ 
+        
 
         {/* Main Hero Grid */}
         <div className="w-full max-w-[1600px] mx-auto my-auto">
@@ -284,18 +278,21 @@ export const HeroSection = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-[#EC844D]/25 to-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EC844D]/15 border border-[#EC844D]/30 text-[#EC844D] text-xs font-mono uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC844D]/15 border border-[#EC844D]/30 text-[#EC844D] text-xs font-mono uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>About My Work</span>
+              <span>Curated Case Studies & Architecture</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-tight">
-              Transforming <span className="font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent">Ideas Into Reality</span>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.15]">
+              Where Technical Precision Meets{" "}
+              <span className="font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent block sm:inline mt-1 sm:mt-0">
+                Creative Engineering
+              </span>
             </h2>
             <p className="text-muted-foreground text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-light">
-              Building digital experiences that combine <span className="text-foreground font-medium">innovation</span>, <span className="text-foreground font-medium">performance</span>, and <span className="text-foreground font-medium">elegance</span>.
+              Deep dives into <span className="text-foreground font-medium">high-performance systems</span>, scalable architectures, and <span className="text-foreground font-medium">pixel-crafted digital experiences</span>.
             </p>
-            <div className="pt-4 flex items-center gap-2 text-xs font-mono text-[#EC844D] uppercase tracking-widest animate-bounce">
-              <span>Entering Profile</span>
+            <div className="pt-3 flex items-center gap-2 text-xs font-mono text-[#EC844D] uppercase tracking-widest animate-bounce">
+              <span>Explore Case Studies</span>
               <ArrowDown className="w-4 h-4" />
             </div>
           </div>

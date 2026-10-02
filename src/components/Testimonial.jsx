@@ -1,7 +1,10 @@
 "use client";
-import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { useInView } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { testimonials } from "@/data";
 
@@ -48,6 +51,73 @@ export const TestimonialSection = () => {
     visibleTestimonials.push(testimonials[visibleTestimonials.length]);
   }
 
+  const headerRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      if (line1Ref.current) {
+        gsap.fromTo(
+          line1Ref.current,
+          { y: 150, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 60%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      if (line2Ref.current) {
+        gsap.fromTo(
+          line2Ref.current,
+          { y: 150, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 40%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      if (line3Ref.current) {
+        gsap.fromTo(
+          line3Ref.current,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 20%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    }, headerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -74,77 +144,43 @@ export const TestimonialSection = () => {
   return (
     <section
       id="testimonials"
-      className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-primary/5 via-background to-background"
+      className="relative py-14 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5"
       ref={ref}
     >
-      {/* Floating particles background */}
-      <div className="absolute inset-0 overflow-hidden -z-10">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-primary/10"
-            style={{
-              width: Math.random() * 10 + 2 + 'px',
-              height: Math.random() * 10 + 2 + 'px',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-            }}
-            animate={{
-              y: [0, (Math.random() - 0.5) * 100],
-              x: [0, (Math.random() - 0.5) * 50],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              ease: 'linear'
-            }}
-          />
-        ))}
+      {/* Background Decor */}
+      <div className="absolute inset-0 overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute top-1/4 right-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
       </div>
 
-      <motion.div
-        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-20"
-        initial={{ width: 0 }}
-        animate={{ width: "100%" }}
-        transition={{ duration: 1.5, delay: 0.5 }}
-      />
-
       <div className="container max-w-6xl mx-auto">
-        <motion.div
-          className="space-y-12 sm:space-y-16"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <motion.div className="text-center" variants={itemVariants}>
-            <motion.div
-              className="text-sm sm:text-lg font-mono text-primary mb-3 sm:mb-4 inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/20"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
+        <div className="space-y-12 sm:space-y-16">
+          <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
+            <div className="text-sm sm:text-base font-mono text-primary mb-3 sm:mb-4 inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/20">
               <Star className="h-3 w-3 sm:h-4 sm:w-4" />
               Client Feedback
               <Star className="h-3 w-3 sm:h-4 sm:w-4" />
-            </motion.div>
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold leading-normal sm:leading-tight"
-              variants={itemVariants}
-            >
-              <span className="block text-foreground">What</span>
-              <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 pb-2 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
+              <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
+                What
+              </span>
+              <span
+                ref={line2Ref}
+                className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
+                style={{ fontFamily: "'Rakyat', cursive" }}
+              >
                 People Say
               </span>
-            </motion.h2>
-            <motion.p
-              className="text-base sm:text-lg text-muted-foreground mt-3 sm:mt-4 max-w-2xl mx-auto"
-              variants={itemVariants}
+            </h2>
+            <p
+              ref={line3Ref}
+              className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
             >
               What Clients Will Say About Working with Me.
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
           <div className="relative">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
@@ -251,7 +287,7 @@ export const TestimonialSection = () => {
               </button>
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Animated gradient background elements */}

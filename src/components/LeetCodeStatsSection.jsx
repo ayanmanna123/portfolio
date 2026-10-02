@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Code2, Trophy, Target, TrendingUp, Calendar as CalendarIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { leetcodeUsername } from "../data";
 import { ActivityCalendar } from "react-activity-calendar";
 import { Tooltip } from "react-tooltip";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const LeetCodeStatsSection = () => {
     const { resolvedTheme } = useTheme();
@@ -204,30 +208,105 @@ const LeetCodeStatsSection = () => {
         dark: ['#1f140d', '#4a2815', '#8a441e', '#ec844d', '#ffa07a'],
     };
 
+    const headerRef = useRef(null);
+    const line1Ref = useRef(null);
+    const line2Ref = useRef(null);
+    const line3Ref = useRef(null);
+
+    useEffect(() => {
+        if (!headerRef.current) return;
+
+        const ctx = gsap.context(() => {
+            if (line1Ref.current) {
+                gsap.fromTo(
+                    line1Ref.current,
+                    { y: 150, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 60%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
+            if (line2Ref.current) {
+                gsap.fromTo(
+                    line2Ref.current,
+                    { y: 150, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 40%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
+            if (line3Ref.current) {
+                gsap.fromTo(
+                    line3Ref.current,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 20%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+        }, headerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="py-16 sm:py-24 md:py-28 relative z-10" id="leetcode-stats">
-            <div className="container mx-auto px-3 sm:px-6">
+        <section className="py-14 sm:py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5" id="leetcode-stats">
+            {/* Background Decor */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/4 right-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-1/4 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
+                <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
+            </div>
+
+            <div className="container mx-auto px-3 sm:px-6 relative z-10">
                 {/* Section Header */}
-                <motion.div
-                    className="text-center mb-10 sm:mb-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: false }}
-                >
-                    <div className="flex flex-col items-center justify-center mb-3 sm:mb-4">
-                        <div className="flex items-center gap-2 mb-1 sm:mb-2">
-                            <Code2 className="w-6 h-6 sm:w-7 sm:h-7 text-[#EC844D] dark:text-[#FFAE80]" />
-                            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">LeetCode</span>
-                        </div>
-                        <span className="block font-rakyat text-3xl sm:text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
+                    <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
+                        <span ref={line1Ref} className="inline-flex items-center justify-center gap-2 sm:gap-3 text-foreground will-change-transform will-change-opacity">
+                            <Code2 className="w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#EC844D] dark:text-[#FFAE80] inline-block" />
+                            <span>LeetCode</span>
+                        </span>
+                        <span
+                            ref={line2Ref}
+                            className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
+                            style={{ fontFamily: "'Rakyat', cursive" }}
+                        >
                             Problem Solving
                         </span>
-                    </div>
-                    <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+                    </h2>
+                    <p
+                        ref={line3Ref}
+                        className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+                    >
                         My comprehensive problem-solving statistics and achievements on LeetCode.
                     </p>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
                     {/* Main Stats Card */}

@@ -93,11 +93,11 @@ export const AboutSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
+            duration: 2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 85%",
+              start: "top 60%",
               toggleActions: "play none none reverse",
             },
           }
@@ -112,11 +112,11 @@ export const AboutSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
+            duration: 2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 50%",
+              start: "top 40%",
               toggleActions: "play none none reverse",
             },
           }
@@ -131,7 +131,7 @@ export const AboutSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
+            duration: 2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,

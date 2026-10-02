@@ -1,6 +1,10 @@
 import { ArrowRight, ExternalLink, Github, ChevronUp, Star, Code, ChevronDown, MoveRight, Filter, Sparkles, Award, Zap, Play, Eye, Calendar, Users, X, Info } from "lucide-react";
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 import { projects, categoryColors } from "@/data";
 import { ProjectDetailsModal } from "./ProjectDetailsModal";
@@ -15,6 +19,73 @@ export const ProjectsSection = () => {
   const [selectedDeepDiveProject, setSelectedDeepDiveProject] = useState(null);
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
+
+  const headerRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      if (line1Ref.current) {
+        gsap.fromTo(
+          line1Ref.current,
+          { y: 150, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 60%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      if (line2Ref.current) {
+        gsap.fromTo(
+          line2Ref.current,
+          { y: 150, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 40%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      if (line3Ref.current) {
+        gsap.fromTo(
+          line3Ref.current,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 20%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    }, headerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -69,57 +140,41 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-16 sm:py-24 md:py-32 bg-gradient-to-br from-background via-background to-[#EC844D]/5"
+      className="relative min-h-screen py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden"
       ref={sectionRef}
     >
-      {/* Clean Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-[#EC844D]/5 to-background" />
+      {/* Background Shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
       </div>
 
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl relative">
         {/* Header */}
-        <motion.div
-          className="text-center mb-10 sm:mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20 text-xs sm:text-sm font-medium mb-4 sm:mb-6 shadow-[0_0_15px_rgba(236,132,77,0.15)]"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            viewport={{ once: false }}
-          >
-            <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            My Projects
-          </motion.div>
+        <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
+           
 
-          <motion.h2
-            className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-6 leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            viewport={{ once: false }}
-          >
-            <span className="block text-foreground">Featured</span>
-            <span className="block font-rakyat text-3xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
+            <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
+              Featured
+            </span>
+            <span
+              ref={line2Ref}
+              className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
+              style={{ fontFamily: "'Rakyat', cursive" }}
+            >
               Projects
             </span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: false }}
+          <p
+            ref={line3Ref}
+            className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
           >
             A collection of projects I've built to showcase my skills in full-stack development and modern web technologies.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Filter Pills */}
         <motion.div

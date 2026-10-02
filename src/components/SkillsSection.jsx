@@ -1,4 +1,8 @@
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import { motion, AnimatePresence } from "framer-motion";
 import { skillsData, skillCategories, iconImages } from "@/data";
 import { ChevronDown, Filter } from "lucide-react";
@@ -61,24 +65,107 @@ export const SkillsSection = () => {
     activeCategory === "all" || skill.category === activeCategory
   );
 
+  const headerRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Line 1: "Technical" - triggers on entering section
+      if (line1Ref.current) {
+        gsap.fromTo(
+          line1Ref.current,
+          { y: 150, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 60%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Line 2: "Skills & Expertise" - requires significant further scrolling
+      if (line2Ref.current) {
+        gsap.fromTo(
+          line2Ref.current,
+          { y: 150, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 40%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Line 3: "Technologies I've mastered..." - requires deep scrolling
+      if (line3Ref.current) {
+        gsap.fromTo(
+          line3Ref.current,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 20%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    }, headerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="skills" className="py-16 sm:py-24 md:py-28 px-3 sm:px-6 bg-gradient-to-br from-background via-secondary/5 to-background">
-      <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-10 sm:mb-16 md:mb-20"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 leading-tight">
-            <span className="block text-foreground">Technical</span>
-            <span className="block font-rakyat text-3xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+    <section id="skills" className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-60 sm:w-96 h-60 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl" />
+        <div className="absolute w-52 sm:w-80 h-52 sm:h-80 bg-[#FFD8B2]/20 dark:bg-[#EC844D]/10 rounded-full blur-3xl right-0 bottom-0" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
+      </div>
+
+      <div className="container mx-auto max-w-6xl relative">
+        {/* Header */}
+        <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
+            <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
+              Technical
+            </span>
+            <span
+              ref={line2Ref}
+              className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
+              style={{ fontFamily: "'Rakyat', cursive" }}
+            >
               Skills & Expertise
             </span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-lg">
+          <p
+            ref={line3Ref}
+            className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+          >
             Technologies I've mastered and my proficiency levels
           </p>
-        </motion.div>
+        </div>
 
         {/* Category Filter Pills (Desktop & Tablet) */}
         <div className="hidden sm:flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-16">

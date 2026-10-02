@@ -293,7 +293,7 @@ export const HeroSection = () => {
                 </div>
 
                 {/* Code Container */}
-                <div className="font-mono text-xs sm:text-sm bg-transparent rounded-lg border border-border/60 dark:border-stone-800/70 min-h-[380px] sm:min-h-[420px] flex shadow-inner overflow-x-auto">
+                <div className="font-mono text-xs sm:text-sm bg-transparent rounded-lg border border-border/60 dark:border-stone-800/70 min-h-[380px] sm:min-h-[460px] flex shadow-inner overflow-x-auto">
                   <div className="p-4 sm:p-5 w-full">
                     <div className="grid grid-cols-1 gap-1.5 h-full content-start">
                       {heroData.codeSnippets.map((line, index) => (
@@ -346,7 +346,7 @@ export const HeroSection = () => {
       </div>
 
       <motion.div 
-        className="absolute bottom-24 sm:bottom-28 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-30 pointer-events-auto" 
+        className="absolute bottom-32 sm:bottom-36 md:bottom-40 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-30 pointer-events-auto" 
         onClick={() => {
           const aboutSection = document.getElementById('about');
           if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
@@ -355,11 +355,7 @@ export const HeroSection = () => {
         animate={{ opacity: [0, 1, 1, 0], y: [0, 6, 0, -6] }} 
         transition={{ duration: 3, repeat: Infinity, repeatDelay: 0.5 }}
       >
-        <motion.div className="text-xs text-[#EC844D] dark:text-[#FFAE80] mb-2 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-[#EC844D]/30 shadow-lg hover:border-[#EC844D]/60 transition-colors" whileHover={{ scale: 1.05 }}>
-          <MousePointerClick className="h-3 w-3 text-[#EC844D] dark:text-[#FFAE80]" />
-          <span>Explore Technical Portfolio</span>
-        </motion.div>
-        <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-5 h-8 border-2 border-[#EC844D]/40 rounded-full flex justify-center">
+        <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-5 h-8 border-2 border-[#EC844D]/40 rounded-full flex justify-center hover:border-[#EC844D] transition-colors">
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-1 h-2 bg-[#EC844D] rounded-full mt-2" />
         </motion.div>
       </motion.div>

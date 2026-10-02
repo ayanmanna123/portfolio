@@ -76,13 +76,19 @@ export const AboutSection = () => {
   }, []);
 
 
+  const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+  const aboutCardRef = useRef(null);
+  const techStackCardRef = useRef(null);
+  const workCardRef = useRef(null);
+  const whyChooseCardRef = useRef(null);
+  const beyondCodeCardRef = useRef(null);
 
   useEffect(() => {
-    if (!headerRef.current) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       // Line 1: "Transforming" - triggers on entering section
@@ -141,7 +147,102 @@ export const AboutSection = () => {
           }
         );
       }
-    }, headerRef);
+
+      // 1. Profile / About Card (Left to Right - Quick & Crisp: 1.8s)
+      if (aboutCardRef.current) {
+        gsap.fromTo(
+          aboutCardRef.current,
+          { x: -280, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: aboutCardRef.current,
+              start: "top 82%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // 2. Tech Stack Overview Card (Left to Right - Smooth Deeper Slide: 2.4s)
+      if (techStackCardRef.current) {
+        gsap.fromTo(
+          techStackCardRef.current,
+          { x: -350, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 2.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: techStackCardRef.current,
+              start: "top 86%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // 3. Work Together Card (Right to Left - Snappy: 1.6s)
+      if (workCardRef.current) {
+        gsap.fromTo(
+          workCardRef.current,
+          { x: 260, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: workCardRef.current,
+              start: "top 82%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // 4. Why Choose Me Card (Right to Left - Moderate Glide: 2.0s)
+      if (whyChooseCardRef.current) {
+        gsap.fromTo(
+          whyChooseCardRef.current,
+          { x: 300, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 2.0,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: whyChooseCardRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // 5. Beyond Code Card (Right to Left - Flowing Trail: 2.5s)
+      if (beyondCodeCardRef.current) {
+        gsap.fromTo(
+          beyondCodeCardRef.current,
+          { x: 340, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 2.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: beyondCodeCardRef.current,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
@@ -157,7 +258,7 @@ export const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
+    <section id="about" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
       {/* Background Shapes */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-60 sm:w-96 h-60 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl transition-all duration-1000 ease-out" style={{ transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` }} />
@@ -196,7 +297,10 @@ export const AboutSection = () => {
           {/* Left Column */}
           <div className="xl:col-span-2 space-y-6 sm:space-y-8">
             {/* About Card */}
-            <div className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-8 backdrop-blur-xl shadow-xl sm:shadow-2xl transition-all duration-500 hover:border-primary/40 hover:bg-card/60 relative overflow-hidden group">
+            <div
+              ref={aboutCardRef}
+              className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-8 backdrop-blur-xl shadow-xl sm:shadow-2xl transition-colors duration-300 hover:border-primary/40 hover:bg-card/60 relative overflow-hidden group will-change-transform will-change-opacity"
+            >
               {/* Decorative Circles */}
               <div className="absolute inset-0 opacity-5 pointer-events-none">
                 <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-primary rounded-full -translate-y-16 translate-x-16" />
@@ -277,7 +381,10 @@ export const AboutSection = () => {
             </div>
 
             {/* Tech Stack Dropdown Accordion */}
-            <div className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-7 backdrop-blur-xl shadow-xl transition-all duration-500 hover:border-primary/40 hover:bg-card/60 text-left">
+            <div
+              ref={techStackCardRef}
+              className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-7 backdrop-blur-xl shadow-xl transition-colors duration-300 hover:border-primary/40 hover:bg-card/60 text-left will-change-transform will-change-opacity"
+            >
               <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6 flex-wrap">
                 <h3 className="text-base sm:text-2xl font-bold flex items-center gap-2 sm:gap-3">
                   <Code className="h-4 sm:h-6 w-4 sm:w-6 text-primary" />
@@ -392,7 +499,10 @@ export const AboutSection = () => {
           {/* Right Column */}
           <div className="space-y-4 sm:space-y-8">
             {/* Work Together */}
-            <div className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-8 backdrop-blur-xl shadow-xl transition-all duration-500 hover:border-primary/40 hover:bg-card/60">
+            <div
+              ref={workCardRef}
+              className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-8 backdrop-blur-xl shadow-xl transition-colors duration-300 hover:border-primary/40 hover:bg-card/60 will-change-transform will-change-opacity"
+            >
               <h3 className="text-base sm:text-2xl font-bold mb-3 sm:mb-6 text-center">Let's Work Together</h3>
               <div className="flex flex-col sm:flex-row xl:flex-col gap-2.5 sm:gap-3">
                 <a href="#contact" className="w-full p-3 sm:p-4 bg-[#EC844D] text-white rounded-xl text-center font-bold text-xs sm:text-sm transition-all duration-300 hover:bg-[#DE743C] active:scale-95 shadow-lg shadow-[#EC844D]/25 group">
@@ -424,7 +534,10 @@ export const AboutSection = () => {
             </div>
 
             {/* Why Choose Me */}
-            <div className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-xl transition-all duration-500 hover:border-primary/40 hover:bg-card/60 text-left">
+            <div
+              ref={whyChooseCardRef}
+              className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-xl transition-colors duration-300 hover:border-primary/40 hover:bg-card/60 text-left will-change-transform will-change-opacity"
+            >
               <h3 className="text-sm sm:text-lg font-bold mb-2.5 sm:mb-4 flex items-center gap-2"><Star className="h-4 w-4 text-primary" />Why Choose Me</h3>
               <div className="space-y-1.5 sm:space-y-2.5">
                 {features.map((feature, index) => (
@@ -437,7 +550,10 @@ export const AboutSection = () => {
             </div>
 
             {/* Hobbies & Interests */}
-            <div className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-xl transition-all duration-500 hover:border-primary/40 hover:bg-card/60 text-left">
+            <div
+              ref={beyondCodeCardRef}
+              className="bg-card/50 border border-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-xl transition-colors duration-300 hover:border-primary/40 hover:bg-card/60 text-left will-change-transform will-change-opacity"
+            >
               <h3 className="text-sm sm:text-lg font-bold mb-2.5 sm:mb-4 flex items-center gap-2">
                 <Heart className="h-4 w-4 text-primary" />
                 Beyond Code

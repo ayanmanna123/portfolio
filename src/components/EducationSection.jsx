@@ -3,21 +3,23 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
-import TiltedCard from './TiltedCard';
-import { motion } from 'framer-motion';
 import { educationData } from '../data';
 import { GraduationCap, Calendar, Award } from 'lucide-react';
 
 const EducationSection = () => {
+    const sectionRef = useRef(null);
     const headerRef = useRef(null);
     const line1Ref = useRef(null);
     const line2Ref = useRef(null);
     const line3Ref = useRef(null);
+    const cardsContainerRef = useRef(null);
+    const cardRefs = useRef([]);
 
     useEffect(() => {
-        if (!headerRef.current) return;
+        if (!sectionRef.current) return;
 
         const ctx = gsap.context(() => {
+            // Line 1: "Academic"
             if (line1Ref.current) {
                 gsap.fromTo(
                     line1Ref.current,
@@ -25,7 +27,7 @@ const EducationSection = () => {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
+                        duration: 1.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
@@ -36,6 +38,7 @@ const EducationSection = () => {
                 );
             }
 
+            // Line 2: "Education & Degrees"
             if (line2Ref.current) {
                 gsap.fromTo(
                     line2Ref.current,
@@ -43,7 +46,7 @@ const EducationSection = () => {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
+                        duration: 1.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
@@ -54,6 +57,7 @@ const EducationSection = () => {
                 );
             }
 
+            // Line 3: Description text
             if (line3Ref.current) {
                 gsap.fromTo(
                     line3Ref.current,
@@ -61,7 +65,7 @@ const EducationSection = () => {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 2,
+                        duration: 1.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
@@ -71,13 +75,56 @@ const EducationSection = () => {
                     }
                 );
             }
-        }, headerRef);
+
+            // Individual Education Cards with distinct timing, directions, and visible reverse trigger
+            cardRefs.current.forEach((card, index) => {
+                if (!card) return;
+
+                let fromVars = { opacity: 0 };
+                let duration = 1.4;
+                let triggerStart = "top 68%";
+
+                if (index === 0) {
+                    // Card 1 (Left): Left to Right
+                    fromVars = { x: -260, opacity: 0 };
+                    duration = 1.4;
+                    triggerStart = "top 68%";
+                } else if (index === 1) {
+                    // Card 2 (Center): Bottom to Top
+                    fromVars = { y: 80, opacity: 0 };
+                    duration = 1.6;
+                    triggerStart = "top 64%";
+                } else {
+                    // Card 3 (Right): Right to Left
+                    fromVars = { x: 260, opacity: 0 };
+                    duration = 1.8;
+                    triggerStart = "top 60%";
+                }
+
+                gsap.fromTo(
+                    card,
+                    fromVars,
+                    {
+                        x: 0,
+                        y: 0,
+                        opacity: 1,
+                        duration: duration,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: cardsContainerRef.current || card,
+                            start: triggerStart,
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            });
+        }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section id="education" className="py-14 sm:py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5">
+        <section id="education" ref={sectionRef} className="py-14 sm:py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5">
             {/* Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 right-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
@@ -108,15 +155,12 @@ const EducationSection = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
                     {educationData.map((item, index) => (
-                        <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="w-full"
+                        <div
+                            key={item.id || index}
+                            ref={(el) => (cardRefs.current[index] = el)}
+                            className="w-full will-change-transform will-change-opacity"
                         >
                             <div className="bg-card/90 dark:bg-slate-900/60 border border-border rounded-2xl sm:rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-lg hover:shadow-xl hover:border-[#EC844D]/40 transition-all duration-300 h-full flex flex-col justify-between text-left group">
                                 <div>
@@ -150,7 +194,7 @@ const EducationSection = () => {
                                     </div>
                                 )}
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

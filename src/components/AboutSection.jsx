@@ -148,7 +148,7 @@ export const AboutSection = () => {
         );
       }
 
-      // 1. Profile / About Card (Left to Right - Quick & Crisp: 1.8s)
+      // 1. Profile / About Card (Left to Right - Quick & Crisp: 1.5s)
       if (aboutCardRef.current) {
         gsap.fromTo(
           aboutCardRef.current,
@@ -156,18 +156,18 @@ export const AboutSection = () => {
           {
             x: 0,
             opacity: 1,
-            duration: 1.8,
+            duration: 1.5,
             ease: "power3.out",
             scrollTrigger: {
               trigger: aboutCardRef.current,
-              start: "top 82%",
+              start: "top 72%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // 2. Tech Stack Overview Card (Left to Right - Smooth Deeper Slide: 2.4s)
+      // 2. Tech Stack Overview Card (Left to Right - Smooth Deeper Slide: 1.8s)
       if (techStackCardRef.current) {
         gsap.fromTo(
           techStackCardRef.current,
@@ -175,18 +175,18 @@ export const AboutSection = () => {
           {
             x: 0,
             opacity: 1,
-            duration: 2.4,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: techStackCardRef.current,
-              start: "top 86%",
+              start: "top 75%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // 3. Work Together Card (Right to Left - Snappy: 1.6s)
+      // 3. Work Together Card (Right to Left - Snappy: 1.4s)
       if (workCardRef.current) {
         gsap.fromTo(
           workCardRef.current,
@@ -194,18 +194,18 @@ export const AboutSection = () => {
           {
             x: 0,
             opacity: 1,
-            duration: 1.6,
+            duration: 1.4,
             ease: "power3.out",
             scrollTrigger: {
               trigger: workCardRef.current,
-              start: "top 82%",
+              start: "top 72%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // 4. Why Choose Me Card (Right to Left - Moderate Glide: 2.0s)
+      // 4. Why Choose Me Card (Right to Left - Moderate Glide: 1.6s)
       if (whyChooseCardRef.current) {
         gsap.fromTo(
           whyChooseCardRef.current,
@@ -213,18 +213,18 @@ export const AboutSection = () => {
           {
             x: 0,
             opacity: 1,
-            duration: 2.0,
+            duration: 1.6,
             ease: "power3.out",
             scrollTrigger: {
               trigger: whyChooseCardRef.current,
-              start: "top 85%",
+              start: "top 74%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // 5. Beyond Code Card (Right to Left - Flowing Trail: 2.5s)
+      // 5. Beyond Code Card (Right to Left - Flowing Trail: 1.8s)
       if (beyondCodeCardRef.current) {
         gsap.fromTo(
           beyondCodeCardRef.current,
@@ -232,11 +232,11 @@ export const AboutSection = () => {
           {
             x: 0,
             opacity: 1,
-            duration: 2.5,
+            duration: 1.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: beyondCodeCardRef.current,
-              start: "top 88%",
+              start: "top 76%",
               toggleActions: "play none none reverse",
             },
           }

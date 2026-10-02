@@ -89,7 +89,7 @@ export const AboutSection = () => {
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
-          { y: 100, opacity: 0 },
+          { y: 150, opacity: 0 },
           {
             y: 0,
             opacity: 1,
@@ -108,7 +108,7 @@ export const AboutSection = () => {
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
-          { y: 100, opacity: 0 },
+          { y: 150, opacity: 0 },
           {
             y: 0,
             opacity: 1,

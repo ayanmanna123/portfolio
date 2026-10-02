@@ -52,24 +52,29 @@ const TimelineItem = ({ item, index }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-30px" }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`relative flex items-center mb-8 sm:mb-12 last:mb-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
+            className={`relative flex items-center mb-8 sm:mb-12 last:mb-0 ${
+                isEven ? 'md:flex-row' : 'md:flex-row-reverse'
+            }`}
         >
             {/* Date/Year Badge - Mobile: Left next to line, Desktop: Opposite side */}
-            <div className={`hidden md:flex w-1/2 justify-${isEven ? 'end' : 'start'} px-10`}>
+            <div className={`hidden md:flex w-1/2 items-center ${
+                isEven ? 'justify-end pr-10' : 'justify-start pl-10'
+            }`}>
                 <div className="flex items-center gap-2 text-[#EC844D] dark:text-[#FFAE80] font-bold text-lg sm:text-xl">
                     <Calendar className="w-5 h-5 text-[#EC844D] dark:text-[#FFAE80]" />
-                    {item.year}
+                    <span>{item.year}</span>
                 </div>
             </div>
 
             {/* Center Dot */}
-            <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-background dark:bg-slate-900 border-2 border-[#EC844D] z-10 shadow-[0_0_15px_rgba(236,132,77,0.35)]">
-                <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#EC844D] dark:text-[#FFAE80]" />
+            <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-background dark:bg-slate-900 border-2 border-[#EC844D] z-20 shadow-[0_0_15px_rgba(236,132,77,0.35)]">
+                <Briefcase className="w-4 h-4 text-[#EC844D] dark:text-[#FFAE80]" />
             </div>
 
             {/* Content Card */}
-            <div className="w-full md:w-1/2 pl-10 md:pl-0 md:px-10 text-left">
+            <div className={`w-full md:w-1/2 pl-12 sm:pl-14 text-left ${
+                isEven ? 'md:pl-10 md:pr-4' : 'md:pr-10 md:pl-4'
+            }`}>
                 <div className="bg-card/90 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-border dark:border-white/10 hover:border-[#EC844D]/40 transition-all duration-300 shadow-md hover:shadow-[0_0_25px_rgba(236,132,77,0.15)] group">
                     <div className="md:hidden text-[#EC844D] dark:text-[#FFAE80] font-bold text-xs sm:text-sm mb-1.5 flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-[#EC844D] dark:text-[#FFAE80]" /> {item.year}

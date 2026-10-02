@@ -111,23 +111,18 @@ export const HeroLeft = () => {
             key={index}
             className="text-center p-3 sm:p-4 rounded-xl bg-background/70 border border-border/60 backdrop-blur-sm hover:border-[#EC844D]/50 hover:shadow-[0_4px_25px_rgba(236,132,77,0.18)] transition-all duration-300"
           >
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
-              <span className="text-[#EC844D] dark:text-[#FFAE80] scale-90 sm:scale-100">
-                {achievement.icon}
-              </span>
-              <div className="text-lg sm:text-2xl font-bold text-foreground">
-                {index === 0 ? (
-                  <CountUp value={stats.contributions} suffix="+" />
-                ) : index === 1 ? (
-                  <CountUp value={stats.repos} suffix="+" />
-                ) : index === 2 ? (
-                  <CountUp value={stats.projects} suffix="+" />
-                ) : index === 3 ? (
-                  <CountUp value={stats.leetcode} suffix="+" />
-                ) : (
-                  achievement.number
-                )}
-              </div>
+            <div className="text-lg sm:text-2xl font-bold text-foreground mb-1 sm:mb-2">
+              {index === 0 ? (
+                <CountUp value={stats.contributions} suffix="+" />
+              ) : index === 1 ? (
+                <CountUp value={stats.repos} suffix="+" />
+              ) : index === 2 ? (
+                <CountUp value={stats.projects} suffix="+" />
+              ) : index === 3 ? (
+                <CountUp value={stats.leetcode} suffix="+" />
+              ) : (
+                achievement.number
+              )}
             </div>
             <div className="text-[11px] sm:text-xs text-muted-foreground leading-tight">
               {achievement.label}

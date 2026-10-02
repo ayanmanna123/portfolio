@@ -58,100 +58,114 @@ export const HeroLeft = () => {
 
   return (
     <div className="flex-1 text-center lg:text-left max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 w-full pt-0">
-      <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-        <motion.span
-          className="block text-foreground"
+      <div className="hero-fade-element">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+          <motion.span
+            className="block text-foreground"
+            variants={{
+              hidden: { y: 20, opacity: 0 },
+              visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
+            }}
+          >
+            {heroData.title}
+          </motion.span>
+          <SplitText
+            text={heroData.subtitle || "Full-Stack Engineer"}
+            className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal"
+            delay={50}
+            duration={1.25}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+            textAlign="left"
+            tag="span"
+            onLetterAnimationComplete={() => {
+              console.log('All letters have animated!');
+            }}
+            showCallback
+          />
+        </h1>
+
+        <motion.p
+          className="text-sm sm:text-lg md:text-xl text-muted-foreground mt-4 sm:mt-6 leading-relaxed max-w-2xl mx-auto lg:mx-0"
           variants={{
             hidden: { y: 20, opacity: 0 },
             visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
           }}
         >
-          {heroData.title}
-        </motion.span>
-        <SplitText
-          text={heroData.subtitle || "Full-Stack Engineer"}
-          className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal"
-          delay={50}
-          duration={1.25}
-          ease="power3.out"
-          splitType="chars"
-          from={{ opacity: 0, y: 40 }}
-          to={{ opacity: 1, y: 0 }}
-          threshold={0.1}
-          rootMargin="-100px"
-          textAlign="left"
-          tag="span"
-          onLetterAnimationComplete={() => {
-            console.log('All letters have animated!');
+          {heroData.description}
+        </motion.p>
+
+        {/* Achievements Grid */}
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 my-6 sm:my-8"
+          variants={{
+            hidden: { y: 20, opacity: 0 },
+            visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
           }}
-          showCallback
-        />
-      </h1>
-
-      <motion.p
-        className="text-sm sm:text-lg md:text-xl text-muted-foreground mt-4 sm:mt-6 leading-relaxed max-w-2xl mx-auto lg:mx-0"
-        variants={{
-          hidden: { y: 20, opacity: 0 },
-          visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
-        }}
-      >
-        {heroData.description}
-      </motion.p>
-
-      {/* Achievements Grid */}
-      <motion.div
-        className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 my-6 sm:my-8"
-        variants={{
-          hidden: { y: 20, opacity: 0 },
-          visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
-        }}
-      >
-        {heroAchievements.map((achievement, index) => (
-          <div
-            key={index}
-            className="text-center p-3 sm:p-4 rounded-xl bg-background/70 border border-border/60 backdrop-blur-sm hover:border-[#EC844D]/50 hover:shadow-[0_4px_25px_rgba(236,132,77,0.18)] transition-all duration-300"
-          >
-            <div className="text-lg sm:text-2xl font-bold text-foreground mb-1 sm:mb-2">
-              {index === 0 ? (
-                <CountUp value={stats.contributions} suffix="+" />
-              ) : index === 1 ? (
-                <CountUp value={stats.repos} suffix="+" />
-              ) : index === 2 ? (
-                <CountUp value={stats.projects} suffix="+" />
-              ) : index === 3 ? (
-                <CountUp value={stats.leetcode} suffix="+" />
-              ) : (
-                achievement.number
-              )}
+        >
+          {heroAchievements.map((achievement, index) => (
+            <div
+              key={index}
+              className="text-center p-3 sm:p-4 rounded-xl bg-background/70 border border-border/60 backdrop-blur-sm hover:border-[#EC844D]/50 hover:shadow-[0_4px_25px_rgba(236,132,77,0.18)] transition-all duration-300"
+            >
+              <div className="text-lg sm:text-2xl font-bold text-foreground mb-1 sm:mb-2">
+                {index === 0 ? (
+                  <CountUp value={stats.contributions} suffix="+" />
+                ) : index === 1 ? (
+                  <CountUp value={stats.repos} suffix="+" />
+                ) : index === 2 ? (
+                  <CountUp value={stats.projects} suffix="+" />
+                ) : index === 3 ? (
+                  <CountUp value={stats.leetcode} suffix="+" />
+                ) : (
+                  achievement.number
+                )}
+              </div>
+              <div className="text-[11px] sm:text-xs text-muted-foreground leading-tight">
+                {achievement.label}
+              </div>
             </div>
-            <div className="text-[11px] sm:text-xs text-muted-foreground leading-tight">
-              {achievement.label}
-            </div>
-          </div>
-        ))}
-      </motion.div>
+          ))}
+        </motion.div>
+      </div>
 
       {/* CTA Buttons */}
       <motion.div
-        className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+        className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center"
         variants={{
           hidden: { y: 20, opacity: 0 },
           visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
         }}
       >
-        <motion.a
-          href="#projects"
-          className="group relative overflow-hidden px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/30 hover:shadow-[0_0_25px_rgba(236,132,77,0.45)] text-sm flex items-center justify-center gap-2.5 sm:gap-3 transition-all duration-300 active:scale-95"
-          whileHover={{ scale: 1.03, y: -2 }}
-        >
-          <Code className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-          <span>View Case Studies</span>
-          <TrendingUp className="h-4 w-4 group-hover:translate-x-1 transition-transform text-white" />
-        </motion.a>
+        {/* The Orange Case Studies CTA / Zoom Target */}
+        <div className="relative group/cta">
+          <div className="absolute -inset-1 bg-[#EC844D]/30 rounded-2xl blur-lg opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          <motion.a
+            href="#projects"
+            id="hero-zoom-cta"
+            className="hero-zoom-cta relative z-10 overflow-hidden px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-xl shadow-[#EC844D]/30 hover:shadow-[0_0_30px_rgba(236,132,77,0.5)] flex items-center justify-between gap-4 transition-all duration-300 active:scale-95 will-change-transform"
+            whileHover={{ scale: 1.03, y: -2 }}
+          >
+            <div className="hero-cta-inner flex items-center gap-3.5 will-change-[transform,opacity,filter]">
+              <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-black/15 border border-white/20">
+                <Code className="h-4 w-4 text-white stroke-[2.5]" />
+              </div>
+              <div className="text-left font-mono leading-tight tracking-tight text-xs sm:text-sm font-semibold">
+                <div>View Case</div>
+                <div>Studies</div>
+              </div>
+              <TrendingUp className="h-4 w-4 text-white/95 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-0.5 transition-transform stroke-[2.5] ml-1" />
+            </div>
+          </motion.a>
+        </div>
 
         <motion.a
           href="#contact"
-          className="group relative overflow-hidden px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold border border-[#EC844D]/50 text-foreground hover:border-[#EC844D] hover:bg-[#EC844D]/10 hover:text-[#EC844D] dark:hover:text-[#FFAE80] transition-all duration-300 bg-background/80 backdrop-blur-sm text-sm flex items-center justify-center gap-2.5 sm:gap-3 active:scale-95"
+          className="hero-fade-element group relative overflow-hidden px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl font-semibold border border-[#EC844D]/50 text-foreground hover:border-[#EC844D] hover:bg-[#EC844D]/10 hover:text-[#EC844D] dark:hover:text-[#FFAE80] transition-all duration-300 bg-background/80 backdrop-blur-sm text-sm flex items-center justify-center gap-2.5 active:scale-95"
           whileHover={{ scale: 1.03, y: -2 }}
         >
           <Mail className="h-4 w-4 text-[#EC844D] dark:text-[#FFAE80]" />
@@ -160,7 +174,7 @@ export const HeroLeft = () => {
 
         <motion.button
           onClick={handleViewResume}
-          className="group relative overflow-hidden px-5 sm:px-6 py-3.5 sm:py-4 rounded-xl font-semibold border border-border text-muted-foreground hover:border-[#EC844D]/40 hover:text-[#EC844D] dark:hover:text-[#FFAE80] transition-all duration-300 bg-background/60 backdrop-blur-sm text-sm flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+          className="hero-fade-element group relative overflow-hidden px-5 sm:px-6 py-3.5 sm:py-4 rounded-xl font-semibold border border-border text-muted-foreground hover:border-[#EC844D]/40 hover:text-[#EC844D] dark:hover:text-[#FFAE80] transition-all duration-300 bg-background/60 backdrop-blur-sm text-sm flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
           whileHover={{ scale: 1.03, y: -2 }}
         >
           <Download className="h-4 w-4" />

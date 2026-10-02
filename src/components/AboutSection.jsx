@@ -103,14 +103,14 @@ export const AboutSection = () => {
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 60%",
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // Line 2: "Ideas Into Reality" - requires significant further scrolling
+      // Line 2: "Ideas Into Reality" - triggers on entering section
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
@@ -118,11 +118,11 @@ export const AboutSection = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.5,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 40%",
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
           }
@@ -258,7 +258,7 @@ export const AboutSection = () => {
   };
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
+    <section id="about" ref={sectionRef} className="relative pt-6 sm:pt-10 md:pt-12 pb-14 sm:pb-20 md:pb-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
       {/* Background Shapes */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-60 sm:w-96 h-60 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl transition-all duration-1000 ease-out" style={{ transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` }} />

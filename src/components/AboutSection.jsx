@@ -15,10 +15,6 @@ export const AboutSection = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => setCounter(prev => (prev + 1) % 4), 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Programmatic download function
   const handleDownload = () => {
@@ -75,9 +71,24 @@ export const AboutSection = () => {
               <div className="relative">
                 <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
                   {/* Profile Image */}
-                  <div className="relative flex-shrink-0">
-                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:scale-105 md:group-hover:scale-110 relative">
-                      <img src={aboutData?.profileImage || "/profile-logo.jpeg"} alt={aboutData?.name || "Ayan Manna"} className="w-full h-full object-cover" />
+                  <div className="relative flex-shrink-0 group">
+                    {/* Organic Background Blob Glow */}
+                    <div 
+                      className="absolute -inset-2 bg-gradient-to-tr from-[#EC844D] via-[#F59E6B] to-[#FFD8B2] opacity-60 blur-md group-hover:opacity-90 transition-opacity duration-500"
+                      style={{ borderRadius: "48% 52% 68% 32% / 38% 45% 55% 62%" }}
+                    />
+                    
+                    {/* Organic Shape Container with Photo */}
+                    <div 
+                      className="w-28 h-28 sm:w-36 sm:h-36 overflow-hidden bg-gradient-to-tr from-[#EC844D] to-[#FFD8B2] p-1.5 shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:rotate-1 relative z-10"
+                      style={{ borderRadius: "48% 52% 68% 32% / 38% 45% 55% 62%" }}
+                    >
+                      <img 
+                        src={aboutData?.profileImage || "/profile-logo.jpeg"} 
+                        alt={aboutData?.name || "Ayan Manna"} 
+                        className="w-full h-full object-cover" 
+                        style={{ borderRadius: "46% 54% 66% 34% / 40% 47% 53% 60%" }}
+                      />
                     </div>
                   </div>
 
@@ -87,7 +98,7 @@ export const AboutSection = () => {
                     <p className="text-primary text-base sm:text-lg font-semibold mb-3 sm:mb-4">{aboutData?.role || "Full Stack Developer"}</p>
                     <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
                       {achievements.map((achievement, index) => (
-                        <div key={index} className={`p-2 sm:p-3 rounded-xl bg-background/50 border border-border transition-all duration-300 hover:scale-105 hover:border-primary/30 ${counter === index ? 'bg-primary/10 border-primary/50' : ''}`}>
+                        <div key={index} className="p-2 sm:p-3 rounded-xl bg-background/50 border border-border transition-all duration-300 hover:scale-105 hover:border-primary/30">
                           <div className="flex items-center gap-2 justify-center md:justify-start">
                             {achievement.icon}
                             <div>

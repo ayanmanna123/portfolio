@@ -124,8 +124,7 @@ export const ContactSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
           {/* Contact Information */}
           <div className="space-y-6 sm:space-y-8 p-6 sm:p-8 rounded-xl sm:rounded-2xl bg-gradient-to-br from-secondary/20 to-background border border-border">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
-              <span className="w-3 sm:w-4 h-3 sm:h-4 rounded-full bg-primary"></span>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
               Contact Details
             </h3>
 
@@ -175,8 +174,7 @@ export const ContactSection = () => {
 
           {/* Contact Form */}
           <div className="p-6 sm:p-8 rounded-xl sm:rounded-2xl bg-card border border-border shadow-sm">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
-              <span className="w-3 sm:w-4 h-3 sm:h-4 rounded-full bg-primary"></span>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
               Send Me a Message
             </h3>
 

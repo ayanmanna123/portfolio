@@ -7,15 +7,12 @@ export const CertificatesSection = () => {
     const [showAll, setShowAll] = useState(false);
     const displayedCertificates = showAll ? certificates : certificates.slice(0, 3);
 
-    // Featured items span 2x2 or 2x1 based on index/design
-    // Using Tailwind's grid-row-span and grid-col-span
-
     return (
         <section id="certifications" className="relative py-20 md:py-32 overflow-hidden bg-background">
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[20%] right-[10%] w-72 h-72 bg-[#29bc88]/10 rounded-full blur-3xl opacity-50" />
-                <div className="absolute bottom-[20%] left-[10%] w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl opacity-50" />
+                <div className="absolute top-[20%] right-[10%] w-72 h-72 bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
+                <div className="absolute bottom-[20%] left-[10%] w-96 h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
             </div>
 
             <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
@@ -28,7 +25,7 @@ export const CertificatesSection = () => {
                     viewport={{ once: true }}
                 >
                     <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#29bc88]/10 text-[#29bc88] border border-[#29bc88]/20 text-sm font-medium mb-6 shadow-[0_0_15px_rgba(41,188,136,0.1)]"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20 text-sm font-medium mb-6 shadow-[0_0_15px_rgba(236,132,77,0.15)]"
                         initial={{ scale: 0.8, opacity: 0 }}
                         whileInView={{ scale: 1, opacity: 1 }}
                         transition={{ delay: 0.2 }}
@@ -40,7 +37,7 @@ export const CertificatesSection = () => {
 
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
                         <span className="block text-foreground">Verified</span>
-                        <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                        <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Certifications
                         </span>
                     </h2>
@@ -59,7 +56,7 @@ export const CertificatesSection = () => {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
                             className={`
-                                group relative overflow-hidden rounded-3xl border border-border/50 bg-card hover:border-[#29bc88]/40 hover:shadow-2xl hover:shadow-[#29bc88]/10 transition-all duration-500
+                                group relative overflow-hidden rounded-3xl border border-border/50 bg-card hover:border-[#EC844D]/40 hover:shadow-2xl hover:shadow-[#EC844D]/10 transition-all duration-500
                                 md:col-span-1
                             `}
                         >
@@ -85,8 +82,8 @@ export const CertificatesSection = () => {
                                 <div className="flex-1 flex flex-col p-6 relative">
                                     {/* Header: Icon & Date */}
                                     <div className="flex justify-between items-start mb-4">
-                                        <div className={`p-2 rounded-xl bg-[#29bc88]/10 text-[#29bc88] border border-[#29bc88]/20`}>
-                                            <BadgeCheck className="w-5 h-5 text-[#29bc88]" />
+                                        <div className={`p-2 rounded-xl bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20`}>
+                                            <BadgeCheck className="w-5 h-5 text-[#EC844D] dark:text-[#FFAE80]" />
                                         </div>
                                         <span className="text-xs font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground border border-border">
                                             {cert.date}
@@ -95,7 +92,7 @@ export const CertificatesSection = () => {
 
                                     {/* Title & Issuer */}
                                     <div className="mb-4">
-                                        <h3 className={`font-bold text-foreground mb-1 leading-tight group-hover:text-[#29bc88] transition-colors ${cert.featured ? "text-xl md:text-2xl" : "text-lg"}`}>
+                                        <h3 className={`font-bold text-foreground mb-1 leading-tight group-hover:text-[#EC844D] dark:group-hover:text-[#FFAE80] transition-colors ${cert.featured ? "text-xl md:text-2xl" : "text-lg"}`}>
                                             {cert.title}
                                         </h3>
                                         <p className="text-sm text-muted-foreground font-medium">
@@ -117,7 +114,7 @@ export const CertificatesSection = () => {
                                             href={cert.verificationLink}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-1.5 text-xs font-medium text-[#29bc88] hover:underline"
+                                            className="flex items-center gap-1.5 text-xs font-medium text-[#EC844D] dark:text-[#FFAE80] hover:underline"
                                             title="Verify Certificate"
                                         >
                                             Verify <ExternalLink size={12} />
@@ -144,7 +141,7 @@ export const CertificatesSection = () => {
                             whileTap={{ scale: 0.95 }}
                             className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${showAll
                                 ? "bg-muted text-foreground border border-border hover:bg-muted/80"
-                                : "bg-[#29bc88] hover:bg-[#22a879] text-slate-950 shadow-lg shadow-[#29bc88]/25"
+                                : "bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/25"
                                 }`}
                         >
                             {showAll ? (

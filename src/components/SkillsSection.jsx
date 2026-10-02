@@ -8,9 +8,9 @@ const SkillBar = ({ level }) => (
       initial={{ width: 0 }}
       animate={{ width: `${level}%` }}
       transition={{ duration: 1.5, delay: 0.2 }}
-      className={`h-full rounded-full ${level > 75 ? 'bg-gradient-to-r from-[#29bc88] to-emerald-400' :
-        level > 50 ? 'bg-gradient-to-r from-teal-500 to-[#29bc88]' :
-          'bg-gradient-to-r from-amber-400 to-yellow-500'
+      className={`h-full rounded-full ${level > 75 ? 'bg-gradient-to-r from-[#EC844D] to-[#FFD8B2]' :
+        level > 50 ? 'bg-gradient-to-r from-[#E07238] to-[#EC844D]' :
+          'bg-gradient-to-r from-amber-400 to-[#FFAE80]'
         }`}
     />
   </div>
@@ -70,7 +70,7 @@ export const SkillsSection = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             <span className="block text-foreground">Technical</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Skills & Expertise
             </span>
           </h2>
@@ -119,7 +119,7 @@ export const SkillsSection = () => {
                         <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
                           {skill.name}
                         </h3>
-                        <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${skill.level > 75 ? 'bg-[#29bc88]/15 text-[#29bc88] border border-[#29bc88]/25' :
+                        <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${skill.level > 75 ? 'bg-[#EC844D]/15 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/25' :
                           skill.level > 50 ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
                             'bg-pink-500/10 text-pink-500 border border-pink-500/20'
                           }`}>

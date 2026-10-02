@@ -198,10 +198,10 @@ const LeetCodeStatsSection = () => {
         Hard: "bg-rose-400/20"
     };
 
-    // LeetCode Green Theme for the graph
+    // LeetCode Orange Theme for the graph
     const leetCodeTheme = {
-        light: ['#ebedf0', '#8eedcb', '#52d9a6', '#29bc88', '#1c9167'],
-        dark: ['#111827', '#134e38', '#1b7956', '#29bc88', '#4be0ac'],
+        light: ['#ebedf0', '#ffd8b2', '#f9a878', '#ec844d', '#c2531d'],
+        dark: ['#1f140d', '#4a2815', '#8a441e', '#ec844d', '#ffa07a'],
     };
 
     return (
@@ -217,10 +217,10 @@ const LeetCodeStatsSection = () => {
                 >
                     <div className="flex flex-col items-center justify-center mb-4">
                         <div className="flex items-center gap-2 mb-2">
-                            <Code2 className="w-7 h-7 text-[#29bc88]" />
+                            <Code2 className="w-7 h-7 text-[#EC844D] dark:text-[#FFAE80]" />
                             <span className="text-3xl md:text-4xl font-bold text-foreground">LeetCode</span>
                         </div>
-                        <span className="block font-rakyat text-4xl md:text-5xl text-[#29bc88] font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Problem Solving
                         </span>
                     </div>

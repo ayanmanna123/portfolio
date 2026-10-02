@@ -31,29 +31,29 @@ export const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="relative py-16 md:py-28 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
+    <section id="about" className="relative py-16 md:py-28 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
       {/* Background Shapes */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-72 sm:w-96 h-72 sm:h-96 bg-[#29bc88]/10 rounded-full blur-3xl transition-all duration-1000 ease-out" style={{ transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` }} />
-        <div className="absolute w-60 sm:w-80 h-60 sm:h-80 bg-emerald-500/10 rounded-full blur-3xl transition-all duration-1500 ease-out" style={{ transform: `translate(${mousePosition.x * -0.03}px, ${mousePosition.y * -0.03}px)` }} />
+        <div className="absolute w-72 sm:w-96 h-72 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl transition-all duration-1000 ease-out" style={{ transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` }} />
+        <div className="absolute w-60 sm:w-80 h-60 sm:h-80 bg-[#FFD8B2]/20 dark:bg-[#EC844D]/10 rounded-full blur-3xl transition-all duration-1500 ease-out" style={{ transform: `translate(${mousePosition.x * -0.03}px, ${mousePosition.y * -0.03}px)` }} />
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
-        <div className="absolute top-16 right-8 sm:top-20 sm:right-20 animate-float-3s"><div className="w-6 sm:w-8 h-6 sm:h-8 bg-[#29bc88]/20 rounded-lg rotate-45" /></div>
-        <div className="absolute bottom-32 left-8 sm:bottom-40 sm:left-20 animate-float-3s animation-delay-2000"><div className="w-5 sm:w-6 h-5 sm:h-6 bg-[#29bc88]/20 rounded-full" /></div>
+        <div className="absolute top-16 right-8 sm:top-20 sm:right-20 animate-float-3s"><div className="w-6 sm:w-8 h-6 sm:h-8 bg-[#EC844D]/20 rounded-lg rotate-45" /></div>
+        <div className="absolute bottom-32 left-8 sm:bottom-40 sm:left-20 animate-float-3s animation-delay-2000"><div className="w-5 sm:w-6 h-5 sm:h-6 bg-[#EC844D]/20 rounded-full" /></div>
       </div>
 
       <div className="container mx-auto max-w-7xl relative">
         {/* Header */}
         <div className="text-center mb-16 md:mb-20 px-2 sm:px-6">
-          <div className="inline-flex items-center gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl bg-primary/10 border border-primary/20 mb-6 transition-all duration-500 hover:bg-primary/15 hover:scale-105 group cursor-pointer shadow-[0_0_15px_rgba(41,188,136,0.1)]">
+          <div className="inline-flex items-center gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl bg-[#EC844D]/10 border border-[#EC844D]/20 mb-6 transition-all duration-500 hover:bg-[#EC844D]/15 hover:scale-105 group cursor-pointer shadow-[0_0_15px_rgba(236,132,77,0.15)]">
             <div className="relative">
-              <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-primary animate-pulse" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-ping" />
+              <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-[#EC844D] dark:text-[#FFAE80] animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#EC844D] rounded-full animate-ping" />
             </div>
-            <span className="text-sm sm:text-base font-semibold text-primary tracking-wide">ABOUT ME</span>
+            <span className="text-sm sm:text-base font-semibold text-[#EC844D] dark:text-[#FFAE80] tracking-wide">ABOUT ME</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
             <span className="block text-foreground">{aboutData?.title || "Transforming"}</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               {aboutData?.subtitle || "Ideas Into Reality"}
             </span>
           </h1>
@@ -81,8 +81,8 @@ export const AboutSection = () => {
                   <div className="relative flex-shrink-0">
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:scale-105 md:group-hover:scale-110 relative">
                       <img src={aboutData?.profileImage || "/profile-logo.jpeg"} alt={aboutData?.name || "Ayan Manna"} className="w-full h-full object-cover" />
-                      <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-[#29bc88] rounded-full border-4 border-background flex items-center justify-center shadow-lg shadow-[#29bc88]/30">
-                        <div className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
+                      <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-[#EC844D] rounded-full border-4 border-background flex items-center justify-center shadow-lg shadow-[#EC844D]/30">
+                        <div className="w-2 h-2 bg-[#FFD8B2] rounded-full animate-pulse" />
                       </div>
                     </div>
                   </div>
@@ -213,12 +213,12 @@ export const AboutSection = () => {
               <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0 mb-2 sm:mb-3">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="relative">
-                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-[#29bc88] rounded-full animate-pulse" />
-                    <div className="absolute inset-0 w-2 sm:w-3 h-2 sm:h-3 bg-[#29bc88] rounded-full animate-ping" />
+                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-[#EC844D] rounded-full animate-pulse" />
+                    <div className="absolute inset-0 w-2 sm:w-3 h-2 sm:h-3 bg-[#EC844D] rounded-full animate-ping" />
                   </div>
                   <span className="font-semibold text-xs sm:text-sm">Available</span>
                 </div>
-                <span className="text-xs sm:text-sm text-[#29bc88] bg-[#29bc88]/10 px-2.5 py-1 rounded-lg font-medium border border-[#29bc88]/20">
+                <span className="text-xs sm:text-sm text-[#EC844D] dark:text-[#FFAE80] bg-[#EC844D]/10 px-2.5 py-1 rounded-lg font-medium border border-[#EC844D]/20">
                   For new projects
                 </span>
               </div>

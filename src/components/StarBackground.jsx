@@ -26,7 +26,7 @@ const StarBackgroundContent = ({ isDark, ...props }) => {
       >
         <PointMaterial
           transparent
-          color={isDark ? "#ffffff" : "#29bc88"}
+          color={isDark ? "#ffffff" : "#EC844D"}
           opacity={isDark ? 0.9 : 0.25}
           size={0.002}
           sizeAttenuation={true}

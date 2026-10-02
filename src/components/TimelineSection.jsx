@@ -8,8 +8,8 @@ const TimelineSection = () => {
         <section id="journey" className="py-20 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#29bc88]/10 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -21,7 +21,7 @@ const TimelineSection = () => {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
                         <span className="block text-foreground">Professional</span>
-                        <span className="block font-rakyat text-4xl md:text-5xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Journey & Experience
                         </span>
                     </h2>
@@ -32,7 +32,7 @@ const TimelineSection = () => {
 
                 <div className="relative max-w-4xl mx-auto">
                     {/* Vertical Line */}
-                    <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#29bc88]/60 via-emerald-400/40 to-transparent" />
+                    <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#EC844D]/60 via-[#FFD8B2]/40 to-transparent" />
 
                     {journeyData.map((item, index) => (
                         <TimelineItem key={index} item={item} index={index} />
@@ -57,28 +57,28 @@ const TimelineItem = ({ item, index }) => {
         >
             {/* Date/Year Badge - Mobile: Left next to line, Desktop: Opposite side */}
             <div className={`hidden md:flex w-1/2 justify-${isEven ? 'end' : 'start'} px-10`}>
-                <div className="flex items-center gap-2 text-[#29bc88] font-bold text-xl">
-                    <Calendar className="w-5 h-5 text-[#29bc88]" />
+                <div className="flex items-center gap-2 text-[#EC844D] dark:text-[#FFAE80] font-bold text-xl">
+                    <Calendar className="w-5 h-5 text-[#EC844D] dark:text-[#FFAE80]" />
                     {item.year}
                 </div>
             </div>
 
             {/* Center Dot */}
-            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-background dark:bg-slate-900 border-2 border-[#29bc88] z-10 shadow-[0_0_15px_rgba(41,188,136,0.35)]">
-                <Briefcase className="w-4 h-4 text-[#29bc88]" />
+            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-background dark:bg-slate-900 border-2 border-[#EC844D] z-10 shadow-[0_0_15px_rgba(236,132,77,0.35)]">
+                <Briefcase className="w-4 h-4 text-[#EC844D] dark:text-[#FFAE80]" />
             </div>
 
             {/* Content Card */}
             <div className="w-full md:w-1/2 pl-20 md:pl-0 md:px-10">
-                <div className="bg-card/90 dark:bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-border dark:border-white/10 hover:border-[#29bc88]/40 transition-all duration-300 shadow-md hover:shadow-[0_0_25px_rgba(41,188,136,0.12)] group">
-                    <div className="md:hidden text-[#29bc88] font-bold mb-2 flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-[#29bc88]" /> {item.year}
+                <div className="bg-card/90 dark:bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-border dark:border-white/10 hover:border-[#EC844D]/40 transition-all duration-300 shadow-md hover:shadow-[0_0_25px_rgba(236,132,77,0.15)] group">
+                    <div className="md:hidden text-[#EC844D] dark:text-[#FFAE80] font-bold mb-2 flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-[#EC844D] dark:text-[#FFAE80]" /> {item.year}
                     </div>
 
-                    <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-[#29bc88] transition-colors">
+                    <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-[#EC844D] dark:group-hover:text-[#FFAE80] transition-colors">
                         {item.role}
                     </h3>
-                    <p className="text-[#29bc88] font-medium mb-3">{item.company}</p>
+                    <p className="text-[#EC844D] dark:text-[#FFAE80] font-medium mb-3">{item.company}</p>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                         {item.description}
                     </p>
@@ -87,7 +87,7 @@ const TimelineItem = ({ item, index }) => {
                         {item.skills.map((skill, idx) => (
                             <span
                                 key={idx}
-                                className="text-xs px-3 py-1 rounded-full bg-[#29bc88]/10 text-[#29bc88] border border-[#29bc88]/20"
+                                className="text-xs px-3 py-1 rounded-full bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20"
                             >
                                 {skill}
                             </span>

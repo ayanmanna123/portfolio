@@ -21,17 +21,17 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
   const colors = {
     light: {
       primary: "hsl(222.2 47.4% 11.2%)",
-      secondary: "#29bc88",
+      secondary: "#EC844D",
       background: "hsl(0 0% 100%)",
       muted: "hsl(215.4 16.3% 46.9%)",
-      link: "#29bc88"
+      link: "#EC844D"
     },
     dark: {
       primary: "hsl(210 40% 98%)",
-      secondary: "#29bc88",
+      secondary: "#EC844D",
       background: "hsl(222.2 47.4% 11.2%)",
       muted: "hsl(215 20.2% 65.1%)",
-      link: "#29bc88"
+      link: "#EC844D"
     }
   };
 
@@ -158,7 +158,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
           <motion.div
             className="absolute top-1/4 left-1/4 w-32 h-32 md:w-64 md:h-64 rounded-full blur-[50px] md:blur-[100px]"
             style={{
-              background: `linear-gradient(to right, ${currentColors.primary}, #29bc88)`
+              background: `linear-gradient(to right, ${currentColors.primary}, #EC844D)`
             }}
             animate={{
               x: [0, 20, 0],
@@ -174,7 +174,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
           <motion.div
             className="absolute top-1/3 right-1/4 w-36 h-36 md:w-72 md:h-72 rounded-full blur-[60px] md:blur-[120px]"
             style={{
-              background: `linear-gradient(to right, #29bc88, #3ddc97)`
+              background: `linear-gradient(to right, #EC844D, #FFD8B2)`
             }}
             animate={{
               x: [0, -30, 0],

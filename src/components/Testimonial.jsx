@@ -134,7 +134,7 @@ export const TestimonialSection = () => {
               variants={itemVariants}
             >
               <span className="block text-foreground">What</span>
-              <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+              <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                 People Say
               </span>
             </motion.h2>
@@ -262,7 +262,7 @@ export const TestimonialSection = () => {
         transition={{ delay: 1, duration: 1.5 }}
       >
         <motion.div
-          className="absolute top-1/4 left-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-[#29bc88] to-emerald-400 blur-[80px] sm:blur-[100px] opacity-30"
+          className="absolute top-1/4 left-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-[#EC844D] to-[#FFD8B2] blur-[80px] sm:blur-[100px] opacity-30"
           animate={{
             x: [0, 20, 0],
             y: [0, -30, 0],
@@ -275,7 +275,7 @@ export const TestimonialSection = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-teal-400 to-[#29bc88] blur-[80px] sm:blur-[100px] opacity-30"
+          className="absolute bottom-1/4 right-1/4 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-gradient-to-r from-[#FFD8B2] to-[#EC844D] blur-[80px] sm:blur-[100px] opacity-30"
           animate={{
             x: [0, -20, 0],
             y: [0, 30, 0],

@@ -69,12 +69,12 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-20 md:py-32 bg-gradient-to-br from-background via-background to-[#29bc88]/5"
+      className="relative min-h-screen py-20 md:py-32 bg-gradient-to-br from-background via-background to-[#EC844D]/5"
       ref={sectionRef}
     >
       {/* Clean Background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-[#29bc88]/5 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-[#EC844D]/5 to-background" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
@@ -87,7 +87,7 @@ export const ProjectsSection = () => {
           viewport={{ once: false }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#29bc88]/10 text-[#29bc88] border border-[#29bc88]/20 text-sm font-medium mb-6 shadow-[0_0_15px_rgba(41,188,136,0.1)]"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20 text-sm font-medium mb-6 shadow-[0_0_15px_rgba(236,132,77,0.15)]"
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -105,7 +105,7 @@ export const ProjectsSection = () => {
             viewport={{ once: false }}
           >
             <span className="block text-foreground">Featured</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Projects
             </span>
           </motion.h2>
@@ -137,8 +137,8 @@ export const ProjectsSection = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 border ${activeFilter === category
-                  ? "bg-[#29bc88] text-slate-950 font-bold border-[#29bc88] shadow-md shadow-[#29bc88]/20"
-                  : "bg-background text-muted-foreground border-border hover:border-[#29bc88] hover:text-[#29bc88]"
+                  ? "bg-[#EC844D] text-white font-bold border-[#EC844D] shadow-md shadow-[#EC844D]/25"
+                  : "bg-background text-muted-foreground border-border hover:border-[#EC844D] hover:text-[#EC844D]"
                   }`}
               >
                 {category}
@@ -181,7 +181,7 @@ export const ProjectsSection = () => {
                     {/* Status Badge */}
                     <div className="absolute top-3 right-3">
                       <div className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${project.status === "Live"
-                        ? "bg-[#29bc88]/20 text-[#29bc88] border border-[#29bc88]/30"
+                        ? "bg-[#EC844D]/20 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/30"
                         : "bg-amber-500/20 text-amber-600 border border-amber-500/30"
                         }`}>
                         {project.status}
@@ -261,7 +261,7 @@ export const ProjectsSection = () => {
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: index * 0.1 + tagIndex * 0.05 + 0.4 }}
-                          className="px-3 py-1 rounded-lg bg-[#29bc88]/10 text-[#29bc88] text-xs font-medium border border-[#29bc88]/20"
+                          className="px-3 py-1 rounded-lg bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] text-xs font-medium border border-[#EC844D]/20"
                         >
                           {tag}
                         </motion.span>
@@ -274,7 +274,7 @@ export const ProjectsSection = () => {
                         onClick={() => handleOpenDeepDive(project)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold bg-[#29bc88] hover:bg-[#22a879] text-slate-950 transition-all duration-300 shadow-md shadow-[#29bc88]/20 relative z-30 cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold bg-[#EC844D] hover:bg-[#DE743C] text-white transition-all duration-300 shadow-md shadow-[#EC844D]/25 relative z-30 cursor-pointer"
                       >
                         <Info size={16} />
                         View Details
@@ -289,7 +289,7 @@ export const ProjectsSection = () => {
                           whileTap={{ scale: 0.98 }}
                           className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium border transition-all duration-300 ${(!project.demoUrl || project.demoUrl === "#")
                             ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                            : "bg-background text-foreground border-border hover:border-[#29bc88] hover:bg-[#29bc88]/5 hover:text-[#29bc88]"
+                            : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
                             }`}
                           onClick={(e) => {
                             if (!project.demoUrl || project.demoUrl === "#") {
@@ -310,7 +310,7 @@ export const ProjectsSection = () => {
                           whileTap={{ scale: 0.98 }}
                           className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium border transition-all duration-300 ${project.githubUrl === "#"
                             ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                            : "bg-background text-foreground border-border hover:border-[#29bc88] hover:bg-[#29bc88]/5 hover:text-[#29bc88]"
+                            : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
                             }`}
                           onClick={(e) => project.githubUrl === "#" && e.preventDefault()}
                         >
@@ -344,7 +344,7 @@ export const ProjectsSection = () => {
               whileTap={{ scale: 0.95 }}
               className={`inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold transition-all duration-300 relative z-30 cursor-pointer ${showAll
                 ? "bg-muted text-foreground border border-border"
-                : "bg-[#29bc88] hover:bg-[#22a879] text-slate-950 shadow-lg shadow-[#29bc88]/25"
+                : "bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/25"
                 }`}
             >
               {showAll ? (

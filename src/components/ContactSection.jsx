@@ -112,7 +112,7 @@ export const ContactSection = () => {
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
             <span className="block text-foreground">Let's</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Get In Touch
             </span>
           </h2>
@@ -242,7 +242,7 @@ export const ContactSection = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "w-full flex items-center justify-center gap-2 py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl bg-[#29bc88] hover:bg-[#22a879] text-slate-950 font-bold transition-all duration-300 shadow-lg shadow-[#29bc88]/25 text-sm sm:text-base cursor-pointer",
+                  "w-full flex items-center justify-center gap-2 py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl bg-[#EC844D] hover:bg-[#DE743C] text-white font-bold transition-all duration-300 shadow-lg shadow-[#EC844D]/25 text-sm sm:text-base cursor-pointer",
                   isSubmitting && "opacity-80 cursor-not-allowed"
                 )}
               >

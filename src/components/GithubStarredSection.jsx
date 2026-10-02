@@ -199,7 +199,7 @@ export const GithubStarredSection = () => {
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[30%] left-[5%] w-80 h-80 bg-amber-500/5 rounded-full blur-3xl opacity-60" />
-        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 bg-[#29bc88]/5 rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 bg-[#EC844D]/5 rounded-full blur-3xl opacity-60" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
@@ -224,7 +224,7 @@ export const GithubStarredSection = () => {
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
             <span className="block text-foreground">Timeline of</span>
-            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl text-[#29bc88] mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+            <span className="block font-rakyat text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-2 font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
               Starred Projects
             </span>
           </h2>

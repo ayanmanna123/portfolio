@@ -79,8 +79,8 @@ const GithubStatsSection = () => {
 
     // Theme colors
     const calendarTheme = {
-        light: ['#ebedf0', '#8eedcb', '#52d9a6', '#29bc88', '#1c9167'],
-        dark: ['#111827', '#134e38', '#1b7956', '#29bc88', '#4be0ac'],
+        light: ['#ebedf0', '#ffd8b2', '#f9a878', '#ec844d', '#c2531d'],
+        dark: ['#1f140d', '#4a2815', '#8a441e', '#ec844d', '#ffa07a'],
     };
 
     return (
@@ -97,15 +97,15 @@ const GithubStatsSection = () => {
                 >
                     <div className="flex flex-col items-center justify-center mb-4">
                         <div className="flex items-center gap-2 mb-2">
-                            <Github className="w-7 h-7 text-[#29bc88]" />
+                            <Github className="w-7 h-7 text-[#EC844D] dark:text-[#FFAE80]" />
                             <span className="text-3xl md:text-4xl font-bold text-foreground">GitHub</span>
                         </div>
-                        <span className="block font-rakyat text-4xl md:text-5xl text-[#29bc88] font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
+                        <span className="block font-rakyat text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent font-normal" style={{ fontFamily: "'Rakyat', cursive" }}>
                             Activity & Contributions
                         </span>
                     </div>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
-                        A snapshop of my open source contributions and active repositories.
+                        A snapshot of my open source contributions and active repositories.
                     </p>
                 </motion.div>
 
@@ -159,14 +159,14 @@ const GithubStatsSection = () => {
                             {repos.map((repo, index) => (
                                 <motion.div
                                     key={repo.name}
-                                    className="group relative bg-card/40 hover:bg-card/60 border border-border/50 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-[#29bc88]/40 hover:shadow-[#29bc88]/10"
+                                    className="group relative bg-card/40 hover:bg-card/60 border border-border/50 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-[#EC844D]/40 hover:shadow-[#EC844D]/10"
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                     viewport={{ once: false }}
                                 >
                                     <div className="flex justify-between items-start mb-4">
-                                        <div className="p-2 bg-[#29bc88]/10 rounded-lg text-[#29bc88] group-hover:bg-[#29bc88] group-hover:text-slate-950 transition-colors duration-300">
+                                        <div className="p-2 bg-[#EC844D]/10 rounded-lg text-[#EC844D] group-hover:bg-[#EC844D] group-hover:text-white transition-colors duration-300">
                                             <GitFork className="w-5 h-5" />
                                         </div>
                                         <div className="flex items-center gap-1 text-muted-foreground text-sm">
@@ -175,20 +175,20 @@ const GithubStatsSection = () => {
                                         </div>
                                     </div>
 
-                                    <h4 className="text-lg font-bold mb-2 group-hover:text-[#29bc88] transition-colors">{repo.name}</h4>
+                                    <h4 className="text-lg font-bold mb-2 group-hover:text-[#EC844D] dark:group-hover:text-[#FFAE80] transition-colors">{repo.name}</h4>
                                     <p className="text-muted-foreground text-sm mb-4 line-clamp-3 h-[60px]">
                                         {repo.description || "No description available."}
                                     </p>
 
                                     <div className="flex items-center justify-between pt-4 border-t border-border/30">
-                                        <span className="text-xs font-mono text-[#29bc88] bg-[#29bc88]/10 border border-[#29bc88]/20 px-2 py-1 rounded">
+                                        <span className="text-xs font-mono text-[#EC844D] dark:text-[#FFAE80] bg-[#EC844D]/10 border border-[#EC844D]/20 px-2 py-1 rounded">
                                             {repo.language || "Code"}
                                         </span>
                                         <a
                                             href={repo.html_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-1 text-sm font-medium hover:text-[#29bc88] transition-colors"
+                                            className="flex items-center gap-1 text-sm font-medium hover:text-[#EC844D] dark:hover:text-[#FFAE80] transition-colors"
                                         >
                                             View <ExternalLink className="w-3 h-3" />
                                         </a>

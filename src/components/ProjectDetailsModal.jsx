@@ -98,9 +98,9 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                                         </p>
                                     </div>
                                     <div className="space-y-4">
-                                        <div className="flex items-center gap-2 text-[#29bc88] font-semibold">
-                                            <div className="p-2 rounded-lg bg-[#29bc88]/10">
-                                                <Layers size={20} className="text-[#29bc88]" />
+                                        <div className="flex items-center gap-2 text-[#EC844D] dark:text-[#FFAE80] font-semibold">
+                                            <div className="p-2 rounded-lg bg-[#EC844D]/10">
+                                                <Layers size={20} className="text-[#EC844D] dark:text-[#FFAE80]" />
                                             </div>
                                             <h3>The Solution</h3>
                                         </div>
@@ -114,7 +114,7 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                                 {project.details?.features && (
                                     <div className="bg-muted/30 rounded-2xl p-6 border border-border/50">
                                         <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                                            <Globe size={20} className="text-[#29bc88]" />
+                                            <Globe size={20} className="text-[#EC844D] dark:text-[#FFAE80]" />
                                             Key Features
                                         </h3>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -137,7 +137,7 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                                 {/* Tech Stack */}
                                 <div>
                                     <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                                        <Cpu size={20} className="text-[#29bc88]" />
+                                        <Cpu size={20} className="text-[#EC844D] dark:text-[#FFAE80]" />
                                         Technical Architecture
                                     </h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -160,13 +160,13 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                                 {project.details?.challenges && (
                                     <div className="space-y-4">
                                         <h3 className="text-lg font-bold flex items-center gap-2">
-                                            <div className="w-2 h-6 bg-[#29bc88] rounded-full" />
+                                            <div className="w-2 h-6 bg-[#EC844D] rounded-full" />
                                             Technical Challenges & Learnings
                                         </h3>
                                         <ul className="grid gap-3">
                                             {project.details.challenges.map((challenge, idx) => (
                                                 <li key={idx} className="flex items-start gap-3 text-muted-foreground">
-                                                    <ChevronRight size={18} className="text-[#29bc88] mt-0.5 shrink-0" />
+                                                    <ChevronRight size={18} className="text-[#EC844D] dark:text-[#FFAE80] mt-0.5 shrink-0" />
                                                     <span>{challenge}</span>
                                                 </li>
                                             ))}
@@ -232,7 +232,7 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                                     rel="noopener noreferrer"
                                     className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all ${project.demoUrl === "#"
                                         ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
-                                        : "bg-[#29bc88] hover:bg-[#22a879] text-slate-950 shadow-lg shadow-[#29bc88]/20"
+                                        : "bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/25"
                                         }`}
                                     onClick={(e) => project.demoUrl === "#" && e.preventDefault()}
                                 >
@@ -244,8 +244,8 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-medium border transition-all ${project.githubUrl === "#"
-                                        ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                                        : "bg-background text-foreground border-border hover:border-[#29bc88] hover:bg-[#29bc88]/5 hover:text-[#29bc88]"
+                                        ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
+                                        : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
                                         }`}
                                     onClick={(e) => project.githubUrl === "#" && e.preventDefault()}
                                 >

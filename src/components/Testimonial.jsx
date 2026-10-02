@@ -128,17 +128,17 @@ export const TestimonialSection = () => {
 
         if (colPos === 0) {
           // Card 1 (Left): Left to Right
-          fromVars = { x: -260, opacity: 0 };
+          fromVars = { x: -300, opacity: 0 };
           duration = 1.4;
           triggerStart = "top 68%";
         } else if (colPos === 1) {
           // Card 2 (Center): Bottom to Top
-          fromVars = { y: 80, opacity: 0 };
+          fromVars = { y: 200, opacity: 0 };
           duration = 1.6;
           triggerStart = "top 64%";
         } else {
           // Card 3 (Right): Right to Left
-          fromVars = { x: 260, opacity: 0 };
+          fromVars = { x: 300, opacity: 0 };
           duration = 1.8;
           triggerStart = "top 60%";
         }

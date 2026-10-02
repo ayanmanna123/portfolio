@@ -184,19 +184,19 @@ const GithubStatsSection = () => {
                 const colIndex = index % 3;
                 if (colIndex === 0) {
                     // Left Column: Left to Right
-                    fromVars = { x: -260, opacity: 0 };
-                    duration = 1.4;
-                    triggerStart = "top 68%";
+                    fromVars = { x: -300, opacity: 0 };
+                    duration = 2;
+                    triggerStart = "top 120%";
                 } else if (colIndex === 1) {
                     // Center Column: Bottom to Top
-                    fromVars = { y: 80, opacity: 0 };
-                    duration = 1.6;
-                    triggerStart = "top 64%";
+                    fromVars = { y: 200, opacity: 0 };
+                    duration = 2;
+                    triggerStart = "top 120%";
                 } else {
                     // Right Column: Right to Left
-                    fromVars = { x: 260, opacity: 0 };
-                    duration = 1.8;
-                    triggerStart = "top 60%";
+                    fromVars = { x: 300, opacity: 0 };
+                    duration = 2;
+                    triggerStart = "top 100%";
                 }
 
                 gsap.fromTo(

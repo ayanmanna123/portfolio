@@ -6,6 +6,7 @@ import { AboutSection } from "../components/AboutSection";
 import { ScrollToTop } from "../components/ScrollToTop";
 import React, { Suspense, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { scrollToSection } from "@/lib/scrollToSection";
 
 // Lazy loaded components
 const SkillsSection = React.lazy(() => import("../components/SkillsSection").then(module => ({ default: module.SkillsSection })));
@@ -31,19 +32,8 @@ export const Home = () => {
   useEffect(() => {
     if (location.hash) {
       const timer = setTimeout(() => {
-        const el = document.querySelector(location.hash);
-        if (el) {
-          if (window.lenis) {
-            window.lenis.scrollTo(el, {
-              offset: -20,
-              duration: 1.6,
-              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            });
-          } else {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      }, 400);
+        scrollToSection(location.hash);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [location.hash]);

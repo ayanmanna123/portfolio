@@ -4,6 +4,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
 
+import { scrollToSection } from "@/lib/scrollToSection";
+
 gsap.registerPlugin(ScrollTrigger);
 
 function LenisSync() {
@@ -40,19 +42,8 @@ function LenisSync() {
       const href = target.getAttribute("href");
       if (!href || href === "#") return;
 
-      const element = document.querySelector(href);
-      if (element) {
-        e.preventDefault();
-        if (window.lenis) {
-          window.lenis.scrollTo(element, {
-            offset: -30,
-            duration: 1.6,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        } else {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
+      e.preventDefault();
+      scrollToSection(href);
     };
 
     document.addEventListener("click", handleAnchorClick);

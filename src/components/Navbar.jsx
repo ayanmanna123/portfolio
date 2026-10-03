@@ -31,6 +31,7 @@ import { useTheme } from "next-themes";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Dock from "./Dock";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 const navItems = [
   { name: "Home", href: "#hero", icon: Home },
@@ -168,17 +169,39 @@ export const Navbar = () => {
       }
       lastScrollYRef.current = currentScrollY;
 
+      // When near the top, always mark #hero as active
+      if (currentScrollY < 120) {
+        setActiveSection("#hero");
+        ticking = false;
+        return;
+      }
+
       // Detect active section with viewport calculation
       const sections = navItems
         .map((item) => item.href)
         .filter((href) => href.startsWith("#"));
       
-      const scrollPosition = currentScrollY + 160;
+      const scrollPosition = currentScrollY + 250;
 
       for (const section of sections) {
+        if (section === "#projects") {
+          const eduEl = document.getElementById("education");
+          if (eduEl) {
+            const rect = eduEl.getBoundingClientRect();
+            const top = rect.top + currentScrollY;
+            const height = eduEl.offsetHeight;
+            if (scrollPosition >= top + height * 0.45 && scrollPosition < top + height) {
+              setActiveSection((prev) => (prev !== "#projects" ? "#projects" : prev));
+              break;
+            }
+          }
+          continue;
+        }
+
         const element = document.querySelector(section);
         if (element) {
-          const top = element.offsetTop;
+          const rect = element.getBoundingClientRect();
+          const top = rect.top + currentScrollY;
           const height = element.offsetHeight;
 
           if (scrollPosition >= top && scrollPosition < top + height) {
@@ -209,21 +232,7 @@ export const Navbar = () => {
         return;
       }
 
-      const element = document.querySelector(href);
-      if (window.lenis) {
-        window.lenis.scrollTo(element || href, {
-          offset: -40,
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
-      } else if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      } else {
-        const fallbackEl = document.getElementById(href.replace("#", ""));
-        if (fallbackEl) {
-          fallbackEl.scrollIntoView({ behavior: "smooth" });
-        }
-      }
+      scrollToSection(href);
     } else {
       window.open(href, "_blank", "noopener,noreferrer");
     }

@@ -13,9 +13,21 @@ function LenisSync() {
     if (lenis) {
       window.lenis = lenis;
 
-      // Sync Lenis scroll position with GSAP ScrollTrigger to prevent jitter
-      lenis.on("scroll", ScrollTrigger.update);
+      // Perfect Frame Synchronization with GSAP Ticker & ScrollTrigger
+      const update = (time) => {
+        lenis.raf(time * 1000);
+      };
+
+      gsap.ticker.add(update);
       gsap.ticker.lagSmoothing(0);
+
+      // Sync Lenis scroll position with GSAP ScrollTrigger to eliminate any jitter
+      lenis.on("scroll", ScrollTrigger.update);
+
+      return () => {
+        gsap.ticker.remove(update);
+        lenis.off("scroll", ScrollTrigger.update);
+      };
     }
   }, [lenis]);
 
@@ -33,8 +45,8 @@ function LenisSync() {
         e.preventDefault();
         if (window.lenis) {
           window.lenis.scrollTo(element, {
-            offset: -40,
-            duration: 1.2,
+            offset: -30,
+            duration: 1.6,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         } else {
@@ -56,15 +68,16 @@ export const SmoothScroll = ({ children }) => {
   return (
     <ReactLenis
       root
+      autoRaf={false}
       options={{
-        lerp: 0.09,
-        duration: 1.1,
+        lerp: 0.058, // Luxuriously damped, silky momentum interpolation
+        duration: 1.6, // Extended organic deceleration
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
-        wheelMultiplier: 0.95,
-        touchMultiplier: 1.5,
+        wheelMultiplier: 0.62, // Speed governor: caps max scroll displacement per wheel tick
+        touchMultiplier: 0.9,  // Governs trackpad/mobile fling velocity
         syncTouch: false,
         infinite: false,
       }}
@@ -76,5 +89,3 @@ export const SmoothScroll = ({ children }) => {
 };
 
 export default SmoothScroll;
-
-

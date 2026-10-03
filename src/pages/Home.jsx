@@ -34,7 +34,11 @@ export const Home = () => {
         const el = document.querySelector(location.hash);
         if (el) {
           if (window.lenis) {
-            window.lenis.scrollTo(el, { offset: -20, duration: 1 });
+            window.lenis.scrollTo(el, {
+              offset: -20,
+              duration: 1.6,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            });
           } else {
             el.scrollIntoView({ behavior: 'smooth' });
           }

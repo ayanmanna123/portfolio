@@ -13,6 +13,18 @@ export default defineConfig({
   server: {
     open: true,
     port: 5173,
+    proxy: {
+      "/leetcode-proxy": {
+        target: "https://leetcode.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/leetcode-proxy/, ""),
+        headers: {
+          Referer: "https://leetcode.com",
+          Origin: "https://leetcode.com",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        },
+      },
+    },
     watch: {
       ignored: ["**/public/assets/**", "**/.github/**"],
     },

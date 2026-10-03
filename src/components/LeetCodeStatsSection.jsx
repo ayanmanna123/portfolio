@@ -9,8 +9,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// 4 Days Cache Duration: 4 * 24 * 60 * 60 * 1000 = 345,600,000 ms
+const BADGES_CACHE_DURATION = 4 * 24 * 60 * 60 * 1000;
+const BADGES_CACHE_KEY = "leetcode_badges_4days_cache";
+
 export const LeetCodeStatsSection = () => {
-    // Default fallback values matching the design screenshot
+    // Default fallback stats (zero hardcoded badges)
     const fallbackStats = {
         totalSolved: 710,
         totalQuestions: 3300,
@@ -59,16 +63,16 @@ export const LeetCodeStatsSection = () => {
             })).sort((a, b) => new Date(a.date) - new Date(b.date));
 
             const CACHE_KEY = "leetcode_data";
-            const BADGES_CACHE_KEY = "leetcode_badges";
-            const CACHE_DURATION = 24 * 60 * 60 * 1000;
+            const STATS_CACHE_DURATION = 24 * 60 * 60 * 1000; // 1 day for stats
 
             try {
+                // 1. Fetch / Cache Stats & Submission Calendar
                 const cachedStats = localStorage.getItem(CACHE_KEY);
                 let useCachedStats = false;
 
                 if (cachedStats) {
                     const { data, timestamp } = JSON.parse(cachedStats);
-                    if (Date.now() - timestamp < CACHE_DURATION) {
+                    if (Date.now() - timestamp < STATS_CACHE_DURATION) {
                         setStats(prev => ({ ...prev, ...data.stats }));
                         if (data.submissionCalendar) {
                             const submissionMap = data.submissionCalendar;
@@ -131,19 +135,28 @@ export const LeetCodeStatsSection = () => {
                     }
                 }
 
-                // Check Cache for Badges
+                // 2. Fetch / Cache Badges (Stored for exactly 4 days)
                 const cachedBadges = localStorage.getItem(BADGES_CACHE_KEY);
                 let useCachedBadges = false;
 
                 if (cachedBadges) {
-                    const { badges, timestamp } = JSON.parse(cachedBadges);
-                    if (Date.now() - timestamp < CACHE_DURATION) {
-                        setStats(prev => ({ ...prev, badges: badges }));
-                        useCachedBadges = true;
+                    try {
+                        const { badges, timestamp } = JSON.parse(cachedBadges);
+                        // If within 4 days and valid badges array exists, use cache directly without calling API
+                        if (Array.isArray(badges) && badges.length > 0 && Date.now() - timestamp < BADGES_CACHE_DURATION) {
+                            setStats(prev => ({ ...prev, badges: badges }));
+                            useCachedBadges = true;
+                        }
+                    } catch (e) {
+                        // ignore corrupt cache
                     }
                 }
 
+                // Call API one time and store for 4 days; after 4 days call API again
                 if (!useCachedBadges) {
+                    let remoteBadges = [];
+
+                    // Try 1: LeetCode GraphQL Proxy (configured in vite.config.js & vercel.json)
                     try {
                         const badgesQuery = `
                             query userBadges($username: String!) {
@@ -159,8 +172,7 @@ export const LeetCodeStatsSection = () => {
                                 }
                             }
                         `;
-
-                        const response = await fetch('/leetcode-proxy/graphql', {
+                        const res = await fetch('/leetcode-proxy/graphql', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -168,18 +180,43 @@ export const LeetCodeStatsSection = () => {
                                 variables: { username: leetcodeUsername }
                             })
                         });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            const badges = data?.data?.matchedUser?.badges || [];
-                            setStats(prev => ({ ...prev, badges: badges }));
-                            localStorage.setItem(BADGES_CACHE_KEY, JSON.stringify({
-                                badges: badges,
-                                timestamp: Date.now()
-                            }));
+                        if (res.ok) {
+                            const json = await res.json();
+                            const list = json?.data?.matchedUser?.badges;
+                            if (Array.isArray(list) && list.length > 0) {
+                                remoteBadges = list;
+                            }
                         }
                     } catch (e) {
-                        console.warn("Failed to fetch LeetCode badges:", e);
+                        // try fallback endpoint below
+                    }
+
+                    // Try 2: alfa-leetcode-api fallback
+                    if (remoteBadges.length === 0) {
+                        try {
+                            const res = await fetch(`https://alfa-leetcode-api.onrender.com/${leetcodeUsername}/badges`);
+                            if (res.ok) {
+                                const data = await res.json();
+                                if (Array.isArray(data?.badges) && data.badges.length > 0) {
+                                    remoteBadges = data.badges;
+                                }
+                            }
+                        } catch (e) {
+                            console.warn("Could not fetch badges from remote:", e);
+                        }
+                    }
+
+                    // If API returned badges, normalize icon URLs and cache for 4 days
+                    if (remoteBadges.length > 0) {
+                        const normalized = remoteBadges.map(b => ({
+                            ...b,
+                            icon: b.icon?.startsWith('http') ? b.icon : `https://leetcode.com${b.icon?.startsWith('/') ? '' : '/'}${b.icon}`
+                        }));
+                        setStats(prev => ({ ...prev, badges: normalized }));
+                        localStorage.setItem(BADGES_CACHE_KEY, JSON.stringify({
+                            badges: normalized,
+                            timestamp: Date.now()
+                        }));
                     }
                 }
             } catch (error) {
@@ -540,31 +577,42 @@ export const LeetCodeStatsSection = () => {
                             </h3>
                         </div>
 
-                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4">
-                            {stats.badges.map((badge, index) => (
-                                <div
-                                    key={index}
-                                    className="flex flex-col items-center text-center p-3 rounded-[20px] soft-ui-inset-subtle group hover:scale-105 transition-all"
-                                >
-                                    <div className="w-12 h-12 sm:w-16 sm:h-16 mb-2 relative flex items-center justify-center drop-shadow-sm">
-                                        <img
-                                            src={badge.icon.startsWith("http") ? badge.icon : `https://leetcode.com${badge.icon}`}
-                                            alt={`LeetCode Badge: ${badge.displayName}`}
-                                            className="w-full h-full object-contain"
-                                            loading="lazy"
-                                            decoding="async"
-                                            width="64"
-                                            height="64"
-                                        />
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+                            {stats.badges.map((badge, index) => {
+                                const iconUrl = badge.icon?.startsWith("http")
+                                    ? badge.icon
+                                    : `https://leetcode.com${badge.icon?.startsWith("/") ? "" : "/"}${badge.icon}`;
+
+                                return (
+                                    <div
+                                        key={badge.id || index}
+                                        className="flex flex-col items-center text-center p-3.5 sm:p-4 rounded-[24px] soft-ui-raised bg-[#eae7e1] border border-[#dedad1] group hover:-translate-y-1 hover:shadow-md transition-all duration-300 select-none"
+                                        title={badge.displayName || badge.name}
+                                    >
+                                        <div className="w-14 h-14 sm:w-16 sm:h-16 mb-2.5 rounded-2xl soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] p-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                                            <img
+                                                src={iconUrl}
+                                                alt={`LeetCode Badge: ${badge.displayName || badge.name}`}
+                                                className="w-full h-full object-contain filter drop-shadow-sm"
+                                                loading="lazy"
+                                                decoding="async"
+                                                onError={(e) => {
+                                                    e.currentTarget.style.display = 'none';
+                                                    if (e.currentTarget.parentElement) {
+                                                        e.currentTarget.parentElement.innerHTML = '<span class="text-2xl select-none">🏅</span>';
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <span className="text-xs sm:text-sm font-bold text-[#383a3d] font-digital line-clamp-1 group-hover:text-[#e59845] transition-colors">
+                                            {badge.displayName || badge.name}
+                                        </span>
+                                        <span className="text-[10px] text-[#78756e] font-handwriting mt-0.5">
+                                            {badge.creationDate || "Achievement"}
+                                        </span>
                                     </div>
-                                    <span className="text-[11px] sm:text-xs font-bold text-[#43413d] font-handwriting line-clamp-1">
-                                        {badge.displayName}
-                                    </span>
-                                    <span className="text-[9px] sm:text-[10px] text-[#78756e] mt-0.5">
-                                        {badge.creationDate}
-                                    </span>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </motion.div>
                 )}

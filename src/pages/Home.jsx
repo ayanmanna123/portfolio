@@ -4,7 +4,8 @@ import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
 import { ScrollToTop } from "../components/ScrollToTop";
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // Lazy loaded components
 const SkillsSection = React.lazy(() => import("../components/SkillsSection").then(module => ({ default: module.SkillsSection })));
@@ -25,6 +26,23 @@ const Loader = () => (
 );
 
 export const Home = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const timer = setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) {
+          if (window.lenis) {
+            window.lenis.scrollTo(el, { offset: -20, duration: 1 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash]);
   return (
     <div className="min-h-screen bg-transparent dark:bg-background text-foreground overflow-x-hidden">
       <Helmet>

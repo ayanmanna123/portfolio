@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  GraduationCap, Calendar, Award, ArrowRight, ExternalLink, Github,
-  ChevronUp, Star, Code, Play, Eye, X, Info
+  GraduationCap, Calendar, Award, ArrowRight, ArrowUpRight, ExternalLink, Github,
+  ChevronUp, Star, Code, Play, Eye, X, Info, Bookmark
 } from 'lucide-react';
-import { educationData, projects, categoryColors } from '../data';
+import { educationData, projects, categoryColors, logo } from '../data';
 import { ProjectDetailsModal } from './ProjectDetailsModal';
 import { VideoPlayer } from './VideoPlayer';
 
@@ -675,172 +676,100 @@ export const EducationToProjectsMorph = () => {
                     <div
                       key={project.id}
                       className="group text-left will-change-transform will-change-opacity"
-                      onMouseEnter={() => setHoveredProject(project.id)}
-                      onMouseLeave={() => setHoveredProject(null)}
                     >
-                      <div className="relative bg-background border border-border rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                        {/* Image Section */}
-                        <div className="relative h-32 sm:h-36 overflow-hidden bg-muted">
-                          <motion.img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            loading="lazy"
-                          />
+                      {/* Main Card Box - Clicking opens /project/:id in the SAME website */}
+                      <Link
+                        to={`/project/${project.id}`}
+                        className="block rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] bg-muted shadow-sm hover:shadow-2xl transition-all duration-500 border border-border/50 relative cursor-pointer"
+                      >
+                        <motion.img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          loading="lazy"
+                        />
 
-                          {/* Status Badge */}
-                          <div className="absolute top-2 right-2 z-10">
-                            <div
-                              className={`px-2 py-0.5 rounded-full text-[10px] font-medium backdrop-blur-sm ${
-                                project.status === "Live"
-                                  ? "bg-[#EC844D]/20 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/30"
-                                  : "bg-amber-500/20 text-amber-600 border border-amber-500/30"
-                              }`}
-                            >
-                              {project.status}
-                            </div>
-                          </div>
-
-                          {/* Category Badge */}
-                          <div className="absolute top-2 left-2 z-10">
-                            <span
-                              className={`px-2 py-0.5 rounded-full text-[10px] font-medium backdrop-blur-sm border ${categoryColors[project.category] || 'bg-secondary'}`}
-                            >
-                              {project.category}
-                            </span>
-                          </div>
-
-                          {/* Mobile Play Demo Video Button */}
-                          {project.video && (
-                            <button
-                              onClick={() => handleVideoPlay(project)}
-                              className="absolute bottom-2 right-2 z-10 p-1.5 rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 hover:bg-[#EC844D] transition-all duration-300 md:hidden flex items-center gap-1 text-xs"
-                              aria-label="Play video demo"
-                            >
-                              <Play size={12} className="fill-white" />
-                            </button>
-                          )}
-
-                          {/* Desktop Hover Actions */}
-                          <motion.div
-                            className="hidden md:flex absolute inset-0 bg-black/50 items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                        {/* Status Badge in Top Right */}
+                        <div className="absolute top-3 right-3 z-10">
+                          <span
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold backdrop-blur-md shadow-sm border ${
+                              project.status === "Live"
+                                ? "bg-black/50 text-emerald-400 border-emerald-500/30"
+                                : "bg-black/50 text-amber-400 border-amber-500/30"
+                            }`}
                           >
-                            {project.video && (
-                              <motion.button
-                                onClick={() => handleVideoPlay(project)}
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                aria-label={`Play demo video for ${project.title}`}
-                                className="p-2.5 rounded-full backdrop-blur-sm border bg-white/20 text-white border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
-                              >
-                                <Play size={16} className="fill-white" />
-                              </motion.button>
-                            )}
-
-                            <motion.button
-                              onClick={() => handleOpenDeepDive(project)}
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                              aria-label={`View details for ${project.title}`}
-                              className="p-2.5 rounded-full backdrop-blur-sm border bg-white/20 text-white border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
-                            >
-                              <Info size={16} />
-                            </motion.button>
-                          </motion.div>
+                            {project.status || "LIVE"}
+                          </span>
                         </div>
 
-                        {/* Content Section */}
-                        <div className="p-3 sm:p-4 flex-1 flex flex-col relative z-20 bg-background">
-                          <div className="flex items-start justify-between mb-1.5">
-                            <h3 className="text-sm sm:text-base font-bold text-foreground">
+                        {/* Dark Gradient Overlay at Bottom */}
+                        <div className="absolute inset-x-0 bottom-0 pt-16 pb-3.5 px-4 sm:px-5 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-end justify-between z-10">
+                          <div className="pr-2 min-w-0">
+                            <span className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-white/70 mb-0.5">
+                              {project.category ? project.category.split('/')[0].trim().toUpperCase() : "WEBSITE"}
+                            </span>
+                            <h3 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-tight leading-snug drop-shadow-sm truncate group-hover:text-white/95 transition-colors">
                               {project.title}
                             </h3>
-                            {project.featured && (
-                              <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-600 text-[10px] font-medium border border-amber-500/30">
-                                <Star size={10} className="fill-amber-500" />
-                                Featured
-                              </div>
-                            )}
                           </div>
 
-                          <p className="text-muted-foreground text-xs mb-2 line-clamp-2 leading-relaxed flex-1">
-                            {project.description}
-                          </p>
-
-                          {/* Key Features */}
-                          <div className="mb-2">
-                            <ProjectHighlights highlights={project.highlights} />
-                          </div>
-
-                          {/* Tech Stack */}
-                          <div className="flex flex-wrap gap-1 mb-2.5">
-                            {project.tags.map((tag, tagIndex) => (
-                              <span
-                                key={tagIndex}
-                                className="px-2 py-0.5 rounded-md bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] text-[10px] font-medium border border-[#EC844D]/20"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-
-                          {/* Action Buttons */}
-                          <div className="flex flex-col gap-1.5 pt-2.5 border-t border-border mt-auto">
-                            <motion.button
-                              onClick={() => handleOpenDeepDive(project)}
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-bold bg-[#EC844D] hover:bg-[#DE743C] text-white transition-all duration-300 shadow-sm shadow-[#EC844D]/25 relative z-30 cursor-pointer"
+                          {/* Right Action Icons: View Website Arrow (↗) on Hover & Bookmark */}
+                          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                            {/* Website Arrow (↗) - animated on hover */}
+                            <span
+                              onClick={(e) => {
+                                if (project.demoUrl && project.demoUrl !== "#") {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  window.open(project.demoUrl, "_blank", "noopener,noreferrer");
+                                }
+                              }}
+                              title="Visit Live Website"
+                              className="p-1.5 sm:p-2 rounded-lg bg-white/10 hover:bg-[#EC844D] text-white backdrop-blur-md border border-white/20 transition-all duration-300 transform group-hover:scale-110 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shadow-md flex items-center justify-center cursor-pointer"
                             >
-                              <Info size={13} />
-                              View Details & Architecture
-                            </motion.button>
+                              <ArrowUpRight size={17} className="stroke-[2.5]" />
+                            </span>
 
-                            <div className="flex gap-2">
-                              <motion.a
-                                href={project.demoUrl || "#"}
-                                target={(!project.demoUrl || project.demoUrl === "#") ? undefined : "_blank"}
-                                rel="noopener noreferrer"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className={`flex-1 inline-flex items-center justify-center gap-1 py-1 rounded-lg text-xs font-medium border transition-all duration-300 ${
-                                  (!project.demoUrl || project.demoUrl === "#")
-                                    ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                                    : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
-                                }`}
-                                onClick={(e) => {
-                                  if (!project.demoUrl || project.demoUrl === "#") {
-                                    e.preventDefault();
-                                    alert("Website is not available");
-                                  }
-                                }}
-                              >
-                                <Eye size={13} />
-                                Live Demo
-                              </motion.a>
-
-                              <motion.a
-                                href={project.githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className={`flex-1 inline-flex items-center justify-center gap-1 py-1 rounded-lg text-xs font-medium border transition-all duration-300 ${
-                                  project.githubUrl === "#"
-                                    ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                                    : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
-                                }`}
-                                onClick={(e) => project.githubUrl === "#" && e.preventDefault()}
-                              >
-                                <Github size={13} />
-                                Code
-                              </motion.a>
-                            </div>
+                            {/* Bookmark / Info Icon */}
+                            <span
+                              title="View Project Details & Architecture"
+                              className="p-1.5 sm:p-2 rounded-lg bg-white/10 text-white/80 backdrop-blur-md border border-white/10 transition-all duration-300 flex items-center justify-center opacity-70 group-hover:opacity-100"
+                            >
+                              <Bookmark size={15} />
+                            </span>
                           </div>
                         </div>
+                      </Link>
 
-                        {/* Accent Border */}
-                        <div className={`h-1 bg-gradient-to-r ${project.accentColor}`} />
+                      {/* Author / Metadata Row Below Card */}
+                      <div className="flex items-center justify-between pt-2.5 px-1">
+                        {/* Author Profile */}
+                        <Link
+                          to={`/project/${project.id}`}
+                          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                        >
+                          <img
+                            src={logo}
+                            alt="Ayan Manna"
+                            className="w-5 h-5 rounded-full object-cover border border-border/80 bg-muted p-0.5"
+                          />
+                          <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-[#EC844D] transition-colors">
+                            Ayan Manna
+                          </span>
+                          <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">
+                            PRO
+                          </span>
+                        </Link>
+
+                        {/* Badges on right side */}
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded border border-border text-muted-foreground uppercase tracking-wide">
+                            DEV
+                          </span>
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded border border-[#EC844D]/40 text-[#EC844D] dark:text-[#FFAE80] uppercase tracking-wide">
+                            {project.status === "Live" ? "LIVE" : "SOTD"}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   ))}

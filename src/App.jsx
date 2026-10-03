@@ -13,6 +13,7 @@ import WelcomeScreen from "@/components/WelcomeScreen";
 import { Analytics } from "@vercel/analytics/react";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
+import { CustomCursor } from "@/components/CustomCursor";
 
 function App() {
   const [welcomeComplete, setWelcomeComplete] = useState(() => {
@@ -54,6 +55,7 @@ function App() {
         <title>Ayan Manna | Portfolio</title>
         <meta name="description" content="Portfolio of Ayan Manna, a Full Stack Developer." />
       </Helmet>
+      <CustomCursor />
       <Toaster />
       {!welcomeComplete ? (
         <WelcomeScreen onWelcomeComplete={handleWelcomeComplete} />

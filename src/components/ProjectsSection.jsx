@@ -1,23 +1,22 @@
-import { ArrowRight, ExternalLink, Github, ChevronUp, Star, Code, ChevronDown, MoveRight, Filter, Sparkles, Award, Zap, Play, Eye, Calendar, Users, X, Info } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ExternalLink, Github, ChevronUp, Star, Code, ChevronDown, Play, Eye, X, Info } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-import { projects, categoryColors } from "@/data";
+import { projects } from "@/data";
 import { ProjectDetailsModal } from "./ProjectDetailsModal";
 import { VideoPlayer } from "./VideoPlayer";
 
 export const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedDeepDiveProject, setSelectedDeepDiveProject] = useState(null);
-  const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
   const headerRef = useRef(null);
@@ -36,34 +35,34 @@ export const ProjectsSection = () => {
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
-          { y: 150, opacity: 0 },
+          { y: 80, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.8,
+            duration: 1.4,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 60%",
+              start: "top 75%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // Line 2: "Projects"
+      // Line 2: "Projects & Products"
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
-          { y: 150, opacity: 0 },
+          { y: 80, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.8,
+            duration: 1.4,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 40%",
+              start: "top 65%",
               toggleActions: "play none none reverse",
             },
           }
@@ -74,15 +73,15 @@ export const ProjectsSection = () => {
       if (line3Ref.current) {
         gsap.fromTo(
           line3Ref.current,
-          { y: 50, opacity: 0 },
+          { y: 40, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.8,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 20%",
+              start: "top 55%",
               toggleActions: "play none none reverse",
             },
           }
@@ -93,45 +92,34 @@ export const ProjectsSection = () => {
       if (filterContainerRef.current) {
         gsap.fromTo(
           filterContainerRef.current,
-          { y: 40, opacity: 0 },
+          { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.4,
+            duration: 1.0,
             ease: "power3.out",
             scrollTrigger: {
               trigger: filterContainerRef.current,
-              start: "top 76%",
+              start: "top 80%",
               toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // Project Cards with distinct multi-directional timings & visible reverse triggers
+      // Project Cards
       cardRefs.current.forEach((card, index) => {
         if (!card) return;
 
-        let fromVars = { opacity: 0 };
-        let duration = 1.4;
-        let triggerStart = "top 68%";
+        let fromVars = { opacity: 0, y: 50 };
         const colPos = index % 3;
 
         if (colPos === 0) {
-          // Card 1 (Left): Left to Right
-          fromVars = { x: -260, opacity: 0 };
-          duration = 1.4;
-          triggerStart = "top 68%";
+          fromVars = { x: -60, opacity: 0 };
         } else if (colPos === 1) {
-          // Card 2 (Center): Bottom to Top
-          fromVars = { y: 80, opacity: 0 };
-          duration = 1.6;
-          triggerStart = "top 64%";
+          fromVars = { y: 60, opacity: 0 };
         } else {
-          // Card 3 (Right): Right to Left
-          fromVars = { x: 260, opacity: 0 };
-          duration = 1.8;
-          triggerStart = "top 60%";
+          fromVars = { x: 60, opacity: 0 };
         }
 
         gsap.fromTo(
@@ -141,11 +129,11 @@ export const ProjectsSection = () => {
             x: 0,
             y: 0,
             opacity: 1,
-            duration: duration,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: cardsContainerRef.current || card,
-              start: triggerStart,
+              trigger: card,
+              start: "top 80%",
               toggleActions: "play none none reverse",
             },
           }
@@ -155,14 +143,6 @@ export const ProjectsSection = () => {
 
     return () => ctx.revert();
   }, [activeFilter, showAll]);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const opacityBg = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, 0.2, 0.1]);
 
   const filteredProjects = activeFilter === "All"
     ? projects
@@ -175,7 +155,6 @@ export const ProjectsSection = () => {
   const handleFilterChange = (category) => {
     setActiveFilter(category);
     setShowAll(false);
-    setIsMobileFilterOpen(false);
   };
 
   const handleVideoPlay = (project) => {
@@ -187,7 +166,6 @@ export const ProjectsSection = () => {
   };
 
   const handleOpenDeepDive = (project) => {
-    console.log("Opening deep dive for:", project.title);
     setSelectedDeepDiveProject(project);
   };
 
@@ -195,325 +173,252 @@ export const ProjectsSection = () => {
     setSelectedDeepDiveProject(null);
   };
 
-  const ProjectHighlights = ({ highlights }) => (
-    <div className="space-y-2">
-      {highlights.map((highlight, index) => (
-        <div key={index} className="flex items-center gap-2 text-sm">
-          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-          <span className="text-muted-foreground">{highlight}</span>
-        </div>
-      ))}
-    </div>
-  );
-
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden"
+      className="relative min-h-screen py-16 sm:py-24 px-3 sm:px-6 lg:px-12 bg-[#eae7e1] text-[#43413d] overflow-hidden select-none"
       ref={sectionRef}
     >
-      {/* Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
-      </div>
+      {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
 
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl relative">
         {/* Header */}
-        <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
-           
+        <div ref={headerRef} className="text-center mb-10 sm:mb-14 px-2 sm:px-6">
+          <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+            <span>Portfolio.Works</span>
+          </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
-            <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-1 leading-tight tracking-tight text-[#43413d]">
+            <span ref={line1Ref} className="block text-[#43413d] will-change-transform will-change-opacity">
               Featured
             </span>
             <span
               ref={line2Ref}
-              className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
-              style={{ fontFamily: "'Rakyat', cursive" }}
+              className="block font-handwriting text-2xl sm:text-4xl md:text-5xl text-[#e59845] font-bold mt-0.5 pb-0.5 will-change-transform will-change-opacity"
             >
-              Projects
+              Projects & Products
             </span>
           </h2>
 
           <p
             ref={line3Ref}
-            className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+            className="text-xs sm:text-sm text-[#78756e] font-handwriting font-medium max-w-xl mx-auto leading-relaxed mt-1 will-change-transform will-change-opacity"
           >
-            A collection of projects I've built to showcase my skills in full-stack development and modern web technologies.
+            A curated collection of full-stack applications, modern architectures, and interactive digital experiences.
           </p>
         </div>
 
-        {/* Filter Pills */}
+        {/* Category Filter Pills */}
         <div
           ref={filterContainerRef}
           className="flex justify-center mb-8 sm:mb-12 overflow-x-auto pb-2 scrollbar-none will-change-transform will-change-opacity"
         >
           <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2 px-2">
             {categories.map((category) => (
-              <motion.button
+              <button
                 key={category}
                 onClick={() => handleFilterChange(category)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border whitespace-nowrap cursor-pointer ${activeFilter === category
-                  ? "bg-[#EC844D] text-white font-bold border-[#EC844D] shadow-md shadow-[#EC844D]/25"
-                  : "bg-background text-muted-foreground border-border hover:border-[#EC844D] hover:text-[#EC844D]"
-                  }`}
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold font-handwriting transition-all cursor-pointer ${
+                  activeFilter === category
+                    ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105"
+                    : "soft-ui-raised bg-[#eae7e1] text-[#6d6a64] hover:text-[#e59845] border border-[#dedad1]/60"
+                }`}
               >
                 {category}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <div ref={cardsContainerRef} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+        {/* Real Projects Grid */}
+        <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <AnimatePresence>
             {displayedProjects.map((project, index) => (
               <div
                 key={project.id}
                 ref={(el) => (cardRefs.current[index] = el)}
-                className="group text-left will-change-transform will-change-opacity"
+                className="group text-left will-change-transform will-change-opacity h-full flex"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
-                <div className="relative bg-background border border-border rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 h-full flex flex-col">
+                <div className="soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-5 sm:p-6 bg-[#eae7e1] text-[#43413d] flex flex-col justify-between w-full transition-all duration-300 hover:scale-[1.015]">
+                  <div>
+                    {/* Top: Sunken Bezel Image Frame */}
+                    <div className="soft-ui-inset rounded-[24px] p-2.5 sm:p-3 bg-[#e4e1d9] relative overflow-hidden aspect-[16/10] mb-4">
+                      <Link to={`/project/${project.id}`} className="block w-full h-full overflow-hidden rounded-[18px] relative">
+                        <motion.img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                      </Link>
 
-                  {/* Image Section */}
-                  <div className="relative h-44 sm:h-48 overflow-hidden bg-muted">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-
-                    {/* Status Badge */}
-                    <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10">
-                      <div className={`px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-medium backdrop-blur-sm ${project.status === "Live"
-                        ? "bg-[#EC844D]/20 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/30"
-                        : "bg-amber-500/20 text-amber-600 border border-amber-500/30"
-                        }`}>
-                        {project.status}
+                      {/* Top-Left Category Badge */}
+                      <div className="soft-ui-inset-subtle absolute top-4 left-4 sm:top-5 sm:left-5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#5a5751] font-handwriting bg-[#e6e3dc]/90 backdrop-blur-sm shadow-sm pointer-events-none">
+                        {project.category ? project.category.split('/')[0].trim() : "Project"}
                       </div>
-                    </div>
 
-                    {/* Category Badge */}
-                    <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
-                      <span className={`px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-medium backdrop-blur-sm border ${categoryColors[project.category]}`}>
-                        {project.category}
-                      </span>
-                    </div>
-
-                    {/* Quick Demo Video Button for Mobile/Desktop */}
-                    {project.video && (
-                      <button
-                        onClick={() => handleVideoPlay(project)}
-                        className="absolute bottom-2.5 right-2.5 z-10 p-2 rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 hover:bg-primary transition-all duration-300 md:hidden flex items-center gap-1 text-xs"
-                        aria-label="Play video demo"
-                      >
-                        <Play size={14} className="fill-white" />
-                      </button>
-                    )}
-
-                    {/* Hover Actions - Desktop */}
-                    <motion.div
-                      className="hidden md:flex absolute inset-0 bg-black/50 items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
-                    >
-                      {project.video && (
-                        <motion.button
-                          onClick={() => handleVideoPlay(project)}
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          aria-label={`Play demo video for ${project.title}`}
-                          className="p-3 rounded-full backdrop-blur-sm border bg-white/20 text-white border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
+                      {/* Top-Right Quick Demo Action Button */}
+                      {project.demoUrl && project.demoUrl !== "#" && (
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(project.demoUrl, "_blank", "noopener,noreferrer");
+                          }}
+                          title="Visit Live Website"
+                          className="soft-ui-raised absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 sm:w-10 sm:h-10 rounded-[14px] flex items-center justify-center text-[#e59845] hover:text-[#43413d] hover:scale-110 active:scale-95 transition-all bg-[#eae7e1] shadow-md border border-[#dedad1] cursor-pointer z-20"
                         >
-                          <Play size={20} className="fill-white" />
-                        </motion.button>
+                          <ArrowUpRight size={18} className="stroke-[2.5]" />
+                        </button>
                       )}
+                    </div>
 
-                      <motion.button
-                        onClick={() => handleOpenDeepDive(project)}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        aria-label={`View details for ${project.title}`}
-                        className="p-3 rounded-full backdrop-blur-sm border bg-white/20 text-white border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer"
-                      >
-                        <Info size={20} />
-                      </motion.button>
-                    </motion.div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="p-4 sm:p-6 flex-1 flex flex-col relative z-20 bg-background">
-                    <div className="flex items-start justify-between mb-2 sm:mb-3">
-                      <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                    {/* Project Title */}
+                    <Link to={`/project/${project.id}`}>
+                      <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-1.5 leading-snug hover:text-[#e59845] transition-colors truncate">
                         {project.title}
                       </h3>
-                      {project.featured && (
-                        <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-600 text-[10px] sm:text-xs font-medium border border-amber-500/30">
-                          <Star size={11} className="fill-amber-500" />
-                          Featured
-                        </div>
-                      )}
-                    </div>
+                    </Link>
 
-                    <p className="text-muted-foreground text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed flex-1">
+                    {/* Project Description */}
+                    <p className="text-[#66635d] text-xs sm:text-[13px] leading-relaxed mb-4 font-normal line-clamp-2">
                       {project.description}
                     </p>
 
-                    {/* Key Features */}
-                    <div className="mb-3 sm:mb-4">
-                      <ProjectHighlights highlights={project.highlights} />
-                    </div>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
-                      {project.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="px-2.5 py-0.5 rounded-lg bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] text-[11px] sm:text-xs font-medium border border-[#EC844D]/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex flex-col gap-2.5 pt-3 sm:pt-4 border-t border-border mt-auto">
-                      <motion.button
-                        onClick={() => handleOpenDeepDive(project)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full inline-flex items-center justify-center gap-2 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold bg-[#EC844D] hover:bg-[#DE743C] text-white transition-all duration-300 shadow-md shadow-[#EC844D]/25 relative z-30 cursor-pointer"
-                      >
-                        <Info size={15} />
-                        View Details & Architecture
-                      </motion.button>
-
-                      <div className="flex gap-2 sm:gap-3">
-                        <motion.a
-                          href={project.demoUrl || "#"}
-                          target={(!project.demoUrl || project.demoUrl === "#") ? undefined : "_blank"}
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className={`flex-1 inline-flex items-center justify-center gap-1.5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium border transition-all duration-300 ${(!project.demoUrl || project.demoUrl === "#")
-                            ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                            : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
-                            }`}
-                          onClick={(e) => {
-                            if (!project.demoUrl || project.demoUrl === "#") {
-                              e.preventDefault();
-                              alert("Website is not available");
-                            }
-                          }}
-                        >
-                          <Eye size={15} />
-                          Live Demo
-                        </motion.a>
-
-                        <motion.a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className={`flex-1 inline-flex items-center justify-center gap-1.5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium border transition-all duration-300 ${project.githubUrl === "#"
-                            ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                            : "bg-background text-foreground border-border hover:border-[#EC844D] hover:bg-[#EC844D]/5 hover:text-[#EC844D]"
-                            }`}
-                          onClick={(e) => project.githubUrl === "#" && e.preventDefault()}
-                        >
-                          <Github size={15} />
-                          Code
-                        </motion.a>
+                    {/* Tech Stack Pills in Soft UI Debossed Groove */}
+                    {project.tags && project.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {project.tags.slice(0, 3).map((tag, tagIdx) => (
+                          <span
+                            key={tagIdx}
+                            className="soft-ui-inset-subtle px-2.5 py-0.5 rounded-full text-[10px] sm:text-[10.5px] font-bold text-[#6d6a64] font-digital bg-[#e6e3dc]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                        {project.tags.length > 3 && (
+                          <span className="soft-ui-inset-subtle px-2 py-0.5 rounded-full text-[10px] font-bold text-[#78756e] font-digital bg-[#e6e3dc]">
+                            +{project.tags.length - 3}
+                          </span>
+                        )}
                       </div>
-                    </div>
+                    )}
                   </div>
 
-                  {/* Accent Border */}
-                  <div className={`h-1 bg-gradient-to-r ${project.accentColor}`} />
+                  {/* Bottom Milestone Slot & Detail Action Button */}
+                  <div className="mt-auto pt-3 border-t border-[#cdc8be]/40">
+                    <div className="w-full h-11 soft-ui-inset rounded-full p-1.5 flex items-center justify-between bg-[#e4e1d9]">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting pl-3">
+                        <Code className="w-3.5 h-3.5 text-[#e59845]" />
+                        <span>{project.status || "Live Build"}</span>
+                      </div>
+
+                      <Link
+                        to={`/project/${project.id}`}
+                        className="soft-ui-raised rounded-full px-4 py-1 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer"
+                      >
+                        <span>Explore</span>
+                        <ArrowRight size={13} className="text-[#e59845]" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </AnimatePresence>
         </div>
 
-        {/* Load More */}
+        {/* Load More Toggle */}
         {filteredProjects.length > 3 && (
-          <motion.div
-            className="text-center mt-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: false }}
-          >
+          <div className="text-center mt-12 sm:mt-16">
             <motion.button
               onClick={() => setShowAll(!showAll)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold transition-all duration-300 relative z-30 cursor-pointer ${showAll
-                ? "bg-muted text-foreground border border-border"
-                : "bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/25"
-                }`}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="soft-ui-raised inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-xs sm:text-sm text-[#383a3d] font-handwriting hover:text-[#e59845] border border-[#dedad1] shadow-md transition-all cursor-pointer bg-[#eae7e1]"
             >
               {showAll ? (
                 <>
-                  <ChevronUp size={18} />
-                  Show Less
+                  <ChevronUp size={16} className="text-[#e59845]" />
+                  <span>Show Less Projects</span>
                 </>
               ) : (
                 <>
-                  View More Projects
-                  <ArrowRight size={18} />
+                  <span>View More Projects ({filteredProjects.length - 3} more)</span>
+                  <ArrowRight size={16} className="text-[#e59845]" />
                 </>
               )}
             </motion.button>
-          </motion.div>
+          </div>
         )}
 
-        {/* Simple CTA */}
-        <motion.div
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
-        >
-          <div className="bg-background border border-border rounded-2xl p-8 sm:p-12 max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">Like what you see?</h3>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities and interesting projects.
+        {/* Soft UI CTA Card */}
+        <div className="mt-16 sm:mt-24">
+          <div className="soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-8 sm:p-12 max-w-4xl mx-auto bg-[#eae7e1] text-[#43413d] text-center border border-[#dedad1]/60">
+            <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+              <span>Collaborate</span>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-black mb-3 font-digital text-[#383a3d]">
+              Have a Project in Mind?
+            </h3>
+            <p className="text-xs sm:text-sm text-[#66635d] font-handwriting font-medium mb-8 max-w-xl mx-auto leading-relaxed">
+              I'm always open to discussing modern full-stack systems, creative UI experiences, and engineering opportunities.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <motion.a
+              <a
                 href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
+                className="soft-ui-raised inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-2xl font-bold text-xs sm:text-sm text-[#383a3d] font-handwriting hover:text-[#e59845] border border-[#dedad1] transition-all cursor-pointer bg-[#eae7e1]"
               >
-                Contact Me
-                <ArrowRight size={18} />
-              </motion.a>
+                <span>Get in Touch</span>
+                <ArrowRight size={16} className="text-[#e59845]" />
+              </a>
 
-              <motion.a
+              <a
                 href="https://github.com/ayanmanna123"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-medium border border-border text-foreground hover:border-primary hover:bg-primary/5 transition-all duration-300"
+                className="soft-ui-raised inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-2xl font-bold text-xs sm:text-sm text-[#6d6a64] font-handwriting hover:text-[#e59845] border border-[#dedad1] transition-all cursor-pointer bg-[#eae7e1]"
               >
-                <Github size={18} />
-                View GitHub
-              </motion.a>
+                <Github size={16} />
+                <span>View GitHub Profile</span>
+              </a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Video Modal */}
@@ -573,10 +478,11 @@ export const ProjectsSection = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${(!selectedVideo.demoUrl || selectedVideo.demoUrl === "#")
-                        ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
-                        : "bg-primary text-primary-foreground hover:bg-primary/90"
-                        }`}
+                      className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                        (!selectedVideo.demoUrl || selectedVideo.demoUrl === "#")
+                          ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
+                          : "bg-[#e59845] text-white hover:bg-[#d48937]"
+                      }`}
                       onClick={(e) => {
                         if (!selectedVideo.demoUrl || selectedVideo.demoUrl === "#") {
                           e.preventDefault();
@@ -592,10 +498,11 @@ export const ProjectsSection = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`px-6 py-2 rounded-lg text-sm font-medium border transition-all duration-300 ${selectedVideo.githubUrl === "#"
-                        ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
-                        : "bg-background text-foreground border-border hover:border-primary hover:bg-primary/5"
-                        }`}
+                      className={`px-6 py-2 rounded-lg text-sm font-medium border transition-all duration-300 ${
+                        selectedVideo.githubUrl === "#"
+                          ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
+                          : "bg-background text-foreground border-border hover:border-[#e59845] hover:text-[#e59845]"
+                      }`}
                       onClick={(e) => selectedVideo.githubUrl === "#" && e.preventDefault()}
                     >
                       View Code
@@ -617,3 +524,5 @@ export const ProjectsSection = () => {
     </section>
   );
 };
+
+export default ProjectsSection;

@@ -133,13 +133,15 @@ const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }
     >
       {/* Outer Card Body: border ONLY in mid position, side cards are border-transparent */}
       <div
-        className={`relative w-full h-full rounded-[22px] p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-all duration-300 ${
+        className={`relative w-full h-full rounded-[22px] p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-[border-color,box-shadow,background-color] duration-200 ${
           isMid
             ? "border-2 border-[#EC844D] bg-card ring-4 ring-[#EC844D]/35 shadow-[0_22px_50px_rgba(236,132,77,0.35)]"
-            : "border-2 border-transparent bg-card/90 shadow-md hover:shadow-lg"
+            : "border-2 border-transparent bg-card/90 shadow-md"
         }`}
         style={{
-          boxShadow: isMid ? shadowGlow : undefined
+          boxShadow: isMid ? shadowGlow : undefined,
+          willChange: "transform, opacity",
+          backfaceVisibility: "hidden"
         }}
       >
         {/* Warm Theme Radial Glow scaling with depth proximity */}
@@ -181,7 +183,7 @@ const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center my-1.5 text-center">
           {/* Logo container with warm glow */}
           <div
-            className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-2.5 transition-transform duration-300 ease-out group-hover:scale-110 shadow-sm bg-secondary/40 dark:bg-white/5 border border-border/40 dark:border-white/10"
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-2.5 transition-none shadow-sm bg-secondary/40 dark:bg-white/5 border border-border/40 dark:border-white/10"
             style={{
               boxShadow: `0 8px 24px -6px ${meta.color}40`,
               transform: isMid ? "scale(1.06)" : "scale(1)"
@@ -312,14 +314,49 @@ export const SkillsSection = () => {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+  const rafIdRef = useRef(null);
+
+  // High-performance 120fps V-Sync requestAnimationFrame lerp loop
+  useEffect(() => {
+    let active = true;
+
+    const tick = () => {
+      if (!active) return;
+      const target = targetProgressRef.current;
+      const current = currentProgressRef.current;
+      const diff = target - current;
+
+      if (Math.abs(diff) > 0.00004) {
+        // Silky exponential damping matching 120Hz refresh rate (0.16 gives instant precision)
+        currentProgressRef.current = current + diff * 0.16;
+        setScrollProgress(currentProgressRef.current);
+      } else if (current !== target) {
+        currentProgressRef.current = target;
+        setScrollProgress(target);
+      }
+
+      rafIdRef.current = requestAnimationFrame(tick);
+    };
+
+    rafIdRef.current = requestAnimationFrame(tick);
+    return () => {
+      active = false;
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+    };
+  }, []);
+
   // Compute total vertical scroll distance to scrub through all cards
   const scrollDistance = Math.max(0, (count - 1) * wheelConfig.scrollPerCard);
   const trackHeight = count > 1 ? `calc(100vh + ${scrollDistance}px)` : "auto";
 
-  // Master GSAP ScrollTrigger Pinned Lock & Scroll Scrubbing
+  // Master GSAP ScrollTrigger Pinned Lock & Ultra-Responsive 120fps Scrubbing
   useEffect(() => {
     if (!trackRef.current || !stageRef.current) return;
     if (count <= 1) {
+      targetProgressRef.current = 0;
+      currentProgressRef.current = 0;
       setScrollProgress(0);
       return;
     }
@@ -331,10 +368,10 @@ export const SkillsSection = () => {
         end: "bottom bottom",
         pin: stageRef.current,
         pinSpacing: false,
-        scrub: 0.6,
+        scrub: true,
         anticipatePin: 1,
         onUpdate: (self) => {
-          setScrollProgress(self.progress);
+          targetProgressRef.current = self.progress;
         }
       });
     }, sectionRef);
@@ -486,6 +523,8 @@ export const SkillsSection = () => {
                 style={{
                   perspective: "1800px",
                   transformStyle: "preserve-3d",
+                  willChange: "transform",
+                  contain: "layout paint",
                   WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 8%, black 22%, black 78%, rgba(0,0,0,0.15) 92%, transparent 100%)",
                   maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 8%, black 22%, black 78%, rgba(0,0,0,0.15) 92%, transparent 100%)"
                 }}
@@ -506,15 +545,21 @@ export const SkillsSection = () => {
                     height: `${wheelConfig.radius * 2}px`,
                     left: "50%",
                     top: `${wheelConfig.apexTop + 140}px`,
-                    transform: "translate(-50%, 0)",
+                    transform: "translate3d(-50%, 0, 0)",
                     transformOrigin: "50% 50%",
-                    transformStyle: "preserve-3d"
+                    transformStyle: "preserve-3d",
+                    willChange: "transform",
+                    backfaceVisibility: "hidden"
                   }}
                 >
                   {currentSkills.map((skill, index) => {
                     // Scroll-controlled continuous horizontal movement: RIGHT -> LEFT
                     const relativeAngle = (index - rawIndex) * wheelConfig.stepAngle + dragOffset;
-                    const isVisible = Math.abs(relativeAngle) <= wheelConfig.visibleAngle;
+                    
+                    // 120fps Card Culling: Only render cards currently visible in the arc
+                    if (Math.abs(relativeAngle) > wheelConfig.visibleAngle + 6) {
+                      return null;
+                    }
 
                     // Normalized distance from center (0.0 at center, 1.0 at visible limit)
                     const normalizedDist = Math.min(1, Math.abs(relativeAngle) / wheelConfig.visibleAngle);
@@ -525,14 +570,15 @@ export const SkillsSection = () => {
                     // 1. Scale: smoothly increases to 1.12 at center, reduces to 0.74 at edges
                     const scale = 0.74 + 0.38 * Math.pow(smoothProgress, 1.3);
 
-                    // 2. Opacity: high (1.0) at center, smoothly decays to 0 at edges (cards slowly become invisible)
-                    const opacity = isVisible ? Math.max(0, Math.pow(smoothProgress, 1.6)) : 0;
+                    // 2. Opacity: high (1.0) at center, smoothly decays to 0 at edges
+                    const opacity = Math.max(0, Math.pow(smoothProgress, 1.6));
+                    if (opacity <= 0.01) return null;
 
-                    // 3. Depth-of-Field Blur: 0px at center, smoothly increases up to 4.8px in periphery
-                    const blur = (1 - smoothProgress) * 4.8;
+                    // 3. Depth-of-Field Blur: 0px at center, subtle in periphery
+                    const blur = (1 - smoothProgress) * 4.0;
 
                     // 4. Subtle atmospheric brightness: center is radiant, periphery is softly dimmed
-                    const brightness = 0.80 + 0.25 * smoothProgress;
+                    const brightness = 0.82 + 0.23 * smoothProgress;
 
                     // 5. 3D translateZ: brings center card forward toward the camera (+75px to -70px)
                     const translateZ = (smoothProgress - 0.5) * 150;
@@ -545,6 +591,10 @@ export const SkillsSection = () => {
 
                     const isCurrentActive = index === activeIndex;
 
+                    const filterStyle = blur > 0.8
+                      ? `blur(${Math.min(3.5, blur).toFixed(1)}px) brightness(${brightness.toFixed(2)})`
+                      : brightness < 0.99 ? `brightness(${brightness.toFixed(2)})` : "none";
+
                     return (
                       <div
                         key={skill.name}
@@ -553,20 +603,21 @@ export const SkillsSection = () => {
                           transform: `rotate(${relativeAngle}deg)`,
                           transformOrigin: "50% 50%",
                           transformStyle: "preserve-3d",
-                          visibility: isVisible && opacity > 0.01 ? "visible" : "hidden",
+                          willChange: "transform",
+                          backfaceVisibility: "hidden",
                           zIndex: zIndex
                         }}
                       >
-                        {/* Card wrapper with 3D translation, depth blur, scale, and perspective */}
+                        {/* Card wrapper with hardware-accelerated 3D translation & zero transition lag */}
                         <div
-                          className={`absolute top-0 left-1/2 pointer-events-auto ${
-                            isDragging ? "transition-none" : "transition-transform duration-200 ease-out"
-                          }`}
+                          className="absolute top-0 left-1/2 pointer-events-auto transition-none"
                           style={{
-                            transform: `translate(-50%, -50%) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+                            transform: `translate3d(-50%, -50%, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
                             transformStyle: "preserve-3d",
+                            willChange: "transform, opacity",
+                            backfaceVisibility: "hidden",
                             opacity: opacity,
-                            filter: `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`
+                            filter: filterStyle
                           }}
                         >
                           <ToolkitCard

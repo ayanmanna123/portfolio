@@ -400,11 +400,11 @@ export const GithubStarredSection = () => {
                           className="relative flex-1 w-full min-w-0 will-change-transform will-change-opacity"
                         >
                           {/* Soft UI Raised Clay Repository Card */}
-                          <div className="group relative h-full soft-ui-raised-card bg-[#eae7e1] border border-[#dedad1] rounded-3xl p-5 sm:p-7 flex flex-col justify-between shadow-[10px_10px_22px_#cfcbc2,-10px_-10px_22px_#ffffff] hover:shadow-[14px_14px_28px_#cfcbc2,-14px_-14px_28px_#ffffff] transition-all duration-300 hover:-translate-y-1">
+                          <div className="group relative h-full text-left soft-ui-raised-card bg-[#eae7e1] border border-[#dedad1] rounded-3xl p-5 sm:p-6 flex flex-col justify-between shadow-[10px_10px_22px_#cfcbc2,-10px_-10px_22px_#ffffff] hover:shadow-[14px_14px_28px_#cfcbc2,-14px_-14px_28px_#ffffff] transition-all duration-300 hover:-translate-y-1">
                             {/* Top Info */}
                             <div>
                               {/* Date & Stars Pill */}
-                              <div className="flex items-center justify-between gap-2 mb-3.5 sm:mb-4">
+                              <div className="flex items-center justify-between gap-2 mb-3.5">
                                 <div className="flex items-center gap-1.5 overflow-hidden">
                                   {dateText && (
                                     <span className="text-[11px] font-mono text-[#78756e] flex items-center gap-1 shrink-0">
@@ -420,7 +420,7 @@ export const GithubStarredSection = () => {
                               </div>
 
                               {/* Owner avatar & login */}
-                              <div className="flex items-center gap-2 mb-2.5 sm:mb-3">
+                              <div className="flex items-center gap-2 mb-2.5">
                                 {repo.owner?.avatar_url ? (
                                   <div className="w-6 h-6 rounded-full soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] p-0.5 overflow-hidden flex items-center justify-center shrink-0">
                                     <img
@@ -440,21 +440,24 @@ export const GithubStarredSection = () => {
                               </div>
 
                               {/* Title */}
-                              <h3 className="text-lg sm:text-xl font-bold font-digital text-[#2d2b28] group-hover:text-[#e59845] transition-colors mb-2 line-clamp-1">
+                              <h3 className="text-lg sm:text-xl font-bold font-digital text-[#2d2b28] group-hover:text-[#e59845] transition-colors mb-2.5 line-clamp-1">
                                 {repo.name}
                               </h3>
 
-                              {/* Description */}
-                              <p className="text-[#5a5751] font-mono text-xs sm:text-sm line-clamp-2 sm:line-clamp-3 mb-4 sm:min-h-[54px] leading-relaxed">
-                                {repo.description || "No description provided for this repository."}
-                              </p>
+                              {/* Description in subtle debossed console box */}
+                              <div className="soft-ui-inset-subtle rounded-2xl p-3 sm:p-3.5 mb-4 bg-[#e6e3dc]/70 border border-[#dedad1]/60 min-h-[64px] flex items-center">
+                                <p className="text-[#5a5751] font-mono text-xs sm:text-[13px] line-clamp-2 leading-relaxed">
+                                  {repo.description || "No description provided for this repository."}
+                                </p>
+                              </div>
                             </div>
 
                             {/* Bottom Metadata & Link */}
-                            <div className="pt-3.5 sm:pt-4 border-t border-[#dedad1] flex items-center justify-between gap-2 mt-2">
+                            <div className="pt-3.5 border-t border-[#dedad1] flex items-center justify-between gap-2 mt-auto">
                               <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
                                 {repo.language && (
-                                  <span className="text-[11px] font-digital font-bold px-2.5 py-1 rounded-xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#43413d] shadow-sm">
+                                  <span className="text-[11px] font-digital font-bold px-2.5 py-1 rounded-xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#43413d] shadow-sm flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#f06292]" />
                                     {repo.language}
                                   </span>
                                 )}
@@ -470,7 +473,7 @@ export const GithubStarredSection = () => {
                                 href={repo.html_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-xs font-digital font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#383a3d] hover:text-[#e59845] transition-all py-1.5 px-3 rounded-xl shadow-sm active:scale-95 shrink-0 cursor-pointer"
+                                className="inline-flex items-center gap-1.5 text-xs font-digital font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#383a3d] hover:text-[#e59845] transition-all py-1.5 px-3 rounded-xl shadow-sm hover:shadow-md active:scale-95 shrink-0 cursor-pointer"
                                 title="View on GitHub"
                               >
                                 <span>Repo</span>
@@ -479,50 +482,38 @@ export const GithubStarredSection = () => {
                             </div>
                           </div>
 
-                          {/* Desktop Horizontal Arrow within Row */}
+                          {/* Desktop Horizontal Tactile Conduit within Row */}
                           {hasNextInRow && (
                             isEvenRow ? (
-                              <div className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-20 items-center pointer-events-none text-[#e59845]">
-                                <div className="w-4 h-0.5 bg-[#e59845]/60" />
-                                <ArrowRight className="w-4 h-4 animate-pulse -ml-1 text-[#e59845]" />
+                              <div className="hidden md:flex absolute top-1/2 -right-5 -translate-y-1/2 z-20 items-center justify-center pointer-events-none">
+                                <div className="w-7 h-7 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] flex items-center justify-center text-[#e59845] shadow-sm">
+                                  <ArrowRight className="w-3.5 h-3.5" />
+                                </div>
                               </div>
                             ) : (
-                              <div className="hidden md:flex absolute top-1/2 -left-6 -translate-y-1/2 z-20 items-center pointer-events-none text-[#e59845]">
-                                <ArrowLeft className="w-4 h-4 animate-pulse -mr-1 text-[#e59845]" />
-                                <div className="w-4 h-0.5 bg-[#e59845]/60" />
+                              <div className="hidden md:flex absolute top-1/2 -left-5 -translate-y-1/2 z-20 items-center justify-center pointer-events-none">
+                                <div className="w-7 h-7 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] flex items-center justify-center text-[#e59845] shadow-sm">
+                                  <ArrowLeft className="w-3.5 h-3.5" />
+                                </div>
                               </div>
                             )
                           )}
 
-                          {/* Desktop U-Turn Curve at End of Row */}
+                          {/* Desktop U-Turn Pill at End of Row */}
                           {isEndOfRowOfThree && hasNextRow && (
                             isEvenRow ? (
-                              <div className="hidden md:flex absolute -bottom-14 left-1/2 -translate-x-1/2 z-20 flex-col items-center pointer-events-none">
-                                <svg width="56" height="56" viewBox="0 0 56 64" fill="none" className="text-[#e59845]">
-                                  <path
-                                    d="M 28 2 C 54 2, 54 58, 28 58"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeDasharray="5 3"
-                                    fill="none"
-                                  />
-                                  <polygon points="32,52 20,58 32,64" fill="currentColor" />
-                                </svg>
+                              <div className="hidden md:flex absolute -bottom-10 right-8 z-20 items-center pointer-events-none">
+                                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#e59845] text-[10px] font-digital font-bold shadow-sm">
+                                  <span>NEXT ROW</span>
+                                  <ArrowDown className="w-3 h-3 animate-bounce" />
+                                </div>
                               </div>
                             ) : (
-                              <div className="hidden md:flex absolute -bottom-14 left-1/2 -translate-x-1/2 z-20 flex-col items-center pointer-events-none">
-                                <svg width="56" height="56" viewBox="0 0 56 64" fill="none" className="text-[#e59845]">
-                                  <path
-                                    d="M 28 2 C 2 2, 2 58, 28 58"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeDasharray="5 3"
-                                    fill="none"
-                                  />
-                                  <polygon points="24,52 36,58 24,64" fill="currentColor" />
-                                </svg>
+                              <div className="hidden md:flex absolute -bottom-10 left-8 z-20 items-center pointer-events-none">
+                                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#e59845] text-[10px] font-digital font-bold shadow-sm">
+                                  <span>NEXT ROW</span>
+                                  <ArrowDown className="w-3 h-3 animate-bounce" />
+                                </div>
                               </div>
                             )
                           )}
@@ -530,11 +521,9 @@ export const GithubStarredSection = () => {
                           {/* Mobile Connecting Arrow */}
                           {globalIndex < displayedRepos.length - 1 && (
                             <div className="flex md:hidden flex-col items-center my-3 text-[#e59845]">
-                              <div className="w-0.5 h-3 bg-[#e59845]/50" />
-                              <div className="p-1 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1]">
+                              <div className="p-1.5 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] shadow-sm">
                                 <ArrowDown className="w-3.5 h-3.5 text-[#e59845] animate-bounce" />
                               </div>
-                              <div className="w-0.5 h-3 bg-[#e59845]/50" />
                             </div>
                           )}
                         </div>

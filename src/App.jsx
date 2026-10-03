@@ -18,12 +18,22 @@ function App() {
   const [welcomeComplete, setWelcomeComplete] = useState(() => {
     if (typeof window !== "undefined") {
       const p = window.location.pathname;
-      return p.includes("/soft-ui") || p.includes("/demo");
+      return (
+        p.includes("/soft-ui") ||
+        p.includes("/demo") ||
+        p.includes("/project/") ||
+        p.includes("/privacy") ||
+        p.includes("/terms") ||
+        sessionStorage.getItem("welcome_shown") === "true"
+      );
     }
     return false;
   });
 
   const handleWelcomeComplete = useCallback(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("welcome_shown", "true");
+    }
     setWelcomeComplete(true);
   }, []);
 

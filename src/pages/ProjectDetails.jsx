@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
+  Home,
   ArrowLeft,
   ExternalLink,
   Github,
@@ -25,6 +26,7 @@ import {
 } from "lucide-react";
 import { projects } from "../data";
 import { Footer } from "../components/Footer";
+import { Navbar } from "../components/Navbar";
 
 export const ProjectDetails = () => {
   const { id } = useParams();
@@ -109,62 +111,54 @@ export const ProjectDetails = () => {
         <div className="absolute inset-0 opacity-20 bg-[linear-gradient(#dedad1_1px,transparent_1px),linear-gradient(90deg,#dedad1_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]" />
       </div>
 
-      {/* Top Sticky Soft UI Header */}
-      <header className="sticky top-0 z-40 bg-[#eae7e1]/90 backdrop-blur-md border-b border-[#dedad1]">
-        <div className="container mx-auto px-4 sm:px-6 max-w-7xl h-16 sm:h-20 flex items-center justify-between">
-          <Link
-            to="/#projects"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-xs sm:text-sm font-digital font-bold text-[#43413d] hover:text-[#e59845] transition-all active:scale-95 shadow-sm group"
-          >
-            <ArrowLeft size={16} className="text-[#e59845] transition-transform group-hover:-translate-x-1" />
-            <span>Back to Projects</span>
-          </Link>
-
-          {/* Project Title Status Indicator */}
-          <div className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] text-xs font-mono font-semibold text-[#5a5751]">
-            <span className="w-2 h-2 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" />
-            <span className="truncate max-w-[200px]">{project.title}</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {project.demoUrl && project.demoUrl !== "#" && (
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-xs sm:text-sm font-digital font-bold text-[#e59845] hover:text-[#2d2b28] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer"
-              >
-                <span>Live Demo</span>
-                <ArrowUpRight size={14} className="stroke-[2.5]" />
-              </a>
-            )}
-
-            {project.githubUrl && project.githubUrl !== "#" && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 sm:p-2.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#43413d] hover:text-[#e59845] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                aria-label="View Source on GitHub"
-                title="View Source on GitHub"
-              >
-                <Github size={18} />
-              </a>
-            )}
-          </div>
-        </div>
-      </header>
+      {/* Global Portfolio Navbar */}
+      <Navbar />
 
       {/* Main Project Content */}
-      <main className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-14">
+      <main className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 pb-16 sm:pb-24">
         {/* Project Title Header */}
         <div className="mb-8 sm:mb-12 text-left">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-xs font-digital font-bold text-[#e59845] mb-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" />
-            <span>PROJECT SPECIFICATION</span>
-            <span className="text-[#8e8a82]">/</span>
-            <span className="text-[#5a5751]">{project.category || "Full-Stack"}</span>
+          {/* Top Row: Badge + Quick Action Links */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-xs font-digital font-bold text-[#e59845] shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" />
+              <span>PROJECT SPECIFICATION</span>
+              <span className="text-[#8e8a82]">/</span>
+              <span className="text-[#5a5751]">{project.category || "Full-Stack"}</span>
+            </div>
+
+            <div className="flex items-center gap-2.5">
+              {project.demoUrl && project.demoUrl !== "#" && (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-xs sm:text-sm font-digital font-bold text-[#383a3d] hover:text-[#e59845] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer group"
+                >
+                  <div className="w-5 h-5 rounded-lg soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#e59845] shadow-inner group-hover:scale-105 transition-transform">
+                    <Globe size={11} className="stroke-[2.5]" />
+                  </div>
+                  <span>Live Demo</span>
+                  <ArrowUpRight size={13} className="text-[#e59845] stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              )}
+
+              {project.githubUrl && project.githubUrl !== "#" && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-xs sm:text-sm font-digital font-bold text-[#383a3d] hover:text-[#e59845] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer group"
+                  aria-label="View Source on GitHub"
+                  title="View Source on GitHub"
+                >
+                  <div className="w-5 h-5 rounded-lg soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#43413d] group-hover:text-[#e59845] shadow-inner group-hover:scale-105 transition-transform">
+                    <Github size={12} />
+                  </div>
+                  <span>GitHub</span>
+                </a>
+              )}
+            </div>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#2d2b28] font-digital mb-3">
@@ -211,7 +205,7 @@ export const ProjectDetails = () => {
             {project.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="soft-ui-inset-subtle px-3 py-1 rounded-xl text-xs font-digital font-bold text-[#43413d] bg-[#e6e3dc] border border-[#cdc8be]/60 flex items-center gap-1.5"
+                className="soft-ui-inset-subtle px-3 py-1.5 rounded-xl text-xs font-digital font-bold text-[#43413d] bg-[#e6e3dc] border border-[#cdc8be]/60 flex items-center gap-1.5"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#f06292]" />
                 {tag}
@@ -219,16 +213,19 @@ export const ProjectDetails = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             {project.demoUrl && project.demoUrl !== "#" && (
               <a
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] font-digital font-bold text-xs sm:text-sm text-[#e59845] hover:text-[#2d2b28] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#383a3d] hover:text-[#e59845] font-digital font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer group"
               >
+                <div className="w-6 h-6 rounded-xl soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#e59845] shadow-inner group-hover:scale-105 transition-transform">
+                  <Globe size={13} className="stroke-[2.5]" />
+                </div>
                 <span>Visit Live Application</span>
-                <ArrowUpRight size={16} />
+                <ArrowUpRight size={14} className="text-[#e59845] stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             )}
 
@@ -237,9 +234,11 @@ export const ProjectDetails = () => {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] font-digital font-bold text-xs sm:text-sm text-[#43413d] hover:text-[#e59845] shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#383a3d] hover:text-[#e59845] font-digital font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer group"
               >
-                <Github size={16} />
+                <div className="w-6 h-6 rounded-xl soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#43413d] group-hover:text-[#e59845] shadow-inner group-hover:scale-105 transition-transform">
+                  <Github size={13} />
+                </div>
                 <span>Source Code</span>
               </a>
             )}
@@ -430,20 +429,29 @@ export const ProjectDetails = () => {
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] font-digital font-bold text-sm text-[#e59845] hover:text-[#2d2b28] shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] font-digital font-bold text-sm sm:text-base text-[#383a3d] hover:text-[#e59845] shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer group"
               >
+                <div className="w-7 h-7 rounded-xl soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#e59845] shadow-inner group-hover:scale-105 transition-transform">
+                  <Globe size={15} className="stroke-[2.5]" />
+                </div>
                 <span>Launch Live Application</span>
-                <ArrowUpRight size={16} className="stroke-[2.5]" />
+                <ArrowUpRight size={16} className="text-[#e59845] stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             )}
 
-            <Link
-              to="/#projects"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] font-digital font-bold text-sm text-[#43413d] hover:text-[#e59845] shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
-            >
-              <ArrowLeft size={16} />
-              <span>Back to All Projects</span>
-            </Link>
+            {project.githubUrl && project.githubUrl !== "#" && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1] font-digital font-bold text-sm sm:text-base text-[#383a3d] hover:text-[#e59845] shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer group"
+              >
+                <div className="w-7 h-7 rounded-xl soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#43413d] group-hover:text-[#e59845] shadow-inner group-hover:scale-105 transition-transform">
+                  <Github size={15} />
+                </div>
+                <span>View Source Code</span>
+              </a>
+            )}
           </div>
         </div>
       </main>

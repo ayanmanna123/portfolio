@@ -10,6 +10,7 @@ import {
 import { educationData, projects, categoryColors } from '../data';
 import { ProjectDetailsModal } from './ProjectDetailsModal';
 import { VideoPlayer } from './VideoPlayer';
+import { scrollToSection } from '@/lib/scrollToSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -658,6 +659,16 @@ export const EducationToProjectsMorph = () => {
     }, 150);
     return () => clearTimeout(timer);
   }, [showAll, activeFilter, displayedProjects.length]);
+
+  // Handle incoming navigation from project description or external links to #projects
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window.location.hash === "#projects" || window.location.hash.includes("projects"))) {
+      const timer = setTimeout(() => {
+        scrollToSection("#projects", { duration: 1.2 });
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // =========================================================================
   // DOM DISINTEGRATION & RECONSTRUCTION PHYSICS:

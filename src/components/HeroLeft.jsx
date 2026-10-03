@@ -4,6 +4,7 @@ import { Code, Download, TrendingUp, Mail } from "lucide-react";
 import { CountUp } from "./CountUp";
 import { heroData, heroAchievements, projects } from "@/data";
 import SplitText from "./SplitText";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 export const HeroLeft = () => {
   const [stats, setStats] = useState({
@@ -142,6 +143,10 @@ export const HeroLeft = () => {
           <motion.a
             href="#projects"
             id="hero-zoom-cta"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("#projects");
+            }}
             className="hero-zoom-cta relative z-10 overflow-hidden px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#2d2b28] hover:text-[#e59845] flex items-center justify-between gap-3.5 shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 will-change-transform cursor-pointer"
             whileHover={{ scale: 1.03, y: -2 }}
           >
@@ -160,7 +165,11 @@ export const HeroLeft = () => {
 
         <motion.a
           href="#contact"
-          className="hero-fade-element group relative overflow-hidden px-5 sm:px-6 py-3.5 rounded-2xl font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#383a3d] hover:text-[#e59845] transition-all duration-300 text-xs sm:text-sm font-digital flex items-center justify-center gap-2 active:scale-95 shadow-md"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection("#contact");
+          }}
+          className="hero-fade-element group relative overflow-hidden px-5 sm:px-6 py-3.5 rounded-2xl font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#383a3d] hover:text-[#e59845] transition-all duration-300 text-xs sm:text-sm font-digital flex items-center justify-center gap-2 active:scale-95 shadow-md cursor-pointer"
           whileHover={{ scale: 1.03, y: -2 }}
         >
           <Mail className="h-4 w-4 text-[#e59845]" />

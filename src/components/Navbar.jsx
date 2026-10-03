@@ -11,6 +11,9 @@ import {
   Youtube,
   Volume2,
   VolumeX,
+  Pause,
+  Play,
+  Music,
   Github,
   Linkedin,
   Award,
@@ -133,8 +136,13 @@ export const Navbar = () => {
   useEffect(() => {
     if (isAudioReady && !hasShownToast.current) {
       toast({
-        title: "Experience the Vibe 🎵",
-        description: "Would you like to enable background music for a better experience?",
+        title: (
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)] animate-pulse" />
+            <span>Experience the Vibe 🎵</span>
+          </span>
+        ),
+        description: "Would you like to enable ambient background music for a better experience?",
         action: (
           <ToastAction altText="Enable Music" onClick={toggleMusic}>
             Enable
@@ -144,7 +152,7 @@ export const Navbar = () => {
       });
       hasShownToast.current = true;
     }
-  }, [isAudioReady, toast]);
+  }, [isAudioReady, toggleMusic, toast]);
 
   useEffect(() => {
     let ticking = false;
@@ -351,28 +359,56 @@ export const Navbar = () => {
               <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.a>
 
-            {/* Music Button */}
-            <motion.button
-              onClick={toggleMusic}
-              disabled={!isAudioReady}
-              className={cn(
-                "w-10 h-10 rounded-full border border-[#dedad1] flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95",
-                isMusicPlaying
-                  ? "soft-ui-inset bg-[#e4e1d9] text-[#e59845]"
-                  : "soft-ui-raised bg-[#eae7e1] text-[#78756e] hover:text-[#e59845]",
-                !isAudioReady && "opacity-50 cursor-not-allowed"
-              )}
-              whileHover={{ scale: isAudioReady ? 1.05 : 1 }}
-              whileTap={{ scale: isAudioReady ? 0.95 : 1 }}
-              title={isAudioReady ? (isMusicPlaying ? "Pause music" : "Play music") : "Loading music..."}
-              aria-label={isAudioReady ? (isMusicPlaying ? "Pause music" : "Play music") : "Loading music"}
-            >
+            {/* Music Button / Active Audio Pill in Top Navbar */}
+            <AnimatePresence mode="wait">
               {isMusicPlaying ? (
-                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#e59845] animate-pulse" />
+                <motion.div
+                  key="audio-active-pill"
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="h-10 soft-ui-raised rounded-full px-3 sm:px-4 bg-[#eae7e1] border border-[#dedad1] flex items-center gap-2 sm:gap-2.5 shadow-md select-none"
+                >
+                  {/* Animated Equalizer Waves */}
+                  <div className="flex items-end gap-1 h-3.5 pb-0.5">
+                    <span className="w-1 bg-[#e59845] rounded-full animate-bounce [animation-delay:0ms] h-3" />
+                    <span className="w-1 bg-[#f06292] rounded-full animate-bounce [animation-delay:150ms] h-3.5" />
+                    <span className="w-1 bg-[#e59845] rounded-full animate-bounce [animation-delay:300ms] h-2" />
+                  </div>
+
+                  <span className="text-xs font-digital font-bold text-[#43413d] hidden sm:inline whitespace-nowrap">
+                    Audio Active
+                  </span>
+
+                  <button
+                    onClick={toggleMusic}
+                    className="w-7 h-7 rounded-full soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#e59845] hover:text-[#2d2b28] cursor-pointer shadow-inner active:scale-95 transition-transform ml-0.5"
+                    title="Pause music"
+                    aria-label="Pause music"
+                  >
+                    <Pause className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </button>
+                </motion.div>
               ) : (
-                <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-[#78756e]" />
+                <motion.button
+                  key="audio-idle-btn"
+                  onClick={toggleMusic}
+                  disabled={!isAudioReady}
+                  className={cn(
+                    "w-10 h-10 rounded-full border border-[#dedad1] flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95",
+                    "soft-ui-raised bg-[#eae7e1] text-[#78756e] hover:text-[#e59845]",
+                    !isAudioReady && "opacity-50 cursor-not-allowed"
+                  )}
+                  whileHover={{ scale: isAudioReady ? 1.05 : 1 }}
+                  whileTap={{ scale: isAudioReady ? 0.95 : 1 }}
+                  title={isAudioReady ? "Enable background music" : "Loading music..."}
+                  aria-label={isAudioReady ? "Enable background music" : "Loading music"}
+                >
+                  <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-[#78756e]" />
+                </motion.button>
               )}
-            </motion.button>
+            </AnimatePresence>
 
             {/* Mobile Menu Toggle Button */}
             <motion.button

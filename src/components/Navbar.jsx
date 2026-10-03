@@ -241,9 +241,9 @@ export const Navbar = () => {
     })),
     {
       icon: isDark ? (
-        <Sun className="w-5 h-5 pointer-events-none text-amber-500" />
+        <Sun className="w-5 h-5 pointer-events-none text-[#e59845]" />
       ) : (
-        <Moon className="w-5 h-5 pointer-events-none text-slate-700" />
+        <Moon className="w-5 h-5 pointer-events-none text-[#43413d]" />
       ),
       label: isDark ? "Light Mode" : "Dark Mode",
       onClick: toggleTheme,
@@ -251,38 +251,61 @@ export const Navbar = () => {
     },
   ];
 
-
-
   return (
     <>
-      {/* Top Header Bar for Mobile & Desktop */}
+      {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 6px 6px 14px #cfcbc2, -6px -6px 14px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 3px 3px 6px #cac5bb, inset -3px -3px 6px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
+
+      {/* Top Header Bar with Soft UI Clay Discs for Mobile & Desktop */}
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 py-3 transition-all duration-300 pointer-events-none"
+        className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 py-3.5 transition-all duration-300 pointer-events-none"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-end pointer-events-auto">
-          {/* Top Right Action Buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Top Right Soft UI Clay Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
             {/* Theme Toggle Button */}
             <motion.button
               onClick={toggleTheme}
-              className={cn(
-                "w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md",
-                "text-gray-700 hover:bg-muted dark:text-gray-300 dark:hover:bg-muted/50",
-                "border border-border shadow-sm",
-                "flex items-center justify-center cursor-pointer"
-              )}
+              className="w-10 h-10 rounded-full soft-ui-raised bg-[#eae7e1] text-[#5a5751] hover:text-[#e59845] border border-[#dedad1] flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {isDark ? (
-                <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 pointer-events-none" />
+                <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-[#e59845] pointer-events-none" />
               ) : (
-                <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700 pointer-events-none" />
+                <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-[#43413d] pointer-events-none" />
               )}
             </motion.button>
 
@@ -291,12 +314,7 @@ export const Navbar = () => {
               href="https://github.com/ayanmanna123"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "hidden sm:flex w-10 h-10 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md",
-                "text-gray-700 hover:bg-muted dark:text-gray-300 dark:hover:bg-muted/50",
-                "border border-border shadow-sm",
-                "items-center justify-center"
-              )}
+              className="hidden sm:flex w-10 h-10 rounded-full soft-ui-raised bg-[#eae7e1] text-[#5a5751] hover:text-[#e59845] border border-[#dedad1] items-center justify-center shadow-md transition-all active:scale-95 cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="GitHub Profile"
@@ -310,12 +328,7 @@ export const Navbar = () => {
               href="https://www.linkedin.com/in/ayan-manna-4a67ab34a/"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "hidden sm:flex w-10 h-10 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md",
-                "text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40",
-                "border border-border shadow-sm",
-                "items-center justify-center"
-              )}
+              className="hidden sm:flex w-10 h-10 rounded-full soft-ui-raised bg-[#eae7e1] text-[#5a5751] hover:text-[#e59845] border border-[#dedad1] items-center justify-center shadow-md transition-all active:scale-95 cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="LinkedIn Profile"
@@ -329,12 +342,7 @@ export const Navbar = () => {
               href="https://www.youtube.com/@ayanmanna1007"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "hidden sm:flex w-10 h-10 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md",
-                "text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40",
-                "border border-border shadow-sm",
-                "items-center justify-center"
-              )}
+              className="hidden sm:flex w-10 h-10 rounded-full soft-ui-raised bg-[#eae7e1] text-[#5a5751] hover:text-[#e59845] border border-[#dedad1] items-center justify-center shadow-md transition-all active:scale-95 cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="YouTube Channel"
@@ -348,10 +356,10 @@ export const Navbar = () => {
               onClick={toggleMusic}
               disabled={!isAudioReady}
               className={cn(
-                "w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md",
-                "text-primary hover:bg-primary/10",
-                "border border-border shadow-sm",
-                "flex items-center justify-center cursor-pointer",
+                "w-10 h-10 rounded-full border border-[#dedad1] flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95",
+                isMusicPlaying
+                  ? "soft-ui-inset bg-[#e4e1d9] text-[#e59845]"
+                  : "soft-ui-raised bg-[#eae7e1] text-[#78756e] hover:text-[#e59845]",
                 !isAudioReady && "opacity-50 cursor-not-allowed"
               )}
               whileHover={{ scale: isAudioReady ? 1.05 : 1 }}
@@ -360,9 +368,9 @@ export const Navbar = () => {
               aria-label={isAudioReady ? (isMusicPlaying ? "Pause music" : "Play music") : "Loading music"}
             >
               {isMusicPlaying ? (
-                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary animate-pulse" />
+                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#e59845] animate-pulse" />
               ) : (
-                <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+                <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-[#78756e]" />
               )}
             </motion.button>
 
@@ -370,10 +378,10 @@ export const Navbar = () => {
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={cn(
-                "flex md:hidden w-9 h-9 rounded-full bg-background/80 dark:bg-card/80 backdrop-blur-md",
-                "text-foreground hover:bg-muted border border-border shadow-sm",
-                "items-center justify-center cursor-pointer",
-                mobileMenuOpen && "border-primary text-primary bg-primary/10"
+                "flex md:hidden w-10 h-10 rounded-full border border-[#dedad1] items-center justify-center cursor-pointer shadow-md transition-all active:scale-95",
+                mobileMenuOpen
+                  ? "soft-ui-inset bg-[#e4e1d9] text-[#e59845]"
+                  : "soft-ui-raised bg-[#eae7e1] text-[#5a5751] hover:text-[#e59845]"
               )}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -385,11 +393,11 @@ export const Navbar = () => {
         </div>
       </motion.header>
 
-      {/* Full-Screen Mobile Drawer / Navigation Menu */}
+      {/* Full-Screen Mobile Soft UI Drawer / Navigation Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background/95 dark:bg-slate-950/95 backdrop-blur-xl flex flex-col md:hidden pt-20 pb-8 px-6 overflow-y-auto"
+            className="fixed inset-0 z-40 bg-[#eae7e1]/98 backdrop-blur-xl flex flex-col md:hidden pt-20 pb-8 px-6 overflow-y-auto text-[#43413d]"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -397,9 +405,10 @@ export const Navbar = () => {
           >
             <div className="flex flex-col flex-1 justify-between max-w-sm mx-auto w-full">
               {/* Menu Links */}
-              <div className="space-y-1">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground mb-3 px-3">
-                  Quick Navigation
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-2 px-1">
+                  <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                  <span>Quick Navigation</span>
                 </div>
                 {navItems.map((item, idx) => {
                   const Icon = item.icon;
@@ -409,21 +418,21 @@ export const Navbar = () => {
                       key={item.name}
                       onClick={() => handleNavClick(item.href)}
                       className={cn(
-                        "w-full flex items-center justify-between px-4 py-3 rounded-xl text-left transition-all",
+                        "w-full flex items-center justify-between px-4 py-3 rounded-2xl text-left transition-all cursor-pointer",
                         isActive
-                          ? "bg-[#EC844D]/15 text-[#EC844D] dark:text-[#FFAE80] font-bold border border-[#EC844D]/30 shadow-sm"
-                          : "text-foreground hover:bg-muted/70"
+                          ? "soft-ui-inset bg-[#e4e1d9] text-[#e59845] font-black border border-[#cdc8be] shadow-inner"
+                          : "soft-ui-raised bg-[#eae7e1] text-[#43413d] font-handwriting font-bold hover:text-[#e59845] border border-[#dedad1]/60"
                       )}
                       initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.03 }}
                     >
                       <div className="flex items-center gap-3">
-                        <Icon className={cn("w-4 h-4", isActive ? "text-[#EC844D] dark:text-[#FFAE80]" : "text-muted-foreground")} />
-                        <span className="text-sm font-medium">{item.name}</span>
+                        <Icon className={cn("w-4 h-4", isActive ? "text-[#e59845]" : "text-[#78756e]")} />
+                        <span className="text-sm font-medium font-digital">{item.name}</span>
                       </div>
                       {isActive && (
-                        <div className="w-2 h-2 rounded-full bg-[#EC844D] shadow-[0_0_8px_#EC844D]" />
+                        <div className="w-2 h-2 rounded-full bg-[#f06292] shadow-[0_0_8px_rgba(240,98,146,0.8)]" />
                       )}
                     </motion.button>
                   );
@@ -431,37 +440,37 @@ export const Navbar = () => {
               </div>
 
               {/* Social & Resume Links in Mobile Drawer */}
-              <div className="pt-6 border-t border-border mt-6 space-y-4">
-                <div className="flex items-center justify-around gap-2 bg-muted/40 p-2.5 rounded-2xl border border-border/50">
+              <div className="pt-5 border-t border-[#cdc8be]/50 mt-6 space-y-4">
+                <div className="flex items-center justify-around gap-2 soft-ui-inset rounded-2xl p-2.5 bg-[#e4e1d9]">
                   <a
                     href="https://github.com/ayanmanna123"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-background transition-colors flex flex-col items-center gap-1"
+                    className="p-2.5 rounded-xl text-[#6d6a64] hover:text-[#e59845] transition-colors flex flex-col items-center gap-1 font-digital text-[11px]"
                     aria-label="GitHub"
                   >
                     <Github className="w-5 h-5" />
-                    <span className="text-[10px] font-mono">GitHub</span>
+                    <span>GitHub</span>
                   </a>
                   <a
                     href="https://www.linkedin.com/in/ayan-manna-4a67ab34a/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-xl text-blue-500 hover:bg-background transition-colors flex flex-col items-center gap-1"
+                    className="p-2.5 rounded-xl text-[#6d6a64] hover:text-[#e59845] transition-colors flex flex-col items-center gap-1 font-digital text-[11px]"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-5 h-5" />
-                    <span className="text-[10px] font-mono">LinkedIn</span>
+                    <span>LinkedIn</span>
                   </a>
                   <a
                     href="https://www.youtube.com/@ayanmanna1007"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-xl text-red-500 hover:bg-background transition-colors flex flex-col items-center gap-1"
+                    className="p-2.5 rounded-xl text-[#6d6a64] hover:text-[#e59845] transition-colors flex flex-col items-center gap-1 font-digital text-[11px]"
                     aria-label="YouTube"
                   >
                     <Youtube className="w-5 h-5" />
-                    <span className="text-[10px] font-mono">YouTube</span>
+                    <span>YouTube</span>
                   </a>
                 </div>
 
@@ -469,9 +478,9 @@ export const Navbar = () => {
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#EC844D] to-[#DE743C] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#EC844D]/25"
+                  className="w-full py-3.5 px-6 rounded-2xl soft-ui-raised bg-[#eae7e1] text-[#383a3d] hover:text-[#e59845] font-bold text-sm font-handwriting flex items-center justify-center gap-2 border border-[#dedad1] shadow-md transition-all cursor-pointer"
                 >
-                  <Download className="w-4 h-4" />
+                  <Download className="w-4 h-4 text-[#e59845]" />
                   <span>Download Resume</span>
                 </a>
               </div>
@@ -500,7 +509,6 @@ export const Navbar = () => {
         />
       </motion.div>
 
-
       {/* Mobile Floating Bottom Bar for Quick Navigation */}
       <motion.div
         className={cn(
@@ -514,7 +522,7 @@ export const Navbar = () => {
       >
         <nav
           aria-label="Mobile Navigation"
-          className="w-full bg-background/85 dark:bg-card/90 backdrop-blur-xl border border-border shadow-xl rounded-2xl p-1.5 flex items-center justify-between gap-1"
+          className="w-full soft-ui-raised-card bg-[#eae7e1] border border-[#dedad1] shadow-xl rounded-2xl p-1.5 flex items-center justify-between gap-1"
         >
           {primaryMobileNavItems.map((item) => {
             const Icon = item.icon;
@@ -524,19 +532,19 @@ export const Navbar = () => {
                 key={item.name}
                 onClick={() => handleNavClick(item.href)}
                 className={cn(
-                  "flex-1 py-2 px-1 flex flex-col items-center justify-center rounded-xl transition-all relative text-xs",
+                  "flex-1 py-2 px-1 flex flex-col items-center justify-center rounded-xl transition-all relative text-xs cursor-pointer",
                   isActive
-                    ? "text-[#EC844D] dark:text-[#FFAE80] font-bold bg-[#EC844D]/10"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "soft-ui-inset bg-[#e4e1d9] text-[#e59845] font-bold shadow-inner"
+                    : "text-[#6d6a64] hover:text-[#383a3d]"
                 )}
                 aria-label={item.name}
               >
-                <Icon className={cn("w-4 h-4 mb-0.5", isActive && "stroke-[2.5px]")} />
-                <span className="text-[10px] leading-tight truncate">{item.name}</span>
+                <Icon className={cn("w-4 h-4 mb-0.5", isActive && "stroke-[2.5px] text-[#e59845]")} />
+                <span className="text-[10px] leading-tight truncate font-digital">{item.name}</span>
                 {isActive && (
                   <motion.div
                     layoutId="mobileActiveTab"
-                    className="absolute -bottom-1 w-1 h-1 rounded-full bg-[#EC844D]"
+                    className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]"
                   />
                 )}
               </button>
@@ -546,15 +554,15 @@ export const Navbar = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={cn(
-              "flex-1 py-2 px-1 flex flex-col items-center justify-center rounded-xl transition-all relative text-xs",
+              "flex-1 py-2 px-1 flex flex-col items-center justify-center rounded-xl transition-all relative text-xs cursor-pointer",
               mobileMenuOpen
-                ? "text-[#EC844D] dark:text-[#FFAE80] font-bold bg-[#EC844D]/10"
-                : "text-muted-foreground hover:text-foreground"
+                ? "soft-ui-inset bg-[#e4e1d9] text-[#e59845] font-bold shadow-inner"
+                : "text-[#6d6a64] hover:text-[#383a3d]"
             )}
             aria-label="More sections"
           >
             <Menu className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px] leading-tight">More</span>
+            <span className="text-[10px] leading-tight font-digital">More</span>
           </button>
         </nav>
       </motion.div>
@@ -562,3 +570,4 @@ export const Navbar = () => {
   );
 };
 
+export default Navbar;

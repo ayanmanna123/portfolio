@@ -1,21 +1,21 @@
 :root {
-  --dock-bg: rgba(255, 255, 255, 0.8);
-  --dock-border: rgba(0, 0, 0, 0.08);
-  --dock-item-bg: rgba(255, 255, 255, 0.85);
-  --dock-item-border: rgba(0, 0, 0, 0.06);
-  --dock-item-hover: rgba(236, 132, 77, 0.15);
-  --dock-text: #1f2937;
-  --dock-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+  --dock-bg: #eae7e1;
+  --dock-border: #dedad1;
+  --dock-item-bg: #eae7e1;
+  --dock-item-border: #dedad1;
+  --dock-item-hover: #e4e1d9;
+  --dock-text: #43413d;
+  --dock-shadow: 10px 10px 24px #cfcbc2, -10px -10px 24px #ffffff;
 }
 
 .dark {
-  --dock-bg: rgba(18, 18, 24, 0.8);
-  --dock-border: rgba(255, 255, 255, 0.12);
-  --dock-item-bg: rgba(30, 30, 38, 0.85);
-  --dock-item-border: rgba(255, 255, 255, 0.08);
-  --dock-item-hover: rgba(236, 132, 77, 0.25);
-  --dock-text: #f3f4f6;
-  --dock-shadow: 0 14px 36px -4px rgba(0, 0, 0, 0.5), 0 4px 14px -2px rgba(0, 0, 0, 0.3);
+  --dock-bg: #eae7e1;
+  --dock-border: #dedad1;
+  --dock-item-bg: #eae7e1;
+  --dock-item-border: #dedad1;
+  --dock-item-hover: #e4e1d9;
+  --dock-text: #43413d;
+  --dock-shadow: 10px 10px 24px #cfcbc2, -10px -10px 24px #ffffff;
 }
 
 .dock-outer {
@@ -29,22 +29,20 @@
 .dock-panel {
   display: flex;
   align-items: flex-end;
-  gap: 0.45rem;
-  padding: 0.45rem 0.6rem;
-  border-radius: 1.35rem;
-  background-color: var(--dock-bg);
-  border: 1px solid var(--dock-border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--dock-shadow);
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 1.75rem;
+  background-color: #eae7e1;
+  border: 1px solid #dedad1;
+  box-shadow: 10px 10px 24px #cfcbc2, -10px -10px 24px #ffffff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 @media (max-width: 768px) {
   .dock-panel {
     gap: 0.35rem;
-    padding: 0.35rem 0.45rem;
-    border-radius: 1.15rem;
+    padding: 0.4rem 0.55rem;
+    border-radius: 1.35rem;
   }
 }
 
@@ -61,34 +59,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.85rem;
-  background-color: var(--dock-item-bg);
-  border: 1px solid var(--dock-item-border);
-  color: var(--dock-text);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  border-radius: 1rem;
+  background-color: #eae7e1;
+  border: 1px solid #dedad1;
+  color: #5a5751;
+  box-shadow: 4px 4px 10px #cfcbc2, -4px -4px 10px #ffffff;
   cursor: pointer;
   outline: none;
   overflow: hidden;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dock-item:hover {
-  background-color: var(--dock-item-hover);
-  border-color: rgba(236, 132, 77, 0.4);
-  color: #EC844D;
-  box-shadow: 0 4px 12px rgba(236, 132, 77, 0.2);
+  color: #e59845;
+  box-shadow: 6px 6px 14px #cfcbc2, -6px -6px 14px #ffffff;
+  border-color: #cdc8be;
 }
 
 .dock-item-active {
-  background-color: rgba(236, 132, 77, 0.18) !important;
-  border-color: rgba(236, 132, 77, 0.5) !important;
-  color: #EC844D !important;
+  background-color: #e4e1d9 !important;
+  border-color: #cdc8be !important;
+  color: #e59845 !important;
+  box-shadow: inset 3px 3px 6px #cac5bb, inset -3px -3px 6px #ffffff !important;
 }
 
 .dark .dock-item-active {
-  background-color: rgba(236, 132, 77, 0.22) !important;
-  border-color: rgba(236, 132, 77, 0.6) !important;
-  color: #FFAE80 !important;
+  background-color: #e4e1d9 !important;
+  border-color: #cdc8be !important;
+  color: #e59845 !important;
+  box-shadow: inset 3px 3px 6px #cac5bb, inset -3px -3px 6px #ffffff !important;
 }
 
 .dock-icon {
@@ -104,27 +103,25 @@
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  border-radius: 0.5rem;
-  border: 1px solid var(--dock-border);
-  background-color: var(--dock-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  border-radius: 0.65rem;
+  border: 1px solid #dedad1;
+  background-color: #eae7e1;
   padding: 0.25rem 0.65rem;
   font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--dock-text);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  font-family: 'Fredoka', 'Quicksand', sans-serif;
+  color: #383a3d;
+  box-shadow: 4px 4px 10px #cfcbc2, -4px -4px 10px #ffffff;
   pointer-events: none;
   z-index: 60;
 }
 
 .dock-active-dot {
   position: absolute;
-  bottom: -0.35rem;
-  width: 4px;
-  height: 4px;
+  bottom: -0.45rem;
+  width: 5px;
+  height: 5px;
   border-radius: 9999px;
-  background-color: #EC844D;
-  box-shadow: 0 0 6px #EC844D;
+  background-color: #f06292;
+  box-shadow: 0 0 6px rgba(240, 98, 146, 0.8);
 }
-

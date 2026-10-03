@@ -5,14 +5,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { HeroLeft } from "./HeroLeft";
 import { HeroCodeTerminal } from "./HeroCodeTerminal";
-import { Sparkles, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 export const HeroSection = () => {
   const containerRef = useRef(null);
-  const pinWrapperRef = useRef(null);
   const ambientBgRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
   const portalSectionRef = useRef(null);
@@ -29,13 +28,17 @@ export const HeroSection = () => {
       ).matches;
 
       if (prefersReducedMotion) {
-        gsap.set(portalSectionRef.current, { opacity: 1, scale: 1, clipPath: "inset(0% round 0px)", pointerEvents: "auto" });
+        gsap.set(portalSectionRef.current, {
+          opacity: 1,
+          scale: 1,
+          clipPath: "inset(0% round 0px)",
+          pointerEvents: "auto",
+        });
         return;
       }
 
       const isMobile = window.innerWidth < 768;
       const targetScale = isMobile ? 24 : 42;
-      const endScroll = isMobile ? "+=140vh" : "+=180vh";
 
       // Calculate translation offset so the CTA button centers exactly in the viewport
       const ctaEl = containerRef.current.querySelector(".hero-zoom-cta");
@@ -51,7 +54,7 @@ export const HeroSection = () => {
         moveY = vpCenterY - ctaCenterY;
       }
 
-      // Create the Master Scroll-driven Timeline
+      // Master Scroll-driven Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -65,10 +68,7 @@ export const HeroSection = () => {
         },
       });
 
-      // ----------------------------------------------------------------------
-      // PHASE 1: Rapidly fade out ambient particles, hero text, and secondary UI
-      // Fades out completely by 20% scroll progress to eliminate any text overlap!
-      // ----------------------------------------------------------------------
+      // PHASE 1: Fade out hero text & secondary UI
       tl.to(
         ".hero-fade-element",
         {
@@ -101,9 +101,7 @@ export const HeroSection = () => {
           0
         );
 
-      // ----------------------------------------------------------------------
-      // PHASE 2: Translate and Scale the Orange CTA Card to Viewport Center
-      // ----------------------------------------------------------------------
+      // PHASE 2: Translate and Scale the Soft UI CTA Card to Viewport Center
       tl.to(
         ".hero-zoom-cta",
         {
@@ -111,7 +109,7 @@ export const HeroSection = () => {
           y: moveY,
           scale: targetScale,
           borderRadius: "8px",
-          boxShadow: "0 0 120px rgba(236,132,77,0.9)",
+          boxShadow: "0 0 100px rgba(207,203,194,0.9)",
           ease: "power2.inOut",
           transformOrigin: "center center",
           duration: 0.75,
@@ -119,7 +117,7 @@ export const HeroSection = () => {
         0.06
       );
 
-      // Fade out inner text of button early so it smoothly turns into an orange canvas
+      // Fade out inner text of button early so it smoothly turns into clay canvas
       tl.to(
         ".hero-cta-inner",
         {
@@ -132,9 +130,7 @@ export const HeroSection = () => {
         0.05
       );
 
-      // ----------------------------------------------------------------------
       // PHASE 3: Portal Aperture reveals About Section Entrance
-      // ----------------------------------------------------------------------
       tl.fromTo(
         portalSectionRef.current,
         {
@@ -154,7 +150,6 @@ export const HeroSection = () => {
         0.35
       );
 
-
       // Heading Line 1: "Where Technical Precision Meets"
       tl.fromTo(
         ".portal-title-line1",
@@ -163,7 +158,7 @@ export const HeroSection = () => {
         0.46
       );
 
-      // Heading Line 2: "Creative Engineering" (Cursive gradient accent)
+      // Heading Line 2: "Creative Engineering" (Cursive warm caramel accent)
       tl.fromTo(
         ".portal-title-line2",
         { opacity: 0, y: 60, scale: 0.9, filter: "blur(12px)" },
@@ -194,142 +189,142 @@ export const HeroSection = () => {
     <section
       id="hero"
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden flex flex-col justify-between px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 bg-transparent dark:bg-gradient-to-br dark:from-background dark:via-background/95 dark:to-[#EC844D]/10"
+      className="relative w-full h-screen overflow-hidden flex flex-col justify-between px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 bg-[#eae7e1] text-[#2d2b28]"
     >
-        {/* Ambient Animated Particles & Grid */}
-        <div ref={ambientBgRef} className="absolute inset-0 -z-10 overflow-hidden will-change-[transform,opacity]">
-          <div className="hidden dark:block absolute inset-0 opacity-20">
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(236,132,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(236,132,77,0.08)_1px,transparent_1px)] bg-[size:50px_50px] sm:bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
-          </div>
+      {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 6px 6px 14px #cfcbc2, -6px -6px 14px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 3px 3px 6px #cac5bb, inset -3px -3px 6px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
 
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute bg-gradient-to-r from-[#EC844D]/15 to-[#FFD8B2]/20 rounded-2xl"
-              style={{
-                width: Math.random() * 40 + 15 + "px",
-                height: Math.random() * 40 + 15 + "px",
-                left: Math.random() * 100 + "%",
-                top: Math.random() * 100 + "%",
-                rotate: Math.random() * 360,
-              }}
-              animate={{
-                y: [0, (Math.random() - 0.5) * 40],
-                x: [0, (Math.random() - 0.5) * 30],
-                opacity: [0.15, 0.35, 0.15],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: Math.random() * 6 + 4,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-          ))}
+      {/* Ambient Organic Soft Clay Floating Accents */}
+      <div ref={ambientBgRef} className="absolute inset-0 -z-10 overflow-hidden pointer-events-none will-change-[transform,opacity]">
+        {/* Soft subtle grid */}
+        <div className="absolute inset-0 opacity-40 bg-[linear-gradient(#dedad1_1px,transparent_1px),linear-gradient(90deg,#dedad1_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_45%,black,transparent)]" />
 
-          <motion.div
-            className="absolute top-16 left-5 w-56 sm:w-80 h-56 sm:h-80 rounded-full bg-gradient-to-r from-[#EC844D]/20 to-[#FFD8B2]/30 blur-[80px] sm:blur-[110px]"
-            animate={{ x: [0, 30, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 15, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute bottom-16 right-5 w-56 sm:w-80 h-56 sm:h-80 rounded-full bg-gradient-to-r from-[#FFD8B2]/25 to-[#EC844D]/20 blur-[80px] sm:blur-[110px]"
-            animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }}
-            transition={{ duration: 20, repeat: Infinity, delay: 2 }}
-          />
-        </div>
- 
-        
+        {/* Tactile soft clay floating discs */}
+        <motion.div
+          className="absolute top-12 left-8 w-44 h-44 rounded-full soft-ui-inset-subtle opacity-60"
+          animate={{ x: [0, 20, 0], y: [0, -15, 0] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-16 right-10 w-64 h-64 rounded-full soft-ui-inset-subtle opacity-50"
+          animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+      </div>
 
-        {/* Main Hero Grid */}
-        <div className="w-full max-w-[1600px] mx-auto my-auto">
-          <motion.div
-            ref={ref}
-            className="flex flex-col lg:flex-row items-start justify-between gap-8 sm:gap-12 lg:gap-14 xl:gap-16"
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-              },
-            }}
-          >
-            {/* Left Side Content (With the Orange Zoom Button) */}
-            <HeroLeft />
-
-            {/* Right Side Code Terminal (Tagged to fade out as zoom engages) */}
-            <div className="hero-fade-element w-full lg:w-auto flex-1 flex justify-center lg:justify-end">
-              <HeroCodeTerminal />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Scroll Down Mouse Indicator */}
-        <div
-          ref={scrollIndicatorRef}
-          className="relative z-20 flex flex-col items-center justify-center cursor-pointer pointer-events-auto pb-2"
-          onClick={() => {
-            const aboutSection = document.getElementById("about");
-            if (aboutSection) {
-              if (window.lenis) {
-                window.lenis.scrollTo(aboutSection, {
-                  offset: -40,
-                  duration: 1.3,
-                  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                });
-              } else {
-                aboutSection.scrollIntoView({ behavior: "smooth" });
-              }
-            }
+      {/* Main Hero Grid */}
+      <div className="w-full max-w-[1600px] mx-auto my-auto">
+        <motion.div
+          ref={ref}
+          className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 sm:gap-12 lg:gap-14 xl:gap-16"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+            },
           }}
         >
-          <div className="flex flex-col items-center gap-1.5 text-muted-foreground text-[10px] sm:text-xs font-mono tracking-widest uppercase">
-            <span>Scroll to Enter</span>
-            <div className="w-4 h-7 sm:w-5 sm:h-8 border-2 border-[#EC844D]/40 rounded-full flex justify-center hover:border-[#EC844D] transition-colors">
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-1 h-1.5 sm:h-2 bg-[#EC844D] rounded-full mt-1.5"
-              />
-            </div>
-          </div>
-        </div>
+          {/* Left Side Content (With the Soft UI Zoom CTA Button) */}
+          <HeroLeft />
 
-        {/* ================================================================== */}
-        {/* PORTAL REVEAL OVERLAY (Camera passes through the orange CTA)       */}
-        {/* Reveals the AboutSection Header during the zoom                     */}
-        {/* ================================================================== */}
-        <div
-          ref={portalSectionRef}
-          aria-label="About Section Portal View"
-          className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-background/95 dark:bg-[#0c0c0f]/95 backdrop-blur-2xl px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
-          style={{ opacity: 0 }}
-        >
-          {/* Subtle Ambient Backlight */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-[#EC844D]/25 to-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
-          <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
-            <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.15]">
-              <span className="portal-title-line1 block will-change-[transform,opacity,filter]">
-                Where Technical Precision Meets
-              </span>{" "}
-              <span 
-                className="portal-title-line2 font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent block mt-1 sm:mt-2 pb-1 will-change-[transform,opacity,filter]"
-                style={{ fontFamily: "'Rakyat', cursive" }}
-              >
-                Creative Engineering
-              </span>
-            </h2>
-            <p className="portal-desc text-muted-foreground text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-light will-change-[transform,opacity,filter]">
-              Deep dives into <span className="text-foreground font-medium">high-performance systems</span>, scalable architectures, and <span className="text-foreground font-medium">pixel-crafted digital experiences</span>.
-            </p>
-            <div className="portal-cta pt-3 flex items-center gap-2 text-xs font-mono text-[#EC844D] uppercase tracking-widest animate-bounce will-change-[transform,opacity]">
-              <span>Explore Case Studies</span>
-              <ArrowDown className="w-4 h-4" />
-            </div>
+          {/* Right Side Code Terminal (Soft UI Clay Workstation) */}
+          <div className="hero-fade-element w-full lg:w-auto flex-1 flex justify-center lg:justify-end">
+            <HeroCodeTerminal />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll Down Mouse Indicator */}
+      <div
+        ref={scrollIndicatorRef}
+        className="relative z-20 flex flex-col items-center justify-center cursor-pointer pointer-events-auto pb-1"
+        onClick={() => {
+          const aboutSection = document.getElementById("about");
+          if (aboutSection) {
+            if (window.lenis) {
+              window.lenis.scrollTo(aboutSection, {
+                offset: -40,
+                duration: 1.3,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+            } else {
+              aboutSection.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        }}
+      >
+        <div className="flex flex-col items-center gap-1.5 text-[#78756e] text-[10px] sm:text-xs font-digital font-bold tracking-widest uppercase">
+          <span>Scroll to Explore</span>
+          <div className="w-5 h-8 soft-ui-raised bg-[#eae7e1] border border-[#dedad1] rounded-full flex justify-center items-start pt-1.5 shadow-sm">
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1.5 h-2 bg-[#f06292] rounded-full shadow-[0_0_6px_rgba(240,98,146,0.8)]"
+            />
           </div>
         </div>
+      </div>
+
+      {/* ================================================================== */}
+      {/* PORTAL REVEAL OVERLAY (Camera passes through the clay CTA)        */}
+      {/* Reveals the AboutSection Entrance in pure Soft UI clay aesthetic   */}
+      {/* ================================================================== */}
+      <div
+        ref={portalSectionRef}
+        aria-label="About Section Portal View"
+        className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
+        style={{ opacity: 0 }}
+      >
+        <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#2d2b28] leading-[1.15] font-digital">
+            <span className="portal-title-line1 block will-change-[transform,opacity,filter]">
+              Where Technical Precision Meets
+            </span>{" "}
+            <span 
+              className="portal-title-line2 font-handwriting text-[#e59845] block mt-1 sm:mt-2 pb-1 will-change-[transform,opacity,filter]"
+            >
+              Creative Engineering
+            </span>
+          </h2>
+          <p className="portal-desc text-[#5a5751] text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-mono will-change-[transform,opacity,filter]">
+            Deep dives into <span className="text-[#2d2b28] font-bold">high-performance systems</span>, scalable architectures, and <span className="text-[#2d2b28] font-bold">pixel-crafted digital experiences</span>.
+          </p>
+          <div className="portal-cta pt-3 flex items-center gap-2 text-xs font-digital font-bold text-[#e59845] uppercase tracking-widest animate-bounce will-change-[transform,opacity]">
+            <span>Explore Case Studies</span>
+            <ArrowDown className="w-4 h-4" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

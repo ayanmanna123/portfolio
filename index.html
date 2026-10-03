@@ -4,70 +4,108 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- ================= FONTS ================= -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
-
-    <!-- ================= BASIC SEO ================= -->
-    <title>Ayan Manna | Full Stack Engineer</title>
-
+    <!-- ================= SEO PRIMARY META ================= -->
+    <title>Ayan Manna | Full-Stack Engineer & Software Craftsman</title>
     <meta
       name="description"
-      content="Ayan Manna is a Full-Stack Engineer building high-performance web applications. Specializing in React, Node.js, and scalable architecture for startups and enterprises."
+      content="Portfolio of Ayan Manna, a Full-Stack Software Engineer specializing in React, Node.js, Next.js, and high-performance, skeuomorphic interactive web applications."
+    />
+    <meta name="keywords" content="Ayan Manna, Full Stack Developer, Software Engineer, React, Node.js, Next.js, JavaScript, TypeScript, Web Development, Portfolio, Neumorphic Design" />
+    <meta name="author" content="Ayan Manna" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://ayanmanna.in/" />
+
+    <!-- ================= THEME & PWA ================= -->
+    <meta name="theme-color" content="#eae7e1" />
+    <meta name="msapplication-TileColor" content="#eae7e1" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+
+    <!-- ================= FONTS & PRECONNECT ================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Fredoka:wght@400;500;600;700&family=Gaegu:wght@400;700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Quicksand:wght@500;600;700&display=swap"
+      rel="stylesheet"
     />
 
-    <meta name="author" content="Ayan Manna" />
-    <meta name="robots" content="index, follow" />
-
-    <!-- ================= OPEN GRAPH ================= -->
-    <meta property="og:title" content="Ayan Manna | Full-Stack Engineer" />
-    <meta property="og:description" content="Portfolio of Ayan Manna – Full-Stack Engineer (React, Node.js, Scalable Architecture)" />
-    <meta property="og:image" content="https://ayanmanna.in/og-image.png" />
-    <meta property="og:url" content="https://ayanmanna.in/" />
+    <!-- ================= OPEN GRAPH / FACEBOOK ================= -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ayanmanna.in/" />
+    <meta property="og:title" content="Ayan Manna | Full-Stack Engineer" />
+    <meta property="og:description" content="Explore the portfolio of Ayan Manna — Full-Stack Engineer building interactive, high-performance web systems and skeuomorphic digital experiences." />
+    <meta property="og:image" content="https://ayanmanna.in/profile-logo.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ayan Manna - Full-Stack Engineer Portfolio" />
+    <meta property="og:site_name" content="Ayan Manna Portfolio" />
+    <meta property="og:locale" content="en_US" />
 
-    <!-- ================= TWITTER ================= -->
+    <!-- ================= TWITTER CARDS ================= -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ayanmanna.in/" />
+    <meta name="twitter:site" content="@AyanMan13756317" />
+    <meta name="twitter:creator" content="@AyanMan13756317" />
     <meta name="twitter:title" content="Ayan Manna | Full-Stack Engineer" />
-    <meta name="twitter:description" content="I build high-performance web applications that drive business growth." />
-    <meta name="twitter:image" content="https://ayanmanna.in/og-image.png" />
+    <meta name="twitter:description" content="Explore the portfolio of Ayan Manna — Full-Stack Engineer building interactive, high-performance web systems." />
+    <meta name="twitter:image" content="https://ayanmanna.in/profile-logo.jpeg" />
 
-    <!-- ================= THEME ================= -->
-    <meta name="theme-color" content="#2563eb" />
-
-    <!-- ================= STRUCTURED DATA ================= -->
+    <!-- ================= STRUCTURED DATA (JSON-LD) ================= -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ayan Manna",
-        "url": "https://ayanmanna.in/",
-        "image": "https://ayanmanna.in/og-image.png",
-        "jobTitle": "Full-Stack Engineer",
-        "sameAs": [
-          "https://github.com/ayanmanna123",
-          "https://www.linkedin.com/in/ayan-manna-4a67ab34a/",
-          "https://x.com/@AyanMan13756317",
-          "https://instagram.com/dubbinut",
-          "https://www.youtube.com/@ayanmanna1007"
-        ],
-        "knowsAbout": [
-          "React",
-          "Next.js",
-          "TypeScript",
-          "Node.js",
-          "Express",
-          "MongoDB",
-          "Docker",
-          "AWS"
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://ayanmanna.in/#person",
+            "name": "Ayan Manna",
+            "url": "https://ayanmanna.in/",
+            "image": "https://ayanmanna.in/profile-logo.jpeg",
+            "jobTitle": "Full-Stack Software Engineer",
+            "description": "Full-Stack Engineer building interactive, high-performance web applications and scalable distributed systems.",
+            "email": "ayanmanna2004@gmail.com",
+            "sameAs": [
+              "https://github.com/ayanmanna123",
+              "https://www.linkedin.com/in/ayan-manna-4a67ab34a/",
+              "https://x.com/AyanMan13756317",
+              "https://instagram.com/dubbinut",
+              "https://www.youtube.com/@ayanmanna1007",
+              "https://leetcode.com/u/ayanmanna123/"
+            ],
+            "knowsAbout": [
+              "React",
+              "JavaScript",
+              "TypeScript",
+              "Node.js",
+              "Express.js",
+              "Next.js",
+              "Tailwind CSS",
+              "MongoDB",
+              "PostgreSQL",
+              "Docker",
+              "GSAP",
+              "Neumorphic UI Design"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://ayanmanna.in/#website",
+            "url": "https://ayanmanna.in/",
+            "name": "Ayan Manna Portfolio",
+            "description": "Portfolio of Ayan Manna, Full-Stack Developer",
+            "publisher": {
+              "@id": "https://ayanmanna.in/#person"
+            },
+            "inLanguage": "en-US"
+          }
         ]
       }
     </script>
   </head>
 
-  <body>
+  <body class="bg-[#eae7e1] text-[#2d2b28] antialiased selection:bg-[#e59845]/25 selection:text-[#2d2b28]">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

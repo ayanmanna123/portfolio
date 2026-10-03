@@ -1,0 +1,17 @@
+{
+  "short_name": "Ayan Manna",
+  "name": "Ayan Manna | Full-Stack Engineer Portfolio",
+  "description": "Portfolio of Ayan Manna, Full-Stack Software Engineer.",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#eae7e1",
+  "theme_color": "#eae7e1",
+  "display": "standalone",
+  "orientation": "portrait"
+}

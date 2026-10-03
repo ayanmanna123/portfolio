@@ -425,7 +425,11 @@ export const GithubStarredSection = () => {
                                   <div className="w-6 h-6 rounded-full soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] p-0.5 overflow-hidden flex items-center justify-center shrink-0">
                                     <img
                                       src={repo.owner.avatar_url}
-                                      alt={repo.owner.login}
+                                      alt={`${repo.owner.login} GitHub profile`}
+                                      loading="lazy"
+                                      decoding="async"
+                                      width="24"
+                                      height="24"
                                       className="w-full h-full object-cover rounded-full"
                                     />
                                   </div>

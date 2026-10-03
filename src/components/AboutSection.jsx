@@ -321,7 +321,11 @@ export const AboutSection = () => {
                 <div className="w-full h-full rounded-full soft-ui-inset p-2 flex items-center justify-center overflow-hidden">
                   <img 
                     src={aboutData?.profileImage || "/profile-logo.jpeg"} 
-                    alt={aboutData?.name || "Ayan Manna"} 
+                    alt={aboutData?.name || "Ayan Manna - Full-Stack Engineer"} 
+                    loading="lazy"
+                    decoding="async"
+                    width="208"
+                    height="208"
                     className="w-full h-full object-cover rounded-full shadow-sm"
                   />
                 </div>

@@ -194,9 +194,10 @@ export const ProjectDetails = () => {
           <div className="w-full overflow-hidden rounded-[22px] sm:rounded-[28px] border border-[#cdc8be]/60 relative bg-[#dfdbd2]">
             <img
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} - ${project.category} Project Showcase`}
               className="w-full h-auto max-h-[580px] object-cover object-top"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

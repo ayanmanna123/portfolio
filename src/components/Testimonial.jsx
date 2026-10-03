@@ -266,9 +266,12 @@ export const TestimonialSection = () => {
                         {testimonial.image ? (
                           <img
                             src={testimonial.image}
-                            alt={testimonial.name}
+                            alt={`${testimonial.name} - Testimonial`}
                             className="w-full h-full object-cover rounded-full"
                             loading="lazy"
+                            decoding="async"
+                            width="48"
+                            height="48"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none';
                               e.currentTarget.nextSibling.style.display = 'flex';

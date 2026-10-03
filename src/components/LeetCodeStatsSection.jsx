@@ -549,9 +549,12 @@ export const LeetCodeStatsSection = () => {
                                     <div className="w-12 h-12 sm:w-16 sm:h-16 mb-2 relative flex items-center justify-center drop-shadow-sm">
                                         <img
                                             src={badge.icon.startsWith("http") ? badge.icon : `https://leetcode.com${badge.icon}`}
-                                            alt={badge.displayName}
+                                            alt={`LeetCode Badge: ${badge.displayName}`}
                                             className="w-full h-full object-contain"
                                             loading="lazy"
+                                            decoding="async"
+                                            width="64"
+                                            height="64"
                                         />
                                     </div>
                                     <span className="text-[11px] sm:text-xs font-bold text-[#43413d] font-handwriting line-clamp-1">

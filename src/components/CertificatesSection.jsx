@@ -50,7 +50,9 @@ const CertificateCard = ({ cert, cardRef }) => {
                             <div className="w-full h-full soft-ui-inset rounded-[20px] p-2 bg-[#e4e1d9] flex flex-col justify-between overflow-hidden relative group">
                                 <img
                                     src={cert.image}
-                                    alt={cert.title}
+                                    alt={`Certificate: ${cert.title} - issued by ${cert.issuer || 'Ayan Manna'}`}
+                                    loading="lazy"
+                                    decoding="async"
                                     onLoad={(e) => {
                                         const { naturalWidth, naturalHeight } = e.currentTarget;
                                         if (naturalWidth && naturalHeight) {
@@ -58,7 +60,6 @@ const CertificateCard = ({ cert, cardRef }) => {
                                         }
                                     }}
                                     className="w-full h-full object-cover block rounded-[14px] shadow-sm"
-                                    loading="lazy"
                                 />
 
                                 {/* Subtle Flip Prompt in corner */}

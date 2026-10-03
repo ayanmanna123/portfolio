@@ -630,7 +630,11 @@ export const SkillsSection = () => {
                   <div className="w-11 h-11 rounded-[16px] soft-ui-inset bg-[#e4e1d9] flex items-center justify-center shrink-0 p-2">
                     <img
                       src={iconImages[activeSkill.icon] || activeSkill.icon}
-                      alt={activeSkill.name}
+                      alt={`${activeSkill.name} skill icon`}
+                      loading="lazy"
+                      decoding="async"
+                      width="28"
+                      height="28"
                       className="w-7 h-7 object-contain"
                     />
                   </div>

@@ -8,10 +8,7 @@ import {
     Briefcase, 
     GraduationCap, 
     ArrowRight,
-    ArrowLeft,
-    ChevronDown,
-    Calendar,
-    Sparkles
+    ArrowLeft
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -140,7 +137,17 @@ export const TimelineSection = () => {
         }
     };
 
+    const totalSlides = items.length;
     const currentItem = items[activeIndex] || items[0];
+
+    // Handle clicking anywhere along the loading track to seek to milestone
+    const handleTrackClick = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const fraction = Math.max(0, Math.min(1, clickX / rect.width));
+        const targetIndex = Math.round(fraction * (totalSlides - 1));
+        scrollToMilestone(targetIndex);
+    };
 
     return (
         <section 
@@ -194,7 +201,7 @@ export const TimelineSection = () => {
                         {/* Section Header with Soft UI Clay Typography */}
                         <div ref={headerRef} className="text-center pt-2 sm:pt-4 mb-2 sm:mb-3 px-2 sm:px-6">
                             <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
-                                <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                                <span className="w-2 h-2 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" />
                                 <span>Career.Timeline</span>
                             </div>
 
@@ -225,11 +232,11 @@ export const TimelineSection = () => {
                                         onClick={() => scrollToMilestone(idx)}
                                         className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                                             activeIndex === idx
-                                                ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105 font-digital font-black shadow-inner"
+                                                ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105 font-digital font-black shadow-inner border border-[#cdc8be]"
                                                 : "soft-ui-raised bg-[#eae7e1] text-[#78756e] hover:text-[#e59845] font-handwriting border border-[#dedad1]/60"
                                         }`}
                                     >
-                                        <span className={`w-1.5 h-1.5 rounded-full ${activeIndex === idx ? "bg-[#f06292]" : "bg-[#bbb7ad]"}`} />
+                                        <span className={`w-1.5 h-1.5 rounded-full transition-colors ${activeIndex === idx ? "bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" : "bg-[#bbb7ad]"}`} />
                                         <span>{item.year}</span>
                                     </button>
                                 ))}
@@ -272,20 +279,14 @@ export const TimelineSection = () => {
                                     {/* Right: Narrative Details & Controls */}
                                     <div className="lg:col-span-6 flex flex-col justify-between text-left h-full py-1">
                                         <div>
-                                            {/* Company / Institution Header & Chapter Index */}
-                                            <div className="flex items-center justify-between mb-2">
-                                                <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#78756e] font-handwriting">
-                                                    {currentItem.company.includes('School') || currentItem.company.includes('Vidyapith') || currentItem.company.includes('Institute') ? (
-                                                        <GraduationCap className="w-4 h-4 text-[#e59845] shrink-0" />
-                                                    ) : (
-                                                        <Briefcase className="w-4 h-4 text-[#e59845] shrink-0" />
-                                                    )}
-                                                    <span className="line-clamp-1">{currentItem.company}</span>
-                                                </div>
-
-                                                <span className="soft-ui-inset-subtle rounded-full px-2.5 py-0.5 text-[10px] font-black text-[#383a3d] font-digital bg-[#e6e3dc]">
-                                                    Chapter 0{activeIndex + 1} / 0{items.length}
-                                                </span>
+                                            {/* Company / Institution Header */}
+                                            <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#78756e] font-handwriting mb-2">
+                                                {currentItem.company.includes('School') || currentItem.company.includes('Vidyapith') || currentItem.company.includes('Institute') ? (
+                                                    <GraduationCap className="w-4 h-4 text-[#e59845] shrink-0" />
+                                                ) : (
+                                                    <Briefcase className="w-4 h-4 text-[#e59845] shrink-0" />
+                                                )}
+                                                <span className="line-clamp-1">{currentItem.company}</span>
                                             </div>
 
                                             {/* Role Title */}
@@ -311,26 +312,67 @@ export const TimelineSection = () => {
                                             </div>
                                         </div>
 
-                                        {/* Bottom Action / Navigation Bar */}
-                                        <div className="w-full h-11 soft-ui-inset rounded-full p-1.5 flex items-center justify-between bg-[#e4e1d9] mt-auto">
+                                        {/* Bottom Action / Navigation Bar with Arrow Loading Bar (No text, No percentage) */}
+                                        <div className="w-full h-12 soft-ui-inset rounded-full p-1.5 flex items-center justify-between bg-[#e4e1d9] border border-[#cdc8be]/60 mt-auto shadow-inner gap-2.5 sm:gap-3">
+                                            {/* Prev Button */}
                                             <button
-                                                onClick={() => scrollToMilestone((activeIndex - 1 + items.length) % items.length)}
-                                                className="soft-ui-raised rounded-full px-3.5 py-1 text-xs font-bold text-[#6d6a64] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer"
+                                                onClick={() => scrollToMilestone(Math.max(0, activeIndex - 1))}
+                                                disabled={activeIndex === 0}
+                                                className={`soft-ui-raised rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-bold font-handwriting transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer active:scale-95 shrink-0 ${
+                                                    activeIndex === 0 ? "opacity-35 cursor-not-allowed text-[#99948a]" : "text-[#6d6a64] hover:text-[#e59845] bg-[#eae7e1]"
+                                                }`}
+                                                title="Scroll to previous milestone"
                                             >
                                                 <ArrowLeft size={13} className="text-[#e59845]" />
                                                 <span>Prev</span>
                                             </button>
 
-                                            <span className="text-[11px] font-bold text-[#78756e] font-handwriting hidden sm:inline">
-                                                Scroll or click to explore milestones
-                                            </span>
-
-                                            <button
-                                                onClick={() => scrollToMilestone((activeIndex + 1) % items.length)}
-                                                className="soft-ui-raised rounded-full px-3.5 py-1 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer"
+                                            {/* Full-width Neumorphic Arrow Loading Progress Bar (No text, No percentage) */}
+                                            <div 
+                                                onClick={handleTrackClick}
+                                                className="flex-1 relative flex items-center h-6 px-1 min-w-0 cursor-pointer group"
+                                                title="Click anywhere to seek along journey"
                                             >
-                                                <span>{activeIndex === items.length - 1 ? "Restart" : "Next"}</span>
-                                                <ArrowRight size={13} className="text-[#e59845]" />
+                                                {/* Sunken Channel Track */}
+                                                <div className="w-full h-4 soft-ui-inset rounded-full bg-[#dedad1] p-0.5 relative flex items-center overflow-hidden border border-[#cdc8be]/70 shadow-inner">
+                                                    {/* Background Directional Arrow Track */}
+                                                    <div className="absolute inset-0 flex items-center justify-around px-3 sm:px-6 opacity-25 pointer-events-none select-none">
+                                                        <ArrowRight size={10} className="text-[#78756e]" />
+                                                        <ArrowRight size={10} className="text-[#78756e]" />
+                                                        <ArrowRight size={10} className="text-[#78756e]" />
+                                                        <ArrowRight size={10} className="text-[#78756e]" />
+                                                        <ArrowRight size={10} className="text-[#78756e]" />
+                                                        <ArrowRight size={10} className="text-[#78756e]" />
+                                                    </div>
+
+                                                    {/* Dynamic Glowing Progress Fill */}
+                                                    <div
+                                                        className="h-full rounded-full bg-gradient-to-r from-[#e59845] via-[#f06292] to-[#e59845] shadow-[0_1px_5px_rgba(240,98,146,0.5)] transition-[width] duration-150 ease-out relative flex items-center justify-end pr-0.5 min-w-[20px]"
+                                                        style={{ width: `${Math.max(4, Math.min(100, scrollProgress * 100))}%` }}
+                                                    >
+                                                        {/* Animated Arrow Chevron Flow inside bar */}
+                                                        <div className="absolute inset-0 overflow-hidden flex items-center justify-end pr-5 opacity-40 pointer-events-none select-none">
+                                                            <span className="text-[8px] font-black text-white tracking-widest animate-pulse font-mono">
+                                                                &gt;&gt;&gt;
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Leading Edge Arrow Head Indicator */}
+                                                        <div className="w-3.5 h-3.5 rounded-full bg-[#eae7e1] border-2 border-[#e59845] flex items-center justify-center shadow-sm shrink-0 z-10">
+                                                            <ArrowRight size={8} className="text-[#e59845] stroke-[3]" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Next Button */}
+                                            <button
+                                                onClick={() => scrollToMilestone(activeIndex === totalSlides - 1 ? 0 : activeIndex + 1)}
+                                                className="soft-ui-raised rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer active:scale-95 shrink-0 group shadow-sm hover:shadow-md"
+                                                title={activeIndex === totalSlides - 1 ? "Restart Timeline" : "Scroll to next milestone"}
+                                            >
+                                                <span>{activeIndex === totalSlides - 1 ? "Restart" : "Next"}</span>
+                                                <ArrowRight size={13} className="text-[#e59845] group-hover:translate-x-0.5 transition-transform" />
                                             </button>
                                         </div>
                                     </div>

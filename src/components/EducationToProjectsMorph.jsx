@@ -949,46 +949,6 @@ export const EducationToProjectsMorph = () => {
                 </div>
               )}
 
-              {/* 6. Real Projects CTA Banner */}
-              <div
-                className="text-center mt-12 sm:mt-14 mb-4 transition-all duration-200"
-                style={{
-                  opacity: isMorphComplete ? 1 : projCtaOpacity,
-                  transform: isMorphComplete ? 'none' : `translate3d(0, ${(1 - projCtaOpacity) * 25}px, 0)`,
-                }}
-              >
-                <div className="bg-card/70 border border-border/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto backdrop-blur-md shadow-xl">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2 sm:mb-3">
-                    Have a Project in Mind? Let's Work Together
-                  </h3>
-                  <p className="text-muted-foreground text-xs sm:text-sm max-w-2xl mx-auto mb-5">
-                    I'm always open to discussing new opportunities, innovative ideas, or creative collaborations.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <motion.a
-                      href="#contact"
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.96 }}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-md shadow-[#EC844D]/25 transition-all duration-300 cursor-pointer"
-                    >
-                      Contact Me
-                      <ArrowRight size={16} />
-                    </motion.a>
-
-                    <motion.a
-                      href="https://github.com/ayanmanna123"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.96 }}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-medium text-xs sm:text-sm border border-border text-foreground hover:border-[#EC844D] hover:bg-[#EC844D]/5 transition-all duration-300"
-                    >
-                      <Github size={16} />
-                      View GitHub
-                    </motion.a>
-                  </div>
-                </div>
-              </div>
             </div>
           </section>
         </div>

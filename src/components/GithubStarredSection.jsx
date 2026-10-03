@@ -400,16 +400,6 @@ export const GithubStarredSection = () => {
                               {/* Timeline Badge & Owner */}
                               <div className="flex items-center justify-between gap-2 mb-3.5 sm:mb-4">
                                 <div className="flex items-center gap-2 overflow-hidden">
-                                  {globalIndex === 0 ? (
-                                    <span className="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-mono font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md flex items-center gap-1 shrink-0">
-                                      <Sparkles className="w-3 h-3" /> #1 NEWEST
-                                    </span>
-                                  ) : (
-                                    <span className="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-                                      #{globalIndex + 1}
-                                    </span>
-                                  )}
-
                                   {dateText && (
                                     <span className="text-[10px] sm:text-[11px] font-mono text-muted-foreground flex items-center gap-1 shrink-0">
                                       <Calendar className="w-3 h-3" /> {dateText}

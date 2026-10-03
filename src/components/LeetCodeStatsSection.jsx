@@ -465,10 +465,7 @@ const LeetCodeStatsSection = () => {
                     viewport={{ once: false }}
                 >
                     <div className="w-full flex items-center justify-between mb-4 sm:mb-6">
-                        <div className="flex items-center gap-2">
-                            <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
-                            <h3 className="text-base sm:text-xl font-semibold text-foreground">Submission Map</h3>
-                        </div>
+                        <h3 className="text-base sm:text-xl font-semibold text-foreground">Submission Map</h3>
                         <span className="text-[10px] sm:text-xs text-muted-foreground md:hidden font-mono bg-muted/60 px-2 py-0.5 rounded-full">
                             ← Scroll to explore →
                         </span>

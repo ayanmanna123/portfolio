@@ -376,17 +376,7 @@ const TimelineSection = () => {
                         </div>
 
                         {/* Bottom Scrubber & Hint Bar */}
-                        <div className="w-full pt-3 border-t border-white/15 flex items-center justify-between text-xs text-white/60 pointer-events-auto">
-                            <div className="flex items-center gap-2">
-                                <span className="font-mono text-white/90">01</span>
-                                <div className="w-28 sm:w-44 h-1.5 bg-white/15 rounded-full overflow-hidden">
-                                    <div 
-                                        className="h-full bg-gradient-to-r from-[#EC844D] to-[#FFAE80] rounded-full transition-all duration-100 ease-out shadow-[0_0_6px_#EC844D]"
-                                        style={{ width: `${scrollProgress * 100}%` }}
-                                    />
-                                </div>
-                                <span className="font-mono text-white/90">0{items.length}</span>
-                            </div>
+                        <div className="w-full pt-3 border-t border-white/15 flex items-center justify-end text-xs text-white/60 pointer-events-auto">
 
                             <div className="flex items-center gap-2 text-white/70">
                                 <span className="hidden sm:inline">Scroll to scrub journey</span>

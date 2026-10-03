@@ -181,11 +181,6 @@ export const TestimonialSection = () => {
       <div className="container max-w-6xl mx-auto">
         <div className="space-y-12 sm:space-y-16">
           <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
-            <div className="text-sm sm:text-base font-mono text-primary mb-3 sm:mb-4 inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/20">
-              <Star className="h-3 w-3 sm:h-4 sm:w-4" />
-              Client Feedback
-              <Star className="h-3 w-3 sm:h-4 sm:w-4" />
-            </div>
             <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
               <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
                 What

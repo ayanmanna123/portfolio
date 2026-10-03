@@ -2,18 +2,8 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronDown,
-  LayoutGrid,
-  Sparkles,
-  Code2,
-  SlidersHorizontal,
-  Compass,
-  Filter
-} from "lucide-react";
-import { skillsData, skillCategories, iconImages } from "@/data";
+import { Code2 } from "lucide-react";
+import { skillsData, iconImages } from "@/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -104,8 +94,8 @@ const getProficiencyStatus = (level) => {
   return "IN PROGRESS";
 };
 
-// Single Playing Card Component with dynamic depth-based lighting and dominance
-const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgress = 1, onClick }) => {
+// Single Playing Card Component: ONLY mid position has border, side cards are borderless
+const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }) => {
   const [imgError, setImgError] = useState(false);
   const meta = skillMetaMap[skill.name] || {
     color: "#EC844D",
@@ -116,12 +106,14 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
   const status = getProficiencyStatus(skill.level);
   const iconSrc = iconImages[skill.icon] || skill.icon;
 
-  // Cinematic dominance glow interpolation
-  const shadowGlow = !isGrid && smoothProgress > 0.65
-    ? `0 24px 50px -10px rgba(236, 132, 77, ${(0.15 + 0.35 * smoothProgress).toFixed(2)}), 0 0 0 ${(1 + 1.2 * smoothProgress).toFixed(1)}px rgba(236, 132, 77, ${(0.3 + 0.5 * smoothProgress).toFixed(2)})`
+  // Mid position detection: active or close to apex
+  const isMid = isActive || smoothProgress > 0.88;
+
+  const shadowGlow = isMid
+    ? `0 24px 50px -10px rgba(236, 132, 77, 0.45), 0 0 0 1.5px rgba(236, 132, 77, 0.65)`
     : undefined;
 
-  const glowOpacity = isGrid ? 0.3 : 0.15 + 0.45 * Math.pow(smoothProgress, 2);
+  const glowOpacity = 0.12 + 0.45 * Math.pow(smoothProgress, 2);
 
   return (
     <div
@@ -134,22 +126,20 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
           onClick?.();
         }
       }}
-      className={`toolkit-card group relative select-none cursor-pointer transition-shadow duration-300 ease-out ${
-        isGrid ? "w-full max-w-[280px] mx-auto" : "w-[160px] sm:w-[195px] md:w-[225px]"
-      }`}
+      className="toolkit-card group relative select-none cursor-pointer transition-shadow duration-300 ease-out w-[160px] sm:w-[195px] md:w-[225px]"
       style={{
         aspectRatio: "295 / 417"
       }}
     >
-      {/* Outer Card Body matching portfolio theme with cinematic depth */}
+      {/* Outer Card Body: border ONLY in mid position, side cards are border-transparent */}
       <div
-        className={`relative w-full h-full rounded-[22px] p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden border transition-all duration-300 ${
-          isActive || (!isGrid && smoothProgress > 0.88)
-            ? "border-[#EC844D] bg-card ring-2 ring-[#EC844D]/50"
-            : "border-border/60 bg-card/95 hover:border-[#EC844D]/60 hover:shadow-lg hover:shadow-[#EC844D]/15"
+        className={`relative w-full h-full rounded-[22px] p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-all duration-300 ${
+          isMid
+            ? "border-2 border-[#EC844D] bg-card ring-4 ring-[#EC844D]/35 shadow-[0_22px_50px_rgba(236,132,77,0.35)]"
+            : "border-2 border-transparent bg-card/90 shadow-md hover:shadow-lg"
         }`}
         style={{
-          boxShadow: shadowGlow
+          boxShadow: isMid ? shadowGlow : undefined
         }}
       >
         {/* Warm Theme Radial Glow scaling with depth proximity */}
@@ -172,7 +162,7 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
               borderColor: `${meta.color}60`,
               color: meta.color,
               backgroundColor: `${meta.color}15`,
-              transform: !isGrid && smoothProgress > 0.85 ? "scale(1.04)" : "scale(1)"
+              transform: isMid ? "scale(1.04)" : "scale(1)"
             }}
           >
             {status}
@@ -180,7 +170,7 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
 
           <span
             className={`text-[10px] sm:text-xs font-semibold tabular-nums transition-colors duration-300 ${
-              !isGrid && smoothProgress > 0.85 ? "text-foreground font-bold" : "text-muted-foreground"
+              isMid ? "text-foreground font-bold" : "text-muted-foreground"
             }`}
           >
             {skill.level}%
@@ -191,10 +181,10 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center my-1.5 text-center">
           {/* Logo container with warm glow */}
           <div
-            className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-2.5 transition-transform duration-300 ease-out group-hover:scale-110 shadow-sm bg-secondary/40 dark:bg-white/5 border border-border/50 dark:border-white/10"
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-2.5 transition-transform duration-300 ease-out group-hover:scale-110 shadow-sm bg-secondary/40 dark:bg-white/5 border border-border/40 dark:border-white/10"
             style={{
               boxShadow: `0 8px 24px -6px ${meta.color}40`,
-              transform: !isGrid && smoothProgress > 0.88 ? "scale(1.06)" : "scale(1)"
+              transform: isMid ? "scale(1.06)" : "scale(1)"
             }}
           >
             {!imgError && iconSrc ? (
@@ -213,7 +203,7 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
           {/* Skill Title */}
           <h3
             className={`font-extrabold text-sm sm:text-lg md:text-xl tracking-tight transition-colors duration-300 line-clamp-1 group-hover:text-primary ${
-              !isGrid && smoothProgress > 0.85 ? "text-foreground" : "text-foreground/90"
+              isMid ? "text-foreground font-black" : "text-foreground/90 font-bold"
             }`}
             title={skill.name}
           >
@@ -230,7 +220,7 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
               className="h-full rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-[#EC844D] to-[#FFD8B2]"
               style={{
                 width: `${skill.level}%`,
-                boxShadow: !isGrid && smoothProgress > 0.85 ? "0 0 10px rgba(236,132,77,0.7)" : "none"
+                boxShadow: isMid ? "0 0 10px rgba(236,132,77,0.7)" : "none"
               }}
             />
           </div>
@@ -241,7 +231,7 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
           <span
             className="px-3 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[11px] font-black tracking-wider uppercase shadow-sm transition-transform duration-300 group-hover:scale-105 bg-gradient-to-r from-[#EC844D] to-[#DE6F36] text-white"
             style={{
-              transform: !isGrid && smoothProgress > 0.85 ? "scale(1.05)" : "scale(1)"
+              transform: isMid ? "scale(1.05)" : "scale(1)"
             }}
           >
             {meta.tag}
@@ -255,8 +245,6 @@ const ToolkitCard = React.memo(({ skill, isActive, isGrid = false, smoothProgres
 ToolkitCard.displayName = "ToolkitCard";
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [viewMode, setViewMode] = useState("wheel"); // 'wheel' | 'grid'
   const [scrollProgress, setScrollProgress] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -270,21 +258,17 @@ export const SkillsSection = () => {
   const currentDragDeltaRef = useRef(0);
   const isTouchRef = useRef(false);
 
-  // Filter skills for current category
-  const currentSkills = useMemo(() => {
-    if (activeCategory === "all") return skillsData;
-    return skillsData.filter((s) => s.category === activeCategory);
-  }, [activeCategory]);
-
+  // All skills displayed in the continuous horizontal journey
+  const currentSkills = skillsData;
   const count = currentSkills.length;
 
-  // Responsive Wheel Dimensions with expanded peripheral visibility
+  // Responsive Wheel Dimensions
   const [wheelConfig, setWheelConfig] = useState({
     radius: 1250,
     stepAngle: 10.5,
     apexTop: 70,
     containerHeight: 520,
-    visibleAngle: 48,
+    visibleAngle: 50,
     scrollPerCard: 300
   });
 
@@ -308,7 +292,7 @@ export const SkillsSection = () => {
           stepAngle: 12.5,
           apexTop: 60,
           containerHeight: Math.min(520, height * 0.6),
-          visibleAngle: 45,
+          visibleAngle: 46,
           scrollPerCard: 280
         });
       } else {
@@ -317,7 +301,7 @@ export const SkillsSection = () => {
           stepAngle: 10.5,
           apexTop: 70,
           containerHeight: Math.min(560, height * 0.62),
-          visibleAngle: 48,
+          visibleAngle: 50,
           scrollPerCard: 320
         });
       }
@@ -330,12 +314,12 @@ export const SkillsSection = () => {
 
   // Compute total vertical scroll distance to scrub through all cards
   const scrollDistance = Math.max(0, (count - 1) * wheelConfig.scrollPerCard);
-  const trackHeight = viewMode === "wheel" && count > 1 ? `calc(100vh + ${scrollDistance}px)` : "auto";
+  const trackHeight = count > 1 ? `calc(100vh + ${scrollDistance}px)` : "auto";
 
   // Master GSAP ScrollTrigger Pinned Lock & Scroll Scrubbing
   useEffect(() => {
     if (!trackRef.current || !stageRef.current) return;
-    if (viewMode !== "wheel" || count <= 1) {
+    if (count <= 1) {
       setScrollProgress(0);
       return;
     }
@@ -355,32 +339,10 @@ export const SkillsSection = () => {
       });
     }, sectionRef);
 
-    // Refresh ScrollTrigger to calculate accurate start and end points
     ScrollTrigger.refresh();
 
     return () => ctx.revert();
-  }, [count, viewMode, wheelConfig.scrollPerCard]);
-
-  // When changing category, smoothly reset
-  const handleCategoryChange = (catId) => {
-    setActiveCategory(catId);
-    setScrollProgress(0);
-    setDragOffset(0);
-
-    // If user has scrolled inside the pinned track, scroll back to track top
-    if (trackRef.current) {
-      const rect = trackRef.current.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const trackTop = rect.top + scrollTop;
-      if (Math.abs(scrollTop - trackTop) > 10) {
-        if (window.lenis) {
-          window.lenis.scrollTo(trackTop, { duration: 0.5 });
-        } else {
-          window.scrollTo({ top: trackTop, behavior: "smooth" });
-        }
-      }
-    }
-  };
+  }, [count, wheelConfig.scrollPerCard]);
 
   // Continuous floating index derived from vertical scroll progress
   // Scroll down -> cards move from RIGHT to LEFT continuously
@@ -407,29 +369,6 @@ export const SkillsSection = () => {
       window.scrollTo({ top: targetScroll, behavior: "smooth" });
     }
   }, [count]);
-
-  const nextCard = useCallback(() => {
-    scrollToCard(activeIndex + 1 < count ? activeIndex + 1 : 0);
-  }, [activeIndex, count, scrollToCard]);
-
-  const prevCard = useCallback(() => {
-    scrollToCard(activeIndex - 1 >= 0 ? activeIndex - 1 : count - 1);
-  }, [activeIndex, count, scrollToCard]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (viewMode !== "wheel") return;
-      if (e.key === "ArrowRight") {
-        nextCard();
-      } else if (e.key === "ArrowLeft") {
-        prevCard();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextCard, prevCard, viewMode]);
 
   // Pointer drag/swipe interactions
   const handlePointerDown = (clientX, isTouch = false) => {
@@ -474,6 +413,8 @@ export const SkillsSection = () => {
     type: "Engineering"
   };
 
+  // Subtitle dynamically tracks the active card's category
+  const activeCategory = activeSkill?.category || "all";
   const subtitleInfo = categorySubtitles[activeCategory] || categorySubtitles.all;
 
   return (
@@ -491,11 +432,7 @@ export const SkillsSection = () => {
         {/* Pinned Stage: Locks to 100vh during the horizontal card journey */}
         <div
           ref={stageRef}
-          className={`relative w-full overflow-hidden flex flex-col justify-between ${
-            viewMode === "wheel"
-              ? "h-screen min-h-[660px] max-h-[1080px] py-4 sm:py-6 px-3 sm:px-6 lg:px-12"
-              : "py-12 sm:py-20 px-3 sm:px-6 lg:px-12"
-          }`}
+          className="relative w-full overflow-hidden flex flex-col justify-between h-screen min-h-[660px] max-h-[1080px] py-4 sm:py-6 px-3 sm:px-6 lg:px-12"
         >
           {/* Portfolio Theme Ambient Background Shapes */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -507,11 +444,6 @@ export const SkillsSection = () => {
           <div className="container mx-auto px-2 sm:px-6 relative z-10 max-w-6xl w-full flex-1 flex flex-col justify-between">
             {/* Section Header with Signature Portfolio Theme Typography */}
             <div className="text-center pt-2 sm:pt-4 mb-2 sm:mb-4 px-2 sm:px-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EC844D]/10 border border-[#EC844D]/25 text-[#EC844D] dark:text-[#FFAE80] text-[11px] font-semibold uppercase tracking-wider mb-2">
-                <Sparkles className="w-3 h-3 text-[#EC844D]" />
-                <span>Interactive Arsenal</span>
-              </div>
-
               <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="block text-foreground">
                   Technical
@@ -524,7 +456,7 @@ export const SkillsSection = () => {
                 </span>
               </h2>
 
-              {/* Dynamic Category Subtitle */}
+              {/* Dynamic Category Subtitle that changes as you scroll */}
               <div className="h-6 sm:h-8 flex items-center justify-center overflow-hidden my-0.5">
                 <AnimatePresence mode="wait">
                   <motion.p
@@ -545,308 +477,146 @@ export const SkillsSection = () => {
               </p>
             </div>
 
-            {/* Category Filter Pills Container & View Mode Controls */}
-            <div className="mb-2 sm:mb-3">
-              {/* Desktop & Tablet Category Bar */}
-              <div className="hidden sm:flex flex-wrap items-center justify-between gap-3 border-b border-border/40 pb-3">
-                <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
-                  {skillCategories.map((category) => (
-                    <motion.button
-                      key={category.id}
-                      onClick={() => handleCategoryChange(category.id)}
-                      className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-medium border border-transparent hover:shadow-lg transition-all cursor-pointer ${
-                        activeCategory === category.id
-                          ? `${category.color} text-white shadow-md shadow-primary/25 font-bold`
-                          : "bg-secondary/50 text-foreground hover:bg-secondary/70"
-                      }`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {category.label}
-                    </motion.button>
-                  ))}
-                </div>
+            {/* Cinematic Scroll-Locked 3D Carousel with Soft Edge Dissolve */}
+            <div className="relative flex-1 flex flex-col justify-between">
+              {/* Wheel Viewport Container with Soft Vignette Gradient Mask to dissolve left/right cards */}
+              <div
+                ref={containerRef}
+                className="toolkit-wheel-container relative w-full flex-1 select-none min-h-[380px]"
+                style={{
+                  perspective: "1800px",
+                  transformStyle: "preserve-3d",
+                  WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 8%, black 22%, black 78%, rgba(0,0,0,0.15) 92%, transparent 100%)",
+                  maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 8%, black 22%, black 78%, rgba(0,0,0,0.15) 92%, transparent 100%)"
+                }}
+                onMouseDown={(e) => handlePointerDown(e.clientX, false)}
+                onMouseMove={(e) => handlePointerMove(e.clientX)}
+                onMouseUp={handlePointerUp}
+                onMouseLeave={handlePointerUp}
+                onTouchStart={(e) => handlePointerDown(e.touches[0].clientX, true)}
+                onTouchMove={(e) => handlePointerMove(e.touches[0].clientX)}
+                onTouchEnd={handlePointerUp}
+              >
+                {/* The Giant Rotating Wheel Element with 3D Transform */}
+                <div
+                  ref={wheelRef}
+                  className="toolkit-wheel absolute rounded-full pointer-events-none"
+                  style={{
+                    width: `${wheelConfig.radius * 2}px`,
+                    height: `${wheelConfig.radius * 2}px`,
+                    left: "50%",
+                    top: `${wheelConfig.apexTop + 140}px`,
+                    transform: "translate(-50%, 0)",
+                    transformOrigin: "50% 50%",
+                    transformStyle: "preserve-3d"
+                  }}
+                >
+                  {currentSkills.map((skill, index) => {
+                    // Scroll-controlled continuous horizontal movement: RIGHT -> LEFT
+                    const relativeAngle = (index - rawIndex) * wheelConfig.stepAngle + dragOffset;
+                    const isVisible = Math.abs(relativeAngle) <= wheelConfig.visibleAngle;
 
-                {/* View Mode Switcher */}
-                <div className="flex items-center gap-1 bg-secondary/50 p-1 rounded-full border border-border/50 text-xs font-semibold shrink-0">
-                  <button
-                    onClick={() => setViewMode("wheel")}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
-                      viewMode === "wheel"
-                        ? "bg-[#EC844D] text-white font-bold shadow-md shadow-[#EC844D]/25"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    <Compass className="w-3.5 h-3.5" />
-                    <span>3D Wheel</span>
-                  </button>
-                  <button
-                    onClick={() => setViewMode("grid")}
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
-                      viewMode === "grid"
-                        ? "bg-[#EC844D] text-white font-bold shadow-md shadow-[#EC844D]/25"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    <LayoutGrid className="w-3.5 h-3.5" />
-                    <span>All Grid</span>
-                  </button>
+                    // Normalized distance from center (0.0 at center, 1.0 at visible limit)
+                    const normalizedDist = Math.min(1, Math.abs(relativeAngle) / wheelConfig.visibleAngle);
+
+                    // Smooth cosine easing curve for volumetric 3D carousel traveling
+                    const smoothProgress = Math.cos((normalizedDist * Math.PI) / 2);
+
+                    // 1. Scale: smoothly increases to 1.12 at center, reduces to 0.74 at edges
+                    const scale = 0.74 + 0.38 * Math.pow(smoothProgress, 1.3);
+
+                    // 2. Opacity: high (1.0) at center, smoothly decays to 0 at edges (cards slowly become invisible)
+                    const opacity = isVisible ? Math.max(0, Math.pow(smoothProgress, 1.6)) : 0;
+
+                    // 3. Depth-of-Field Blur: 0px at center, smoothly increases up to 4.8px in periphery
+                    const blur = (1 - smoothProgress) * 4.8;
+
+                    // 4. Subtle atmospheric brightness: center is radiant, periphery is softly dimmed
+                    const brightness = 0.80 + 0.25 * smoothProgress;
+
+                    // 5. 3D translateZ: brings center card forward toward the camera (+75px to -70px)
+                    const translateZ = (smoothProgress - 0.5) * 150;
+
+                    // 6. 3D Perspective Rotation: cards turn slightly inward towards viewer
+                    const rotateY = -relativeAngle * 0.38;
+
+                    // 7. Dynamic Z-Index: center card has highest priority
+                    const zIndex = Math.round(15 + smoothProgress * 35);
+
+                    const isCurrentActive = index === activeIndex;
+
+                    return (
+                      <div
+                        key={skill.name}
+                        className="toolkit-slot absolute inset-0 pointer-events-none"
+                        style={{
+                          transform: `rotate(${relativeAngle}deg)`,
+                          transformOrigin: "50% 50%",
+                          transformStyle: "preserve-3d",
+                          visibility: isVisible && opacity > 0.01 ? "visible" : "hidden",
+                          zIndex: zIndex
+                        }}
+                      >
+                        {/* Card wrapper with 3D translation, depth blur, scale, and perspective */}
+                        <div
+                          className={`absolute top-0 left-1/2 pointer-events-auto ${
+                            isDragging ? "transition-none" : "transition-transform duration-200 ease-out"
+                          }`}
+                          style={{
+                            transform: `translate(-50%, -50%) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+                            transformStyle: "preserve-3d",
+                            opacity: opacity,
+                            filter: `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`
+                          }}
+                        >
+                          <ToolkitCard
+                            skill={skill}
+                            isActive={isCurrentActive}
+                            smoothProgress={smoothProgress}
+                            onClick={() => scrollToCard(index)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Mobile Category Dropdown + Mode Toggle */}
-              <div className="sm:hidden flex flex-col gap-2 max-w-xs mx-auto mb-2">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#EC844D]">
-                    <Filter className="h-4 w-4" />
-                  </div>
-                  <select
-                    value={activeCategory}
-                    onChange={(e) => handleCategoryChange(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-card border border-border text-foreground font-semibold text-xs appearance-none focus:outline-none focus:ring-2 focus:ring-[#EC844D]/50 shadow-sm cursor-pointer"
+              {/* Active Card Spotlight HUD */}
+              <div className="mt-2 p-3 sm:p-4 rounded-2xl bg-card/85 border border-border/60 max-w-xl mx-auto backdrop-blur-md shadow-lg flex items-center justify-between gap-3 w-full">
+                <div className="flex items-center gap-3 text-left">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center border shrink-0 bg-secondary/50 border-[#EC844D]/30"
                   >
-                    {skillCategories.map((category) => (
-                      <option key={category.id} value={category.id} className="bg-background text-foreground">
-                        {category.label}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-muted-foreground">
-                    <ChevronDown className="h-4 w-4" />
+                    <img
+                      src={iconImages[activeSkill.icon] || activeSkill.icon}
+                      alt={activeSkill.name}
+                      className="w-6 h-6 object-contain"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-base text-foreground">{activeSkill.name}</h4>
+                      <span
+                        className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white uppercase bg-gradient-to-r from-[#EC844D] to-[#DE6F36]"
+                      >
+                        {activeMeta.tag}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground">
+                      Proficiency: <span className="font-semibold text-foreground">{activeSkill.level}%</span> • {getProficiencyStatus(activeSkill.level)}
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 bg-secondary/50 p-1 rounded-full border border-border/50 text-xs font-semibold">
-                  <button
-                    onClick={() => setViewMode("wheel")}
-                    className={`flex-1 py-1 rounded-full text-center transition-all ${
-                      viewMode === "wheel"
-                        ? "bg-[#EC844D] text-white font-bold shadow-sm"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    3D Wheel
-                  </button>
-                  <button
-                    onClick={() => setViewMode("grid")}
-                    className={`flex-1 py-1 rounded-full text-center transition-all ${
-                      viewMode === "grid"
-                        ? "bg-[#EC844D] text-white font-bold shadow-sm"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    All Grid
-                  </button>
+                {/* Card Index Indicator */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-xs text-muted-foreground font-mono">
+                    <span className="text-foreground font-bold">{String(activeIndex + 1).padStart(2, "0")}</span> / {String(count).padStart(2, "0")}
+                  </span>
                 </div>
               </div>
             </div>
-
-            {/* View Mode 1: Cinematic Scroll-Locked 3D Carousel */}
-            {viewMode === "wheel" ? (
-              <div className="relative flex-1 flex flex-col justify-between">
-                {/* Wheel Viewport Container with 3D perspective */}
-                <div
-                  ref={containerRef}
-                  className="toolkit-wheel-container relative w-full flex-1 overflow-hidden select-none min-h-[380px]"
-                  style={{
-                    perspective: "1800px",
-                    transformStyle: "preserve-3d"
-                  }}
-                  onMouseDown={(e) => handlePointerDown(e.clientX, false)}
-                  onMouseMove={(e) => handlePointerMove(e.clientX)}
-                  onMouseUp={handlePointerUp}
-                  onMouseLeave={handlePointerUp}
-                  onTouchStart={(e) => handlePointerDown(e.touches[0].clientX, true)}
-                  onTouchMove={(e) => handlePointerMove(e.touches[0].clientX)}
-                  onTouchEnd={handlePointerUp}
-                >
-                  {/* Top Horizon Line Subtle Arc Guide */}
-                  <div
-                    className="absolute left-1/2 -translate-x-1/2 rounded-full border border-[#EC844D]/15 pointer-events-none opacity-40 dark:opacity-20"
-                    style={{
-                      top: `${wheelConfig.apexTop + 140}px`,
-                      width: `${wheelConfig.radius * 2}px`,
-                      height: `${wheelConfig.radius * 2}px`
-                    }}
-                  />
-
-                  {/* The Giant Rotating Wheel Element with 3D Transform */}
-                  <div
-                    ref={wheelRef}
-                    className="toolkit-wheel absolute rounded-full pointer-events-none"
-                    style={{
-                      width: `${wheelConfig.radius * 2}px`,
-                      height: `${wheelConfig.radius * 2}px`,
-                      left: "50%",
-                      top: `${wheelConfig.apexTop + 140}px`,
-                      transform: "translate(-50%, 0)",
-                      transformOrigin: "50% 50%",
-                      transformStyle: "preserve-3d"
-                    }}
-                  >
-                    {currentSkills.map((skill, index) => {
-                      // Scroll-controlled continuous horizontal movement: RIGHT -> LEFT
-                      const relativeAngle = (index - rawIndex) * wheelConfig.stepAngle + dragOffset;
-                      const isVisible = Math.abs(relativeAngle) <= wheelConfig.visibleAngle;
-
-                      // Normalized distance from center (0.0 at center, 1.0 at visible limit)
-                      const normalizedDist = Math.min(1, Math.abs(relativeAngle) / wheelConfig.visibleAngle);
-
-                      // Smooth cosine easing curve for volumetric 3D carousel traveling
-                      const smoothProgress = Math.cos((normalizedDist * Math.PI) / 2);
-
-                      // 1. Scale: smoothly increases to 1.12 at center, reduces to 0.76 at edges
-                      const scale = 0.76 + 0.36 * Math.pow(smoothProgress, 1.25);
-
-                      // 2. Opacity: high (1.0) at center, remains visible in periphery (0.34) for depth
-                      const opacity = isVisible ? 0.34 + 0.66 * smoothProgress : 0;
-
-                      // 3. Depth-of-Field Blur: 0px at center, smoothly increases up to 4.2px in periphery
-                      const blur = (1 - smoothProgress) * 4.2;
-
-                      // 4. Subtle atmospheric brightness: center is radiant, periphery is softly dimmed
-                      const brightness = 0.82 + 0.23 * smoothProgress;
-
-                      // 5. 3D translateZ: brings center card forward toward the camera (+75px to -70px)
-                      const translateZ = (smoothProgress - 0.5) * 150;
-
-                      // 6. 3D Perspective Rotation: cards turn slightly inward towards viewer
-                      const rotateY = -relativeAngle * 0.38;
-
-                      // 7. Dynamic Z-Index: center card has highest priority
-                      const zIndex = Math.round(15 + smoothProgress * 35);
-
-                      const isCurrentActive = index === activeIndex;
-
-                      return (
-                        <div
-                          key={skill.name}
-                          className="toolkit-slot absolute inset-0 pointer-events-none"
-                          style={{
-                            transform: `rotate(${relativeAngle}deg)`,
-                            transformOrigin: "50% 50%",
-                            transformStyle: "preserve-3d",
-                            visibility: isVisible ? "visible" : "hidden",
-                            zIndex: zIndex
-                          }}
-                        >
-                          {/* Card wrapper with 3D translation, depth blur, scale, and perspective */}
-                          <div
-                            className={`absolute top-0 left-1/2 pointer-events-auto ${
-                              isDragging ? "transition-none" : "transition-transform duration-200 ease-out"
-                            }`}
-                            style={{
-                              transform: `translate(-50%, -50%) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
-                              transformStyle: "preserve-3d",
-                              opacity: opacity,
-                              filter: `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`
-                            }}
-                          >
-                            <ToolkitCard
-                              skill={skill}
-                              isActive={isCurrentActive}
-                              smoothProgress={smoothProgress}
-                              onClick={() => scrollToCard(index)}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Left & Right Floating Arch Navigation Arrows */}
-                  <button
-                    onClick={prevCard}
-                    aria-label="Previous Skill Card"
-                    className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-card/95 border border-border/80 text-foreground flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all z-40 backdrop-blur-md cursor-pointer hover:border-[#EC844D] hover:text-[#EC844D]"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-
-                  <button
-                    onClick={nextCard}
-                    aria-label="Next Skill Card"
-                    className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-card/95 border border-border/80 text-foreground flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all z-40 backdrop-blur-md cursor-pointer hover:border-[#EC844D] hover:text-[#EC844D]"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-
-                  {/* Bottom Drag Instruction Hint */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-2 text-[11px] text-muted-foreground/80 bg-card/75 backdrop-blur px-3.5 py-1 rounded-full border border-border/40 shadow-sm">
-                    <SlidersHorizontal className="w-3 h-3 text-[#EC844D]" />
-                    <span>Scroll or drag horizontally to navigate cards</span>
-                  </div>
-                </div>
-
-                {/* Active Card Spotlight HUD */}
-                <div className="mt-2 p-3 sm:p-4 rounded-2xl bg-card/85 border border-border/60 max-w-xl mx-auto backdrop-blur-md shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
-                  <div className="flex items-center gap-3 text-left">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center border shrink-0 bg-secondary/50 border-[#EC844D]/30"
-                    >
-                      <img
-                        src={iconImages[activeSkill.icon] || activeSkill.icon}
-                        alt={activeSkill.name}
-                        className="w-6 h-6 object-contain"
-                      />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-base text-foreground">{activeSkill.name}</h4>
-                        <span
-                          className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white uppercase bg-gradient-to-r from-[#EC844D] to-[#DE6F36]"
-                        >
-                          {activeMeta.tag}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-muted-foreground">
-                        Proficiency: <span className="font-semibold text-foreground">{activeSkill.level}%</span> • {getProficiencyStatus(activeSkill.level)}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Card Index Indicator & Quick Step Controls */}
-                  <div className="flex items-center gap-3 shrink-0">
-                    <span className="text-xs text-muted-foreground font-mono">
-                      <span className="text-foreground font-bold">{String(activeIndex + 1).padStart(2, "0")}</span> / {String(count).padStart(2, "0")}
-                    </span>
-                    <div className="flex gap-1">
-                      <button
-                        onClick={prevCard}
-                        className="p-1 rounded-lg border border-border hover:bg-secondary transition-colors cursor-pointer hover:border-[#EC844D]"
-                        aria-label="Previous"
-                      >
-                        <ChevronLeft className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={nextCard}
-                        className="p-1 rounded-lg border border-border hover:bg-secondary transition-colors cursor-pointer hover:border-[#EC844D]"
-                        aria-label="Next"
-                      >
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              /* View Mode 2: Responsive Grid Deck */
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 pt-4"
-              >
-                {currentSkills.map((skill) => (
-                  <ToolkitCard
-                    key={skill.name}
-                    skill={skill}
-                    isActive={false}
-                    isGrid={true}
-                  />
-                ))}
-              </motion.div>
-            )}
           </div>
         </div>
       </div>

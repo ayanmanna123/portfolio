@@ -122,7 +122,7 @@ export const EducationToProjectsMorph = () => {
   // 1. Academic section shatters into thousands of kinetic fragments with explosive velocity
   // 2. Swirling vortex of glowing energy embers and trails
   // 3. Particles magnetically assemble and outline the exact wireframe of the Project cards
-  // =========================================================================
+  // Exact Header and Card coordinates sampled directly from live DOM elements
   const generateParticles = useCallback((w, h) => {
     const isMobile = w < 640;
     const isTablet = w >= 640 && w < 1024;
@@ -131,14 +131,82 @@ export const EducationToProjectsMorph = () => {
     const particles = [];
     const rnd = (min, max) => min + Math.random() * (max - min);
 
-    // Exact Header coordinates matching the DOM layout
-    const acadH1 = { x: w * 0.5, y: Math.max(50, h * 0.08), w: isMobile ? 180 : 260 };
-    const acadH2 = { x: w * 0.5, y: Math.max(88, h * 0.13), w: isMobile ? 260 : 420 };
-    const acadH3 = { x: w * 0.5, y: Math.max(124, h * 0.18), w: isMobile ? 240 : 360 };
+    // Try measuring real DOM coordinates relative to stage
+    const stage = stageRef.current;
+    const sRect = stage ? stage.getBoundingClientRect() : null;
 
-    const projH1 = { x: w * 0.5, y: Math.max(48, h * 0.075), w: isMobile ? 160 : 230 };
-    const projH2 = { x: w * 0.5, y: Math.max(84, h * 0.12), w: isMobile ? 220 : 340 };
-    const projH3 = { x: w * 0.5, y: Math.max(118, h * 0.165), w: isMobile ? 250 : 420 };
+    // Academic Header Fallback (centered vertically on screen with cards below it)
+    const acadBlockCenterY = h * 0.5;
+    const estAcadH1Y = Math.max(160, acadBlockCenterY - (isMobile ? 240 : 210));
+
+    const acadH1El = stage?.querySelector('[data-morph="acad-h1"]');
+    const acadH2El = stage?.querySelector('[data-morph="acad-h2"]');
+    const acadDescEl = stage?.querySelector('[data-morph="acad-desc"]');
+
+    const acadH1 = acadH1El && sRect ? {
+      x: acadH1El.getBoundingClientRect().left - sRect.left + acadH1El.getBoundingClientRect().width * 0.5,
+      y: acadH1El.getBoundingClientRect().top - sRect.top + acadH1El.getBoundingClientRect().height * 0.5,
+      w: acadH1El.getBoundingClientRect().width,
+    } : {
+      x: w * 0.5,
+      y: estAcadH1Y,
+      w: isMobile ? 180 : 260,
+    };
+
+    const acadH2 = acadH2El && sRect ? {
+      x: acadH2El.getBoundingClientRect().left - sRect.left + acadH2El.getBoundingClientRect().width * 0.5,
+      y: acadH2El.getBoundingClientRect().top - sRect.top + acadH2El.getBoundingClientRect().height * 0.5,
+      w: acadH2El.getBoundingClientRect().width,
+    } : {
+      x: w * 0.5,
+      y: estAcadH1Y + 44,
+      w: isMobile ? 260 : 420,
+    };
+
+    const acadH3 = acadDescEl && sRect ? {
+      x: acadDescEl.getBoundingClientRect().left - sRect.left + acadDescEl.getBoundingClientRect().width * 0.5,
+      y: acadDescEl.getBoundingClientRect().top - sRect.top + acadDescEl.getBoundingClientRect().height * 0.5,
+      w: acadDescEl.getBoundingClientRect().width,
+    } : {
+      x: w * 0.5,
+      y: estAcadH1Y + 84,
+      w: isMobile ? 240 : 360,
+    };
+
+    // Projects Header
+    const projH1El = stage?.querySelector('[data-morph="proj-h1"]');
+    const projH2El = stage?.querySelector('[data-morph="proj-h2"]');
+    const projDescEl = stage?.querySelector('[data-morph="proj-desc"]');
+
+    const projH1 = projH1El && sRect ? {
+      x: projH1El.getBoundingClientRect().left - sRect.left + projH1El.getBoundingClientRect().width * 0.5,
+      y: projH1El.getBoundingClientRect().top - sRect.top + projH1El.getBoundingClientRect().height * 0.5,
+      w: projH1El.getBoundingClientRect().width,
+    } : {
+      x: w * 0.5,
+      y: Math.max(64, h * 0.08),
+      w: isMobile ? 160 : 230,
+    };
+
+    const projH2 = projH2El && sRect ? {
+      x: projH2El.getBoundingClientRect().left - sRect.left + projH2El.getBoundingClientRect().width * 0.5,
+      y: projH2El.getBoundingClientRect().top - sRect.top + projH2El.getBoundingClientRect().height * 0.5,
+      w: projH2El.getBoundingClientRect().width,
+    } : {
+      x: w * 0.5,
+      y: Math.max(110, h * 0.13),
+      w: isMobile ? 220 : 340,
+    };
+
+    const projH3 = projDescEl && sRect ? {
+      x: projDescEl.getBoundingClientRect().left - sRect.left + projDescEl.getBoundingClientRect().width * 0.5,
+      y: projDescEl.getBoundingClientRect().top - sRect.top + projDescEl.getBoundingClientRect().height * 0.5,
+      w: projDescEl.getBoundingClientRect().width,
+    } : {
+      x: w * 0.5,
+      y: Math.max(154, h * 0.175),
+      w: isMobile ? 250 : 420,
+    };
 
     // 1. Line 1: "Academic" -> "Featured" (Letters crumble into upward-drifting dust)
     const h1Count = Math.round(totalCount * 0.07);
@@ -224,38 +292,60 @@ export const EducationToProjectsMorph = () => {
       });
     }
 
-    // 4. Cards Geometry (3 Columns, identical to DOM layout)
+    // 4. Cards Geometry (3 Columns, measured from live DOM with exact responsive fallback)
     const cardPool = totalCount - particles.length;
     const perCard = Math.floor(cardPool / 3);
 
     const maxContainerW = Math.min(1440, w - (isMobile ? 24 : 64));
     const cardGap = isMobile ? 16 : isTablet ? 20 : 32;
-    const cardW = isMobile ? maxContainerW : isTablet ? (maxContainerW - cardGap) / 2 : (maxContainerW - cardGap * 2) / 3;
-    const cardH = isMobile ? Math.min(320, h * 0.44) : Math.min(400, h * 0.52);
-    const cardTopY = Math.max(projH3.y + 36, h * 0.23);
+    const defCardW = isMobile ? maxContainerW : isTablet ? (maxContainerW - cardGap) / 2 : (maxContainerW - cardGap * 2) / 3;
+    const defCardH = isMobile ? Math.min(320, h * 0.44) : Math.min(400, h * 0.52);
 
     for (let c = 0; c < 3; c++) {
-      let cardX0, cardX1;
-      let cardY0 = cardTopY + cardH * 0.5;
-      let cardY1 = cardTopY + cardH * 0.5;
+      // Academic Card Rect
+      const acadCardEl = stage?.querySelector(`[data-morph="acad-card-${c}"]`);
+      let cardX0, cardY0, cardW0 = defCardW, cardH0 = defCardH;
 
-      if (isMobile) {
-        cardX0 = w * 0.5;
-        cardX1 = w * 0.5;
-        cardY0 = cardTopY + cardH * 0.5 + (c - 1) * 18;
-        cardY1 = cardY0;
-      } else if (isTablet) {
-        if (c < 2) {
-          cardX0 = (w - maxContainerW) * 0.5 + c * (cardW + cardGap) + cardW * 0.5;
-        } else {
-          cardX0 = w * 0.5;
-          cardY0 = cardTopY + cardH * 0.5 + 30;
-        }
-        cardX1 = cardX0;
-        cardY1 = cardY0;
+      if (acadCardEl && sRect) {
+        const cRect = acadCardEl.getBoundingClientRect();
+        cardX0 = cRect.left - sRect.left + cRect.width * 0.5;
+        cardY0 = cRect.top - sRect.top + cRect.height * 0.5;
+        cardW0 = cRect.width;
+        cardH0 = cRect.height;
       } else {
-        cardX0 = (w - maxContainerW) * 0.5 + c * (cardW + cardGap) + cardW * 0.5;
-        cardX1 = cardX0;
+        const acadCardTopY = estAcadH1Y + (isMobile ? 120 : 130);
+        cardY0 = acadCardTopY + defCardH * 0.5;
+        if (isMobile) {
+          cardX0 = w * 0.5;
+          cardY0 += (c - 1) * 18;
+        } else if (isTablet) {
+          cardX0 = c < 2 ? (w - maxContainerW) * 0.5 + c * (defCardW + cardGap) + defCardW * 0.5 : w * 0.5;
+        } else {
+          cardX0 = (w - maxContainerW) * 0.5 + c * (defCardW + cardGap) + defCardW * 0.5;
+        }
+      }
+
+      // Project Card Rect
+      const projCardEl = stage?.querySelector(`[data-morph="proj-card-${c}"]`);
+      let cardX1, cardY1, cardW1 = defCardW, cardH1 = defCardH;
+
+      if (projCardEl && sRect) {
+        const pRect = projCardEl.getBoundingClientRect();
+        cardX1 = pRect.left - sRect.left + pRect.width * 0.5;
+        cardY1 = pRect.top - sRect.top + pRect.height * 0.5;
+        cardW1 = pRect.width;
+        cardH1 = pRect.height;
+      } else {
+        const projCardTopY = Math.max(projH3.y + 36, h * 0.23);
+        cardY1 = projCardTopY + defCardH * 0.5;
+        if (isMobile) {
+          cardX1 = w * 0.5;
+          cardY1 += (c - 1) * 18;
+        } else if (isTablet) {
+          cardX1 = c < 2 ? (w - maxContainerW) * 0.5 + c * (defCardW + cardGap) + defCardW * 0.5 : w * 0.5;
+        } else {
+          cardX1 = (w - maxContainerW) * 0.5 + c * (defCardW + cardGap) + defCardW * 0.5;
+        }
       }
 
       for (let i = 0; i < perCard; i++) {
@@ -266,8 +356,8 @@ export const EducationToProjectsMorph = () => {
         if (randOrigin < 0.35) {
           // Perimeter Border Outline of Academic Card
           const perimeterU = rnd(0, 4);
-          const halfW = cardW * 0.48;
-          const halfH = cardH * 0.48;
+          const halfW = cardW0 * 0.48;
+          const halfH = cardH0 * 0.48;
           if (perimeterU < 1) {
             relX0 = (perimeterU - 0.5) * 2 * halfW;
             relY0 = -halfH;
@@ -285,22 +375,22 @@ export const EducationToProjectsMorph = () => {
           // Top Badges, Graduation Icon, & Year Pill
           const isLeft = Math.random() > 0.5;
           if (isLeft) {
-            relX0 = -cardW * 0.35 + rnd(-16, 16);
-            relY0 = -cardH * 0.36 + rnd(-14, 14);
+            relX0 = -cardW0 * 0.35 + rnd(-16, 16);
+            relY0 = -cardH0 * 0.36 + rnd(-14, 14);
           } else {
-            relX0 = cardW * 0.32 + rnd(-20, 20);
-            relY0 = -cardH * 0.36 + rnd(-8, 8);
+            relX0 = cardW0 * 0.32 + rnd(-20, 20);
+            relY0 = -cardH0 * 0.36 + rnd(-8, 8);
           }
         } else if (randOrigin < 0.80) {
           // Text Content lines & Degrees
           const lineIndex = Math.floor(rnd(0, 4));
-          const lineY = -cardH * 0.16 + lineIndex * (cardH * 0.18);
-          relX0 = rnd(-cardW * 0.42, cardW * 0.42);
+          const lineY = -cardH0 * 0.16 + lineIndex * (cardH0 * 0.18);
+          relX0 = rnd(-cardW0 * 0.42, cardW0 * 0.42);
           relY0 = lineY + rnd(-4, 4);
         } else {
           // Interior Card Body
-          relX0 = rnd(-cardW * 0.44, cardW * 0.44);
-          relY0 = rnd(-cardH * 0.44, cardH * 0.44);
+          relX0 = rnd(-cardW0 * 0.44, cardW0 * 0.44);
+          relY0 = rnd(-cardH0 * 0.44, cardH0 * 0.44);
         }
 
         // --- Explosive Shatter Impulse (Physics vector radiating outward from card center) ---
@@ -310,16 +400,14 @@ export const EducationToProjectsMorph = () => {
         const shatterVy = Math.sin(burstAngle) * burstSpeed - rnd(25, 75); // Upward blast & lift
 
         // --- Project Card Destination Coordinates ---
-        // Assembles the exact silhouette and wireframe of the Project Card:
-        // 40% Card Frame, 20% Top Badge, 20% Bottom Title Banner, 20% Author Row & Arrow
         const randDest = Math.random();
         let relX1 = 0, relY1 = 0;
 
-        if (randDest < 0.40) {
+        if (randDest < 0.45) {
           // Rounded Rectangle Perimeter of the Project Card
           const perimeterU = rnd(0, 4);
-          const halfW = cardW * 0.48;
-          const halfH = cardH * 0.48;
+          const halfW = cardW1 * 0.48;
+          const halfH = cardH1 * 0.48;
           if (perimeterU < 1) {
             relX1 = (perimeterU - 0.5) * 2 * halfW;
             relY1 = -halfH;
@@ -333,31 +421,31 @@ export const EducationToProjectsMorph = () => {
             relX1 = -halfW;
             relY1 = (3.5 - perimeterU) * 2 * halfH;
           }
-        } else if (randDest < 0.60) {
+        } else if (randDest < 0.65) {
           // Card Upper Header / Image Surface
-          relX1 = rnd(-cardW * 0.44, cardW * 0.44);
-          relY1 = -cardH * 0.28 + rnd(-cardH * 0.14, cardH * 0.14);
-        } else if (randDest < 0.80) {
+          relX1 = rnd(-cardW1 * 0.44, cardW1 * 0.44);
+          relY1 = -cardH1 * 0.28 + rnd(-cardH1 * 0.14, cardH1 * 0.14);
+        } else if (randDest < 0.85) {
           // Bottom Title & Category Banner
           const isCategory = Math.random() > 0.6;
           if (isCategory) {
-            relX1 = -cardW * 0.28 + rnd(-24, 24);
-            relY1 = cardH * 0.24 + rnd(-3, 3);
+            relX1 = -cardW1 * 0.28 + rnd(-24, 24);
+            relY1 = cardH1 * 0.24 + rnd(-3, 3);
           } else {
-            relX1 = -cardW * 0.15 + rnd(-cardW * 0.25, cardW * 0.25);
-            relY1 = cardH * 0.32 + rnd(-5, 5);
+            relX1 = -cardW1 * 0.15 + rnd(-cardW1 * 0.25, cardW1 * 0.25);
+            relY1 = cardH1 * 0.32 + rnd(-5, 5);
           }
         } else {
           // Author Row & View Arrow (↗) below card
           const isArrow = Math.random() > 0.5;
           if (isArrow) {
             // Action arrow (↗) at bottom right of card
-            relX1 = cardW * 0.38 + rnd(-8, 8);
-            relY1 = cardH * 0.30 + rnd(-8, 8);
+            relX1 = cardW1 * 0.38 + rnd(-8, 8);
+            relY1 = cardH1 * 0.30 + rnd(-8, 8);
           } else {
             // Author avatar & name row
-            relX1 = -cardW * 0.25 + rnd(-cardW * 0.15, cardW * 0.15);
-            relY1 = cardH * 0.48 + rnd(-4, 4);
+            relX1 = -cardW1 * 0.25 + rnd(-cardW1 * 0.15, cardW1 * 0.15);
+            relY1 = cardH1 * 0.48 + rnd(-4, 4);
           }
         }
 
@@ -638,17 +726,18 @@ export const EducationToProjectsMorph = () => {
                 }}
               >
                 <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-1 sm:mb-2 leading-tight">
-                  <span className="block text-foreground">
+                  <span data-morph="acad-h1" className="block text-foreground">
                     Academic
                   </span>
                   <span
+                    data-morph="acad-h2"
                     className="block font-rakyat text-2xl sm:text-4xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-0.5 pb-0.5 font-normal"
                     style={{ fontFamily: "'Rakyat', cursive" }}
                   >
                     Education & Degrees
                   </span>
                 </h2>
-                <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                <p data-morph="acad-desc" className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   My academic background and qualifications.
                 </p>
               </div>
@@ -663,7 +752,7 @@ export const EducationToProjectsMorph = () => {
                 }}
               >
                 {educationData.map((item, index) => (
-                  <div key={item.id || index} className="w-full">
+                  <div key={item.id || index} data-morph={`acad-card-${index}`} className="w-full">
                     <div className="bg-card/90 dark:bg-slate-900/60 border border-border rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-lg h-full flex flex-col justify-between text-left">
                       <div>
                         <div className="flex items-start justify-between mb-3">
@@ -729,6 +818,7 @@ export const EducationToProjectsMorph = () => {
               <div className="text-center mb-4 sm:mb-6 px-2 sm:px-6">
                 <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-1 sm:mb-2 leading-tight">
                   <span
+                    data-morph="proj-h1"
                     className="block text-foreground transition-all duration-200"
                     style={{
                       opacity: isMorphComplete ? 1 : projH1Opacity,
@@ -738,6 +828,7 @@ export const EducationToProjectsMorph = () => {
                     Featured
                   </span>
                   <span
+                    data-morph="proj-h2"
                     className="block font-rakyat text-2xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-0.5 pb-0.5 font-normal transition-all duration-200"
                     style={{
                       fontFamily: "'Rakyat', cursive",
@@ -751,6 +842,7 @@ export const EducationToProjectsMorph = () => {
 
                 {/* 2. Description */}
                 <p
+                  data-morph="proj-desc"
                   className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed transition-all duration-200 mb-2 sm:mb-4"
                   style={{
                     opacity: isMorphComplete ? 1 : projDescOpacity,
@@ -770,9 +862,10 @@ export const EducationToProjectsMorph = () => {
                 }}
               >
                 <AnimatePresence>
-                  {displayedProjects.map((project) => (
+                  {displayedProjects.map((project, index) => (
                     <div
                       key={project.id}
+                      data-morph={`proj-card-${index}`}
                       className="group text-left will-change-transform will-change-opacity"
                     >
                       {/* Main Card Box - Clicking opens /project/:id in the SAME website */}

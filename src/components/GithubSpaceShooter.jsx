@@ -28,8 +28,8 @@ export const GithubSpaceShooter = () => {
         <div className="w-full overflow-x-auto pb-2 pt-1 custom-scrollbar">
             <div className="min-w-[700px] flex justify-center py-2 relative">
                 {isLoading && (
-                    <div className="h-[140px] sm:h-[160px] w-full flex items-center justify-center text-muted-foreground animate-pulse text-sm">
-                        <RefreshCw className="w-5 h-5 animate-spin mr-2 text-[#EC844D]" />
+                    <div className="h-[140px] sm:h-[160px] w-full flex items-center justify-center text-[#78756e] font-digital animate-pulse text-sm">
+                        <RefreshCw className="w-5 h-5 animate-spin mr-2 text-[#e59845]" />
                         Loading space shooter...
                     </div>
                 )}

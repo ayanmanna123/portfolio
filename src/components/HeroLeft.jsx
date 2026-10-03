@@ -71,7 +71,7 @@ export const HeroLeft = () => {
           </motion.span>
           <SplitText
             text={heroData.subtitle || "Full-Stack Engineer"}
-            className="block font-handwriting text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[#e59845] mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal"
+            className="block font-caveat-brush text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[6.5rem] leading-[0.95] text-[#e59845] mt-2 sm:mt-3 pb-1 sm:pb-3 font-normal"
             delay={50}
             duration={1.25}
             ease="power3.out"

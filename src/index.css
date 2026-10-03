@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/jetbrains-mono";
+@import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap");
 
 @font-face {
   font-family: 'Rakyat';
@@ -27,6 +28,7 @@
   --font-mono: 'JetBrains Mono', monospace;
   --font-rakyat: 'Rakyat', cursive, sans-serif;
   --font-analogist: 'Analogist', serif, sans-serif;
+  --font-caveat-brush: 'Caveat Brush', cursive;
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -236,6 +238,10 @@
   font-family: 'Rakyat', cursive, sans-serif !important;
   line-height: 1.35;
   padding-bottom: 0.18em;
+}
+
+@utility font-caveat-brush {
+  font-family: 'Caveat Brush', cursive, sans-serif !important;
 }
 
 @utility font-analogist {

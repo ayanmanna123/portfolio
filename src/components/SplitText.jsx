@@ -126,7 +126,7 @@ export const SplitText = ({
               key={charIndex}
               className="split-char inline-block will-change-transform will-change-opacity bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent"
               style={{
-                fontFamily: "'Rakyat', cursive, sans-serif",
+                fontFamily: 'inherit',
               }}
             >
               {char}

@@ -153,6 +153,46 @@ export const HeroSection = () => {
         },
         0.35
       );
+
+      // Pill reveal
+      tl.fromTo(
+        ".portal-pill",
+        { opacity: 0, y: -25, scale: 0.85 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.4)" },
+        0.42
+      );
+
+      // Heading Line 1: "Where Technical Precision Meets"
+      tl.fromTo(
+        ".portal-title-line1",
+        { opacity: 0, y: 50, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" },
+        0.46
+      );
+
+      // Heading Line 2: "Creative Engineering" (Cursive gradient accent)
+      tl.fromTo(
+        ".portal-title-line2",
+        { opacity: 0, y: 60, scale: 0.9, filter: "blur(12px)" },
+        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" },
+        0.52
+      );
+
+      // Description text
+      tl.fromTo(
+        ".portal-desc",
+        { opacity: 0, y: 30, filter: "blur(6px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power2.out" },
+        0.58
+      );
+
+      // Explore Case Studies cue
+      tl.fromTo(
+        ".portal-cta",
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.5)" },
+        0.64
+      );
     },
     { scope: containerRef }
   );
@@ -278,20 +318,25 @@ export const HeroSection = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-[#EC844D]/25 to-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC844D]/15 border border-[#EC844D]/30 text-[#EC844D] text-xs font-mono uppercase tracking-wider">
+            <div className="portal-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC844D]/15 border border-[#EC844D]/30 text-[#EC844D] text-xs font-mono uppercase tracking-wider will-change-[transform,opacity]">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Curated Case Studies & Architecture</span>
             </div>
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.15]">
-              Where Technical Precision Meets{" "}
-              <span className="font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent block sm:inline mt-1 sm:mt-0">
+              <span className="portal-title-line1 block will-change-[transform,opacity,filter]">
+                Where Technical Precision Meets
+              </span>{" "}
+              <span 
+                className="portal-title-line2 font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent block mt-1 sm:mt-2 pb-1 will-change-[transform,opacity,filter]"
+                style={{ fontFamily: "'Rakyat', cursive" }}
+              >
                 Creative Engineering
               </span>
             </h2>
-            <p className="text-muted-foreground text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-light">
+            <p className="portal-desc text-muted-foreground text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-light will-change-[transform,opacity,filter]">
               Deep dives into <span className="text-foreground font-medium">high-performance systems</span>, scalable architectures, and <span className="text-foreground font-medium">pixel-crafted digital experiences</span>.
             </p>
-            <div className="pt-3 flex items-center gap-2 text-xs font-mono text-[#EC844D] uppercase tracking-widest animate-bounce">
+            <div className="portal-cta pt-3 flex items-center gap-2 text-xs font-mono text-[#EC844D] uppercase tracking-widest animate-bounce will-change-[transform,opacity]">
               <span>Explore Case Studies</span>
               <ArrowDown className="w-4 h-4" />
             </div>

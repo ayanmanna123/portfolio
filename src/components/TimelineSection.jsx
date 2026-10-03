@@ -6,7 +6,6 @@ import { journeyData } from '../data';
 import { journeyImages, journeyCategories } from '../data/journeyImages';
 import { 
     Briefcase, 
-    Sparkles, 
     ChevronDown, 
     GraduationCap, 
     ArrowRight
@@ -16,6 +15,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TimelineSection = () => {
     const sectionRef = useRef(null);
+    const headerRef = useRef(null);
+    const line1Ref = useRef(null);
+    const line2Ref = useRef(null);
+    const line3Ref = useRef(null);
     const trackRef = useRef(null);
     const stageRef = useRef(null);
     const slidesRef = useRef([]);
@@ -35,6 +38,61 @@ const TimelineSection = () => {
         if (!trackRef.current || !stageRef.current) return;
 
         const ctx = gsap.context(() => {
+            // Header entrance animations
+            if (line1Ref.current) {
+                gsap.fromTo(
+                    line1Ref.current,
+                    { y: 200, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 60%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
+            if (line2Ref.current) {
+                gsap.fromTo(
+                    line2Ref.current,
+                    { y: 200, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 40%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
+            if (line3Ref.current) {
+                gsap.fromTo(
+                    line3Ref.current,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 20%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
             const totalSlides = items.length;
             if (totalSlides <= 1) return;
 
@@ -161,24 +219,26 @@ const TimelineSection = () => {
             className="relative w-full bg-background text-foreground selection:bg-[#EC844D] selection:text-white"
         >
             {/* Introductory Section Header */}
-            <div className="py-16 sm:py-24 px-4 sm:px-6 md:px-8 text-center max-w-5xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC844D]/10 border border-[#EC844D]/25 text-[#EC844D] text-xs sm:text-sm font-medium tracking-wide mb-4 shadow-sm backdrop-blur-md">
-                    <Sparkles className="w-3.5 h-3.5 text-[#EC844D]" />
-                    <span>CAREER MILESTONES & GROWTH</span>
-                </div>
-
-                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.1] mb-4">
-                    Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36]">Journey</span>
+            <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6 pt-16 sm:pt-24 max-w-5xl mx-auto">
+                <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
+                    <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
+                        Professional
+                    </span>
+                    <span
+                        ref={line2Ref}
+                        className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
+                        style={{ fontFamily: "'Rakyat', cursive" }}
+                    >
+                        Journey
+                    </span>
                 </h2>
 
-                <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                <p
+                    ref={line3Ref}
+                    className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+                >
                     A cinematic walkthrough of leadership, technical milestones, hackathons, and foundational education. Scroll to explore the chapters.
                 </p>
-
-                <div className="mt-8 flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground/80">
-                    <span className="w-2 h-2 rounded-full bg-[#EC844D] animate-ping" />
-                    <span>Scroll down to navigate through time</span>
-                </div>
             </div>
 
             {/* Scroll Track: Height provides the scrub distance */}
@@ -214,68 +274,31 @@ const TimelineSection = () => {
                     ))}
 
                     {/* Stage UI Content & Controls (Layered on top of images) */}
-                    <div className="relative z-20 w-full h-full flex flex-col justify-between p-5 sm:p-8 md:p-12 lg:p-16 pointer-events-none">
+                    <div className="relative z-20 w-full h-full flex flex-col justify-end p-5 sm:p-8 md:p-12 lg:p-16 pointer-events-none">
                         
-                        {/* Top Bar: Minimal Floema Style (No Cluttered Year Strip) */}
-                        <div className="flex items-center justify-between w-full pointer-events-auto">
-                            {/* Left: Live Milestone Pill */}
-                            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/35 backdrop-blur-md border border-white/15 text-white/90 text-xs sm:text-sm font-medium shadow-md">
-                                <span className="w-2 h-2 rounded-full bg-[#EC844D] animate-pulse" />
-                                <span className="tracking-wide">
-                                    Milestone <span className="font-mono font-bold text-[#FFAE80]">0{activeIndex + 1}</span> of <span className="font-mono text-white/60">0{items.length}</span>
-                                </span>
-                            </div>
-
-                            {/* Center: Floema Category Pill */}
-                            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-[#FFAE80] text-xs sm:text-sm font-semibold shadow-md">
-                                <Sparkles className="w-3.5 h-3.5 text-[#EC844D]" />
-                                <span className="text-white font-medium">{items[activeIndex].category}</span>
-                            </div>
-
-                            {/* Right Spacer for Balance */}
-                            <div className="w-24 sm:w-28 hidden sm:block" />
-                        </div>
-
-                        {/* Mid-Area: Left Rail & Main Narrative Content */}
+                        {/* Narrative Content & Controls */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end my-auto pb-4">
                             
-                            {/* Left Column: Floema-Style Clean Numeric Counter (No Year List) */}
-                            <div className="hidden sm:flex lg:col-span-2 flex-col items-start pointer-events-auto">
-                                <div className="flex items-baseline gap-1.5 font-mono">
-                                    <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tighter drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
-                                        0{activeIndex + 1}
-                                    </span>
-                                    <span className="text-lg sm:text-xl font-bold text-white/40 drop-shadow">
-                                        / 0{items.length}
-                                    </span>
-                                </div>
-                            </div>
-
                             {/* Center Narrative Block: Animated Titles & Descriptions */}
-                            <div className="lg:col-span-7 relative min-h-[260px] sm:min-h-[280px] md:min-h-[320px] flex items-end">
+                            <div className="lg:col-span-8 xl:col-span-9 relative min-h-[260px] sm:min-h-[280px] md:min-h-[320px] flex items-end">
                                 {items.map((item, idx) => (
                                     <div
                                         key={idx}
                                         ref={(el) => (textCardsRef.current[idx] = el)}
                                         className={`w-full text-left pointer-events-auto transition-all ${
                                             idx === 0 
-                                                ? 'opacity-100 relative' 
-                                                : 'opacity-0 absolute inset-x-0 bottom-0 pointer-events-none'
+                                                 ? 'opacity-100 relative' 
+                                                 : 'opacity-0 absolute inset-x-0 bottom-0 pointer-events-none'
                                         }`}
                                     >
-                                        {/* Year & Company / Institution Header */}
-                                        <div className="flex flex-wrap items-center gap-2.5 mb-2.5">
-                                            <span className="px-2.5 py-0.5 rounded-full bg-[#EC844D]/25 backdrop-blur-md border border-[#EC844D]/45 text-[#FFAE80] text-xs font-mono font-bold shadow-sm">
-                                                {item.year}
-                                            </span>
-                                            <div className="flex items-center gap-1.5 text-white/90 font-semibold text-xs sm:text-sm md:text-base tracking-wide uppercase drop-shadow-md">
-                                                {item.company.includes('School') || item.company.includes('Vidyapith') || item.company.includes('Institute') ? (
-                                                    <GraduationCap className="w-4 h-4 shrink-0 text-[#EC844D]" />
-                                                ) : (
-                                                    <Briefcase className="w-4 h-4 shrink-0 text-[#EC844D]" />
-                                                )}
-                                                <span className="line-clamp-1">{item.company}</span>
-                                            </div>
+                                        {/* Company / Institution Header */}
+                                        <div className="flex items-center gap-1.5 text-white/90 font-semibold text-xs sm:text-sm md:text-base tracking-wide uppercase drop-shadow-md mb-2.5">
+                                            {item.company.includes('School') || item.company.includes('Vidyapith') || item.company.includes('Institute') ? (
+                                                <GraduationCap className="w-4 h-4 shrink-0 text-[#EC844D]" />
+                                            ) : (
+                                                <Briefcase className="w-4 h-4 shrink-0 text-[#EC844D]" />
+                                            )}
+                                            <span className="line-clamp-1">{item.company}</span>
                                         </div>
 
                                         {/* Large Role Title */}
@@ -304,7 +327,7 @@ const TimelineSection = () => {
                             </div>
 
                             {/* Right Column: Floema-Style Floating Highlight Card */}
-                            <div className="hidden lg:flex lg:col-span-3 justify-end pointer-events-auto">
+                            <div className="hidden lg:flex lg:col-span-4 xl:col-span-3 justify-end pointer-events-auto">
                                 <motion.div 
                                     key={activeIndex}
                                     initial={{ opacity: 0, scale: 0.94, y: 15 }}

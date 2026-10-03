@@ -1,10 +1,10 @@
-import hackathonDeepLearningImg from '../assets/journey_image/Hackathon Finalist & Deep Learning Engineer.jpg';
-import industrialVisitImg from '../assets/journey_image/Industrial Visit Delegate.jpg';
+import hackathonDeepLearningImg from '../assets/journey_image/Hackathon Finalist & Deep Learning Engineer.png';
+import industrialVisitImg from '../assets/journey_image/Industrial Visit Delegate.png';
 import magazineEditorImg from '../assets/journey_image/Magazine Editor & Contributing Writer.png';
 import hackathonCoderImg from '../assets/journey_image/Hackathon Participant & Competitive Coder.png';
 import fullStackImg from '../assets/journey_image/Full Stack Developer.jpg';
-import engineeringStudentImg from '../assets/journey_image/Engineering Student.jpg';
-import schoolImg from '../assets/journey_image/gujarpur-surendranath-bidyapith-guzarpur-howrah-bengali-medium-schools-0fwaddnfdj.avif';
+import engineeringStudentImg from '../assets/journey_image/Engineering Student.png';
+import schoolImg from '../assets/journey_image/gujarpur-surendranath-bidyapith-guzarpur-howrah-bengali-medium-schools-0fwaddnfdj.png';
 
 export const journeyImages = [
   hackathonDeepLearningImg, // 2026 - Hackathon Finalist & Deep Learning Engineer

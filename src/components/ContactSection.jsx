@@ -8,7 +8,8 @@ import {
   Send,
   Twitter,
   Github,
-  Loader2
+  Loader2,
+  Sparkles
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -39,15 +40,15 @@ export const ContactSection = () => {
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
-          { y: 150, opacity: 0 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 60%",
+              start: "top 75%",
               toggleActions: "play none none reverse",
             },
           }
@@ -57,15 +58,15 @@ export const ContactSection = () => {
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
-          { y: 150, opacity: 0 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 40%",
+              start: "top 65%",
               toggleActions: "play none none reverse",
             },
           }
@@ -75,15 +76,15 @@ export const ContactSection = () => {
       if (line3Ref.current) {
         gsap.fromTo(
           line3Ref.current,
-          { y: 50, opacity: 0 },
+          { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 2,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 20%",
+              start: "top 55%",
               toggleActions: "play none none reverse",
             },
           }
@@ -157,7 +158,7 @@ export const ContactSection = () => {
           title: "Message sent! 🎉",
           description: "I'll get back to you within 24 hours.",
           variant: "success",
-          className: "bg-green-600 text-white dark:bg-green-500 border border-green-700 shadow-lg"
+          className: "bg-[#e59845] text-white border-none shadow-lg"
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
@@ -175,73 +176,110 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-14 sm:py-20 md:py-28 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5">
-      {/* Background Decor */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
-      </div>
+    <section
+      id="contact"
+      className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden bg-[#eae7e1] text-[#43413d] select-none transition-colors"
+    >
+      {/* Exact Neumorphic Soft UI Styles from SoftUiWidgets.jsx */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
 
       <div className="container mx-auto max-w-6xl relative z-10">
-        <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
-          <span className="inline-block px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-full bg-primary/10 text-primary mb-3 sm:mb-4 border border-primary/20">
-            Let's Connect
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
-            <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
-              Let's
-            </span>
+        {/* Header: Styled like SoftUiGreeting */}
+        <div ref={headerRef} className="text-center mb-12 sm:mb-16 px-2 sm:px-6">
+          <div ref={line1Ref} className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
+            <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+            <span>Let's.Connect</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-1 leading-tight tracking-tight text-[#43413d]">
+            <span>Get In </span>
             <span
               ref={line2Ref}
-              className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
-              style={{ fontFamily: "'Rakyat', cursive" }}
+              className="text-[#e59845] font-handwriting font-bold"
             >
-              Get In Touch
+              Touch
             </span>
           </h2>
+
           <p
             ref={line3Ref}
-            className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+            className="text-xs sm:text-sm text-[#78756e] font-medium font-handwriting max-w-xl mx-auto leading-relaxed mt-1"
           >
             Have a project in mind, a question, or just want to say hi? My inbox is always open.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-12">
-          {/* Contact Information */}
-          <div className="space-y-6 sm:space-y-8 p-5 sm:p-8 rounded-2xl bg-gradient-to-br from-secondary/20 to-background border border-border">
-            <h3 className="text-lg sm:text-2xl font-bold">
-              Contact Details
-            </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          {/* Card 1: Contact Details & Social Links */}
+          <div className="soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-9 flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#383a3d] font-digital mb-6">
+                Contact Details
+              </h3>
 
-            <div className="space-y-3 sm:space-y-5">
-              {contactInfo.map((info, index) => (
-                <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-accent/30 rounded-xl transition-all duration-300">
-                  <div className="p-2.5 sm:p-3 rounded-xl bg-primary/10 text-primary shrink-0">
-                    {info.icon}
+              <div className="space-y-3.5 sm:space-y-4">
+                {contactInfo.map((info, index) => (
+                  <div
+                    key={index}
+                    className="soft-ui-inset-subtle rounded-[22px] p-3.5 sm:p-4 flex items-center gap-4 bg-[#e6e3dc] transition-all hover:scale-[1.01]"
+                  >
+                    <div className="soft-ui-raised w-11 h-11 rounded-[16px] flex items-center justify-center shrink-0 bg-[#eae7e1] text-[#e59845]">
+                      {info.icon}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] text-[#78756e] font-handwriting font-bold uppercase tracking-wider">
+                        {info.label}
+                      </p>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          className="text-sm sm:text-base font-bold text-[#383a3d] font-digital hover:text-[#e59845] transition-colors truncate block"
+                        >
+                          {info.text}
+                        </a>
+                      ) : (
+                        <span className="text-sm sm:text-base font-bold text-[#383a3d] font-digital truncate block">
+                          {info.text}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-xs text-muted-foreground font-medium">{info.label}</p>
-                    {info.href ? (
-                      <a
-                        href={info.href}
-                        className="text-sm sm:text-base font-medium hover:text-primary transition-colors truncate block"
-                      >
-                        {info.text}
-                      </a>
-                    ) : (
-                      <span className="text-sm sm:text-base font-medium truncate block">
-                        {info.text}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            <div className="pt-4 sm:pt-6 border-t border-border/50">
-              <h4 className="font-semibold mb-3 text-xs sm:text-sm text-muted-foreground uppercase tracking-wider">Find me on</h4>
+            {/* Social Links Strip */}
+            <div className="pt-6 sm:pt-8 mt-6 border-t border-[#cdc8be]/40">
+              <h4 className="font-bold mb-3 text-xs text-[#78756e] font-handwriting uppercase tracking-wider">
+                Find me on
+              </h4>
               <div className="flex flex-wrap gap-2.5 sm:gap-3">
                 {socialLinks.map((social, index) => (
                   <a
@@ -249,7 +287,7 @@ export const ContactSection = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-accent hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px]"
+                    className="soft-ui-raised w-11 h-11 rounded-[16px] flex items-center justify-center text-[#5a5751] hover:text-[#e59845] hover:scale-105 active:scale-95 transition-all bg-[#eae7e1] border border-[#dedad1]"
                     aria-label={social.label}
                   >
                     {social.icon}
@@ -259,9 +297,9 @@ export const ContactSection = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="p-5 sm:p-8 rounded-2xl bg-card border border-border shadow-sm">
-            <h3 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6">
+          {/* Card 2: Contact Form */}
+          <div className="soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-9 flex flex-col justify-between">
+            <h3 className="text-2xl sm:text-3xl font-black text-[#383a3d] font-digital mb-6">
               Send Me a Message
             </h3>
 
@@ -269,7 +307,7 @@ export const ContactSection = () => {
               <div className="space-y-1.5">
                 <label
                   htmlFor="name"
-                  className="text-xs sm:text-sm font-medium text-muted-foreground"
+                  className="text-xs font-bold text-[#78756e] font-handwriting block pl-1"
                 >
                   Your Name
                 </label>
@@ -280,7 +318,7 @@ export const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all text-base"
+                  className="w-full px-4 py-3 rounded-2xl soft-ui-inset bg-[#e4e1d9] text-[#383a3d] font-medium text-sm border-none focus:outline-none focus:ring-2 focus:ring-[#e59845]/40 placeholder:text-[#99948c] transition-all"
                   placeholder="John Doe"
                 />
               </div>
@@ -288,7 +326,7 @@ export const ContactSection = () => {
               <div className="space-y-1.5">
                 <label
                   htmlFor="email"
-                  className="text-xs sm:text-sm font-medium text-muted-foreground"
+                  className="text-xs font-bold text-[#78756e] font-handwriting block pl-1"
                 >
                   Your Email
                 </label>
@@ -299,7 +337,7 @@ export const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all text-base"
+                  className="w-full px-4 py-3 rounded-2xl soft-ui-inset bg-[#e4e1d9] text-[#383a3d] font-medium text-sm border-none focus:outline-none focus:ring-2 focus:ring-[#e59845]/40 placeholder:text-[#99948c] transition-all"
                   placeholder="john@example.com"
                 />
               </div>
@@ -307,7 +345,7 @@ export const ContactSection = () => {
               <div className="space-y-1.5">
                 <label
                   htmlFor="message"
-                  className="text-xs sm:text-sm font-medium text-muted-foreground"
+                  className="text-xs font-bold text-[#78756e] font-handwriting block pl-1"
                 >
                   Your Message
                 </label>
@@ -318,7 +356,7 @@ export const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none text-base"
+                  className="w-full px-4 py-3 rounded-2xl soft-ui-inset bg-[#e4e1d9] text-[#383a3d] font-medium text-sm border-none focus:outline-none focus:ring-2 focus:ring-[#e59845]/40 placeholder:text-[#99948c] transition-all resize-none"
                   placeholder="Hey, I'd love to collaborate on..."
                 />
               </div>
@@ -327,19 +365,19 @@ export const ContactSection = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "w-full flex items-center justify-center gap-2 py-3 sm:py-3.5 px-6 rounded-xl bg-[#EC844D] hover:bg-[#DE743C] text-white font-bold transition-all duration-300 shadow-lg shadow-[#EC844D]/25 text-sm sm:text-base cursor-pointer min-h-[48px]",
-                  isSubmitting && "opacity-80 cursor-not-allowed"
+                  "w-full soft-ui-raised rounded-2xl py-3.5 px-6 font-bold text-sm sm:text-base text-[#383a3d] font-handwriting flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.98] transition-all bg-[#eae7e1] border border-[#dedad1] cursor-pointer mt-2",
+                  isSubmitting && "opacity-75 cursor-not-allowed"
                 )}
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
-                    Sending...
+                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin text-[#e59845]" />
+                    <span>Sending...</span>
                   </>
                 ) : (
                   <>
-                    Send Message
-                    <Send size={16} className="sm:size-[18px]" />
+                    <span>Send Message</span>
+                    <Send size={15} className="text-[#e59845]" />
                   </>
                 )}
               </button>
@@ -350,3 +388,5 @@ export const ContactSection = () => {
     </section>
   );
 };
+
+export default ContactSection;

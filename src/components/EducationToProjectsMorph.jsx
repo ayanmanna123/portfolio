@@ -258,7 +258,7 @@ export const EducationToProjectsMorph = () => {
         tEmit: rnd(0.10, 0.22),
         tArrive: rnd(0.64, 0.76),
         radius: rnd(1.2, 2.5),
-        color: Math.random() > 0.3 ? '#EC844D' : '#FFAE80',
+        color: Math.random() > 0.4 ? '#e59845' : '#f06292',
         isGlow: Math.random() > 0.5,
         type: 'h2',
       });
@@ -286,7 +286,7 @@ export const EducationToProjectsMorph = () => {
         tEmit: rnd(0.12, 0.25),
         tArrive: rnd(0.68, 0.80),
         radius: rnd(1.0, 2.0),
-        color: '#FFD8B2',
+        color: Math.random() > 0.5 ? '#e59845' : '#bbb7ad',
         isGlow: Math.random() > 0.7,
         type: 'h3',
       });

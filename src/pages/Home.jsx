@@ -21,7 +21,7 @@ const Footer = React.lazy(() => import("../components/Footer").then(module => ({
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
-    <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+    <div className="w-10 h-10 border-4 border-[#e59845] border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
@@ -44,7 +44,7 @@ export const Home = () => {
     }
   }, [location.hash]);
   return (
-    <div className="min-h-screen bg-transparent dark:bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#eae7e1] text-[#2d2b28] selection:bg-[#e59845]/25 selection:text-[#2d2b28] overflow-x-hidden">
       <Helmet>
         <title>Home | Ayan Manna | Portfolio</title>
         <meta name="description" content="Welcome to Ayan Manna's portfolio. Explore projects, skills, and achievements." />

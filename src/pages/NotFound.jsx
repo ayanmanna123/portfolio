@@ -1,194 +1,143 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, Search, Zap, Code, Home } from "lucide-react";
+import { ArrowLeft, Home, Code, Compass, Terminal, Sparkles, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
 export const NotFound = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-[#EC844D]/10 flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#eae7e1] text-[#2d2b28] selection:bg-[#e59845]/25 selection:text-[#2d2b28] flex flex-col justify-between relative overflow-x-hidden font-digital">
       <Helmet>
         <title>404 - Page Not Found | Ayan Manna</title>
         <meta name="description" content="The page you are looking for does not exist." />
       </Helmet>
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 opacity-25">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(236,132,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(236,132,77,0.08)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
-        </div>
 
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute bg-gradient-to-r from-[#EC844D]/15 to-[#FFD8B2]/10 rounded-lg"
-            style={{
-              width: Math.random() * 60 + 20 + "px",
-              height: Math.random() * 60 + 20 + "px",
-              left: Math.random() * 100 + "%",
-              top: Math.random() * 100 + "%",
-              rotate: Math.random() * 360,
-            }}
-            animate={{
-              y: [0, (Math.random() - 0.5) * 60],
-              x: [0, (Math.random() - 0.5) * 40],
-              opacity: [0.1, 0.25, 0.1],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: Math.random() * 6 + 4,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        ))}
+      {/* Embedded Neumorphic Styles */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 6px 6px 14px #cfcbc2, -6px -6px 14px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 3px 3px 6px #cac5bb, inset -3px -3px 6px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
 
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 rounded-full bg-gradient-to-r from-[#EC844D]/15 to-[#FFD8B2]/10 blur-[100px]"
-          animate={{ x: [0, 30, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-72 h-72 rounded-full bg-gradient-to-r from-[#FFD8B2]/15 to-[#EC844D]/10 blur-[100px]"
-          animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 20, repeat: Infinity, delay: 2 }}
-        />
-      </div>
+      <Navbar />
 
-      <div className="max-w-2xl w-full text-center z-10">
-        {/* 404 Code Display */}
+      <main className="flex-1 flex items-center justify-center px-4 pt-28 pb-16 relative z-10">
         <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 25, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl w-full soft-ui-raised-card rounded-[36px] p-8 sm:p-12 border border-[#dedad1] text-center relative overflow-hidden"
         >
-          <div className="relative inline-block">
-            <div className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mb-4">
-              404
+          {/* Top Status Header Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full soft-ui-inset text-xs font-mono text-[#5a5751] mb-8 border border-[#cdc8be]">
+            <span className="w-2 h-2 rounded-full bg-[#f06292] animate-pulse" />
+            <span>HTTP_ERROR // 404_NOT_FOUND</span>
+          </div>
+
+          {/* 404 Giant Clay Display */}
+          <div className="relative inline-block mb-6 select-none">
+            <div className="text-8xl sm:text-9xl font-black tracking-tight text-[#2d2b28] drop-shadow-sm flex items-center justify-center">
+              <span>4</span>
+              <span className="text-[#e59845] mx-1 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>0</span>
+              <span>4</span>
             </div>
-            <div className="absolute -top-4 -right-4 bg-red-500 text-white text-xs font-mono px-2 py-1 rounded">
+            <div className="absolute -top-2 -right-4 px-2.5 py-0.5 rounded-full bg-[#f06292] text-white text-[11px] font-mono font-bold shadow-sm rotate-6">
               Exception
             </div>
           </div>
-        </motion.div>
 
-        {/* Error Message */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Component Not Found
+          {/* Headline and Description */}
+          <h1 className="text-2xl sm:text-3xl font-black text-[#2d2b28] mb-3">
+            Component Route Not Found
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto leading-relaxed">
-            The component you're looking for is undefined. It may have been unmounted,
-            garbage collected, or simply lost in the dependency tree.
+          <p className="text-sm sm:text-base text-[#5a5751] max-w-lg mx-auto leading-relaxed mb-8">
+            The page or route you requested is undefined. It may have been unmounted, moved, or deleted from the portfolio registry.
           </p>
-        </motion.div>
 
-        {/* Animated Code Snippet */}
-        <motion.div
-          className="bg-background/80 border border-border rounded-xl p-6 mb-8 backdrop-blur-sm max-w-md mx-auto relative overflow-hidden group"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          {/* Scanline effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
-
-          <div className="flex items-center gap-2 mb-4 border-b border-border pb-2">
-            <div className="flex gap-1">
-              <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
-              <div className="w-3 h-3 rounded-full bg-[#FFD8B2]"></div>
-              <div className="w-3 h-3 rounded-full bg-[#EC844D]"></div>
+          {/* Debossed Terminal Diagnostics Box */}
+          <div className="soft-ui-inset rounded-2xl p-5 mb-8 text-left border border-[#cdc8be] font-mono text-xs overflow-hidden">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#cdc8be]">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#f06292]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e59845]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#8b8780]" />
+              </div>
+              <span className="text-[11px] text-[#8b8780] flex items-center gap-1">
+                <Terminal size={12} /> route_trace.log
+              </span>
             </div>
-            <div className="text-sm font-mono text-muted-foreground flex-1 text-center">
-              stack_trace.js
+
+            <div className="space-y-1 text-[#43413d]">
+              <p className="text-[#8b8780] italic">// Unhandled Route Exception</p>
+              <p>
+                <span className="text-[#e59845]">lookupRoute</span>
+                <span className="text-[#8b8780]">(</span>
+                <span className="text-[#2d2b28] font-semibold">"{typeof window !== 'undefined' ? window.location.pathname : '/404'}"</span>
+                <span className="text-[#8b8780]">)</span>
+                <span className="text-[#f06292]"> =&gt; </span>
+                <span className="text-[#f06292] font-semibold">404 null</span>
+              </p>
+              <p>
+                <span className="text-[#8b8780]">suggestion:</span>
+                <span className="text-[#5a5751]"> returnToSafety(</span>
+                <span className="text-[#e59845]">"root"</span>
+                <span className="text-[#5a5751]">)</span>
+              </p>
             </div>
           </div>
 
-          <div className="font-mono text-sm text-left overflow-x-auto">
-            <div className="text-muted-foreground italic mb-2">// 404: Uncaught ReferenceError</div>
-            <div>
-              <span className="text-[#EC844D]">try</span> <span className="text-yellow-400">{`{`}</span>
-            </div>
-            <div className="pl-4">
-              <span className="text-blue-400">renderPage</span>
-              <span className="text-[#EC844D]">(</span>
-              <span className="text-[#EC844D]">"{window.location.pathname}"</span>
-              <span className="text-[#EC844D]">)</span>
-              <span className="text-foreground">;</span>
-            </div>
-            <div>
-              <span className="text-yellow-400">{`}`}</span> <span className="text-[#EC844D]">catch</span> <span className="text-yellow-400">(</span>
-              <span className="text-red-400">err</span>
-              <span className="text-yellow-400">)</span> <span className="text-yellow-400">{`{`}</span>
-            </div>
-            <div className="pl-4">
-              <span className="text-blue-400">console</span>
-              <span className="text-foreground">.</span>
-              <span className="text-yellow-300">error</span>
-              <span className="text-[#EC844D]">(</span>
-              <span className="text-[#EC844D]">"404: Page not found"</span>
-              <span className="text-[#EC844D]">)</span>
-              <span className="text-foreground">;</span>
-            </div>
-            <div className="pl-4">
-              <span className="text-blue-400">window</span>
-              <span className="text-foreground">.</span>
-              <span className="text-cyan-400">location</span>
-              <span className="text-foreground">.</span>
-              <span className="text-blue-400">href</span>
-              <span className="text-foreground"> = </span>
-              <span className="text-[#EC844D]">"/"</span>
-              <span className="text-foreground">;</span>
-            </div>
-            <div><span className="text-yellow-400">{`}`}</span></div>
-          </div>
-        </motion.div>
+          {/* Interactive Navigation Actions */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link to="/" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl soft-ui-raised text-[#2d2b28] hover:text-[#e59845] font-bold text-sm border border-[#dedad1] shadow-md transition-all cursor-pointer"
+              >
+                <ArrowLeft size={16} className="text-[#e59845]" />
+                <span>Return to Portfolio</span>
+              </motion.button>
+            </Link>
 
-        {/* Action Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <Link to="/">
-            <motion.button
-              className="group relative overflow-hidden px-6 py-3 rounded-xl font-bold bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/25 hover:shadow-[0_0_25px_rgba(236,132,77,0.4)] flex items-center gap-2 cursor-pointer transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+            <motion.a
+              href="https://github.com/ayanmanna123"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl soft-ui-inset text-[#5a5751] hover:text-[#2d2b28] font-bold text-sm border border-[#cdc8be] transition-all cursor-pointer"
             >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Back to Home</span>
-            </motion.button>
-          </Link>
-
-          <motion.a
-            href="https://github.com/ayanmanna123"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative overflow-hidden px-6 py-3 rounded-xl font-semibold border border-[#EC844D]/50 text-foreground hover:border-[#EC844D] hover:bg-[#EC844D]/10 hover:text-[#EC844D] transition-all duration-300 bg-background/80 backdrop-blur-sm flex items-center gap-2"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Code className="h-4 w-4 text-[#EC844D]" />
-            <span>View GitHub</span>
-          </motion.a>
+              <Code size={16} className="text-[#5a5751]" />
+              <span>Explore GitHub Repos</span>
+            </motion.a>
+          </div>
         </motion.div>
+      </main>
 
-        {/* Fun Status Indicator */}
-        <motion.div
-          className="mt-8 text-sm text-muted-foreground flex items-center justify-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-          <span>System operational, just lost in space</span>
-        </motion.div>
-      </div >
-    </div >
+      <Footer />
+    </div>
   );
 };

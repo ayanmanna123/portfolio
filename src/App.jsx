@@ -7,6 +7,7 @@ import { NotFound } from "./pages/NotFound";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { Terms } from "./pages/Terms";
 import { ProjectDetails } from "./pages/ProjectDetails";
+import { SoftUiDemoPage } from "./pages/SoftUiDemoPage";
 import { Toaster } from "@/components/ui/toaster";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import { Analytics } from "@vercel/analytics/react";
@@ -14,7 +15,13 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
 function App() {
-  const [welcomeComplete, setWelcomeComplete] = useState(false);
+  const [welcomeComplete, setWelcomeComplete] = useState(() => {
+    if (typeof window !== "undefined") {
+      const p = window.location.pathname;
+      return p.includes("/soft-ui") || p.includes("/demo");
+    }
+    return false;
+  });
 
   const handleWelcomeComplete = useCallback(() => {
     setWelcomeComplete(true);
@@ -47,6 +54,8 @@ function App() {
             <Routes>
               <Route index element={<Home />} />
               <Route path="project/:id" element={<ProjectDetails />} />
+              <Route path="soft-ui" element={<SoftUiDemoPage />} />
+              <Route path="demo" element={<SoftUiDemoPage />} />
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<Terms />} />
               <Route path="*" element={<NotFound />} />

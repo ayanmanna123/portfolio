@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 import { educationData } from '../data';
 import { GraduationCap, Calendar, Award } from 'lucide-react';
 
-const EducationSection = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+export const EducationSection = () => {
     const sectionRef = useRef(null);
     const headerRef = useRef(null);
     const line1Ref = useRef(null);
@@ -23,15 +23,15 @@ const EducationSection = () => {
             if (line1Ref.current) {
                 gsap.fromTo(
                     line1Ref.current,
-                    { y: 150, opacity: 0 },
+                    { y: 50, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.2,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 60%",
+                            start: "top 75%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -42,15 +42,15 @@ const EducationSection = () => {
             if (line2Ref.current) {
                 gsap.fromTo(
                     line2Ref.current,
-                    { y: 150, opacity: 0 },
+                    { y: 50, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.2,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 40%",
+                            start: "top 65%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -61,58 +61,36 @@ const EducationSection = () => {
             if (line3Ref.current) {
                 gsap.fromTo(
                     line3Ref.current,
-                    { y: 50, opacity: 0 },
+                    { y: 30, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.2,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 20%",
+                            start: "top 55%",
                             toggleActions: "play none none reverse",
                         },
                     }
                 );
             }
 
-            // Individual Education Cards with distinct timing, directions, and visible reverse trigger
             cardRefs.current.forEach((card, index) => {
                 if (!card) return;
 
-                let fromVars = { opacity: 0 };
-                let duration = 1.4;
-                let triggerStart = "top 68%";
-
-                if (index === 0) {
-                    // Card 1 (Left): Left to Right
-                    fromVars = { x: -260, opacity: 0 };
-                    duration = 1.4;
-                    triggerStart = "top 68%";
-                } else if (index === 1) {
-                    // Card 2 (Center): Bottom to Top
-                    fromVars = { y: 80, opacity: 0 };
-                    duration = 1.6;
-                    triggerStart = "top 64%";
-                } else {
-                    // Card 3 (Right): Right to Left
-                    fromVars = { x: 260, opacity: 0 };
-                    duration = 1.8;
-                    triggerStart = "top 60%";
-                }
-
                 gsap.fromTo(
                     card,
-                    fromVars,
+                    { opacity: 0, y: 40 },
                     {
                         x: 0,
                         y: 0,
                         opacity: 1,
-                        duration: duration,
+                        duration: 1.0,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: cardsContainerRef.current || card,
-                            start: triggerStart,
+                            start: "top 75%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -124,73 +102,115 @@ const EducationSection = () => {
     }, []);
 
     return (
-        <section id="education" ref={sectionRef} className="py-14 sm:py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5">
-            {/* Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 right-0 w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl" />
-                <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
-            </div>
+        <section
+            id="education"
+            ref={sectionRef}
+            className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden bg-[#eae7e1] text-[#43413d] select-none transition-colors"
+        >
+            {/* Exact Neumorphic Soft UI Styles from SoftUiWidgets.jsx */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+                    
+                    .font-handwriting {
+                        font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+                    }
+                    .font-digital {
+                        font-family: 'Fredoka', 'Quicksand', sans-serif;
+                    }
+                    .soft-ui-raised {
+                        background: #eae7e1;
+                        box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+                    }
+                    .soft-ui-raised-card {
+                        background: #eae7e1;
+                        box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+                    }
+                    .soft-ui-inset {
+                        background: #e4e1d9;
+                        box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+                    }
+                    .soft-ui-inset-subtle {
+                        background: #e6e3dc;
+                        box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+                    }
+                `
+            }} />
 
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
-                {/* Header */}
-                <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
-                    <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
-                        <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
-                            Academic
-                        </span>
+            <div className="container mx-auto max-w-7xl relative z-10">
+                {/* Header: Styled like SoftUiGreeting */}
+                <div ref={headerRef} className="text-center mb-12 sm:mb-16 px-2 sm:px-6">
+                    <div ref={line1Ref} className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
+                        <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                        <span>Academic.Journey</span>
+                    </div>
+
+                    <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-1 leading-tight tracking-tight text-[#43413d]">
+                        <span>Academic </span>
                         <span
                             ref={line2Ref}
-                            className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
-                            style={{ fontFamily: "'Rakyat', cursive" }}
+                            className="text-[#e59845] font-handwriting font-bold"
                         >
                             Education & Degrees
                         </span>
                     </h2>
+
                     <p
                         ref={line3Ref}
-                        className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+                        className="text-xs sm:text-sm text-[#78756e] font-medium font-handwriting max-w-xl mx-auto leading-relaxed mt-1"
                     >
-                        My academic background and qualifications.
+                        My academic background, qualifications, and formal milestones.
                     </p>
                 </div>
 
-                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-stretch">
                     {educationData.map((item, index) => (
                         <div
                             key={item.id || index}
                             ref={(el) => (cardRefs.current[index] = el)}
-                            className="w-full will-change-transform will-change-opacity"
+                            className="w-full flex"
                         >
-                            <div className="bg-card/90 dark:bg-slate-900/60 border border-border rounded-2xl sm:rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-lg hover:shadow-xl hover:border-[#EC844D]/40 transition-all duration-300 h-full flex flex-col justify-between text-left group">
+                            <div className="soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 flex flex-col justify-between text-left w-full transition-all duration-300 hover:scale-[1.01]">
                                 <div>
-                                    <div className="flex items-start justify-between mb-5">
-                                        <div className="p-2.5 sm:p-3 rounded-xl bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] group-hover:bg-[#EC844D] group-hover:text-white transition-colors duration-300">
-                                            <GraduationCap className="w-6 h-6 sm:w-8 sm:h-8" />
+                                    {/* Top Row: Icon Well + Year Pill */}
+                                    <div className="flex items-start justify-between mb-4">
+                                        <div className="w-13 h-13 rounded-[18px] soft-ui-inset flex items-center justify-center shrink-0 text-[#e59845] p-3">
+                                            <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7" />
                                         </div>
-                                        <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground bg-muted/80 dark:bg-black/40 px-2.5 sm:px-3 py-1 rounded-full border border-border dark:border-white/5 backdrop-blur-md">
-                                            <Calendar className="w-3.5 h-3.5" />
-                                            {item.year}
+                                        <div className="flex items-center gap-1.5 text-xs font-bold text-[#5a5751] font-handwriting soft-ui-inset-subtle px-3 py-1 rounded-full bg-[#e6e3dc]">
+                                            <Calendar className="w-3.5 h-3.5 text-[#e59845]" />
+                                            <span>{item.year}</span>
                                         </div>
                                     </div>
 
-                                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1.5 group-hover:text-[#EC844D] dark:group-hover:text-[#FFAE80] transition-colors">
+                                    {/* Institution Name */}
+                                    <h3 className="text-lg sm:text-xl font-bold text-[#383a3d] font-digital mb-1 leading-snug">
                                         {item.institution}
                                     </h3>
 
-                                    <p className="text-[#EC844D] dark:text-[#FFAE80] font-medium mb-3 text-xs sm:text-sm">
+                                    {/* Degree Title */}
+                                    <p className="text-[#e59845] font-handwriting font-bold text-sm sm:text-base mb-2.5">
                                         {item.degree}
                                     </p>
 
-                                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-5">
+                                    {/* Description */}
+                                    <p className="text-[#66635d] text-xs sm:text-sm leading-relaxed mb-5 font-normal">
                                         {item.description}
                                     </p>
                                 </div>
 
+                                {/* Score / Milestone Slot */}
                                 {item.score && (
-                                    <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-[#EC844D] dark:text-[#FFAE80] bg-[#EC844D]/10 border border-[#EC844D]/20 px-3 py-1.5 rounded-lg w-fit backdrop-blur-sm mt-auto">
-                                        <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#EC844D] dark:text-[#FFAE80]" />
-                                        {item.score}
+                                    <div className="mt-auto pt-3 border-t border-[#cdc8be]/40">
+                                        <div className="w-full h-9 soft-ui-inset rounded-full px-3.5 py-1 flex items-center justify-between bg-[#e4e1d9]">
+                                            <div className="flex items-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting">
+                                                <Award className="w-3.5 h-3.5 text-[#e59845]" />
+                                                <span>Academic Milestone</span>
+                                            </div>
+                                            <span className="soft-ui-raised rounded-full px-3 py-0.5 text-xs font-black text-[#383a3d] font-digital bg-[#eae7e1]">
+                                                {item.score}
+                                            </span>
+                                        </div>
                                     </div>
                                 )}
                             </div>

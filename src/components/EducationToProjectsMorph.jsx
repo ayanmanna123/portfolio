@@ -958,11 +958,6 @@ export const EducationToProjectsMorph = () => {
                               <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
                             </Link>
 
-                            {/* Top-Left Category Badge */}
-                            <div className="soft-ui-inset-subtle absolute top-4 left-4 sm:top-5 sm:left-5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#5a5751] font-handwriting bg-[#e6e3dc]/90 backdrop-blur-sm shadow-sm pointer-events-none">
-                              {project.category ? project.category.split('/')[0].trim() : "Project"}
-                            </div>
-
                             {/* Top-Right Quick Demo Action Button */}
                             {project.demoUrl && project.demoUrl !== "#" && (
                               <button
@@ -981,15 +976,10 @@ export const EducationToProjectsMorph = () => {
 
                           {/* Project Title */}
                           <Link to={`/project/${project.id}`}>
-                            <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-1.5 leading-snug hover:text-[#e59845] transition-colors truncate">
+                            <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-3 leading-snug hover:text-[#e59845] transition-colors truncate">
                               {project.title}
                             </h3>
                           </Link>
-
-                          {/* Project Description */}
-                          <p className="text-[#66635d] text-xs sm:text-[13px] leading-relaxed mb-4 font-normal line-clamp-2">
-                            {project.description}
-                          </p>
 
                           {/* Tech Stack Pills in Soft UI Debossed Groove */}
                           {project.tags && project.tags.length > 0 && (

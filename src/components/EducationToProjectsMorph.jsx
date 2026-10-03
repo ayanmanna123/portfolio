@@ -744,45 +744,45 @@ export const EducationToProjectsMorph = () => {
           {/* LAYER 1: ACADEMIC EDUCATION SECTION (DISSOLVES INTO PARTICLES) */}
           {/* ============================================================== */}
           <div
-            className="absolute inset-0 w-full h-screen z-10 flex flex-col justify-center items-center pointer-events-none"
+            className="absolute inset-0 w-full h-screen z-10 flex flex-col justify-center items-center pointer-events-none px-2 sm:px-4"
             style={{
               opacity: scrollProgress > 0.36 ? 0 : 1,
               display: scrollProgress > 0.38 ? 'none' : 'flex',
             }}
           >
-            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+            <div className="w-full max-w-[1440px] mx-auto px-2 sm:px-6 lg:px-8 flex flex-col justify-center my-auto">
               {/* Header */}
               <div
-                className="text-center mb-6 sm:mb-8 px-2 sm:px-6 transition-all duration-150"
+                className="text-center mb-2 sm:mb-8 px-2 sm:px-6 transition-all duration-150"
                 style={{
                   opacity: academicHeaderOpacity,
                   transform: `translate3d(0, -${(1 - academicHeaderOpacity) * 20}px, 0)`,
                 }}
               >
-                <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
-                  <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                <div className="inline-flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-bold text-[#78756e] font-handwriting mb-0.5 sm:mb-1">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#f06292]" />
                   <span>Academic.Journey</span>
                 </div>
 
-                <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-1 leading-tight tracking-tight text-[#43413d]">
+                <h2 className="text-2xl sm:text-5xl md:text-6xl font-black mb-0.5 sm:mb-1 leading-tight tracking-tight text-[#43413d]">
                   <span data-morph="acad-h1" className="block text-[#43413d]">
                     Academic
                   </span>
                   <span
                     data-morph="acad-h2"
-                    className="block font-handwriting text-2xl sm:text-4xl md:text-5xl text-[#e59845] font-bold mt-0.5 pb-0.5"
+                    className="block font-handwriting text-xl sm:text-4xl md:text-5xl text-[#e59845] font-bold mt-0.5 pb-0.5"
                   >
                     Education & Degrees
                   </span>
                 </h2>
-                <p data-morph="acad-desc" className="text-xs sm:text-sm text-[#78756e] font-handwriting font-medium max-w-xl mx-auto leading-relaxed mt-1">
+                <p data-morph="acad-desc" className="text-[11px] sm:text-sm text-[#78756e] font-handwriting font-medium max-w-xl mx-auto leading-tight sm:leading-relaxed mt-0.5 hidden xs:block">
                   My academic background, qualifications, and formal milestones.
                 </p>
               </div>
 
               {/* 3 Education Cards */}
               <div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-stretch transition-all duration-75 select-none"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6 lg:gap-8 justify-items-stretch transition-all duration-75 select-none"
                 style={{
                   opacity: academicCardsOpacity,
                   filter: cardBlur > 0.4 ? `blur(${cardBlur}px)` : 'none',
@@ -791,44 +791,44 @@ export const EducationToProjectsMorph = () => {
               >
                 {educationData.map((item, index) => (
                   <div key={item.id || index} data-morph={`acad-card-${index}`} className="w-full flex">
-                    <div className="soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-7 bg-[#eae7e1] text-[#43413d] flex flex-col justify-between text-left w-full transition-all duration-300">
+                    <div className="soft-ui-raised-card rounded-[20px] sm:rounded-[36px] p-3 sm:p-7 bg-[#eae7e1] text-[#43413d] flex flex-col justify-between text-left w-full transition-all duration-300">
                       <div>
                         {/* Top: Icon Well + Year Pill */}
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="w-12 h-12 rounded-[18px] soft-ui-inset flex items-center justify-center shrink-0 text-[#e59845] p-2.5 bg-[#e4e1d9]">
-                            <GraduationCap className="w-6 h-6" />
+                        <div className="flex items-center justify-between mb-1.5 sm:mb-4">
+                          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-[12px] sm:rounded-[18px] soft-ui-inset flex items-center justify-center shrink-0 text-[#e59845] p-1.5 sm:p-2.5 bg-[#e4e1d9]">
+                            <GraduationCap className="w-4 h-4 sm:w-6 sm:h-6" />
                           </div>
-                          <div className="flex items-center gap-1.5 text-xs font-bold text-[#6d6a64] font-digital soft-ui-inset-subtle px-3.5 py-1 rounded-full bg-[#e6e3dc]">
-                            <Calendar className="w-3.5 h-3.5 text-[#e59845]" />
+                          <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-bold text-[#6d6a64] font-digital soft-ui-inset-subtle px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#e6e3dc]">
+                            <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#e59845]" />
                             <span>{item.year}</span>
                           </div>
                         </div>
 
                         {/* Institution Name */}
-                        <h3 className="text-base sm:text-lg font-black text-[#383a3d] font-digital mb-1.5 leading-snug">
+                        <h3 className="text-xs sm:text-lg font-black text-[#383a3d] font-digital mb-0.5 sm:mb-1.5 leading-tight sm:leading-snug">
                           {item.institution}
                         </h3>
 
                         {/* Degree Title */}
-                        <p className="text-[#e59845] font-digital font-bold text-xs sm:text-sm mb-2.5 tracking-wide">
+                        <p className="text-[#e59845] font-digital font-bold text-[11px] sm:text-sm mb-1 sm:mb-2.5 tracking-wide">
                           {item.degree}
                         </p>
 
                         {/* Description */}
-                        <p className="text-[#66635d] text-xs sm:text-[13px] leading-relaxed mb-5 font-normal">
+                        <p className="text-[#66635d] text-[10px] sm:text-[13px] leading-tight sm:leading-relaxed mb-2 sm:mb-5 font-normal line-clamp-2 sm:line-clamp-none">
                           {item.description}
                         </p>
                       </div>
 
                       {/* Score / Milestone Slot */}
                       {item.score && (
-                        <div className="mt-auto pt-3 border-t border-[#cdc8be]/40">
-                          <div className="w-full h-9 soft-ui-inset rounded-full px-3.5 py-1 flex items-center justify-between bg-[#e4e1d9]">
-                            <div className="flex items-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting">
-                              <Award className="w-3.5 h-3.5 text-[#e59845]" />
-                              <span>Academic Milestone</span>
+                        <div className="mt-auto pt-1.5 sm:pt-3 border-t border-[#cdc8be]/40">
+                          <div className="w-full h-7 sm:h-9 soft-ui-inset rounded-full px-2.5 sm:px-3.5 py-0.5 sm:py-1 flex items-center justify-between bg-[#e4e1d9]">
+                            <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs font-bold text-[#78756e] font-handwriting">
+                              <Award className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#e59845]" />
+                              <span>Milestone</span>
                             </div>
-                            <span className="soft-ui-raised rounded-full px-3 py-0.5 text-xs font-black text-[#383a3d] font-digital bg-[#eae7e1]">
+                            <span className="soft-ui-raised rounded-full px-2 sm:px-3 py-0.5 text-[10px] sm:text-xs font-black text-[#383a3d] font-digital bg-[#eae7e1]">
                               {item.score}
                             </span>
                           </div>
@@ -915,27 +915,35 @@ export const EducationToProjectsMorph = () => {
 
                 {/* 3. Category Filter Pills */}
                 <div
-                  className="flex justify-center mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-none transition-all duration-200"
+                  className="w-full flex justify-center mb-4 sm:mb-6 px-2 transition-all duration-200"
                   style={{
                     opacity: isMorphComplete ? 1 : projDescOpacity,
                     transform: isMorphComplete ? 'none' : `translate3d(0, ${(1 - projDescOpacity) * 15}px, 0)`,
                     pointerEvents: isMorphComplete ? 'auto' : 'none',
                   }}
                 >
-                  <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2 px-2">
-                    {categories.map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => handleFilterChange(category)}
-                        className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold font-handwriting transition-all cursor-pointer ${
-                          activeFilter === category
-                            ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105"
-                            : "soft-ui-raised bg-[#eae7e1] text-[#6d6a64] hover:text-[#e59845] border border-[#dedad1]/60"
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
+                  <div className="soft-ui-inset bg-[#e4e1d9] p-1 sm:p-1.5 rounded-full border border-[#cdc8be]/60 max-w-full overflow-x-auto scrollbar-none flex items-center shadow-inner">
+                    <div className="flex items-center gap-1 sm:gap-1.5 px-1 min-w-max">
+                      {categories.map((category) => {
+                        const isSelected = activeFilter === category;
+                        return (
+                          <button
+                            key={category}
+                            onClick={() => handleFilterChange(category)}
+                            className={`whitespace-nowrap shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 select-none ${
+                              isSelected
+                                ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] font-digital font-black shadow-inner border border-[#cdc8be] scale-[1.03]"
+                                : "soft-ui-raised bg-[#eae7e1] text-[#6d6a64] hover:text-[#e59845] font-handwriting border border-[#dedad1]/60 active:scale-95"
+                            }`}
+                          >
+                            {isSelected && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" />
+                            )}
+                            <span>{category}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>

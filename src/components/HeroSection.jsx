@@ -257,8 +257,8 @@ export const HeroSection = () => {
           {/* Left Side Content (With the Soft UI Zoom CTA Button) */}
           <HeroLeft />
 
-          {/* Right Side Code Terminal (Soft UI Clay Workstation) */}
-          <div className="hero-fade-element w-full lg:w-auto flex-1 flex justify-center lg:justify-end">
+          {/* Right Side Code Terminal (Soft UI Clay Workstation - Desktop/Tablet) */}
+          <div className="hero-fade-element hidden lg:flex w-full lg:w-auto flex-1 justify-center lg:justify-end">
             <HeroCodeTerminal />
           </div>
         </motion.div>

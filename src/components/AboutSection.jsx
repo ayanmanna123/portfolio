@@ -15,6 +15,7 @@ export const AboutSection = () => {
   const line3Ref = useRef(null);
   const aboutCardRef = useRef(null);
   const profileImgCardRef = useRef(null);
+  const mobileProfileDialRef = useRef(null);
   const portalSectionRef = useRef(null);
 
   useEffect(() => {
@@ -93,10 +94,13 @@ export const AboutSection = () => {
       // ----------------------------------------------------------------------
       // SCROLL-DRIVEN PIN & ZOOM TIMELINE
       // ----------------------------------------------------------------------
-      const isMobile = window.innerWidth < 768;
+      const isMobile = window.innerWidth < 1024;
       const targetScale = isMobile ? 18 : 28;
 
-      const targetEl = profileImgCardRef.current;
+      const targetEl = isMobile 
+        ? (mobileProfileDialRef.current || profileImgCardRef.current) 
+        : profileImgCardRef.current;
+
       let moveX = 0;
       let moveY = 0;
       if (targetEl) {
@@ -122,12 +126,12 @@ export const AboutSection = () => {
         },
       });
 
-      // PHASE 1: Fade out Header and Left Card
+      // PHASE 1: Fade out Header and Left Card Content (excluding the zooming dial)
       tl.to(
-        [headerRef.current, aboutCardRef.current],
+        [headerRef.current, ".about-fade-content"],
         {
           opacity: 0,
-          y: -30,
+          y: -25,
           filter: "blur(6px)",
           duration: 0.22,
           ease: "power2.inOut",
@@ -136,20 +140,22 @@ export const AboutSection = () => {
       );
 
       // PHASE 2: Translate and Scale Profile Picture Card into Viewport Center
-      tl.to(
-        profileImgCardRef.current,
-        {
-          x: moveX,
-          y: moveY,
-          scale: targetScale,
-          borderRadius: "8px",
-          boxShadow: "0 0 100px rgba(207,203,194,0.9)",
-          ease: "power2.inOut",
-          transformOrigin: "center center",
-          duration: 0.75,
-        },
-        0.05
-      );
+      if (targetEl) {
+        tl.to(
+          targetEl,
+          {
+            x: moveX,
+            y: moveY,
+            scale: targetScale,
+            borderRadius: "8px",
+            boxShadow: "0 0 100px rgba(207,203,194,0.9)",
+            ease: "power2.inOut",
+            transformOrigin: "center center",
+            duration: 0.75,
+          },
+          0.05
+        );
+      }
 
       // Fade out inner picture elements smoothly
       tl.to(
@@ -227,7 +233,7 @@ export const AboutSection = () => {
 
       <div className="container mx-auto max-w-5xl relative z-10 my-auto">
         {/* Header: Styled exactly like SoftUiGreeting */}
-        <div ref={headerRef} className="text-center mb-6 sm:mb-8 px-2 sm:px-4 will-change-[transform,opacity,filter]">
+        <div ref={headerRef} className="text-center mb-4 sm:mb-8 px-2 sm:px-4 will-change-[transform,opacity,filter]">
           <div ref={line1Ref} className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
             <span className="w-2 h-2 rounded-full bg-[#f06292]" />
             <span>About.Me</span>
@@ -251,17 +257,51 @@ export const AboutSection = () => {
           </p>
         </div>
 
-        {/* 2 Main Soft UI Cards */}
+        {/* Main Soft UI Cards Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
           
-          {/* Card 1 (Left): Name, Bio & Experience Metrics */}
+          {/* Card 1 (Left / Primary Card on mobile) */}
           <div
             ref={aboutCardRef}
-            className="lg:col-span-7 soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 md:p-9 flex flex-col justify-between text-left will-change-[transform,opacity,filter] relative overflow-hidden"
+            className="lg:col-span-7 soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-5 sm:p-8 md:p-9 flex flex-col justify-between text-left relative overflow-hidden"
           >
             <div className="relative z-10 flex flex-col justify-center">
-              {/* Name & Role Badge */}
-              <div className="mb-4">
+              
+              {/* Mobile Profile Header Row with Circular Dial (< lg only) */}
+              <div className="flex lg:hidden items-center gap-3.5 sm:gap-4 mb-3.5">
+                <div
+                  ref={mobileProfileDialRef}
+                  className="shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-full soft-ui-raised p-1.5 flex items-center justify-center relative will-change-[transform,opacity,box-shadow]"
+                >
+                  <div className="absolute top-1 w-2 h-2 rounded-full bg-[#f06292] shadow-sm pointer-events-none" />
+                  <div className="w-full h-full rounded-full soft-ui-inset p-1 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={aboutData?.profileImage || "/profile-logo.jpeg"}
+                      alt={aboutData?.name || "Ayan Manna"}
+                      width="96"
+                      height="96"
+                      className="w-full h-full object-cover rounded-full profile-inner-img shadow-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="about-fade-content flex-1 min-w-0">
+                  <h3 className="text-2xl sm:text-3xl font-black text-[#383a3d] font-digital tracking-tight truncate">
+                    {aboutData?.name || "Ayan Manna"}
+                  </h3>
+                  <div className="soft-ui-inset-subtle rounded-full px-3 py-0.5 text-xs font-bold text-[#5a5751] font-handwriting inline-flex items-center gap-1.5 mt-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#e59845]" />
+                    <span className="truncate">{aboutData?.role || "Full Stack Developer"}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#10b981] font-handwriting mt-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                    <span>Open for Opportunities</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop Name & Role Badge (lg:block only) */}
+              <div className="about-fade-content hidden lg:block mb-4">
                 <h3 className="text-3xl sm:text-4xl font-black text-[#383a3d] font-digital tracking-tight">
                   {aboutData?.name || "Ayan Manna"}
                 </h3>
@@ -272,17 +312,17 @@ export const AboutSection = () => {
               </div>
 
               {/* Bio Paragraphs */}
-              <div className="space-y-2.5 text-xs sm:text-[13px] md:text-sm text-[#66635d] font-normal leading-relaxed">
+              <div className="about-fade-content space-y-2 text-xs sm:text-[13px] md:text-sm text-[#66635d] font-normal leading-relaxed">
                 <p>
                   Detail-oriented Web Developer with strong skills in modern frontend and backend architectures. Maintained 1500+ contributions on GitHub and solved 700+ LeetCode problems, demonstrating algorithmic problem-solving and rigorous engineering habits.
                 </p>
-                <p>
+                <p className="hidden sm:block">
                   Passionate about crafting intuitive interfaces, writing clean scalable code, and building experiences that live every day with ease.
                 </p>
               </div>
 
-              {/* 4 Clay Metric Chips (like the capsule meters from SoftUiWidgets) */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mt-6">
+              {/* 4 Clay Metric Chips */}
+              <div className="about-fade-content grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-4 sm:mt-6">
                 {[
                   { label: "Hackathons", value: "8+", icon: Award, color: "text-[#e59845]" },
                   { label: "Projects", value: "14+", icon: Briefcase, color: "text-[#528cc7]" },
@@ -291,13 +331,13 @@ export const AboutSection = () => {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="p-3 rounded-[20px] soft-ui-inset-subtle flex flex-col items-center justify-center text-center"
+                    className="p-2.5 sm:p-3 rounded-[20px] soft-ui-inset-subtle flex flex-col items-center justify-center text-center"
                   >
-                    <item.icon className={`w-4 h-4 ${item.color} mb-1`} />
-                    <span className="text-base sm:text-lg font-black text-[#383a3d] font-digital leading-none">
+                    <item.icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${item.color} mb-1`} />
+                    <span className="text-sm sm:text-lg font-black text-[#383a3d] font-digital leading-none">
                       {item.value}
                     </span>
-                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#78756e] font-handwriting mt-1">
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#78756e] font-handwriting mt-0.5 sm:mt-1">
                       {item.label}
                     </span>
                   </div>
@@ -306,10 +346,10 @@ export const AboutSection = () => {
             </div>
           </div>
 
-          {/* Card 2 (Right): Profile Picture Dial Frame */}
+          {/* Card 2 (Right): Profile Picture Dial Frame (Desktop only) */}
           <div
             ref={profileImgCardRef}
-            className="lg:col-span-5 soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 flex flex-col items-center justify-center will-change-[transform,opacity,box-shadow] relative overflow-hidden group min-h-[260px] lg:min-h-full"
+            className="hidden lg:flex lg:col-span-5 soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 flex-col items-center justify-center will-change-[transform,opacity,box-shadow] relative overflow-hidden group min-h-full"
           >
             <div className="relative profile-inner-img will-change-[transform,opacity,filter] flex flex-col items-center">
               {/* Circular Soft UI Bevel Dial (inspired by SoftUiClock) */}

@@ -506,22 +506,30 @@ export const SkillsSection = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Category Filter Switcher */}
-              <div className="flex justify-center mt-2 mb-1 overflow-x-auto pb-1 scrollbar-none z-20 relative">
-                <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-1.5 sm:gap-2 px-2">
-                  {categoryTabs.map((cat) => (
-                    <button
-                      key={cat.id}
-                      onClick={() => setSelectedCategory(cat.id)}
-                      className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold font-handwriting transition-all cursor-pointer ${
-                        selectedCategory === cat.id
-                          ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105"
-                          : "soft-ui-raised bg-[#eae7e1] text-[#6d6a64] hover:text-[#e59845] border border-[#dedad1]/60"
-                      }`}
-                    >
-                      {cat.label}
-                    </button>
-                  ))}
+              {/* Category Filter Switcher - Soft UI Neumorphic Pill Strip */}
+              <div className="w-full flex justify-center mt-2.5 mb-1.5 px-2 z-20 relative">
+                <div className="soft-ui-inset bg-[#e4e1d9] p-1 sm:p-1.5 rounded-full border border-[#cdc8be]/60 max-w-full overflow-x-auto scrollbar-none flex items-center shadow-inner">
+                  <div className="flex items-center gap-1 sm:gap-1.5 px-1 min-w-max">
+                    {categoryTabs.map((cat) => {
+                      const isSelected = selectedCategory === cat.id;
+                      return (
+                        <button
+                          key={cat.id}
+                          onClick={() => setSelectedCategory(cat.id)}
+                          className={`whitespace-nowrap shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 select-none ${
+                            isSelected
+                              ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] font-digital font-black shadow-inner border border-[#cdc8be] scale-[1.03]"
+                              : "soft-ui-raised bg-[#eae7e1] text-[#6d6a64] hover:text-[#e59845] font-handwriting border border-[#dedad1]/60 active:scale-95"
+                          }`}
+                        >
+                          {isSelected && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#f06292] shadow-[0_0_6px_rgba(240,98,146,0.8)]" />
+                          )}
+                          <span>{cat.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

@@ -42,6 +42,7 @@ const skillMetaMap = {
   Matplotlib: { color: "#6d6a64", tag: "PLOTTING", type: "Data Visualization" },
   "Scikit-learn": { color: "#e59845", tag: "ML", type: "Machine Learning" },
   TensorFlow: { color: "#e59845", tag: "DEEP LEARNING", type: "ML Framework" },
+  "BERT / NLP": { color: "#e59845", tag: "NLP / AI", type: "Language Models" },
   Transformers: { color: "#e59845", tag: "LLM / NLP", type: "Hugging Face" },
   PyTorch: { color: "#f06292", tag: "DEEP LEARNING", type: "Dynamic Tensors" },
   Keras: { color: "#f06292", tag: "NEURAL NETS", type: "Deep Learning" },
@@ -589,7 +590,7 @@ export const SkillsSection = () => {
 
                     return (
                       <div
-                        key={skill.name}
+                        key={`${skill.name}-${skill.category}-${index}`}
                         className="toolkit-slot absolute inset-0 pointer-events-none"
                         style={{
                           transform: `rotate(${relativeAngle}deg)`,

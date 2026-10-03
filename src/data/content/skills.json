@@ -236,8 +236,8 @@
       "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/TensorFlow_logo.svg/1200px-TensorFlow_logo.svg.png"
     },
     {
-      "name": "Transformers",
-      "level": 60,
+      "name": "BERT / NLP",
+      "level": 70,
       "category": "aiml",
       "icon": "https://repository-images.githubusercontent.com/155220641/a16c4880-a501-11ea-9e8f-646cf611702e"
     },

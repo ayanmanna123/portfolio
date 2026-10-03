@@ -302,10 +302,19 @@ export const ProjectsSection = () => {
 
                     {/* Project Title */}
                     <Link to={`/project/${project.id}`}>
-                      <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-3 leading-snug hover:text-[#e59845] transition-colors truncate">
+                      <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-2.5 leading-snug hover:text-[#e59845] transition-colors truncate">
                         {project.title}
                       </h3>
                     </Link>
+
+                    {/* Project Description Inset Console Box */}
+                    {project.description && (
+                      <div className="soft-ui-inset-subtle rounded-2xl p-3 mb-3 bg-[#e6e3dc]/70 border border-[#dedad1]/60 min-h-[54px] flex items-center">
+                        <p className="text-[#5a5751] font-mono text-xs line-clamp-2 leading-relaxed">
+                          {project.description}
+                        </p>
+                      </div>
+                    )}
 
                     {/* Tech Stack Pills in Soft UI Debossed Groove */}
                     {project.tags && project.tags.length > 0 && (

@@ -6,14 +6,17 @@ import { journeyData } from '../data';
 import { journeyImages, journeyCategories } from '../data/journeyImages';
 import { 
     Briefcase, 
-    ChevronDown, 
     GraduationCap, 
-    ArrowRight
+    ArrowRight,
+    ArrowLeft,
+    ChevronDown,
+    Calendar,
+    Sparkles
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TimelineSection = () => {
+export const TimelineSection = () => {
     const sectionRef = useRef(null);
     const headerRef = useRef(null);
     const line1Ref = useRef(null);
@@ -21,8 +24,6 @@ const TimelineSection = () => {
     const line3Ref = useRef(null);
     const trackRef = useRef(null);
     const stageRef = useRef(null);
-    const slidesRef = useRef([]);
-    const textCardsRef = useRef([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -42,15 +43,15 @@ const TimelineSection = () => {
             if (line1Ref.current) {
                 gsap.fromTo(
                     line1Ref.current,
-                    { y: 200, opacity: 0 },
+                    { y: 80, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.4,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 60%",
+                            start: "top 75%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -60,15 +61,15 @@ const TimelineSection = () => {
             if (line2Ref.current) {
                 gsap.fromTo(
                     line2Ref.current,
-                    { y: 200, opacity: 0 },
+                    { y: 80, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.4,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 40%",
+                            start: "top 65%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -78,15 +79,15 @@ const TimelineSection = () => {
             if (line3Ref.current) {
                 gsap.fromTo(
                     line3Ref.current,
-                    { y: 50, opacity: 0 },
+                    { y: 40, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.2,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 20%",
+                            start: "top 55%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -97,94 +98,21 @@ const TimelineSection = () => {
             if (totalSlides <= 1) return;
 
             // Pin the viewport stage for the duration of the track
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: trackRef.current,
-                    start: "top top",
-                    end: "bottom bottom",
-                    pin: stageRef.current,
-                    pinSpacing: false,
-                    scrub: 0.6,
-                    anticipatePin: 1,
-                    onUpdate: (self) => {
-                        setScrollProgress(self.progress);
-                        // Calculate active slide index
-                        const rawIndex = self.progress * (totalSlides - 1);
-                        const currentIndex = Math.min(totalSlides - 1, Math.round(rawIndex));
-                        setActiveIndex(currentIndex);
-                    }
+            ScrollTrigger.create({
+                trigger: trackRef.current,
+                start: "top top",
+                end: "bottom bottom",
+                pin: stageRef.current,
+                pinSpacing: false,
+                scrub: 0.6,
+                anticipatePin: 1,
+                onUpdate: (self) => {
+                    setScrollProgress(self.progress);
+                    const rawIndex = self.progress * (totalSlides - 1);
+                    const currentIndex = Math.min(totalSlides - 1, Math.round(rawIndex));
+                    setActiveIndex(currentIndex);
                 }
             });
-
-            // Set initial states for slide layers
-            slidesRef.current.forEach((slide, i) => {
-                if (i === 0) {
-                    gsap.set(slide, { clipPath: "inset(0% 0% 0% 0%)", zIndex: 10 });
-                } else {
-                    gsap.set(slide, { clipPath: "inset(100% 0% 0% 0%)", zIndex: 10 + i });
-                }
-            });
-
-            // Master curtain reveal timeline
-            for (let i = 1; i < totalSlides; i++) {
-                const prevSlide = slidesRef.current[i - 1];
-                const currentSlide = slidesRef.current[i];
-                const prevText = textCardsRef.current[i - 1];
-                const currentText = textCardsRef.current[i];
-                const innerImg = currentSlide ? currentSlide.querySelector('.journey-bg-img') : null;
-                const prevInnerImg = prevSlide ? prevSlide.querySelector('.journey-bg-img') : null;
-
-                const stepDuration = 1;
-                const stepStart = (i - 1) * stepDuration;
-
-                // Curtain reveal from bottom to top (Floema signature transition)
-                tl.fromTo(
-                    currentSlide,
-                    { clipPath: "inset(100% 0% 0% 0%)" },
-                    { 
-                        clipPath: "inset(0% 0% 0% 0%)", 
-                        duration: stepDuration, 
-                        ease: "power2.inOut" 
-                    },
-                    stepStart
-                );
-
-                // Subtle inner image zoom/parallax
-                if (innerImg) {
-                    tl.fromTo(
-                        innerImg,
-                        { scale: 1.1, y: "4%" },
-                        { scale: 1, y: "0%", duration: stepDuration, ease: "power2.out" },
-                        stepStart
-                    );
-                }
-
-                if (prevInnerImg) {
-                    tl.to(
-                        prevInnerImg,
-                        { scale: 1.05, y: "-2%", duration: stepDuration, ease: "power2.out" },
-                        stepStart
-                    );
-                }
-
-                // Text cross-fade transitions
-                if (prevText) {
-                    tl.to(
-                        prevText,
-                        { opacity: 0, y: -25, filter: "blur(4px)", duration: stepDuration * 0.4, ease: "power2.in" },
-                        stepStart
-                    );
-                }
-
-                if (currentText) {
-                    tl.fromTo(
-                        currentText,
-                        { opacity: 0, y: 35, filter: "blur(6px)" },
-                        { opacity: 1, y: 0, filter: "blur(0px)", duration: stepDuration * 0.5, ease: "power2.out" },
-                        stepStart + stepDuration * 0.3
-                    );
-                }
-            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -204,7 +132,7 @@ const TimelineSection = () => {
 
         if (window.lenis) {
             window.lenis.scrollTo(targetScroll, {
-                duration: 1.2,
+                duration: 1.0,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             });
         } else {
@@ -212,34 +140,43 @@ const TimelineSection = () => {
         }
     };
 
+    const currentItem = items[activeIndex] || items[0];
+
     return (
         <section 
             id="journey" 
             ref={sectionRef} 
-            className="relative w-full bg-background text-foreground selection:bg-[#EC844D] selection:text-white"
+            className="relative w-full bg-[#eae7e1] text-[#43413d] select-none transition-colors duration-500 overflow-hidden"
         >
-            {/* Introductory Section Header */}
-            <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6 pt-16 sm:pt-24 max-w-5xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
-                    <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
-                        Professional
-                    </span>
-                    <span
-                        ref={line2Ref}
-                        className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
-                        style={{ fontFamily: "'Rakyat', cursive" }}
-                    >
-                        Journey
-                    </span>
-                </h2>
-
-                <p
-                    ref={line3Ref}
-                    className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
-                >
-                    A cinematic walkthrough of leadership, technical milestones, hackathons, and foundational education. Scroll to explore the chapters.
-                </p>
-            </div>
+            {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                  @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+                  
+                  .font-handwriting {
+                    font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+                  }
+                  .font-digital {
+                    font-family: 'Fredoka', 'Quicksand', sans-serif;
+                  }
+                  .soft-ui-raised {
+                    background: #eae7e1;
+                    box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+                  }
+                  .soft-ui-raised-card {
+                    background: #eae7e1;
+                    box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+                  }
+                  .soft-ui-inset {
+                    background: #e4e1d9;
+                    box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+                  }
+                  .soft-ui-inset-subtle {
+                    background: #e6e3dc;
+                    box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+                  }
+                `
+            }} />
 
             {/* Scroll Track: Height provides the scrub distance */}
             <div 
@@ -250,137 +187,154 @@ const TimelineSection = () => {
                 {/* Pinned Stage: Locks to 100vh during track scroll */}
                 <div 
                     ref={stageRef} 
-                    className="relative w-full h-screen overflow-hidden bg-black text-white"
+                    className="relative w-full h-screen overflow-hidden flex flex-col justify-between py-4 sm:py-6 px-3 sm:px-6 lg:px-12 bg-[#eae7e1]"
                 >
-                    {/* Background Slide Curtain Layers */}
-                    {items.map((item, index) => (
-                        <div
-                            key={index}
-                            ref={(el) => (slidesRef.current[index] = el)}
-                            className="absolute inset-0 w-full h-full pointer-events-none will-change-[clip-path]"
-                        >
-                            {/* Inner Image with Parallax Scale - Clear, Sharp & Vibrant */}
-                            <img
-                                src={item.image}
-                                alt={item.role}
-                                className="journey-bg-img absolute inset-0 w-full h-full object-cover object-center will-change-transform brightness-[0.98] contrast-[1.03]"
-                                loading={index < 2 ? "eager" : "lazy"}
-                            />
-
-                            {/* Clean, Gentle Scrim Only Behind Content (Preserves Full Image Clarity) */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 z-[1]" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/15 to-transparent z-[1]" />
-                        </div>
-                    ))}
-
-                    {/* Stage UI Content & Controls (Layered on top of images) */}
-                    <div className="relative z-20 w-full h-full flex flex-col justify-end p-5 sm:p-8 md:p-12 lg:p-16 pointer-events-none">
+                    <div className="container mx-auto px-2 sm:px-6 relative z-10 max-w-6xl w-full flex-1 flex flex-col justify-between">
                         
-                        {/* Narrative Content & Controls */}
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end my-auto pb-4">
-                            
-                            {/* Center Narrative Block: Animated Titles & Descriptions */}
-                            <div className="lg:col-span-8 xl:col-span-9 relative min-h-[260px] sm:min-h-[280px] md:min-h-[320px] flex items-end">
+                        {/* Section Header with Soft UI Clay Typography */}
+                        <div ref={headerRef} className="text-center pt-2 sm:pt-4 mb-2 sm:mb-3 px-2 sm:px-6">
+                            <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
+                                <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                                <span>Career.Timeline</span>
+                            </div>
+
+                            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tight text-[#43413d]">
+                                <span ref={line1Ref} className="block text-[#43413d] will-change-transform will-change-opacity">
+                                    Professional
+                                </span>
+                                <span
+                                    ref={line2Ref}
+                                    className="block font-handwriting text-2xl sm:text-4xl md:text-5xl text-[#e59845] font-bold mt-0.5 pb-0.5 will-change-transform will-change-opacity"
+                                >
+                                    Journey & Milestones
+                                </span>
+                            </h2>
+
+                            <p
+                                ref={line3Ref}
+                                className="text-xs sm:text-sm text-[#78756e] font-handwriting font-medium max-w-xl mx-auto leading-relaxed mt-1 will-change-transform will-change-opacity"
+                            >
+                                A chronological walkthrough of engineering leadership, hackathons, and technical milestones.
+                            </p>
+
+                            {/* Milestone Chapter Pills Scrubber */}
+                            <div className="flex items-center justify-center gap-1.5 sm:gap-2 overflow-x-auto pb-1.5 scrollbar-none mt-3 sm:mt-4 z-20 relative">
                                 {items.map((item, idx) => (
-                                    <div
+                                    <button
                                         key={idx}
-                                        ref={(el) => (textCardsRef.current[idx] = el)}
-                                        className={`w-full text-left pointer-events-auto transition-all ${
-                                            idx === 0 
-                                                 ? 'opacity-100 relative' 
-                                                 : 'opacity-0 absolute inset-x-0 bottom-0 pointer-events-none'
+                                        onClick={() => scrollToMilestone(idx)}
+                                        className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                                            activeIndex === idx
+                                                ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105 font-digital font-black shadow-inner"
+                                                : "soft-ui-raised bg-[#eae7e1] text-[#78756e] hover:text-[#e59845] font-handwriting border border-[#dedad1]/60"
                                         }`}
                                     >
-                                        {/* Company / Institution Header */}
-                                        <div className="flex items-center gap-1.5 text-white/90 font-semibold text-xs sm:text-sm md:text-base tracking-wide uppercase drop-shadow-md mb-2.5">
-                                            {item.company.includes('School') || item.company.includes('Vidyapith') || item.company.includes('Institute') ? (
-                                                <GraduationCap className="w-4 h-4 shrink-0 text-[#EC844D]" />
-                                            ) : (
-                                                <Briefcase className="w-4 h-4 shrink-0 text-[#EC844D]" />
-                                            )}
-                                            <span className="line-clamp-1">{item.company}</span>
-                                        </div>
-
-                                        {/* Large Role Title */}
-                                        <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                                            {item.role}
-                                        </h3>
-
-                                        {/* Narrative Description */}
-                                        <p className="text-white/85 text-xs sm:text-sm md:text-base max-w-2xl mt-3 leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] line-clamp-3 sm:line-clamp-none font-normal">
-                                            {item.description}
-                                        </p>
-
-                                        {/* Skill Tags */}
-                                        <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4 pt-1">
-                                            {item.skills.map((skill, sIdx) => (
-                                                <span
-                                                    key={sIdx}
-                                                    className="px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-black/40 backdrop-blur-md border border-white/25 text-white/95 shadow-sm hover:border-[#EC844D]/60 hover:bg-[#EC844D]/20 transition-colors"
-                                                >
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
+                                        <span className={`w-1.5 h-1.5 rounded-full ${activeIndex === idx ? "bg-[#f06292]" : "bg-[#bbb7ad]"}`} />
+                                        <span>{item.year}</span>
+                                    </button>
                                 ))}
                             </div>
-
-                            {/* Right Column: Floema-Style Floating Highlight Card */}
-                            <div className="hidden lg:flex lg:col-span-4 xl:col-span-3 justify-end pointer-events-auto">
-                                <motion.div 
-                                    key={activeIndex}
-                                    initial={{ opacity: 0, scale: 0.94, y: 15 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    transition={{ duration: 0.4, ease: "easeOut" }}
-                                    className="w-full max-w-[280px] p-4 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col gap-3 group hover:border-[#EC844D]/50 transition-colors"
-                                >
-                                    {/* Thumbnail Preview with Live Glowing Border */}
-                                    <div className="relative w-full h-36 rounded-xl overflow-hidden border border-white/10">
-                                        <img 
-                                            src={items[activeIndex].image} 
-                                            alt={items[activeIndex].role}
-                                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
-                                        />
-                                        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[#FFAE80] text-[10px] font-mono font-bold border border-white/15">
-                                            {items[activeIndex].year}
-                                        </div>
-                                    </div>
-
-                                    {/* Card Details */}
-                                    <div>
-                                        <div className="text-[11px] font-mono text-[#FFAE80] uppercase tracking-wider">
-                                            Chapter 0{activeIndex + 1}
-                                        </div>
-                                        <div className="text-sm font-bold text-white line-clamp-1 mt-0.5">
-                                            {items[activeIndex].role}
-                                        </div>
-                                        <div className="text-xs text-white/60 line-clamp-2 mt-1">
-                                            {items[activeIndex].company}
-                                        </div>
-                                    </div>
-
-                                    {/* Next Step / Jump Button */}
-                                    <button 
-                                        onClick={() => scrollToMilestone((activeIndex + 1) % items.length)}
-                                        className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-white/10 hover:bg-[#EC844D] text-white text-xs font-medium transition-colors group/btn"
-                                    >
-                                        <span>
-                                            {activeIndex === items.length - 1 ? "Back to start" : "Next Milestone"}
-                                        </span>
-                                        <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                                    </button>
-                                </motion.div>
-                            </div>
-
                         </div>
 
-                        {/* Bottom Scrubber & Hint Bar */}
-                        <div className="w-full pt-3 border-t border-white/15 flex items-center justify-end text-xs text-white/60 pointer-events-auto">
+                        {/* Central Soft UI Milestone Showcase Card */}
+                        <div className="relative flex-1 flex items-center justify-center my-auto pb-3">
+                            <div className="w-full max-w-4xl soft-ui-raised-card rounded-[32px] sm:rounded-[38px] p-5 sm:p-7 md:p-8 bg-[#eae7e1] text-[#43413d] border border-[#dedad1]/70 transition-all duration-300">
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+                                    
+                                    {/* Left: Sunken Bezel Picture Frame */}
+                                    <div className="lg:col-span-6 flex flex-col justify-center">
+                                        <div className="soft-ui-inset rounded-[24px] sm:rounded-[28px] p-2.5 sm:p-3 bg-[#e4e1d9] relative overflow-hidden aspect-[16/11]">
+                                            <AnimatePresence mode="wait">
+                                                <motion.img 
+                                                    key={activeIndex}
+                                                    src={currentItem.image} 
+                                                    alt={currentItem.role}
+                                                    initial={{ opacity: 0, scale: 1.04 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.96 }}
+                                                    transition={{ duration: 0.35, ease: "easeOut" }}
+                                                    className="w-full h-full object-cover object-center rounded-[18px] sm:rounded-[20px]"
+                                                />
+                                            </AnimatePresence>
 
-                            <div className="flex items-center gap-2 text-white/70">
-                                <span className="hidden sm:inline">Scroll to scrub journey</span>
-                                <ChevronDown className="w-4 h-4 text-[#FFAE80] animate-bounce" />
+                                            {/* Sunken Year Badge */}
+                                            <div className="soft-ui-inset-subtle absolute top-4 left-4 sm:top-5 sm:left-5 px-3 py-1 rounded-full text-xs font-black text-[#e59845] font-digital bg-[#e6e3dc]/95 backdrop-blur-sm shadow-sm pointer-events-none">
+                                                {currentItem.year}
+                                            </div>
+
+                                            {/* Sunken Category Badge */}
+                                            <div className="soft-ui-inset-subtle absolute top-4 right-4 sm:top-5 sm:right-5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#5a5751] font-handwriting bg-[#e6e3dc]/95 backdrop-blur-sm shadow-sm pointer-events-none">
+                                                {currentItem.category}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Right: Narrative Details & Controls */}
+                                    <div className="lg:col-span-6 flex flex-col justify-between text-left h-full py-1">
+                                        <div>
+                                            {/* Company / Institution Header & Chapter Index */}
+                                            <div className="flex items-center justify-between mb-2">
+                                                <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#78756e] font-handwriting">
+                                                    {currentItem.company.includes('School') || currentItem.company.includes('Vidyapith') || currentItem.company.includes('Institute') ? (
+                                                        <GraduationCap className="w-4 h-4 text-[#e59845] shrink-0" />
+                                                    ) : (
+                                                        <Briefcase className="w-4 h-4 text-[#e59845] shrink-0" />
+                                                    )}
+                                                    <span className="line-clamp-1">{currentItem.company}</span>
+                                                </div>
+
+                                                <span className="soft-ui-inset-subtle rounded-full px-2.5 py-0.5 text-[10px] font-black text-[#383a3d] font-digital bg-[#e6e3dc]">
+                                                    Chapter 0{activeIndex + 1} / 0{items.length}
+                                                </span>
+                                            </div>
+
+                                            {/* Role Title */}
+                                            <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-[#383a3d] font-digital tracking-tight mb-2.5 leading-snug">
+                                                {currentItem.role}
+                                            </h3>
+
+                                            {/* Description */}
+                                            <p className="text-[#66635d] text-xs sm:text-[13px] leading-relaxed mb-4 font-normal">
+                                                {currentItem.description}
+                                            </p>
+
+                                            {/* Skills Tags */}
+                                            <div className="flex flex-wrap gap-1.5 mb-5">
+                                                {currentItem.skills.map((skill, sIdx) => (
+                                                    <span 
+                                                        key={sIdx}
+                                                        className="soft-ui-inset-subtle px-2.5 py-0.5 rounded-full text-[10px] sm:text-[10.5px] font-bold text-[#6d6a64] font-digital bg-[#e6e3dc]"
+                                                    >
+                                                        {skill}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Bottom Action / Navigation Bar */}
+                                        <div className="w-full h-11 soft-ui-inset rounded-full p-1.5 flex items-center justify-between bg-[#e4e1d9] mt-auto">
+                                            <button
+                                                onClick={() => scrollToMilestone((activeIndex - 1 + items.length) % items.length)}
+                                                className="soft-ui-raised rounded-full px-3.5 py-1 text-xs font-bold text-[#6d6a64] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer"
+                                            >
+                                                <ArrowLeft size={13} className="text-[#e59845]" />
+                                                <span>Prev</span>
+                                            </button>
+
+                                            <span className="text-[11px] font-bold text-[#78756e] font-handwriting hidden sm:inline">
+                                                Scroll or click to explore milestones
+                                            </span>
+
+                                            <button
+                                                onClick={() => scrollToMilestone((activeIndex + 1) % items.length)}
+                                                className="soft-ui-raised rounded-full px-3.5 py-1 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer"
+                                            >
+                                                <span>{activeIndex === items.length - 1 ? "Restart" : "Next"}</span>
+                                                <ArrowRight size={13} className="text-[#e59845]" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

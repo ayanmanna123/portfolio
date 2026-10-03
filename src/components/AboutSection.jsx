@@ -1,21 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowDown } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Sparkles, ArrowDown, Award, Briefcase, Zap, Code2, GitBranch, Heart } from 'lucide-react';
 import { aboutData } from "@/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const AboutSection = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const line1Ref = useRef(null);
@@ -43,15 +35,15 @@ export const AboutSection = () => {
         return;
       }
 
-      // Initial entry animations when section first scrolls into view
+      // Initial entry animations when header scrolls into view
       if (line1Ref.current) {
         gsap.fromTo(
           line1Ref.current,
-          { y: 100, opacity: 0 },
+          { y: 60, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.5,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -65,11 +57,11 @@ export const AboutSection = () => {
       if (line2Ref.current) {
         gsap.fromTo(
           line2Ref.current,
-          { y: 100, opacity: 0 },
+          { y: 60, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.3,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -83,11 +75,11 @@ export const AboutSection = () => {
       if (line3Ref.current) {
         gsap.fromTo(
           line3Ref.current,
-          { y: 40, opacity: 0 },
+          { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.5,
+            duration: 1.2,
             ease: "power3.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -99,8 +91,7 @@ export const AboutSection = () => {
       }
 
       // ----------------------------------------------------------------------
-      // MASTER SCROLL-DRIVEN CINEMATIC PIN & ZOOM TIMELINE
-      // (Mirroring the Hero Section Zoom & Portal Reveal)
+      // SCROLL-DRIVEN PIN & ZOOM TIMELINE
       // ----------------------------------------------------------------------
       const isMobile = window.innerWidth < 768;
       const targetScale = isMobile ? 18 : 28;
@@ -131,13 +122,13 @@ export const AboutSection = () => {
         },
       });
 
-      // PHASE 1: Fade out Header and Left Text Card smoothly
+      // PHASE 1: Fade out Header and Left Card
       tl.to(
         [headerRef.current, aboutCardRef.current],
         {
           opacity: 0,
-          y: -35,
-          filter: "blur(8px)",
+          y: -30,
+          filter: "blur(6px)",
           duration: 0.22,
           ease: "power2.inOut",
         },
@@ -152,7 +143,7 @@ export const AboutSection = () => {
           y: moveY,
           scale: targetScale,
           borderRadius: "8px",
-          boxShadow: "0 0 140px rgba(236,132,77,0.95)",
+          boxShadow: "0 0 100px rgba(207,203,194,0.9)",
           ease: "power2.inOut",
           transformOrigin: "center center",
           duration: 0.75,
@@ -160,12 +151,12 @@ export const AboutSection = () => {
         0.05
       );
 
-      // Fade out inner picture elements so it smoothly turns into an orange canvas portal
+      // Fade out inner picture elements smoothly
       tl.to(
         ".profile-inner-img",
         {
           opacity: 0,
-          scale: 0.5,
+          scale: 0.6,
           filter: "blur(6px)",
           duration: 0.2,
           ease: "power1.out",
@@ -173,12 +164,12 @@ export const AboutSection = () => {
         0.05
       );
 
-      // PHASE 3: Portal Aperture reveals Next Section (Skills & Arsenal)
+      // PHASE 3: Portal Aperture reveals Next Section
       tl.fromTo(
         portalSectionRef.current,
         {
           opacity: 0,
-          scale: 0.6,
+          scale: 0.7,
           clipPath: "inset(25% round 32px)",
           pointerEvents: "none",
         },
@@ -202,116 +193,144 @@ export const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-12 pb-24 sm:pt-14 sm:pb-28 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5"
+      className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-12 pb-24 sm:pt-14 sm:pb-28 bg-[#eae7e1] text-[#43413d] select-none transition-colors"
     >
-      {/* Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute w-60 sm:w-96 h-60 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl transition-all duration-1000 ease-out" 
-          style={{ transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` }} 
-        />
-        <div 
-          className="absolute w-52 sm:w-80 h-52 sm:h-80 bg-[#FFD8B2]/20 dark:bg-[#EC844D]/10 rounded-full blur-3xl transition-all duration-1500 ease-out" 
-          style={{ transform: `translate(${mousePosition.x * -0.03}px, ${mousePosition.y * -0.03}px)` }} 
-        />
-        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
-        <div className="hidden sm:block absolute top-16 right-8 sm:top-20 sm:right-20 animate-float-3s">
-          <div className="w-6 sm:w-8 h-6 sm:h-8 bg-[#EC844D]/20 rounded-lg rotate-45" />
-        </div>
-        <div className="hidden sm:block absolute bottom-32 left-8 sm:bottom-40 sm:left-20 animate-float-3s animation-delay-2000">
-          <div className="w-5 sm:w-6 h-5 sm:h-6 bg-[#EC844D]/20 rounded-full" />
-        </div>
-      </div>
+      {/* Exact Neumorphic Soft UI Styles from SoftUiWidgets.jsx */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
 
       <div className="container mx-auto max-w-5xl relative z-10 my-auto">
-        {/* Header (Streamlined to fit comfortably in viewport) */}
-        <div ref={headerRef} className="text-center mb-4 sm:mb-6 px-2 sm:px-4 will-change-[transform,opacity,filter]">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-1 sm:mb-2 leading-tight">
-            <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
-              {aboutData?.title || "Transforming"}
-            </span>
+        {/* Header: Styled exactly like SoftUiGreeting */}
+        <div ref={headerRef} className="text-center mb-6 sm:mb-8 px-2 sm:px-4 will-change-[transform,opacity,filter]">
+          <div ref={line1Ref} className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
+            <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+            <span>About.Me</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-1 leading-tight tracking-tight text-[#43413d]">
+            <span>{aboutData?.title || "Transforming"} </span>
             <span
               ref={line2Ref}
-              className="block font-rakyat text-2xl sm:text-3xl md:text-5xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-0.5 sm:mt-1 pb-1 font-normal will-change-transform will-change-opacity"
-              style={{ fontFamily: "'Rakyat', cursive" }}
+              className="text-[#e59845] font-handwriting font-bold"
             >
               {aboutData?.subtitle || "Ideas Into Reality"}
             </span>
           </h2>
+
           <p
             ref={line3Ref}
-            className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+            className="text-xs sm:text-sm text-[#78756e] font-medium font-handwriting max-w-xl mx-auto leading-relaxed mt-1"
           >
-            {aboutData?.bio || (
-              <>Building digital experiences that combine <span className="text-primary font-semibold">innovation</span>, <span className="text-primary font-semibold">performance</span>, and <span className="text-primary font-semibold">elegance</span></>
-            )}
+            {aboutData?.bio || "Building digital experiences that combine innovation, performance, and elegance."}
           </p>
         </div>
 
-        {/* 2 Separate Cards with a Space in Between */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+        {/* 2 Main Soft UI Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
           
-          {/* Card 1 (Left): Name & Resume Description */}
+          {/* Card 1 (Left): Name, Bio & Experience Metrics */}
           <div
             ref={aboutCardRef}
-            className="lg:col-span-7 bg-card/60 border border-border/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-9 backdrop-blur-xl shadow-lg transition-colors duration-300 hover:border-primary/40 flex flex-col justify-center text-left will-change-[transform,opacity,filter] relative overflow-hidden"
+            className="lg:col-span-7 soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 md:p-9 flex flex-col justify-between text-left will-change-[transform,opacity,filter] relative overflow-hidden"
           >
-            {/* Decorative Background Circles */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <div className="absolute top-0 right-0 w-28 h-28 bg-primary rounded-full -translate-y-12 translate-x-12" />
-            </div>
-
             <div className="relative z-10 flex flex-col justify-center">
-              {/* Name & Role */}
-              <div className="mb-4 sm:mb-5">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">
+              {/* Name & Role Badge */}
+              <div className="mb-4">
+                <h3 className="text-3xl sm:text-4xl font-black text-[#383a3d] font-digital tracking-tight">
                   {aboutData?.name || "Ayan Manna"}
                 </h3>
-                <p className="text-primary text-sm sm:text-base font-semibold mt-1">
-                  {aboutData?.role || "Full Stack Developer"}
+                <div className="soft-ui-inset-subtle rounded-full px-3.5 py-1 text-xs font-bold text-[#5a5751] font-handwriting inline-flex items-center gap-1.5 mt-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#e59845]" />
+                  <span>{aboutData?.role || "Full Stack Developer"}</span>
+                </div>
+              </div>
+
+              {/* Bio Paragraphs */}
+              <div className="space-y-2.5 text-xs sm:text-[13px] md:text-sm text-[#66635d] font-normal leading-relaxed">
+                <p>
+                  Detail-oriented Web Developer with strong skills in modern frontend and backend architectures. Maintained 1500+ contributions on GitHub and solved 700+ LeetCode problems, demonstrating algorithmic problem-solving and rigorous engineering habits.
+                </p>
+                <p>
+                  Passionate about crafting intuitive interfaces, writing clean scalable code, and building experiences that live every day with ease.
                 </p>
               </div>
 
-              {/* Description from Resume */}
-              <div className="space-y-3 text-xs sm:text-sm md:text-[15px] text-muted-foreground leading-relaxed">
-                <p>
-                  Detail-oriented Web Developer with strong skills in HTML, CSS, JavaScript, and React. Experienced in building responsive websites and dynamic web applications. Maintained 1500+ contributions on GitHub and solved 300+ LeetCode problems, demonstrating consistent coding practice and algorithmic problem-solving.
-                </p>
-                <p>
-                  Passionate about learning new technologies, writing clean code, and building scalable web solutions that make a meaningful impact.
-                </p>
+              {/* 4 Clay Metric Chips (like the capsule meters from SoftUiWidgets) */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mt-6">
+                {[
+                  { label: "Hackathons", value: "8+", icon: Award, color: "text-[#e59845]" },
+                  { label: "Projects", value: "14+", icon: Briefcase, color: "text-[#528cc7]" },
+                  { label: "Freelancing", value: "1+", icon: Zap, color: "text-[#f06292]" },
+                  { label: "LeetCode", value: "710+", icon: Code2, color: "text-[#3b8a6a]" },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="p-3 rounded-[20px] soft-ui-inset-subtle flex flex-col items-center justify-center text-center"
+                  >
+                    <item.icon className={`w-4 h-4 ${item.color} mb-1`} />
+                    <span className="text-base sm:text-lg font-black text-[#383a3d] font-digital leading-none">
+                      {item.value}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#78756e] font-handwriting mt-1">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Card 2 (Right): Profile Picture in its own Separate Card (Zoom Target) */}
+          {/* Card 2 (Right): Profile Picture Dial Frame */}
           <div
             ref={profileImgCardRef}
-            className="lg:col-span-5 bg-card/60 border border-border/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-xl shadow-lg transition-colors duration-300 hover:border-primary/40 flex items-center justify-center will-change-[transform,opacity,box-shadow] relative overflow-hidden group min-h-[220px] lg:min-h-full"
+            className="lg:col-span-5 soft-ui-raised-card rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 flex flex-col items-center justify-center will-change-[transform,opacity,box-shadow] relative overflow-hidden group min-h-[260px] lg:min-h-full"
           >
-            {/* Decorative Background Circles */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <div className="absolute bottom-0 right-0 w-28 h-28 bg-primary rounded-full translate-x-8 translate-y-8" />
-            </div>
+            <div className="relative profile-inner-img will-change-[transform,opacity,filter] flex flex-col items-center">
+              {/* Circular Soft UI Bevel Dial (inspired by SoftUiClock) */}
+              <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full soft-ui-raised p-3 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+                {/* Center Pivot Accent Dot like SoftUiClock */}
+                <div className="absolute top-2 w-2.5 h-2.5 rounded-full bg-[#f06292] shadow-sm pointer-events-none" />
 
-            <div className="relative profile-inner-img will-change-[transform,opacity,filter]">
-              {/* Glowing Ambient Aura */}
-              <div 
-                className="absolute -inset-3 bg-gradient-to-tr from-[#EC844D] via-[#F59E6B] to-[#FFD8B2] opacity-60 blur-lg group-hover:opacity-90 transition-opacity duration-500"
-                style={{ borderRadius: "48% 52% 68% 32% / 38% 45% 55% 62%" }}
-              />
-              
-              {/* Profile Picture Frame */}
-              <div 
-                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-60 lg:h-60 overflow-hidden bg-gradient-to-tr from-[#EC844D] to-[#FFD8B2] p-1 shadow-xl transition-all duration-500 group-hover:scale-[1.03] group-hover:rotate-1 relative z-10"
-                style={{ borderRadius: "48% 52% 68% 32% / 38% 45% 55% 62%" }}
-              >
-                <img 
-                  src={aboutData?.profileImage || "/profile-logo.jpeg"} 
-                  alt={aboutData?.name || "Ayan Manna"} 
-                  className="w-full h-full object-cover" 
-                  style={{ borderRadius: "46% 54% 66% 34% / 40% 47% 53% 60%" }}
-                />
+                {/* Inset Circular Bezel */}
+                <div className="w-full h-full rounded-full soft-ui-inset p-2 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src={aboutData?.profileImage || "/profile-logo.jpeg"} 
+                    alt={aboutData?.name || "Ayan Manna"} 
+                    className="w-full h-full object-cover rounded-full shadow-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Status Badge */}
+              <div className="soft-ui-inset-subtle rounded-full px-4 py-1.5 mt-5 flex items-center gap-2 text-xs font-bold text-[#5a5751] font-handwriting">
+                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+                <span>Open for Opportunities</span>
               </div>
             </div>
           </div>
@@ -320,28 +339,29 @@ export const AboutSection = () => {
       </div>
 
       {/* ================================================================== */}
-      {/* PORTAL REVEAL OVERLAY (Camera passes through the orange portal)     */}
-      {/* Reveals the Skills Section Entrance during the zoom                */}
+      {/* PORTAL REVEAL OVERLAY (Camera passes into the next section)        */}
       {/* ================================================================== */}
       <div
         ref={portalSectionRef}
         aria-label="Skills Section Portal View"
-        className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-background/95 dark:bg-[#0c0c0f]/95 backdrop-blur-2xl px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
+        className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
         style={{ opacity: 0 }}
       >
-        {/* Subtle Ambient Backlight */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-[#EC844D]/25 to-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
+        <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-4">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting">
+            <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+            <span>Next.Chapter</span>
+          </div>
 
-        <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.15]">
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#43413d] leading-[1.15]">
             Mastery Built Through{" "}
-            <span className="font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent block sm:inline mt-1 sm:mt-0">
+            <span className="font-handwriting text-[#e59845] block sm:inline mt-1 sm:mt-0">
               Deep Practice
             </span>
           </h2>
 
-          <p className="text-muted-foreground text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-light">
-            From <span className="text-foreground font-medium">real-time architectures</span> and modern frontend systems to <span className="text-foreground font-medium">deep learning pipelines</span>.
+          <p className="text-[#78756e] font-handwriting text-base sm:text-xl max-w-2xl mx-auto leading-relaxed">
+            From real-time architectures and modern frontend systems to deep learning pipelines.
           </p>
 
           <div 
@@ -355,7 +375,7 @@ export const AboutSection = () => {
                 }
               }
             }}
-            className="pt-3 flex items-center gap-2 text-xs font-mono text-[#EC844D] uppercase tracking-widest animate-bounce cursor-pointer pointer-events-auto"
+            className="pt-2 flex items-center gap-2 text-xs font-bold text-[#e59845] font-handwriting uppercase tracking-wider animate-bounce cursor-pointer pointer-events-auto"
           >
             <span>Explore Technical Arsenal</span>
             <ArrowDown className="w-4 h-4" />
@@ -365,3 +385,5 @@ export const AboutSection = () => {
     </section>
   );
 };
+
+export default AboutSection;

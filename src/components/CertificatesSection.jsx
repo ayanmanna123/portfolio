@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 import { motion } from "framer-motion";
-import { Award, ExternalLink, BadgeCheck, Calendar, Sparkles, ChevronUp, ArrowRight } from "lucide-react";
+import { Award, ExternalLink, BadgeCheck, Sparkles, ChevronUp, ArrowRight, RotateCw } from "lucide-react";
 import { certificates } from "@/data";
 import FlipCard from "./FlipCard";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const getCertAspectRatio = (cert) => {
     if (cert?.image?.includes('certificates1')) return '3334 / 2480';
@@ -22,113 +22,131 @@ const CertificateCard = ({ cert, cardRef }) => {
     return (
         <div
             ref={cardRef}
-            className="w-full flex justify-center will-change-transform will-change-opacity"
+            className="w-full flex justify-center will-change-transform will-change-opacity select-none"
         >
-            <FlipCard
-                width="100%"
-                aspectRatio={aspectRatio}
-                radius={16}
-                axis="y"
-                flipOnClick
-                draggable
-                dragDistance={0}
-                tilt
-                tiltMax={10}
-                glare
-                glareOpacity={0.16}
-                hoverScale={1.02}
-                perspective={1100}
-                stiffness={170}
-                damping={20}
-                background="transparent"
-                color="inherit"
-                shadow
-                shadowColor="#EC844D"
-                shadowOpacity={0.14}
-                className="w-full"
-                front={
-                    cert.image ? (
-                        <img
-                            src={cert.image}
-                            alt={cert.title}
-                            onLoad={(e) => {
-                                const { naturalWidth, naturalHeight } = e.currentTarget;
-                                if (naturalWidth && naturalHeight) {
-                                    setAspectRatio(`${naturalWidth} / ${naturalHeight}`);
-                                }
-                            }}
-                            className="w-full h-full object-cover block rounded-[16px] border border-border/70 shadow-sm"
-                            loading="lazy"
-                        />
-                    ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-card border border-border/70 rounded-[16px] text-muted-foreground/40 p-4">
-                            <BadgeCheck className="w-12 h-12" />
-                            <span className="text-xs font-mono">Certificate Document</span>
-                        </div>
-                    )
-                }
-                back={
-                    <div className="w-full h-full flex flex-col justify-between p-3.5 sm:p-4 md:p-5 bg-card/95 border border-border/80 rounded-[16px] backdrop-blur-xl text-left overflow-y-auto">
-                        <div>
-                            {/* Header: Date + Flip indicator */}
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-[11px] sm:text-xs text-muted-foreground font-mono bg-muted/60 px-2.5 py-0.5 rounded-full border border-border">
-                                    {cert.date}
-                                </span>
+            <div className="w-full soft-ui-raised rounded-[28px] sm:rounded-[32px] p-3 sm:p-4 bg-[#eae7e1] transition-all duration-300">
+                <FlipCard
+                    width="100%"
+                    aspectRatio={aspectRatio}
+                    radius={20}
+                    axis="y"
+                    flipOnClick
+                    draggable
+                    dragDistance={0}
+                    tilt
+                    tiltMax={8}
+                    glare
+                    glareOpacity={0.12}
+                    hoverScale={1.02}
+                    perspective={1100}
+                    stiffness={170}
+                    damping={20}
+                    background="#e4e1d9"
+                    color="#43413d"
+                    shadow={false}
+                    className="w-full"
+                    front={
+                        cert.image ? (
+                            <div className="w-full h-full soft-ui-inset rounded-[20px] p-2 bg-[#e4e1d9] flex flex-col justify-between overflow-hidden relative group">
+                                <img
+                                    src={cert.image}
+                                    alt={cert.title}
+                                    onLoad={(e) => {
+                                        const { naturalWidth, naturalHeight } = e.currentTarget;
+                                        if (naturalWidth && naturalHeight) {
+                                            setAspectRatio(`${naturalWidth} / ${naturalHeight}`);
+                                        }
+                                    }}
+                                    className="w-full h-full object-cover block rounded-[14px] shadow-sm"
+                                    loading="lazy"
+                                />
 
-                                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full border border-border">
-                                    <span>Flip</span>
-                                    <span>↺</span>
-                                </span>
+                                {/* Subtle Flip Prompt in corner */}
+                                <div className="absolute bottom-3 right-3 soft-ui-inset-subtle rounded-full px-2.5 py-1 text-[9px] font-bold text-[#5a5751] font-handwriting flex items-center gap-1 bg-[#e6e3dc]/90 backdrop-blur-sm pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity">
+                                    <span>Details</span>
+                                    <RotateCw size={10} className="text-[#e59845]" />
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center soft-ui-inset rounded-[20px] bg-[#e4e1d9] text-[#78756e] p-4">
+                                <BadgeCheck className="w-12 h-12 text-[#e59845]" />
+                                <span className="text-xs font-handwriting font-bold mt-2">Certificate Document</span>
+                            </div>
+                        )
+                    }
+                    back={
+                        <div className="w-full h-full flex flex-col justify-between p-4 sm:p-5 soft-ui-inset rounded-[20px] bg-[#e4e1d9] text-left overflow-y-auto custom-scrollbar">
+                            <div>
+                                {/* Header: Date + Flip Indicator */}
+                                <div className="flex items-center justify-between mb-2.5">
+                                    <span className="text-[10px] sm:text-[11px] text-[#5a5751] font-handwriting font-bold soft-ui-inset-subtle px-2.5 py-0.5 rounded-full bg-[#e6e3dc]">
+                                        {cert.date}
+                                    </span>
+
+                                    <span className="inline-flex items-center gap-1 text-[10px] font-handwriting font-bold text-[#78756e] soft-ui-inset-subtle px-2 py-0.5 rounded-full bg-[#e6e3dc]">
+                                        <span>Flip</span>
+                                        <span>↺</span>
+                                    </span>
+                                </div>
+
+                                {/* Title */}
+                                <h3 className="text-xs sm:text-sm md:text-base font-bold text-[#383a3d] font-digital mb-1.5 leading-snug line-clamp-2">
+                                    {cert.title}
+                                </h3>
+
+                                {/* Description */}
+                                <p className="text-[11px] sm:text-xs text-[#66635d] font-normal leading-relaxed line-clamp-3 mb-3">
+                                    {cert.description || "Validated professional skill and course completion certification."}
+                                </p>
+
+                                {/* Tags */}
+                                <div className="flex flex-wrap gap-1.5 mb-2">
+                                    <span className="text-[10px] font-handwriting font-bold px-2.5 py-0.5 rounded-full soft-ui-raised bg-[#eae7e1] text-[#5a5751]">
+                                        {cert.category}
+                                    </span>
+                                    {cert.featured && (
+                                        <span className="text-[10px] font-handwriting font-bold px-2.5 py-0.5 rounded-full soft-ui-raised bg-[#eae7e1] text-[#e59845]">
+                                            ★ Featured
+                                        </span>
+                                    )}
+                                </div>
                             </div>
 
-                            {/* Title */}
-                            <h3 className="text-xs sm:text-sm md:text-base font-bold text-foreground mb-1 leading-snug line-clamp-2">
-                                {cert.title}
-                            </h3>
-
-                            {/* Description */}
-                            <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2 sm:line-clamp-3 mb-2">
-                                {cert.description || "Validated professional skill and course completion certification."}
-                            </p>
-
-                            {/* Tags */}
-                            <div className="flex flex-wrap gap-1.5 mb-2">
-                                <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground border border-border/60">
-                                    {cert.category}
-                                </span>
-                                {cert.featured && (
-                                    <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#EC844D]/15 text-[#EC844D] border border-[#EC844D]/30 font-medium">
-                                        Featured
-                                    </span>
+                            {/* Action Button: Verify Credential */}
+                            <div className="pt-2 border-t border-[#cdc8be]/50 flex items-center justify-between gap-2 mt-auto">
+                                {cert.verificationLink ? (
+                                    <a
+                                        href={cert.verificationLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        data-no-flip
+                                        className="soft-ui-raised hover:scale-105 active:scale-95 inline-flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[#eae7e1] text-[#383a3d] text-[11px] sm:text-xs font-bold font-handwriting border border-[#dedad1] transition-all cursor-pointer w-full"
+                                        title="Verify Certificate"
+                                    >
+                                        <span>Verify Credential</span>
+                                        <ExternalLink size={12} className="text-[#e59845]" />
+                                    </a>
+                                ) : (
+                                    <div className="w-full flex items-center justify-between text-[11px] text-[#78756e] font-handwriting py-0.5">
+                                        <span className="italic">Academic / Event Record</span>
+                                        <span className="text-[#e59845] font-bold">Verified ✓</span>
+                                    </div>
                                 )}
                             </div>
                         </div>
+                    }
+                />
 
-                        {/* Action Button: Verify Credential */}
-                        <div className="pt-2 border-t border-border/50 flex items-center justify-between gap-2 mt-auto">
-                            {cert.verificationLink ? (
-                                <a
-                                    href={cert.verificationLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    data-no-flip
-                                    className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#EC844D] to-[#DE6F36] text-white text-[11px] sm:text-xs font-bold shadow-md hover:shadow-[#EC844D]/30 hover:brightness-110 transition-all cursor-pointer w-full"
-                                    title="Verify Certificate"
-                                >
-                                    <span>Verify Credential</span>
-                                    <ExternalLink size={12} />
-                                </a>
-                            ) : (
-                                <div className="w-full flex items-center justify-between text-[11px] text-muted-foreground py-0.5">
-                                    <span className="italic">Academic / Event Record</span>
-                                    <span className="text-[#EC844D] font-mono font-medium">Verified</span>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                }
-            />
+                {/* Bottom title & metadata outside the flip */}
+                <div className="mt-3 px-1.5 flex items-center justify-between">
+                    <span className="text-xs sm:text-sm font-bold text-[#383a3d] font-digital truncate max-w-[70%]">
+                        {cert.title}
+                    </span>
+                    <span className="text-[10px] font-handwriting font-bold text-[#78756e] soft-ui-inset-subtle px-2 py-0.5 rounded-full bg-[#e6e3dc]">
+                        {cert.category || "Skill"}
+                    </span>
+                </div>
+            </div>
         </div>
     );
 };
@@ -149,88 +167,65 @@ export const CertificatesSection = () => {
         if (!sectionRef.current) return;
 
         const ctx = gsap.context(() => {
-            // Line 1: "Verified"
             if (line1Ref.current) {
                 gsap.fromTo(
                     line1Ref.current,
-                    { y: 150, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.8,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: headerRef.current,
-                            start: "top 60%",
-                            toggleActions: "play none none reverse",
-                        },
-                    }
-                );
-            }
-
-            // Line 2: "Certifications"
-            if (line2Ref.current) {
-                gsap.fromTo(
-                    line2Ref.current,
-                    { y: 150, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.8,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: headerRef.current,
-                            start: "top 40%",
-                            toggleActions: "play none none reverse",
-                        },
-                    }
-                );
-            }
-
-            // Line 3: Description
-            if (line3Ref.current) {
-                gsap.fromTo(
-                    line3Ref.current,
                     { y: 50, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1.8,
+                        duration: 1.2,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: headerRef.current,
-                            start: "top 20%",
+                            start: "top 75%",
                             toggleActions: "play none none reverse",
                         },
                     }
                 );
             }
 
-            // Individual Certificate Cards with distinct timing, directions, and visible reverse trigger
+            if (line2Ref.current) {
+                gsap.fromTo(
+                    line2Ref.current,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 65%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
+            if (line3Ref.current) {
+                gsap.fromTo(
+                    line3Ref.current,
+                    { y: 30, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: "top 55%",
+                            toggleActions: "play none none reverse",
+                        },
+                    }
+                );
+            }
+
             cardRefs.current.forEach((card, index) => {
                 if (!card) return;
 
-                let fromVars = { opacity: 0 };
-                let duration = 1.4;
-                let triggerStart = "top 68%";
-                const colPos = index % 3;
-
-                if (colPos === 0) {
-                    // Card 1 (Left): Left to Right
-                    fromVars = { x: -260, opacity: 0 };
-                    duration = 1.4;
-                    triggerStart = "top 68%";
-                } else if (colPos === 1) {
-                    // Card 2 (Center): Bottom to Top
-                    fromVars = { y: 80, opacity: 0 };
-                    duration = 1.6;
-                    triggerStart = "top 64%";
-                } else {
-                    // Card 3 (Right): Right to Left
-                    fromVars = { x: 260, opacity: 0 };
-                    duration = 1.8;
-                    triggerStart = "top 60%";
-                }
+                let fromVars = { opacity: 0, y: 40 };
+                let duration = 1.0;
 
                 gsap.fromTo(
                     card,
@@ -243,7 +238,7 @@ export const CertificatesSection = () => {
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: cardsContainerRef.current || card,
-                            start: triggerStart,
+                            start: "top 75%",
                             toggleActions: "play none none reverse",
                         },
                     }
@@ -255,38 +250,69 @@ export const CertificatesSection = () => {
     }, [showAll]);
 
     return (
-        <section id="certifications" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-transparent dark:bg-transparent overflow-hidden">
-            {/* Background Decor */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[20%] right-[10%] w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
-                <div className="absolute bottom-[20%] left-[10%] w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
-            </div>
+        <section
+            id="certifications"
+            ref={sectionRef}
+            className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-[#eae7e1] text-[#43413d] overflow-hidden select-none transition-colors"
+        >
+            {/* Exact Neumorphic Soft UI Styles from SoftUiWidgets.jsx */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+                    
+                    .font-handwriting {
+                        font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+                    }
+                    .font-digital {
+                        font-family: 'Fredoka', 'Quicksand', sans-serif;
+                    }
+                    .soft-ui-raised {
+                        background: #eae7e1;
+                        box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+                    }
+                    .soft-ui-raised-card {
+                        background: #eae7e1;
+                        box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+                    }
+                    .soft-ui-inset {
+                        background: #e4e1d9;
+                        box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+                    }
+                    .soft-ui-inset-subtle {
+                        background: #e6e3dc;
+                        box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+                    }
+                `
+            }} />
 
-            <div className="container mx-auto px-3 sm:px-6 max-w-7xl relative">
-                {/* Header */}
-                <div ref={headerRef} className="text-center mb-12 sm:mb-16 md:mb-20 px-2 sm:px-6">
-                    <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-6 leading-tight">
-                        <span ref={line1Ref} className="block text-foreground will-change-transform will-change-opacity">
-                            Verified
-                        </span>
+            <div className="container mx-auto px-2 sm:px-6 max-w-7xl relative z-10">
+                {/* Header: Styled like SoftUiGreeting */}
+                <div ref={headerRef} className="text-center mb-12 sm:mb-16 px-2 sm:px-6">
+                    <div ref={line1Ref} className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
+                        <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                        <span>Credentials.Archive</span>
+                    </div>
+
+                    <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-1 leading-tight tracking-tight text-[#43413d]">
+                        <span>Verified </span>
                         <span
                             ref={line2Ref}
-                            className="block font-rakyat text-3xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-1 sm:mt-2 pb-1 sm:pb-3 font-normal will-change-transform will-change-opacity"
-                            style={{ fontFamily: "'Rakyat', cursive" }}
+                            className="text-[#e59845] font-handwriting font-bold"
                         >
                             Certifications
                         </span>
                     </h2>
+
                     <p
                         ref={line3Ref}
-                        className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
+                        className="text-xs sm:text-sm text-[#78756e] font-medium font-handwriting max-w-2xl mx-auto leading-relaxed mt-1"
                     >
-                        A collection of professional certifications validating my technical expertise and commitment to continuous learning. Click any card to explore credential details.
+                        A collection of professional certifications validating technical expertise and commitment to continuous learning. Click any card to explore credential details.
                     </p>
                 </div>
 
                 {/* Grid */}
-                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-start">
+                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-start">
                     {displayedCertificates.map((cert, index) => (
                         <CertificateCard
                             key={cert.id || index}
@@ -296,39 +322,36 @@ export const CertificatesSection = () => {
                     ))}
                 </div>
 
-                {/* Load More Button */}
+                {/* Toggle View More Button */}
                 {certificates.length > 3 && (
                     <motion.div
-                        className="text-center mt-8 sm:mt-12"
+                        className="text-center mt-10 sm:mt-14"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        viewport={{ once: false }}
+                        viewport={{ once: true }}
                     >
-                        <motion.button
+                        <button
                             onClick={() => setShowAll(!showAll)}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className={`inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 cursor-pointer ${showAll
-                                ? "bg-muted text-foreground border border-border hover:bg-muted/80"
-                                : "bg-[#EC844D] hover:bg-[#DE743C] text-white shadow-lg shadow-[#EC844D]/25"
-                                }`}
+                            className="soft-ui-raised rounded-2xl px-6 sm:px-8 py-3 font-bold text-xs sm:text-sm text-[#43413d] font-handwriting inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-all bg-[#eae7e1] border border-[#dedad1] cursor-pointer"
                         >
                             {showAll ? (
                                 <>
-                                    <ChevronUp size={16} />
-                                    Show Less
+                                    <ChevronUp size={16} className="text-[#e59845]" />
+                                    <span>Show Less</span>
                                 </>
                             ) : (
                                 <>
-                                    View All Certificates
-                                    <ArrowRight size={16} />
+                                    <span>View All ({certificates.length}) Certificates</span>
+                                    <ArrowRight size={16} className="text-[#e59845]" />
                                 </>
                             )}
-                        </motion.button>
+                        </button>
                     </motion.div>
                 )}
             </div>
         </section>
     );
 };
+
+export default CertificatesSection;

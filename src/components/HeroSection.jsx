@@ -154,13 +154,6 @@ export const HeroSection = () => {
         0.35
       );
 
-      // Pill reveal
-      tl.fromTo(
-        ".portal-pill",
-        { opacity: 0, y: -25, scale: 0.85 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.4)" },
-        0.42
-      );
 
       // Heading Line 1: "Where Technical Precision Meets"
       tl.fromTo(
@@ -316,12 +309,7 @@ export const HeroSection = () => {
         >
           {/* Subtle Ambient Backlight */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-[#EC844D]/25 to-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
-
           <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
-            <div className="portal-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC844D]/15 border border-[#EC844D]/30 text-[#EC844D] text-xs font-mono uppercase tracking-wider will-change-[transform,opacity]">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Curated Case Studies & Architecture</span>
-            </div>
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.15]">
               <span className="portal-title-line1 block will-change-[transform,opacity,filter]">
                 Where Technical Precision Meets

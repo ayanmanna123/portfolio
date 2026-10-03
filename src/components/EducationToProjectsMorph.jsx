@@ -7,7 +7,7 @@ import {
   GraduationCap, Calendar, Award, ArrowRight, ArrowUpRight, ExternalLink, Github,
   ChevronUp, Star, Code, Play, Eye, X, Info
 } from 'lucide-react';
-import { educationData, projects, categoryColors, logo } from '../data';
+import { educationData, projects, categoryColors } from '../data';
 import { ProjectDetailsModal } from './ProjectDetailsModal';
 import { VideoPlayer } from './VideoPlayer';
 
@@ -910,36 +910,6 @@ export const EducationToProjectsMorph = () => {
                         </div>
                       </Link>
 
-                      {/* Author / Metadata Row Below Card */}
-                      <div className="flex items-center justify-between pt-3 px-1.5">
-                        {/* Author Profile */}
-                        <Link
-                          to={`/project/${project.id}`}
-                          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
-                        >
-                          <img
-                            src={logo}
-                            alt="Ayan Manna"
-                            className="w-6 h-6 rounded-full object-cover border border-border/80 bg-muted p-0.5"
-                          />
-                          <span className="text-sm sm:text-base font-semibold text-foreground group-hover:text-[#EC844D] transition-colors">
-                            Ayan Manna
-                          </span>
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                            PRO
-                          </span>
-                        </Link>
-
-                        {/* Badges on right side */}
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-bold px-2 py-0.5 rounded border border-border text-muted-foreground uppercase tracking-wide">
-                            DEV
-                          </span>
-                          <span className="text-[11px] font-bold px-2 py-0.5 rounded border border-[#EC844D]/40 text-[#EC844D] dark:text-[#FFAE80] uppercase tracking-wide">
-                            {project.status === "Live" ? "LIVE" : "SOTD"}
-                          </span>
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </AnimatePresence>

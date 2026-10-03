@@ -103,7 +103,6 @@ const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }
     type: "Engineering"
   };
 
-  const status = getProficiencyStatus(skill.level);
   const iconSrc = iconImages[skill.icon] || skill.icon;
 
   // Mid position detection: active or close to apex
@@ -156,28 +155,6 @@ const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }
         {/* Diagonal Light Sheen Glare */}
         <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.04] via-white/[0.08] to-transparent pointer-events-none" />
 
-        {/* Top Status Capsule Pill Badge */}
-        <div className="relative z-10 flex justify-between items-center w-full">
-          <span
-            className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full border transition-all duration-300"
-            style={{
-              borderColor: `${meta.color}60`,
-              color: meta.color,
-              backgroundColor: `${meta.color}15`,
-              transform: isMid ? "scale(1.04)" : "scale(1)"
-            }}
-          >
-            {status}
-          </span>
-
-          <span
-            className={`text-[10px] sm:text-xs font-semibold tabular-nums transition-colors duration-300 ${
-              isMid ? "text-foreground font-bold" : "text-muted-foreground"
-            }`}
-          >
-            {skill.level}%
-          </span>
-        </div>
 
         {/* Centerpiece: Skill Brand Logo & Typography */}
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center my-1.5 text-center">

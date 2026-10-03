@@ -333,11 +333,6 @@ export const AboutSection = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-[#EC844D]/25 to-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC844D]/15 border border-[#EC844D]/30 text-[#EC844D] text-xs font-mono uppercase tracking-wider shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>TECHNICAL ARSENAL & CORE CAPABILITIES</span>
-          </div>
-
           <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.15]">
             Mastery Built Through{" "}
             <span className="font-rakyat bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent block sm:inline mt-1 sm:mt-0">

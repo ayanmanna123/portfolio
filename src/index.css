@@ -449,3 +449,80 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+/* Skills Infinite Marquee with Hover Pause */
+@keyframes skills-marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes skills-marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.skills-marquee-container:hover .skills-marquee-left,
+.skills-marquee-container:hover .skills-marquee-right {
+  animation-play-state: paused !important;
+}
+
+.skills-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: skills-marquee-left 100s linear infinite;
+  will-change: transform;
+}
+
+.skills-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: skills-marquee-right 100s linear infinite;
+  will-change: transform;
+}
+
+/* Guillaume Zhu Toolkit 3D Rotary Wheel & Cards */
+.toolkit-wheel-section {
+  position: relative;
+  background-color: transparent;
+  color: inherit;
+}
+
+.toolkit-wheel-container {
+  user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.toolkit-wheel-container:active {
+  cursor: grabbing;
+}
+
+.toolkit-card-3d {
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.toolkit-card-shine {
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.03) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.toolkit-noise-bg {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

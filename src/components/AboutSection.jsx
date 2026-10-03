@@ -3,12 +3,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowDown } from 'lucide-react';
-import { achievements, tabContent, aboutData } from "@/data";
+import { aboutData } from "@/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const AboutSection = () => {
-  const [activeTab, setActiveTab] = useState('personal');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -252,76 +251,35 @@ export const AboutSection = () => {
         {/* 2 Separate Cards with a Space in Between */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
           
-          {/* Card 1 (Left): All Text, Achievements & Tabs */}
+          {/* Card 1 (Left): Name & Resume Description */}
           <div
             ref={aboutCardRef}
-            className="lg:col-span-7 bg-card/60 border border-border/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-7 backdrop-blur-xl shadow-lg transition-colors duration-300 hover:border-primary/40 flex flex-col justify-between text-left will-change-[transform,opacity,filter] relative overflow-hidden"
+            className="lg:col-span-7 bg-card/60 border border-border/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-9 backdrop-blur-xl shadow-lg transition-colors duration-300 hover:border-primary/40 flex flex-col justify-center text-left will-change-[transform,opacity,filter] relative overflow-hidden"
           >
             {/* Decorative Background Circles */}
             <div className="absolute inset-0 opacity-5 pointer-events-none">
               <div className="absolute top-0 right-0 w-28 h-28 bg-primary rounded-full -translate-y-12 translate-x-12" />
             </div>
 
-            <div className="relative">
+            <div className="relative z-10 flex flex-col justify-center">
               {/* Name & Role */}
-              <div className="mb-3 sm:mb-4">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">
+              <div className="mb-4 sm:mb-5">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">
                   {aboutData?.name || "Ayan Manna"}
                 </h3>
-                <p className="text-primary text-xs sm:text-sm md:text-base font-semibold mt-0.5">
+                <p className="text-primary text-sm sm:text-base font-semibold mt-1">
                   {aboutData?.role || "Full Stack Developer"}
                 </p>
               </div>
 
-              {/* Achievements Grid */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-3.5 sm:mb-4">
-                {achievements.map((achievement, index) => (
-                  <div 
-                    key={index} 
-                    className="p-2 sm:p-2.5 rounded-xl bg-background/60 border border-border/70 transition-all duration-300 hover:border-primary/40 shadow-xs"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="scale-90 text-primary">{achievement.icon}</span>
-                      <div>
-                        <div className="font-bold text-xs sm:text-sm text-foreground">{achievement.number}{achievement.suffix}</div>
-                        <div className="text-[10px] sm:text-[11px] text-muted-foreground leading-none">{achievement.label}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Tabs */}
-              <div className="flex border-b border-border/80 mb-2.5 sm:mb-3">
-                {['personal', 'professional', 'approach'].map(tab => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`flex-1 py-1.5 sm:py-2 px-2 text-[11px] sm:text-xs font-semibold transition-all duration-300 cursor-pointer ${
-                      activeTab === tab 
-                        ? 'text-primary border-b-2 border-primary font-bold' 
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab Content */}
-              <div className="min-h-[50px] sm:min-h-[65px]">
-                <AnimatePresence mode="sync">
-                  <motion.p
-                    key={activeTab}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-[11px] sm:text-xs md:text-sm text-muted-foreground leading-relaxed"
-                  >
-                    {tabContent[activeTab]}
-                  </motion.p>
-                </AnimatePresence>
+              {/* Description from Resume */}
+              <div className="space-y-3 text-xs sm:text-sm md:text-[15px] text-muted-foreground leading-relaxed">
+                <p>
+                  Detail-oriented Web Developer with strong skills in HTML, CSS, JavaScript, and React. Experienced in building responsive websites and dynamic web applications. Maintained 1500+ contributions on GitHub and solved 300+ LeetCode problems, demonstrating consistent coding practice and algorithmic problem-solving.
+                </p>
+                <p>
+                  Passionate about learning new technologies, writing clean code, and building scalable web solutions that make a meaningful impact.
+                </p>
               </div>
             </div>
           </div>

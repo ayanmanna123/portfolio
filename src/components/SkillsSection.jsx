@@ -9,50 +9,50 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Metadata map for each skill: brand color, classification tag, and category label
 const skillMetaMap = {
-  HTML: { color: "#E34F26", tag: "MARKUP", type: "Core Web" },
-  CSS: { color: "#1572B6", tag: "STYLING", type: "Core Web" },
-  JavaScript: { color: "#F7DF1E", tag: "LANGUAGE", type: "Frontend / Full Stack" },
-  SCSS: { color: "#CC6699", tag: "PREPROCESSOR", type: "CSS Extension" },
-  React: { color: "#58C3DC", tag: "LIBRARY", type: "Frontend UI" },
-  Figma: { color: "#F24E1E", tag: "DESIGN", type: "UI / UX Design" },
-  Bootstrap: { color: "#7952B3", tag: "FRAMEWORK", type: "CSS Framework" },
-  "Tailwind CSS": { color: "#38BDF8", tag: "FRAMEWORK", type: "Utility CSS" },
-  Redux: { color: "#764ABC", tag: "STATE MGMT", type: "State Container" },
-  Python: { color: "#3776AB", tag: "LANGUAGE", type: "Backend & AI" },
-  C: { color: "#A8B9CC", tag: "LANGUAGE", type: "Systems" },
-  "C++": { color: "#00599C", tag: "LANGUAGE", type: "High-Performance" },
-  MySQL: { color: "#4479A1", tag: "DATABASE", type: "Relational DB" },
-  MongoDB: { color: "#47A248", tag: "DATABASE", type: "NoSQL DB" },
-  Express: { color: "#E5E7EB", tag: "BACKEND", type: "Node.js Framework" },
-  "MongoDB Atlas": { color: "#00ED64", tag: "CLOUD DB", type: "Managed Database" },
-  "VS Code": { color: "#007ACC", tag: "DEV TOOL", type: "Code Editor" },
-  Vite: { color: "#646CFF", tag: "BUILD TOOL", type: "Next-Gen Bundler" },
-  "Google Cloud": { color: "#4285F4", tag: "CLOUD", type: "Cloud Platform" },
-  Vercel: { color: "#9CA3AF", tag: "DEPLOYMENT", type: "Edge Platform" },
-  Netlify: { color: "#00C7B7", tag: "DEPLOYMENT", type: "Hosting & CI" },
-  AWS: { color: "#FF9900", tag: "CLOUD", type: "Cloud Infrastructure" },
-  Git: { color: "#F05032", tag: "VCS", type: "Version Control" },
-  GitHub: { color: "#9CA3AF", tag: "PLATFORM", type: "Collaboration" },
-  GitLab: { color: "#FC6D26", tag: "DEVOPS", type: "CI / CD DevOps" },
-  n8n: { color: "#EA4B71", tag: "AUTOMATION", type: "Workflow Automation" },
-  NumPy: { color: "#4DABCF", tag: "DATA SCIENCE", type: "Numerical Computing" },
-  Pandas: { color: "#E70488", tag: "DATA ANALYSIS", type: "Data Wrangling" },
-  OpenCV: { color: "#5C3EE8", tag: "VISION", type: "Computer Vision" },
-  Seaborn: { color: "#748CAB", tag: "VISUALIZATION", type: "Statistical Graphics" },
-  Matplotlib: { color: "#11557C", tag: "PLOTTING", type: "Data Visualization" },
-  "Scikit-learn": { color: "#F7931E", tag: "ML", type: "Machine Learning" },
-  TensorFlow: { color: "#FF6F00", tag: "DEEP LEARNING", type: "ML Framework" },
-  Transformers: { color: "#FFD21E", tag: "LLM / NLP", type: "Hugging Face" },
-  PyTorch: { color: "#EE4C2C", tag: "DEEP LEARNING", type: "Dynamic Tensors" },
-  Keras: { color: "#D00000", tag: "NEURAL NETS", type: "Deep Learning" },
-  "React Native": { color: "#61DAFB", tag: "MOBILE", type: "Cross-Platform" },
-  "Android Studio": { color: "#3DDC84", tag: "IDE / MOBILE", type: "Android SDK" },
-  Capacitor: { color: "#119EFF", tag: "CROSS PLATFORM", type: "Native Web" },
-  "Hugging Face": { color: "#FFD21E", tag: "AI HUB", type: "Model Repository" },
-  LangChain: { color: "#2E933C", tag: "AI AGENTS", type: "LLM Framework" },
-  "OpenAI API": { color: "#10A37F", tag: "GEN AI", type: "GPT & Embeddings" },
-  LlamaIndex: { color: "#A855F7", tag: "RAG", type: "Data for LLMs" },
-  NCP: { color: "#EC844D", tag: "AI COMPUTING", type: "Neural Policies" }
+  HTML: { color: "#e59845", tag: "MARKUP", type: "Core Web" },
+  CSS: { color: "#43413d", tag: "STYLING", type: "Core Web" },
+  JavaScript: { color: "#e59845", tag: "LANGUAGE", type: "Frontend / Full Stack" },
+  SCSS: { color: "#f06292", tag: "PREPROCESSOR", type: "CSS Extension" },
+  React: { color: "#43413d", tag: "LIBRARY", type: "Frontend UI" },
+  Figma: { color: "#f06292", tag: "DESIGN", type: "UI / UX Design" },
+  Bootstrap: { color: "#6d6a64", tag: "FRAMEWORK", type: "CSS Framework" },
+  "Tailwind CSS": { color: "#43413d", tag: "FRAMEWORK", type: "Utility CSS" },
+  Redux: { color: "#6d6a64", tag: "STATE MGMT", type: "State Container" },
+  Python: { color: "#e59845", tag: "LANGUAGE", type: "Backend & AI" },
+  C: { color: "#6d6a64", tag: "LANGUAGE", type: "Systems" },
+  "C++": { color: "#43413d", tag: "LANGUAGE", type: "High-Performance" },
+  MySQL: { color: "#e59845", tag: "DATABASE", type: "Relational DB" },
+  MongoDB: { color: "#43413d", tag: "DATABASE", type: "NoSQL DB" },
+  Express: { color: "#6d6a64", tag: "BACKEND", type: "Node.js Framework" },
+  "MongoDB Atlas": { color: "#43413d", tag: "CLOUD DB", type: "Managed Database" },
+  "VS Code": { color: "#43413d", tag: "DEV TOOL", type: "Code Editor" },
+  Vite: { color: "#f06292", tag: "BUILD TOOL", type: "Next-Gen Bundler" },
+  "Google Cloud": { color: "#e59845", tag: "CLOUD", type: "Cloud Platform" },
+  Vercel: { color: "#43413d", tag: "DEPLOYMENT", type: "Edge Platform" },
+  Netlify: { color: "#6d6a64", tag: "DEPLOYMENT", type: "Hosting & CI" },
+  AWS: { color: "#e59845", tag: "CLOUD", type: "Cloud Infrastructure" },
+  Git: { color: "#f06292", tag: "VCS", type: "Version Control" },
+  GitHub: { color: "#43413d", tag: "PLATFORM", type: "Collaboration" },
+  GitLab: { color: "#e59845", tag: "DEVOPS", type: "CI / CD DevOps" },
+  n8n: { color: "#f06292", tag: "AUTOMATION", type: "Workflow Automation" },
+  NumPy: { color: "#43413d", tag: "DATA SCIENCE", type: "Numerical Computing" },
+  Pandas: { color: "#f06292", tag: "DATA ANALYSIS", type: "Data Wrangling" },
+  OpenCV: { color: "#6d6a64", tag: "VISION", type: "Computer Vision" },
+  Seaborn: { color: "#43413d", tag: "VISUALIZATION", type: "Statistical Graphics" },
+  Matplotlib: { color: "#6d6a64", tag: "PLOTTING", type: "Data Visualization" },
+  "Scikit-learn": { color: "#e59845", tag: "ML", type: "Machine Learning" },
+  TensorFlow: { color: "#e59845", tag: "DEEP LEARNING", type: "ML Framework" },
+  Transformers: { color: "#e59845", tag: "LLM / NLP", type: "Hugging Face" },
+  PyTorch: { color: "#f06292", tag: "DEEP LEARNING", type: "Dynamic Tensors" },
+  Keras: { color: "#f06292", tag: "NEURAL NETS", type: "Deep Learning" },
+  "React Native": { color: "#43413d", tag: "MOBILE", type: "Cross-Platform" },
+  "Android Studio": { color: "#43413d", tag: "IDE / MOBILE", type: "Android SDK" },
+  Capacitor: { color: "#43413d", tag: "CROSS PLATFORM", type: "Native Web" },
+  "Hugging Face": { color: "#e59845", tag: "AI HUB", type: "Model Repository" },
+  LangChain: { color: "#43413d", tag: "AI AGENTS", type: "LLM Framework" },
+  "OpenAI API": { color: "#43413d", tag: "GEN AI", type: "GPT & Embeddings" },
+  LlamaIndex: { color: "#6d6a64", tag: "RAG", type: "Data for LLMs" },
+  NCP: { color: "#e59845", tag: "AI COMPUTING", type: "Neural Policies" }
 };
 
 // Subtitle texts for each category
@@ -94,25 +94,17 @@ const getProficiencyStatus = (level) => {
   return "IN PROGRESS";
 };
 
-// Single Playing Card Component: ONLY mid position has border, side cards are borderless
+// Single Soft UI Playing Card Component
 const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }) => {
   const [imgError, setImgError] = useState(false);
   const meta = skillMetaMap[skill.name] || {
-    color: "#EC844D",
+    color: "#e59845",
     tag: (skill.category || "TECH").toUpperCase(),
     type: "Engineering"
   };
 
   const iconSrc = iconImages[skill.icon] || skill.icon;
-
-  // Mid position detection: active or close to apex
   const isMid = isActive || smoothProgress > 0.88;
-
-  const shadowGlow = isMid
-    ? `0 24px 50px -10px rgba(236, 132, 77, 0.45), 0 0 0 1.5px rgba(236, 132, 77, 0.65)`
-    : undefined;
-
-  const glowOpacity = 0.12 + 0.45 * Math.pow(smoothProgress, 2);
 
   return (
     <div
@@ -125,45 +117,32 @@ const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }
           onClick?.();
         }
       }}
-      className="toolkit-card group relative select-none cursor-pointer transition-shadow duration-300 ease-out w-[160px] sm:w-[195px] md:w-[225px]"
+      className="toolkit-card group relative select-none cursor-pointer transition-all duration-300 ease-out w-[165px] sm:w-[195px] md:w-[225px]"
       style={{
         aspectRatio: "295 / 417"
       }}
     >
-      {/* Outer Card Body: border ONLY in mid position, side cards are border-transparent */}
+      {/* Outer Card Body: Soft UI Clay with raised double shadow */}
       <div
-        className={`relative w-full h-full rounded-[22px] p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-[border-color,box-shadow,background-color] duration-200 ${
+        className={`relative w-full h-full rounded-[28px] sm:rounded-[32px] p-4 sm:p-5 flex flex-col justify-between overflow-hidden transition-all duration-200 ${
           isMid
-            ? "border-2 border-[#EC844D] bg-card ring-4 ring-[#EC844D]/35 shadow-[0_22px_50px_rgba(236,132,77,0.35)]"
-            : "border-2 border-transparent bg-card/90 shadow-md"
+            ? "soft-ui-raised-card bg-[#eae7e1] border-2 border-[#e59845] shadow-[14px_14px_28px_#cfcbc2,-14px_-14px_28px_#ffffff]"
+            : "soft-ui-raised bg-[#eae7e1] border border-[#dedad1]/60"
         }`}
         style={{
-          boxShadow: isMid ? shadowGlow : undefined,
           willChange: "transform, opacity",
           backfaceVisibility: "hidden"
         }}
       >
-        {/* Warm Theme Radial Glow scaling with depth proximity */}
-        <div
-          className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-3xl pointer-events-none transition-opacity duration-300 group-hover:opacity-60"
-          style={{
-            backgroundColor: meta.color || "#EC844D",
-            opacity: glowOpacity
-          }}
-        />
-
-        {/* Diagonal Light Sheen Glare */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.04] via-white/[0.08] to-transparent pointer-events-none" />
-
-
-        {/* Centerpiece: Skill Brand Logo & Typography */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center my-1.5 text-center">
-          {/* Logo container with warm glow */}
+        {/* Top: Classification Chip + Percentage Badge */}
+        
+        {/* Centerpiece: Sunken Debossed Icon Well & Typography */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center my-1 text-center">
+          {/* Logo container with debossed soft UI well */}
           <div
-            className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-2.5 transition-none shadow-sm bg-secondary/40 dark:bg-white/5 border border-border/40 dark:border-white/10"
+            className="soft-ui-inset w-14 h-14 sm:w-18 sm:h-18 rounded-[20px] sm:rounded-[24px] flex items-center justify-center mb-2 bg-[#e4e1d9] p-3 transition-transform duration-300"
             style={{
-              boxShadow: `0 8px 24px -6px ${meta.color}40`,
-              transform: isMid ? "scale(1.06)" : "scale(1)"
+              transform: isMid ? "scale(1.08)" : "scale(1)"
             }}
           >
             {!imgError && iconSrc ? (
@@ -171,50 +150,47 @@ const ToolkitCard = React.memo(({ skill, isActive, smoothProgress = 1, onClick }
                 src={iconSrc}
                 alt={skill.name}
                 onError={() => setImgError(true)}
-                className="w-7 h-7 sm:w-10 sm:h-10 object-contain drop-shadow"
+                className="w-8 h-8 sm:w-10 sm:h-10 object-contain drop-shadow-sm"
                 loading="lazy"
               />
             ) : (
-              <Code2 className="w-7 h-7 sm:w-8 sm:h-8" style={{ color: meta.color }} />
+              <Code2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#e59845]" />
             )}
           </div>
 
           {/* Skill Title */}
           <h3
-            className={`font-extrabold text-sm sm:text-lg md:text-xl tracking-tight transition-colors duration-300 line-clamp-1 group-hover:text-primary ${
-              isMid ? "text-foreground font-black" : "text-foreground/90 font-bold"
+            className={`font-black text-sm sm:text-base md:text-lg font-digital tracking-tight line-clamp-1 transition-colors ${
+              isMid ? "text-[#383a3d]" : "text-[#55524c]"
             }`}
             title={skill.name}
           >
             {skill.name}
           </h3>
 
-          <p className="text-[10px] sm:text-[11px] text-muted-foreground mt-0.5 font-medium line-clamp-1">
+          <p className="text-[10px] sm:text-[11px] text-[#78756e] font-handwriting font-medium mt-0.5 line-clamp-1">
             {meta.type}
           </p>
 
-          {/* Micro Progress Bar with theme gradient */}
-          <div className="w-20 sm:w-28 h-1.5 bg-secondary/50 rounded-full mt-2.5 overflow-hidden">
+          {/* Micro Progress Bar in debossed track */}
+          <div className="w-24 sm:w-32 h-2.5 sm:h-3 soft-ui-inset rounded-full p-0.5 flex items-center overflow-hidden bg-[#e5e2da] mt-2">
             <div
-              className="h-full rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-[#EC844D] to-[#FFD8B2]"
+              className="h-full rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-[#e59845] to-[#f06292]"
               style={{
-                width: `${skill.level}%`,
-                boxShadow: isMid ? "0 0 10px rgba(236,132,77,0.7)" : "none"
+                width: `${skill.level}%`
               }}
             />
           </div>
         </div>
 
-        {/* Bottom Classification Solid Pill Badge */}
+        {/* Bottom Milestone Slot */}
         <div className="relative z-10 flex justify-center w-full">
-          <span
-            className="px-3 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[11px] font-black tracking-wider uppercase shadow-sm transition-transform duration-300 group-hover:scale-105 bg-gradient-to-r from-[#EC844D] to-[#DE6F36] text-white"
-            style={{
-              transform: isMid ? "scale(1.05)" : "scale(1)"
-            }}
-          >
-            {meta.tag}
-          </span>
+          <div className="soft-ui-inset-subtle rounded-full px-3 py-1 flex items-center gap-1.5 bg-[#e6e3dc]">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#f06292]" />
+            <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#6d6a64] font-digital">
+              {getProficiencyStatus(skill.level)}
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -227,6 +203,7 @@ export const SkillsSection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
@@ -237,8 +214,12 @@ export const SkillsSection = () => {
   const currentDragDeltaRef = useRef(0);
   const isTouchRef = useRef(false);
 
-  // All skills displayed in the continuous horizontal journey
-  const currentSkills = skillsData;
+  // Filter skills based on selected category
+  const currentSkills = useMemo(() => {
+    if (selectedCategory === "all") return skillsData;
+    return skillsData.filter((s) => s.category === selectedCategory);
+  }, [selectedCategory]);
+
   const count = currentSkills.length;
 
   // Responsive Wheel Dimensions
@@ -295,6 +276,13 @@ export const SkillsSection = () => {
   const currentProgressRef = useRef(0);
   const rafIdRef = useRef(null);
 
+  // Reset progress when category changes
+  useEffect(() => {
+    targetProgressRef.current = 0;
+    currentProgressRef.current = 0;
+    setScrollProgress(0);
+  }, [selectedCategory]);
+
   // High-performance 120fps V-Sync requestAnimationFrame lerp loop
   useEffect(() => {
     let active = true;
@@ -306,7 +294,6 @@ export const SkillsSection = () => {
       const diff = target - current;
 
       if (Math.abs(diff) > 0.00004) {
-        // Silky exponential damping matching 120Hz refresh rate (0.16 gives instant precision)
         currentProgressRef.current = current + diff * 0.16;
         setScrollProgress(currentProgressRef.current);
       } else if (current !== target) {
@@ -328,7 +315,7 @@ export const SkillsSection = () => {
   const scrollDistance = Math.max(0, (count - 1) * wheelConfig.scrollPerCard);
   const trackHeight = count > 1 ? `calc(100vh + ${scrollDistance}px)` : "auto";
 
-  // Master GSAP ScrollTrigger Pinned Lock & Ultra-Responsive 120fps Scrubbing
+  // Master GSAP ScrollTrigger Pinned Lock & Ultra-Responsive Scrubbing
   useEffect(() => {
     if (!trackRef.current || !stageRef.current) return;
     if (count <= 1) {
@@ -356,10 +343,8 @@ export const SkillsSection = () => {
     ScrollTrigger.refresh();
 
     return () => ctx.revert();
-  }, [count, wheelConfig.scrollPerCard]);
+  }, [count, wheelConfig.scrollPerCard, selectedCategory]);
 
-  // Continuous floating index derived from vertical scroll progress
-  // Scroll down -> cards move from RIGHT to LEFT continuously
   const rawIndex = scrollProgress * Math.max(0, count - 1);
   const activeIndex = Math.min(count - 1, Math.max(0, Math.round(rawIndex)));
 
@@ -422,21 +407,60 @@ export const SkillsSection = () => {
 
   const activeSkill = currentSkills[activeIndex] || currentSkills[0] || {};
   const activeMeta = skillMetaMap[activeSkill?.name] || {
-    color: "#EC844D",
+    color: "#e59845",
     tag: "TECH",
     type: "Engineering"
   };
 
-  // Subtitle dynamically tracks the active card's category
   const activeCategory = activeSkill?.category || "all";
   const subtitleInfo = categorySubtitles[activeCategory] || categorySubtitles.all;
+
+  const categoryTabs = [
+    { id: "all", label: "All Skills" },
+    { id: "frontend", label: "Frontend" },
+    { id: "backend", label: "Backend" },
+    { id: "tools", label: "Tools & Cloud" },
+    { id: "aiml", label: "AI & ML" },
+    { id: "appdev", label: "Mobile" },
+    { id: "deeplearning", label: "Deep Learning" }
+  ];
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="toolkit-wheel-section relative w-full bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 selection:bg-[#EC844D] selection:text-white transition-colors duration-500"
+      className="toolkit-wheel-section relative w-full bg-[#eae7e1] text-[#43413d] select-none transition-colors duration-500 overflow-hidden"
     >
+      {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-raised-card {
+            background: #eae7e1;
+            box-shadow: 12px 12px 24px #cfcbc2, -12px -12px 24px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+        `
+      }} />
+
       {/* Scroll Track: Vertical height provides the scrub distance for pinning */}
       <div
         ref={trackRef}
@@ -446,57 +470,67 @@ export const SkillsSection = () => {
         {/* Pinned Stage: Locks to 100vh during the horizontal card journey */}
         <div
           ref={stageRef}
-          className="relative w-full overflow-hidden flex flex-col justify-between h-screen min-h-[660px] max-h-[1080px] py-4 sm:py-6 px-3 sm:px-6 lg:px-12"
+          className="relative w-full overflow-hidden flex flex-col justify-between h-screen min-h-[660px] max-h-[1080px] py-4 sm:py-6 px-3 sm:px-6 lg:px-12 bg-[#eae7e1]"
         >
-          {/* Portfolio Theme Ambient Background Shapes */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute w-60 sm:w-96 h-60 sm:h-96 bg-[#EC844D]/10 rounded-full blur-3xl" />
-            <div className="absolute w-52 sm:w-80 h-52 sm:h-80 bg-[#FFD8B2]/20 dark:bg-[#EC844D]/10 rounded-full blur-3xl right-0 bottom-0" />
-            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
-          </div>
-
           <div className="container mx-auto px-2 sm:px-6 relative z-10 max-w-6xl w-full flex-1 flex flex-col justify-between">
-            {/* Section Header with Signature Portfolio Theme Typography */}
-            <div className="text-center pt-2 sm:pt-4 mb-2 sm:mb-4 px-2 sm:px-6">
-              <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="block text-foreground">
+            {/* Section Header with Soft UI Clay Typography */}
+            <div className="text-center pt-2 sm:pt-3 mb-1 sm:mb-2 px-2 sm:px-6">
+              <div className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#78756e] font-handwriting mb-1">
+                <span className="w-2 h-2 rounded-full bg-[#f06292]" />
+                <span>Skills.Arsenal</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tight text-[#43413d]">
+                <span className="block text-[#43413d]">
                   Technical
                 </span>
-                <span
-                  className="block font-rakyat text-2xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-[#EC844D] via-[#F59E6B] to-[#DE6F36] bg-clip-text text-transparent mt-0.5 sm:mt-1 pb-1 font-normal"
-                  style={{ fontFamily: "'Rakyat', cursive" }}
-                >
-                  Toolkit & Skills
+                <span className="block font-handwriting text-2xl sm:text-4xl md:text-5xl text-[#e59845] font-bold mt-0.5 pb-0.5">
+                  Toolkit & Expertise
                 </span>
               </h2>
 
-              {/* Dynamic Category Subtitle that changes as you scroll */}
-              <div className="h-6 sm:h-8 flex items-center justify-center overflow-hidden my-0.5">
+              {/* Dynamic Category Subtitle */}
+              <div className="h-5 sm:h-6 flex items-center justify-center overflow-hidden my-0.5">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={activeCategory}
-                    initial={{ y: 12, opacity: 0 }}
+                    initial={{ y: 8, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -12, opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-xs sm:text-sm md:text-base font-medium text-foreground/85"
+                    exit={{ y: -8, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-xs sm:text-sm font-bold text-[#e59845] font-digital"
                   >
                     {subtitleInfo.title}
                   </motion.p>
                 </AnimatePresence>
               </div>
 
-              <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed hidden sm:block">
-                {subtitleInfo.desc}
-              </p>
+              {/* Category Filter Switcher */}
+              <div className="flex justify-center mt-2 mb-1 overflow-x-auto pb-1 scrollbar-none z-20 relative">
+                <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-1.5 sm:gap-2 px-2">
+                  {categoryTabs.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold font-handwriting transition-all cursor-pointer ${
+                        selectedCategory === cat.id
+                          ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105"
+                          : "soft-ui-raised bg-[#eae7e1] text-[#6d6a64] hover:text-[#e59845] border border-[#dedad1]/60"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Cinematic Scroll-Locked 3D Carousel with Soft Edge Dissolve */}
             <div className="relative flex-1 flex flex-col justify-between">
-              {/* Wheel Viewport Container with Soft Vignette Gradient Mask to dissolve left/right cards */}
+              {/* Wheel Viewport Container */}
               <div
                 ref={containerRef}
-                className="toolkit-wheel-container relative w-full flex-1 select-none min-h-[380px]"
+                className="toolkit-wheel-container relative w-full flex-1 select-none min-h-[360px]"
                 style={{
                   perspective: "1800px",
                   transformStyle: "preserve-3d",
@@ -530,46 +564,27 @@ export const SkillsSection = () => {
                   }}
                 >
                   {currentSkills.map((skill, index) => {
-                    // Scroll-controlled continuous horizontal movement: RIGHT -> LEFT
                     const relativeAngle = (index - rawIndex) * wheelConfig.stepAngle + dragOffset;
                     
-                    // 120fps Card Culling: Only render cards currently visible in the arc
                     if (Math.abs(relativeAngle) > wheelConfig.visibleAngle + 6) {
                       return null;
                     }
 
-                    // Normalized distance from center (0.0 at center, 1.0 at visible limit)
                     const normalizedDist = Math.min(1, Math.abs(relativeAngle) / wheelConfig.visibleAngle);
-
-                    // Smooth cosine easing curve for volumetric 3D carousel traveling
                     const smoothProgress = Math.cos((normalizedDist * Math.PI) / 2);
-
-                    // 1. Scale: smoothly increases to 1.12 at center, reduces to 0.74 at edges
                     const scale = 0.74 + 0.38 * Math.pow(smoothProgress, 1.3);
-
-                    // 2. Opacity: high (1.0) at center, smoothly decays to 0 at edges
                     const opacity = Math.max(0, Math.pow(smoothProgress, 1.6));
                     if (opacity <= 0.01) return null;
 
-                    // 3. Depth-of-Field Blur: 0px at center, subtle in periphery
-                    const blur = (1 - smoothProgress) * 4.0;
-
-                    // 4. Subtle atmospheric brightness: center is radiant, periphery is softly dimmed
-                    const brightness = 0.82 + 0.23 * smoothProgress;
-
-                    // 5. 3D translateZ: brings center card forward toward the camera (+75px to -70px)
+                    const blur = (1 - smoothProgress) * 3.5;
+                    const brightness = 0.88 + 0.15 * smoothProgress;
                     const translateZ = (smoothProgress - 0.5) * 150;
-
-                    // 6. 3D Perspective Rotation: cards turn slightly inward towards viewer
                     const rotateY = -relativeAngle * 0.38;
-
-                    // 7. Dynamic Z-Index: center card has highest priority
                     const zIndex = Math.round(15 + smoothProgress * 35);
-
                     const isCurrentActive = index === activeIndex;
 
                     const filterStyle = blur > 0.8
-                      ? `blur(${Math.min(3.5, blur).toFixed(1)}px) brightness(${brightness.toFixed(2)})`
+                      ? `blur(${Math.min(3, blur).toFixed(1)}px) brightness(${brightness.toFixed(2)})`
                       : brightness < 0.99 ? `brightness(${brightness.toFixed(2)})` : "none";
 
                     return (
@@ -585,7 +600,6 @@ export const SkillsSection = () => {
                           zIndex: zIndex
                         }}
                       >
-                        {/* Card wrapper with hardware-accelerated 3D translation & zero transition lag */}
                         <div
                           className="absolute top-0 left-1/2 pointer-events-auto transition-none"
                           style={{
@@ -610,37 +624,33 @@ export const SkillsSection = () => {
                 </div>
               </div>
 
-              {/* Active Card Spotlight HUD */}
-              <div className="mt-2 p-3 sm:p-4 rounded-2xl bg-card/85 border border-border/60 max-w-xl mx-auto backdrop-blur-md shadow-lg flex items-center justify-between gap-3 w-full">
+              {/* Active Card Spotlight HUD - Soft UI Raised Bar */}
+              <div className="mt-2 p-3 sm:p-4 rounded-[26px] soft-ui-raised-card bg-[#eae7e1] border border-[#dedad1] max-w-xl mx-auto shadow-md flex items-center justify-between gap-3 w-full">
                 <div className="flex items-center gap-3 text-left">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center border shrink-0 bg-secondary/50 border-[#EC844D]/30"
-                  >
+                  <div className="w-11 h-11 rounded-[16px] soft-ui-inset bg-[#e4e1d9] flex items-center justify-center shrink-0 p-2">
                     <img
                       src={iconImages[activeSkill.icon] || activeSkill.icon}
                       alt={activeSkill.name}
-                      className="w-6 h-6 object-contain"
+                      className="w-7 h-7 object-contain"
                     />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h4 className="font-bold text-base text-foreground">{activeSkill.name}</h4>
-                      <span
-                        className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white uppercase bg-gradient-to-r from-[#EC844D] to-[#DE6F36]"
-                      >
+                      <h4 className="font-black text-base text-[#383a3d] font-digital">{activeSkill.name}</h4>
+                      <span className="text-[9px] font-bold px-2.5 py-0.5 rounded-full text-[#e59845] soft-ui-inset-subtle bg-[#e6e3dc] uppercase font-handwriting">
                         {activeMeta.tag}
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      Proficiency: <span className="font-semibold text-foreground">{activeSkill.level}%</span> • {getProficiencyStatus(activeSkill.level)}
+                    <p className="text-xs text-[#78756e] font-handwriting font-medium">
+                      Proficiency: <span className="font-bold text-[#383a3d] font-digital">{activeSkill.level}%</span> • {getProficiencyStatus(activeSkill.level)}
                     </p>
                   </div>
                 </div>
 
-                {/* Card Index Indicator */}
+                {/* Card Index Indicator in Debossed Groove */}
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-xs text-muted-foreground font-mono">
-                    <span className="text-foreground font-bold">{String(activeIndex + 1).padStart(2, "0")}</span> / {String(count).padStart(2, "0")}
+                  <span className="soft-ui-inset-subtle rounded-full px-3 py-1 text-xs text-[#6d6a64] font-digital bg-[#e6e3dc]">
+                    <span className="text-[#383a3d] font-black">{String(activeIndex + 1).padStart(2, "0")}</span> / {String(count).padStart(2, "0")}
                   </span>
                 </div>
               </div>
@@ -651,3 +661,5 @@ export const SkillsSection = () => {
     </section>
   );
 };
+
+export default SkillsSection;

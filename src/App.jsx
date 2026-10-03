@@ -24,8 +24,7 @@ function App() {
         p.includes("/demo") ||
         p.includes("/project/") ||
         p.includes("/privacy") ||
-        p.includes("/terms") ||
-        sessionStorage.getItem("welcome_shown") === "true"
+        p.includes("/terms")
       );
     }
     return false;
@@ -33,7 +32,10 @@ function App() {
 
   const handleWelcomeComplete = useCallback(() => {
     if (typeof window !== "undefined") {
-      sessionStorage.setItem("welcome_shown", "true");
+      window.scrollTo(0, 0);
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      }
     }
     setWelcomeComplete(true);
   }, []);

@@ -1,0 +1,28 @@
+name: Update Space Shooter GIF
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Create assets directory
+        run: mkdir -p public/assets
+
+      - name: Generate Space Shooter Game GIF
+        uses: czl9707/gh-space-shooter@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-path: public/assets/space-shooter.gif
+          strategy: random

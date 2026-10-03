@@ -6,6 +6,132 @@ gsap.registerPlugin(ScrollTrigger);
 import { motion } from "framer-motion";
 import { Award, ExternalLink, BadgeCheck, Calendar, Sparkles, ChevronUp, ArrowRight } from "lucide-react";
 import { certificates } from "@/data";
+import FlipCard from "./FlipCard";
+
+const getCertAspectRatio = (cert) => {
+    if (cert?.image?.includes('certificates1')) return '3334 / 2480';
+    if (cert?.image?.includes('certificates2')) return '4800 / 2960';
+    if (cert?.image?.includes('certificates3')) return '2000 / 1125';
+    if (cert?.image?.includes('certificates4')) return '3125 / 2209';
+    return '1754 / 1240';
+};
+
+const CertificateCard = ({ cert, cardRef }) => {
+    const [aspectRatio, setAspectRatio] = useState(() => getCertAspectRatio(cert));
+
+    return (
+        <div
+            ref={cardRef}
+            className="w-full flex justify-center will-change-transform will-change-opacity"
+        >
+            <FlipCard
+                width="100%"
+                aspectRatio={aspectRatio}
+                radius={16}
+                axis="y"
+                flipOnClick
+                draggable
+                dragDistance={0}
+                tilt
+                tiltMax={10}
+                glare
+                glareOpacity={0.16}
+                hoverScale={1.02}
+                perspective={1100}
+                stiffness={170}
+                damping={20}
+                background="transparent"
+                color="inherit"
+                shadow
+                shadowColor="#EC844D"
+                shadowOpacity={0.14}
+                className="w-full"
+                front={
+                    cert.image ? (
+                        <img
+                            src={cert.image}
+                            alt={cert.title}
+                            onLoad={(e) => {
+                                const { naturalWidth, naturalHeight } = e.currentTarget;
+                                if (naturalWidth && naturalHeight) {
+                                    setAspectRatio(`${naturalWidth} / ${naturalHeight}`);
+                                }
+                            }}
+                            className="w-full h-full object-cover block rounded-[16px] border border-border/70 shadow-sm"
+                            loading="lazy"
+                        />
+                    ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-card border border-border/70 rounded-[16px] text-muted-foreground/40 p-4">
+                            <BadgeCheck className="w-12 h-12" />
+                            <span className="text-xs font-mono">Certificate Document</span>
+                        </div>
+                    )
+                }
+                back={
+                    <div className="w-full h-full flex flex-col justify-between p-3.5 sm:p-4 md:p-5 bg-card/95 border border-border/80 rounded-[16px] backdrop-blur-xl text-left overflow-y-auto">
+                        <div>
+                            {/* Header: Date + Flip indicator */}
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-[11px] sm:text-xs text-muted-foreground font-mono bg-muted/60 px-2.5 py-0.5 rounded-full border border-border">
+                                    {cert.date}
+                                </span>
+
+                                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full border border-border">
+                                    <span>Flip</span>
+                                    <span>↺</span>
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-xs sm:text-sm md:text-base font-bold text-foreground mb-1 leading-snug line-clamp-2">
+                                {cert.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2 sm:line-clamp-3 mb-2">
+                                {cert.description || "Validated professional skill and course completion certification."}
+                            </p>
+
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-1.5 mb-2">
+                                <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground border border-border/60">
+                                    {cert.category}
+                                </span>
+                                {cert.featured && (
+                                    <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#EC844D]/15 text-[#EC844D] border border-[#EC844D]/30 font-medium">
+                                        Featured
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Action Button: Verify Credential */}
+                        <div className="pt-2 border-t border-border/50 flex items-center justify-between gap-2 mt-auto">
+                            {cert.verificationLink ? (
+                                <a
+                                    href={cert.verificationLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-no-flip
+                                    className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#EC844D] to-[#DE6F36] text-white text-[11px] sm:text-xs font-bold shadow-md hover:shadow-[#EC844D]/30 hover:brightness-110 transition-all cursor-pointer w-full"
+                                    title="Verify Certificate"
+                                >
+                                    <span>Verify Credential</span>
+                                    <ExternalLink size={12} />
+                                </a>
+                            ) : (
+                                <div className="w-full flex items-center justify-between text-[11px] text-muted-foreground py-0.5">
+                                    <span className="italic">Academic / Event Record</span>
+                                    <span className="text-[#EC844D] font-mono font-medium">Verified</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                }
+            />
+        </div>
+    );
+};
 
 export const CertificatesSection = () => {
     const [showAll, setShowAll] = useState(false);
@@ -129,12 +255,11 @@ export const CertificatesSection = () => {
     }, [showAll]);
 
     return (
-        <section id="certifications" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-gradient-to-br from-background via-background to-[#FFD8B2]/10 dark:to-[#EC844D]/5 overflow-hidden">
+        <section id="certifications" ref={sectionRef} className="relative py-14 sm:py-20 md:py-28 px-3 sm:px-6 lg:px-12 bg-transparent dark:bg-transparent overflow-hidden">
             {/* Background Decor */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-[20%] right-[10%] w-60 sm:w-72 h-60 sm:h-72 bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
                 <div className="absolute bottom-[20%] left-[10%] w-72 sm:w-96 h-72 sm:h-96 bg-[#FFD8B2]/15 dark:bg-[#EC844D]/10 rounded-full blur-3xl opacity-50" />
-                <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:64px_64px]" />
             </div>
 
             <div className="container mx-auto px-3 sm:px-6 max-w-7xl relative">
@@ -156,77 +281,18 @@ export const CertificatesSection = () => {
                         ref={line3Ref}
                         className="text-sm sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed will-change-transform will-change-opacity"
                     >
-                        A collection of professional certifications validating my technical expertise and commitment to continuous learning.
+                        A collection of professional certifications validating my technical expertise and commitment to continuous learning. Click any card to explore credential details.
                     </p>
                 </div>
 
                 {/* Grid */}
-                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-start">
                     {displayedCertificates.map((cert, index) => (
-                        <div
+                        <CertificateCard
                             key={cert.id || index}
-                            ref={(el) => (cardRefs.current[index] = el)}
-                            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border/60 bg-card hover:border-[#EC844D]/40 hover:shadow-xl hover:shadow-[#EC844D]/10 transition-all duration-500 text-left flex flex-col justify-between will-change-transform will-change-opacity"
-                        >
-                            <div className="flex flex-col h-full">
-                                {/* Image Section */}
-                                {cert.image ? (
-                                    <div className="relative w-full bg-muted/20 border-b border-border/50 overflow-hidden">
-                                        <img
-                                            src={cert.image}
-                                            alt={cert.title}
-                                            className="w-full h-auto object-contain block transition-transform duration-500 group-hover:scale-102"
-                                            loading="lazy"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
-                                    </div>
-                                ) : (
-                                    <div className="w-full aspect-video flex items-center justify-center bg-muted/30 border-b border-border/50">
-                                        <BadgeCheck className="w-10 h-10 sm:w-12 sm:h-12 text-muted-foreground/30" />
-                                    </div>
-                                )}
-
-                                {/* Info Section */}
-                                <div className="flex-1 flex flex-col p-4 sm:p-6 relative">
-                                    <div className="flex justify-between items-start mb-3 sm:mb-4">
-                                        <div className="p-1.5 sm:p-2 rounded-xl bg-[#EC844D]/10 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/20">
-                                            <BadgeCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#EC844D] dark:text-[#FFAE80]" />
-                                        </div>
-                                        <span className="text-[11px] sm:text-xs font-medium px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
-                                            {cert.date}
-                                        </span>
-                                    </div>
-
-                                    <div className="mb-3 sm:mb-4">
-                                        <h3 className={`font-bold text-foreground mb-1 leading-snug group-hover:text-[#EC844D] dark:group-hover:text-[#FFAE80] transition-colors ${cert.featured ? "text-base sm:text-xl" : "text-sm sm:text-lg"}`}>
-                                            {cert.title}
-                                        </h3>
-                                        <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-                                            {cert.issuer}
-                                        </p>
-                                    </div>
-
-                                    {cert.featured && (
-                                        <p className="text-xs sm:text-sm text-muted-foreground/80 line-clamp-2 mb-3 sm:mb-4">
-                                            {cert.description}
-                                        </p>
-                                    )}
-
-                                    <div className="mt-auto pt-3 sm:pt-4 flex items-center justify-between border-t border-border/40">
-                                        <span className="text-[11px] sm:text-xs font-medium text-muted-foreground">{cert.category}</span>
-                                        <a
-                                            href={cert.verificationLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-1 text-xs font-medium text-[#EC844D] dark:text-[#FFAE80] hover:underline"
-                                            title="Verify Certificate"
-                                        >
-                                            Verify <ExternalLink size={12} />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            cert={cert}
+                            cardRef={(el) => (cardRefs.current[index] = el)}
+                        />
                     ))}
                 </div>
 

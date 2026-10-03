@@ -4,19 +4,16 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, ExternalLink, Github, Layers, Cpu, AlertTriangle,
-  Monitor, Smartphone, Globe, ChevronRight, Play, Star, CheckCircle2,
+  Monitor, Smartphone, Globe, ChevronRight, Star, CheckCircle2,
   Calendar, ArrowUpRight, Share2, Eye
 } from "lucide-react";
 import { projects } from "../data";
-import { VideoPlayer } from "../components/VideoPlayer";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 
 export const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("desktop");
-  const [showVideo, setShowVideo] = useState(false);
 
   // Find the project by id or fallback to title slug
   const project = projects.find(
@@ -96,21 +93,6 @@ export const ProjectDetails = () => {
       <main className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-12">
         {/* Title Header */}
         <div className="mb-6 sm:mb-8 text-left">
-          <div className="flex flex-wrap items-center gap-2.5 mb-3">
-            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#EC844D]/15 text-[#EC844D] dark:text-[#FFAE80] border border-[#EC844D]/30 uppercase tracking-wider">
-              {project.category}
-            </span>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-              {project.status || "Live"}
-            </span>
-            {project.featured && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                <Star size={12} className="fill-amber-500" />
-                Featured Project
-              </span>
-            )}
-          </div>
-
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground mb-4">
             {project.title}
           </h1>
@@ -120,24 +102,13 @@ export const ProjectDetails = () => {
           </p>
         </div>
 
-        {/* Hero Image Showcase */}
-        <div className="relative rounded-2xl overflow-hidden border border-border/80 shadow-2xl bg-muted mb-10 sm:mb-14 group">
+        {/* Full Size Project Showcase Image */}
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-border/80 shadow-2xl bg-muted mb-10 sm:mb-14">
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-auto max-h-[560px] object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+            className="w-full h-auto object-cover object-top"
           />
-          {project.video && (
-            <button
-              onClick={() => setShowVideo(true)}
-              className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors backdrop-blur-[2px] group/btn cursor-pointer"
-              aria-label="Play video demo"
-            >
-              <div className="p-4 sm:p-5 rounded-full bg-[#EC844D] text-white shadow-xl shadow-[#EC844D]/40 group-hover/btn:scale-110 transition-transform">
-                <Play size={28} className="fill-white ml-0.5" />
-              </div>
-            </button>
-          )}
         </div>
 
         {/* Action Links & Tech Tags Bar */}
@@ -332,32 +303,6 @@ export const ProjectDetails = () => {
           </div>
         </div>
       </main>
-
-      {/* Video Modal if applicable */}
-      {showVideo && project.video && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-          onClick={() => setShowVideo(false)}
-        >
-          <div
-            className="relative bg-background rounded-2xl overflow-hidden shadow-2xl max-w-4xl w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-4 border-b border-border flex justify-between items-center">
-              <h3 className="font-bold text-lg">{project.title} Demo</h3>
-              <button
-                onClick={() => setShowVideo(false)}
-                className="p-1 rounded-lg hover:bg-muted"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="w-full bg-black aspect-video">
-              <VideoPlayer src={project.video} onEnded={() => setShowVideo(false)} />
-            </div>
-          </div>
-        </div>
-      )}
 
       <Footer />
     </div>

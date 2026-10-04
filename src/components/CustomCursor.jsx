@@ -70,7 +70,7 @@ export const CustomCursor = () => {
       {/* Instant Soft Pink Aura Ring */}
       <div
         ref={ringRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[99998] ${
+        className={`fixed top-0 left-0 pointer-events-none z-[9999998] ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{
@@ -88,7 +88,7 @@ export const CustomCursor = () => {
       {/* Instant Center Pink Dot (Zero Lag) */}
       <div
         ref={dotRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[99999] ${
+        className={`fixed top-0 left-0 pointer-events-none z-[9999999] ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{

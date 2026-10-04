@@ -274,7 +274,12 @@ export const ProjectsSection = () => {
                   <div>
                     {/* Top: Sunken Bezel Image Frame */}
                     <div className="soft-ui-inset rounded-[24px] p-2.5 sm:p-3 bg-[#e4e1d9] relative overflow-hidden aspect-[16/10] mb-4">
-                      <Link to={`/project/${project.id}`} className="block w-full h-full overflow-hidden rounded-[18px] relative">
+                      <button
+                        type="button"
+                        onClick={() => handleOpenDeepDive(project)}
+                        className="block w-full h-full overflow-hidden rounded-[18px] relative cursor-pointer text-left focus:outline-none"
+                        aria-label={`View details for ${project.title}`}
+                      >
                         <motion.img
                           src={project.image}
                           alt={project.title}
@@ -282,11 +287,12 @@ export const ProjectsSection = () => {
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-                      </Link>
+                      </button>
 
                       {/* Top-Right Quick Demo Action Button */}
                       {project.demoUrl && project.demoUrl !== "#" && (
                         <button
+                          type="button"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -301,15 +307,22 @@ export const ProjectsSection = () => {
                     </div>
 
                     {/* Project Title */}
-                    <Link to={`/project/${project.id}`}>
-                      <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-2.5 leading-snug hover:text-[#e59845] transition-colors truncate">
+                    <button
+                      type="button"
+                      onClick={() => handleOpenDeepDive(project)}
+                      className="text-left w-full cursor-pointer focus:outline-none group/title"
+                    >
+                      <h3 className="text-base sm:text-lg md:text-xl font-black text-[#383a3d] font-digital tracking-tight mb-2.5 leading-snug group-hover/title:text-[#e59845] transition-colors truncate">
                         {project.title}
                       </h3>
-                    </Link>
+                    </button>
 
                     {/* Project Description Inset Console Box */}
                     {project.description && (
-                      <div className="soft-ui-inset-subtle rounded-2xl p-3 mb-3 bg-[#e6e3dc]/70 border border-[#dedad1]/60 min-h-[54px] flex items-center">
+                      <div
+                        onClick={() => handleOpenDeepDive(project)}
+                        className="soft-ui-inset-subtle rounded-2xl p-3 mb-3 bg-[#e6e3dc]/70 border border-[#dedad1]/60 min-h-[54px] flex items-center cursor-pointer hover:border-[#e59845]/40 transition-colors"
+                      >
                         <p className="text-[#5a5751] font-mono text-xs line-clamp-2 leading-relaxed">
                           {project.description}
                         </p>
@@ -344,13 +357,14 @@ export const ProjectsSection = () => {
                         <span>{project.status || "Live Build"}</span>
                       </div>
 
-                      <Link
-                        to={`/project/${project.id}`}
+                      <button
+                        type="button"
+                        onClick={() => handleOpenDeepDive(project)}
                         className="soft-ui-raised rounded-full px-4 py-1 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer"
                       >
                         <span>Explore</span>
                         <ArrowRight size={13} className="text-[#e59845]" />
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>

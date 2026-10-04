@@ -12,7 +12,8 @@ import {
   Globe,
   ArrowUpRight,
   Terminal,
-  Check
+  Check,
+  Code2
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
@@ -26,16 +27,37 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
     return () => setMounted(false);
   }, []);
 
+  // Lock scroll & Lenis when modal is open
   useEffect(() => {
     if (isOpen && project) {
       document.body.style.overflow = "hidden";
+      if (window.lenis) {
+        window.lenis.stop();
+      }
     } else {
       document.body.style.overflow = "unset";
+      if (window.lenis) {
+        window.lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = "unset";
+      if (window.lenis) {
+        window.lenis.start();
+      }
     };
   }, [isOpen, project]);
+
+  // Handle ESC key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!mounted) return null;
 
@@ -46,11 +68,15 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
-          style={{ background: "rgba(45, 43, 40, 0.45)", backdropFilter: "blur(8px)" }}
+          transition={{ duration: 0.2 }}
+          data-lenis-prevent="true"
+          data-lenis-prevent-wheel="true"
+          data-lenis-prevent-touch="true"
+          className="fixed inset-0 z-[100000] flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 select-auto"
+          style={{ background: "rgba(18, 17, 16, 0.72)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}
           onClick={onClose}
         >
-          {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
+          {/* Subtle Soft UI Styles & Modal Scrollbar */}
           <style dangerouslySetInnerHTML={{
             __html: `
               @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
@@ -63,33 +89,54 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
               }
               .soft-ui-raised {
                 background: #eae7e1;
-                box-shadow: 6px 6px 14px #cfcbc2, -6px -6px 14px #ffffff;
+                box-shadow: 4px 4px 10px #d1ccc2, -2px -2px 6px rgba(255, 255, 255, 0.5);
               }
               .soft-ui-raised-card {
                 background: #eae7e1;
-                box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+                box-shadow: 6px 6px 14px #d1ccc2, -3px -3px 8px rgba(255, 255, 255, 0.5);
               }
               .soft-ui-inset {
                 background: #e4e1d9;
-                box-shadow: inset 3px 3px 6px #cac5bb, inset -3px -3px 6px #ffffff;
+                box-shadow: inset 3px 3px 6px #cbc6bc, inset -2px -2px 5px rgba(255, 255, 255, 0.5);
               }
               .soft-ui-inset-subtle {
                 background: #e6e3dc;
-                box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+                box-shadow: inset 2px 2px 5px #cec9bf, inset -1px -1px 3px rgba(255, 255, 255, 0.5);
+              }
+              .modal-scrollbar::-webkit-scrollbar {
+                width: 6px;
+              }
+              .modal-scrollbar::-webkit-scrollbar-track {
+                background: #e4e1d9;
+                border-radius: 9999px;
+              }
+              .modal-scrollbar::-webkit-scrollbar-thumb {
+                background: #cac5bb;
+                border-radius: 9999px;
+              }
+              .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #e59845;
+              }
+              .modal-scrollbar {
+                scrollbar-width: thin;
+                scrollbar-color: #cac5bb #e4e1d9;
               }
             `
           }} />
 
           <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 30 }}
+            initial={{ scale: 0.94, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 30 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-full max-w-5xl bg-[#eae7e1] border border-[#dedad1] rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-[12px_12px_30px_#cfcbc2,-12px_-12px_30px_#ffffff] flex flex-col max-h-[92vh] sm:max-h-[90vh] text-left"
+            exit={{ scale: 0.94, opacity: 0, y: 40 }}
+            transition={{ type: "spring", damping: 26, stiffness: 320 }}
+            data-lenis-prevent="true"
+            data-lenis-prevent-wheel="true"
+            data-lenis-prevent-touch="true"
+            className="w-full max-w-5xl bg-[#eae7e1] border border-[#dedad1] rounded-t-[32px] sm:rounded-[32px] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45)] flex flex-col max-h-[92vh] sm:max-h-[90vh] text-left relative select-auto pointer-events-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[#dedad1] bg-[#eae7e1]/95 backdrop-blur-md sticky top-0 z-20">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[#dedad1] bg-[#eae7e1]/95 backdrop-blur-md sticky top-0 z-30 shrink-0">
               <div className="pr-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] text-[11px] font-digital font-bold text-[#e59845] mb-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#f06292]" />
@@ -110,7 +157,19 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
               </motion.button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8">
+            {/* Scrollable Content Body */}
+            <div
+              data-lenis-prevent="true"
+              data-lenis-prevent-wheel="true"
+              data-lenis-prevent-touch="true"
+              className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8 modal-scrollbar overscroll-contain"
+              style={{
+                WebkitOverflowScrolling: "touch",
+                touchAction: "pan-y"
+              }}
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
               {/* Sunken Bezel Hero Image Frame */}
               <div className="soft-ui-inset rounded-[28px] p-3 sm:p-4 bg-[#e4e1d9] border border-[#cdc8be] overflow-hidden shadow-inner">
                 <div className="relative h-48 sm:h-72 md:h-80 w-full overflow-hidden rounded-[20px] bg-[#dfdbd2] border border-[#cdc8be]/60">
@@ -119,12 +178,12 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                     alt={project.title}
                     className="w-full h-full object-cover sm:object-center"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 bg-gradient-to-t from-[#2d2b28]/80 via-[#2d2b28]/40 to-transparent">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 bg-gradient-to-t from-[#2d2b28]/85 via-[#2d2b28]/45 to-transparent">
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                      {project.tags.map((tag, i) => (
+                      {project.tags?.map((tag, i) => (
                         <span
                           key={i}
-                          className="px-2.5 py-1 bg-[#eae7e1]/90 backdrop-blur-sm border border-[#dedad1] rounded-xl text-[10px] sm:text-xs font-digital font-bold text-[#2d2b28] shadow-sm"
+                          className="px-2.5 py-1 bg-[#eae7e1]/95 backdrop-blur-sm border border-[#dedad1] rounded-xl text-[10px] sm:text-xs font-digital font-bold text-[#2d2b28] shadow-sm"
                         >
                           {tag}
                         </span>
@@ -136,10 +195,10 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
 
               {/* Project Description Inset Readout Console */}
               <div className="soft-ui-inset rounded-[24px] p-5 sm:p-6 bg-[#e4e1d9] border border-[#cdc8be] shadow-inner">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-2.5">
                   <Terminal className="w-4 h-4 text-[#e59845]" />
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#78756e]">
-                    Executive Summary
+                    Full Project Description & Overview
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm md:text-base font-mono text-[#383a3d] leading-relaxed">
@@ -158,7 +217,7 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                   </div>
                   <div className="soft-ui-inset-subtle rounded-xl p-3.5 bg-[#e6e3dc]/70 border border-[#dedad1]/60">
                     <p className="font-mono text-xs sm:text-sm text-[#43413d] leading-relaxed">
-                      {project.details?.problem || "Traditional approaches lacked seamless integration, scalability, and modern interactivity."}
+                      {project.details?.problem || "Traditional approaches lacked seamless integration, scalability, high latency handling, and modern interactivity."}
                     </p>
                   </div>
                 </div>
@@ -172,14 +231,41 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                   </div>
                   <div className="soft-ui-inset-subtle rounded-xl p-3.5 bg-[#e6e3dc]/70 border border-[#dedad1]/60">
                     <p className="font-mono text-xs sm:text-sm text-[#43413d] leading-relaxed">
-                      {project.details?.solution || "Engineered an end-to-end modern solution delivering robust performance, intuitive UX, and real-time responsiveness."}
+                      {project.details?.solution || "Engineered an end-to-end modern solution delivering robust performance, intuitive UX, optimized queries, and real-time responsiveness."}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Key Features */}
-              {project.details?.features && (
+              {/* Key Project Highlights */}
+              {project.highlights && project.highlights.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-5 rounded-full bg-[#e59845]" />
+                    <h3 className="text-base sm:text-lg font-black font-digital text-[#2d2b28]">
+                      Key Project Highlights
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    {project.highlights.map((highlight, idx) => (
+                      <div
+                        key={idx}
+                        className="soft-ui-raised rounded-xl p-3.5 sm:p-4 bg-[#eae7e1] border border-[#dedad1] flex items-start gap-3"
+                      >
+                        <div className="w-6 h-6 rounded-lg soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#e59845] shrink-0 mt-0.5 shadow-inner">
+                          <Check size={13} className="stroke-[3]" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-mono text-[#43413d] leading-relaxed">
+                          {highlight}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Key Features & Architecture */}
+              {project.details?.features && project.details.features.length > 0 && (
                 <div className="soft-ui-raised-card rounded-[28px] p-5 sm:p-7 bg-[#eae7e1] border border-[#dedad1]">
                   <h3 className="text-base sm:text-lg font-black font-digital text-[#2d2b28] mb-4 flex items-center gap-2">
                     <Globe size={18} className="text-[#e59845]" />
@@ -191,6 +277,9 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                         key={idx}
                         className="soft-ui-raised rounded-xl p-4 bg-[#eae7e1] border border-[#dedad1]"
                       >
+                        <div className="w-6 h-6 rounded-lg soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] flex items-center justify-center text-[#e59845] font-digital font-bold text-[11px] mb-2 shadow-inner">
+                          {String(idx + 1).padStart(2, "0")}
+                        </div>
                         <h4 className="font-digital font-bold text-xs sm:text-sm text-[#2d2b28] mb-1.5">
                           {feature.title}
                         </h4>
@@ -203,15 +292,15 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                 </div>
               )}
 
-              {/* Tech Stack */}
-              <div>
-                <h3 className="text-base sm:text-lg font-black font-digital text-[#2d2b28] mb-4 flex items-center gap-2">
-                  <Cpu size={18} className="text-[#e59845]" />
-                  <span>Technical Architecture</span>
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                  {project.details?.techStack &&
-                    Object.entries(project.details.techStack).map(([category, techs], idx) => (
+              {/* Technical Architecture */}
+              {project.details?.techStack && (
+                <div>
+                  <h3 className="text-base sm:text-lg font-black font-digital text-[#2d2b28] mb-4 flex items-center gap-2">
+                    <Cpu size={18} className="text-[#e59845]" />
+                    <span>Technical Architecture & Tech Stack</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    {Object.entries(project.details.techStack).map(([category, techs], idx) => (
                       <div key={idx} className="space-y-2 p-3.5 rounded-2xl soft-ui-raised bg-[#eae7e1] border border-[#dedad1]">
                         <h4 className="text-[11px] font-digital font-bold text-[#78756e] uppercase tracking-wider">
                           {category.replace("_", " ")}
@@ -228,11 +317,12 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
                         </div>
                       </div>
                     ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Challenges */}
-              {project.details?.challenges && (
+              {project.details?.challenges && project.details.challenges.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-base sm:text-lg font-black font-digital text-[#2d2b28] flex items-center gap-2">
                     <span className="w-2 h-5 rounded-full bg-[#f06292]" />
@@ -311,7 +401,7 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
             </div>
 
             {/* Footer Actions */}
-            <div className="p-4 sm:p-6 border-t border-[#dedad1] bg-[#eae7e1] flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-center sticky bottom-0 z-20">
+            <div className="p-4 sm:p-6 border-t border-[#dedad1] bg-[#eae7e1] flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-center sticky bottom-0 z-30 shrink-0">
               <p className="text-xs font-mono text-[#78756e] hidden sm:block">
                 View the live application or source code repository
               </p>

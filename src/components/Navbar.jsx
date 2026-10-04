@@ -6,8 +6,6 @@ import {
   Briefcase,
   MessageSquare,
   Mail,
-  Sun,
-  Moon,
   Youtube,
   Volume2,
   VolumeX,
@@ -27,7 +25,6 @@ import {
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Dock from "./Dock";
@@ -47,10 +44,8 @@ const navItems = [
 
 export const Navbar = () => {
   const { toast } = useToast();
-  const { theme, setTheme, resolvedTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
-  const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("#hero");
   const [showNavbar, setShowNavbar] = useState(true);
   const [isHoveringBottom, setIsHoveringBottom] = useState(false);
@@ -64,17 +59,6 @@ export const Navbar = () => {
 
   const mouseX = useMotionValue(Infinity);
   const musicUrl = "/music.mp3";
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted ? ((resolvedTheme || theme) === "dark") : false;
-
-  const toggleTheme = () => {
-    const current = resolvedTheme || theme;
-    setTheme(current === "dark" ? "light" : "dark");
-  };
 
   // Audio Logic
   useEffect(() => {
@@ -249,24 +233,12 @@ export const Navbar = () => {
   ];
 
   // Prepare Dock Items for desktop
-  const dockItems = [
-    ...navItems.map((item) => ({
-      icon: <item.icon className="w-5 h-5 pointer-events-none" />,
-      label: item.name,
-      onClick: () => handleNavClick(item.href),
-      isActive: activeSection === item.href,
-    })),
-    {
-      icon: isDark ? (
-        <Sun className="w-5 h-5 pointer-events-none text-[#e59845]" />
-      ) : (
-        <Moon className="w-5 h-5 pointer-events-none text-[#43413d]" />
-      ),
-      label: isDark ? "Light Mode" : "Dark Mode",
-      onClick: toggleTheme,
-      isActive: false,
-    },
-  ];
+  const dockItems = navItems.map((item) => ({
+    icon: <item.icon className="w-5 h-5 pointer-events-none" />,
+    label: item.name,
+    onClick: () => handleNavClick(item.href),
+    isActive: activeSection === item.href,
+  }));
 
   return (
     <>
@@ -310,22 +282,6 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-end pointer-events-auto">
           {/* Top Right Soft UI Clay Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* Theme Toggle Button */}
-            <motion.button
-              onClick={toggleTheme}
-              className="w-10 h-10 rounded-full soft-ui-raised bg-[#eae7e1] text-[#5a5751] hover:text-[#e59845] border border-[#dedad1] flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-[#e59845] pointer-events-none" />
-              ) : (
-                <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-[#43413d] pointer-events-none" />
-              )}
-            </motion.button>
-
             {/* GitHub Button - Desktop */}
             <motion.a
               href="https://github.com/ayanmanna123"

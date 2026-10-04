@@ -211,16 +211,13 @@ export const SkillsSection = () => {
   const stageRef = useRef(null);
   const containerRef = useRef(null);
   const wheelRef = useRef(null);
+  const tabsContainerRef = useRef(null);
   const dragStartXRef = useRef(0);
   const currentDragDeltaRef = useRef(0);
   const isTouchRef = useRef(false);
 
-  // Filter skills based on selected category
-  const currentSkills = useMemo(() => {
-    if (selectedCategory === "all") return skillsData;
-    return skillsData.filter((s) => s.category === selectedCategory);
-  }, [selectedCategory]);
-
+  // All 20 skills rendered smoothly on the continuous 3D wheel
+  const currentSkills = skillsData;
   const count = currentSkills.length;
 
   // Responsive Wheel Dimensions
@@ -230,7 +227,7 @@ export const SkillsSection = () => {
     apexTop: 70,
     containerHeight: 520,
     visibleAngle: 50,
-    scrollPerCard: 300
+    scrollPerCard: 170
   });
 
   // Calculate dimensions based on viewport width
@@ -245,7 +242,7 @@ export const SkillsSection = () => {
           apexTop: 50,
           containerHeight: Math.min(460, height * 0.55),
           visibleAngle: 48,
-          scrollPerCard: 240
+          scrollPerCard: 130
         });
       } else if (width < 1024) {
         setWheelConfig({
@@ -254,7 +251,7 @@ export const SkillsSection = () => {
           apexTop: 60,
           containerHeight: Math.min(520, height * 0.6),
           visibleAngle: 46,
-          scrollPerCard: 280
+          scrollPerCard: 150
         });
       } else {
         setWheelConfig({
@@ -263,7 +260,7 @@ export const SkillsSection = () => {
           apexTop: 70,
           containerHeight: Math.min(560, height * 0.62),
           visibleAngle: 50,
-          scrollPerCard: 320
+          scrollPerCard: 170
         });
       }
     };
@@ -413,7 +410,7 @@ export const SkillsSection = () => {
     type: "Engineering"
   };
 
-  const activeCategory = activeSkill?.category || "all";
+  const activeCategory = activeSkill?.category || "frontend";
   const subtitleInfo = categorySubtitles[activeCategory] || categorySubtitles.all;
 
   const categoryTabs = [
@@ -425,6 +422,27 @@ export const SkillsSection = () => {
     { id: "appdev", label: "Mobile" },
     { id: "deeplearning", label: "Deep Learning" }
   ];
+
+  // Auto-scroll the pill strip to keep the active category visible
+  useEffect(() => {
+    if (tabsContainerRef.current) {
+      const activeBtn = tabsContainerRef.current.querySelector('[data-active="true"]');
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+    }
+  }, [activeCategory]);
+
+  const handleCategoryClick = useCallback((catId) => {
+    if (catId === "all") {
+      scrollToCard(0);
+      return;
+    }
+    const targetIdx = currentSkills.findIndex((s) => s.category === catId);
+    if (targetIdx !== -1) {
+      scrollToCard(targetIdx);
+    }
+  }, [currentSkills, scrollToCard]);
 
   return (
     <section
@@ -508,14 +526,15 @@ export const SkillsSection = () => {
 
               {/* Category Filter Switcher - Soft UI Neumorphic Pill Strip */}
               <div className="w-full flex justify-center mt-2.5 mb-1.5 px-2 z-20 relative">
-                <div className="soft-ui-inset bg-[#e4e1d9] p-1 sm:p-1.5 rounded-full border border-[#cdc8be]/60 max-w-full overflow-x-auto scrollbar-none flex items-center shadow-inner">
+                <div ref={tabsContainerRef} className="soft-ui-inset bg-[#e4e1d9] p-1 sm:p-1.5 rounded-full border border-[#cdc8be]/60 max-w-full overflow-x-auto scrollbar-none flex items-center shadow-inner">
                   <div className="flex items-center gap-1 sm:gap-1.5 px-1 min-w-max">
                     {categoryTabs.map((cat) => {
-                      const isSelected = selectedCategory === cat.id;
+                      const isSelected = cat.id === activeCategory || (cat.id === "all" && activeIndex === 0);
                       return (
                         <button
                           key={cat.id}
-                          onClick={() => setSelectedCategory(cat.id)}
+                          data-active={isSelected ? "true" : "false"}
+                          onClick={() => handleCategoryClick(cat.id)}
                           className={`whitespace-nowrap shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 select-none ${
                             isSelected
                               ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] font-digital font-black shadow-inner border border-[#cdc8be] scale-[1.03]"

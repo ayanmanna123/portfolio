@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Sparkles, Code2, Smartphone, Monitor, Layers } from "lucide-react";
+import { ArrowLeft, Sparkles, Smartphone, Layers, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import NeumorphicDashboard, {
   SoftUiClock,
   SoftUiDigitalCard,
@@ -13,137 +14,322 @@ import NeumorphicDashboard, {
 
 export const SoftUiDemoPage = () => {
   const [viewTab, setViewTab] = useState("device"); // "device" | "components"
-  const staticDate = new Date(2021, 8, 13, 9, 21, 0);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [pageTheme, setPageTheme] = useState("dark"); // "dark" (default, matching reference) | "light"
+  const isDark = pageTheme === "dark";
+
+  // Sync with next-themes if present
+  useEffect(() => {
+    if (resolvedTheme) {
+      setPageTheme(resolvedTheme);
+    }
+  }, [resolvedTheme]);
+
+  const handleThemeChange = (newTheme) => {
+    setPageTheme(newTheme);
+    if (setTheme) {
+      setTheme(newTheme);
+    }
+  };
+
+  const referenceDate = new Date(2026, 9, 4, 14, 21, 0);
 
   return (
-    <div className="min-h-screen bg-[#f3f1ec] dark:bg-[#1a1917] text-[#2d2b28] dark:text-[#edebe6] flex flex-col items-center py-8 px-4 transition-colors">
+    <div
+      className={`min-h-screen flex flex-col items-center py-8 px-4 transition-colors duration-300 ${
+        isDark ? "bg-[#0e1014] text-[#eae7e1]" : "bg-[#f3f1ec] text-[#2d2b28]"
+      }`}
+    >
       <Helmet>
         <title>Soft UI / Neumorphic Widgets Demo | Ayan Manna</title>
         <meta
           name="description"
-          content="Interactive Neumorphic Soft UI widgets demo featuring analog clock, digital alarm card, progress bars, fluid level meters, and calendar."
+          content="Interactive Neumorphic Soft UI widgets demo featuring analog clock, digital alarm card, progress bars, fluid level meters, and calendar in both dark and light modes."
         />
       </Helmet>
 
+      {/* Embedded Neumorphic Styles */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+          
+          .font-handwriting {
+            font-family: 'Gaegu', 'Quicksand', cursive, sans-serif;
+          }
+          .font-digital {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+          }
+
+          .soft-ui-raised {
+            background: #eae7e1;
+            box-shadow: 10px 10px 22px #cfcbc2, -10px -10px 22px #ffffff;
+          }
+          .soft-ui-inset {
+            background: #e4e1d9;
+            box-shadow: inset 4px 4px 8px #cac5bb, inset -4px -4px 8px #ffffff;
+          }
+          .soft-ui-inset-subtle {
+            background: #e6e3dc;
+            box-shadow: inset 2px 2px 5px #cdc8be, inset -2px -2px 5px #ffffff;
+          }
+
+          .soft-ui-dark-raised {
+            background: #191c23;
+            box-shadow: 10px 10px 22px #0f1115, -10px -10px 22px #232731;
+          }
+          .soft-ui-dark-inset {
+            background: #13151a;
+            box-shadow: inset 4px 4px 8px #0b0c0f, inset -4px -4px 8px #21252e;
+          }
+          .soft-ui-dark-inset-subtle {
+            background: #15171d;
+            box-shadow: inset 2px 2px 5px #0c0d10, inset -2px -2px 5px #20242d;
+          }
+        `
+      }} />
+
       {/* Top Navigation */}
-      <header className="w-full max-w-4xl flex items-center justify-between pb-6 border-b border-[#ded9cf] dark:border-zinc-800 mb-8">
+      <header
+        className={`w-full max-w-4xl flex items-center justify-between pb-6 border-b mb-8 transition-colors ${
+          isDark ? "border-[#22262f]" : "border-[#ded9cf]"
+        }`}
+      >
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+          className={`inline-flex items-center gap-2 text-sm font-semibold transition-colors cursor-pointer ${
+            isDark ? "text-zinc-400 hover:text-white" : "text-zinc-600 hover:text-black"
+          }`}
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Portfolio</span>
         </Link>
 
-        <div className="flex items-center gap-1 bg-[#e6e2d8] dark:bg-zinc-800/80 p-1 rounded-xl">
-          <button
-            onClick={() => setViewTab("device")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              viewTab === "device"
-                ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900"
+        <div className="flex items-center gap-2">
+          {/* Global Theme Toggle */}
+          <div
+            className={`flex items-center gap-1 p-1 rounded-xl transition-colors ${
+              isDark ? "bg-[#181a20] border border-[#262a33]" : "bg-[#e6e2d8]"
             }`}
           >
-            <Smartphone className="w-3.5 h-3.5" />
-            <span>Phone Preview</span>
-          </button>
-          <button
-            onClick={() => setViewTab("components")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              viewTab === "components"
-                ? "bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900"
+            <button
+              onClick={() => handleThemeChange("dark")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                isDark
+                  ? "bg-[#282d38] text-[#eae7e1] shadow-sm font-bold"
+                  : "text-zinc-500 hover:text-zinc-900"
+              }`}
+            >
+              <Moon className="w-3.5 h-3.5 text-[#ff5768]" />
+              <span className="hidden sm:inline">Dark</span>
+            </button>
+            <button
+              onClick={() => handleThemeChange("light")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                !isDark
+                  ? "bg-white text-zinc-900 shadow-sm font-bold"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Sun className="w-3.5 h-3.5 text-[#e59845]" />
+              <span className="hidden sm:inline">Light</span>
+            </button>
+          </div>
+
+          {/* View Tab Switch */}
+          <div
+            className={`flex items-center gap-1 p-1 rounded-xl transition-colors ${
+              isDark ? "bg-[#181a20] border border-[#262a33]" : "bg-[#e6e2d8]"
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Component Library</span>
-          </button>
+            <button
+              onClick={() => setViewTab("device")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                viewTab === "device"
+                  ? isDark
+                    ? "bg-[#282d38] text-white shadow-sm"
+                    : "bg-white text-zinc-900 shadow-sm"
+                  : isDark
+                  ? "text-zinc-400 hover:text-white"
+                  : "text-zinc-600 hover:text-zinc-900"
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Phone Preview</span>
+            </button>
+            <button
+              onClick={() => setViewTab("components")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                viewTab === "components"
+                  ? isDark
+                    ? "bg-[#282d38] text-white shadow-sm"
+                    : "bg-white text-zinc-900 shadow-sm"
+                  : isDark
+                  ? "text-zinc-400 hover:text-white"
+                  : "text-zinc-600 hover:text-zinc-900"
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Component Library</span>
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Title Header */}
-      <div className="text-center max-w-xl mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-bold mb-2">
+      <div className="text-center max-w-xl mb-6 select-none">
+        <div
+          className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold font-digital mb-2.5 ${
+            isDark
+              ? "bg-[#ff5768]/15 text-[#ff5768] border border-[#ff5768]/20"
+              : "bg-rose-500/10 text-rose-600 border border-rose-500/20"
+          }`}
+        >
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Skeuomorphic Soft UI & Neumorphism</span>
+          <span>Skeuomorphic Soft UI & Clay Neumorphism</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#33312e] dark:text-[#f2efe9]">
+        <h1
+          className={`text-3xl sm:text-4xl font-black tracking-tight font-digital ${
+            isDark ? "text-[#eae7e1]" : "text-[#33312e]"
+          }`}
+        >
           Soft UI Dashboard Widgets
         </h1>
-        <p className="text-sm text-[#75726b] dark:text-zinc-400 mt-2">
-          Handcrafted with dual extruded & inset shadows, clay textures, smooth gradients, and interactive states.
+        <p
+          className={`text-xs sm:text-sm mt-2 font-medium ${
+            isDark ? "text-[#787a82]" : "text-[#75726b]"
+          }`}
+        >
+          Handcrafted with dual extruded & inset shadows, charcoal & clay textures, and interactive states.
         </p>
       </div>
 
-      {/* View Switch */}
+      {/* View Switch Content */}
       {viewTab === "device" ? (
-        <NeumorphicDashboard />
+        <NeumorphicDashboard
+          theme={pageTheme}
+          onThemeChange={handleThemeChange}
+        />
       ) : (
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
           {/* Card 1: Analog Clock & Typography */}
-          <div className="p-6 rounded-3xl bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff] flex flex-col gap-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#6d6a63]">
+          <div
+            className={`p-6 rounded-3xl flex flex-col gap-4 transition-all duration-300 ${
+              isDark
+                ? "bg-[#181a20] border border-[#22252e] shadow-[8px_8px_20px_#0f1115,-8px_-8px_20px_#232731]"
+                : "bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff]"
+            }`}
+          >
+            <h3
+              className={`text-xs font-bold uppercase tracking-wider font-digital ${
+                isDark ? "text-[#ff5768]" : "text-[#6d6a63]"
+              }`}
+            >
               1. Analog Clock & Organic Header
             </h3>
             <div className="flex items-center justify-around py-4">
-              <SoftUiClock time={staticDate} isLive={false} />
-              <SoftUiGreeting title="Hello.March" subtitle="Live every day with ease!" />
+              <SoftUiClock time={referenceDate} isLive={false} theme={pageTheme} />
+              <SoftUiGreeting
+                title={isDark ? "Hello.Oct" : "Hello.March"}
+                subtitle="Live every day with ease!"
+                theme={pageTheme}
+              />
             </div>
-            <p className="text-xs text-[#7a7770]">
+            <p className={`text-xs font-mono ${isDark ? "text-[#787a82]" : "text-[#7a7770]"}`}>
               Features dual-shadow disc extrusion with cardinal hour numbers and smooth rotational transforms.
             </p>
           </div>
 
           {/* Card 2: Digital Clock LCD Inset Card */}
-          <div className="p-6 rounded-3xl bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff] flex flex-col gap-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#6d6a63]">
+          <div
+            className={`p-6 rounded-3xl flex flex-col gap-4 transition-all duration-300 ${
+              isDark
+                ? "bg-[#181a20] border border-[#22252e] shadow-[8px_8px_20px_#0f1115,-8px_-8px_20px_#232731]"
+                : "bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff]"
+            }`}
+          >
+            <h3
+              className={`text-xs font-bold uppercase tracking-wider font-digital ${
+                isDark ? "text-[#ff5768]" : "text-[#6d6a63]"
+              }`}
+            >
               2. Debossed LCD Digital Clock Card
             </h3>
             <div className="py-2">
               <SoftUiDigitalCard
-                time={staticDate}
-                customDay="Monday"
-                customDate="2021/09/13"
+                time={referenceDate}
+                customDay={isDark ? "Sunday" : "Monday"}
+                customDate={isDark ? "2026/10/04" : "2021/09/13"}
+                theme={pageTheme}
               />
             </div>
-            <p className="text-xs text-[#7a7770]">
+            <p className={`text-xs font-mono ${isDark ? "text-[#787a82]" : "text-[#7a7770]"}`}>
               Deep inset box-shadow display bezel creating a sunken LCD glass screen aesthetic.
             </p>
           </div>
 
           {/* Card 3: Year Progress Pill */}
-          <div className="p-6 rounded-3xl bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff] flex flex-col gap-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#6d6a63]">
+          <div
+            className={`p-6 rounded-3xl flex flex-col gap-4 transition-all duration-300 ${
+              isDark
+                ? "bg-[#181a20] border border-[#22252e] shadow-[8px_8px_20px_#0f1115,-8px_-8px_20px_#232731]"
+                : "bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff]"
+            }`}
+          >
+            <h3
+              className={`text-xs font-bold uppercase tracking-wider font-digital ${
+                isDark ? "text-[#ff5768]" : "text-[#6d6a63]"
+              }`}
+            >
               3. Debossed Progress Bar
             </h3>
             <div className="py-4">
-              <SoftUiProgressBar percent={29} label="The rest of the year" />
+              <SoftUiProgressBar
+                percent={isDark ? 24 : 29}
+                label="The rest of the year"
+                theme={pageTheme}
+              />
             </div>
-            <p className="text-xs text-[#7a7770]">
-              Sunken rounded track with pink-coral soft gradient fill and highlighted percentage badge.
+            <p className={`text-xs font-mono ${isDark ? "text-[#787a82]" : "text-[#7a7770]"}`}>
+              Sunken rounded track with coral gradient fill and highlighted percentage badge.
             </p>
           </div>
 
           {/* Card 4: Capsule Fluid Meters & Calendar */}
-          <div className="p-6 rounded-3xl bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff] flex flex-col gap-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#6d6a63]">
+          <div
+            className={`p-6 rounded-3xl flex flex-col gap-4 transition-all duration-300 ${
+              isDark
+                ? "bg-[#181a20] border border-[#22252e] shadow-[8px_8px_20px_#0f1115,-8px_-8px_20px_#232731]"
+                : "bg-[#eae7e1] shadow-[8px_8px_20px_#cfcbc2,-8px_-8px_20px_#ffffff]"
+            }`}
+          >
+            <h3
+              className={`text-xs font-bold uppercase tracking-wider font-digital ${
+                isDark ? "text-[#ff5768]" : "text-[#6d6a63]"
+              }`}
+            >
               4. Capsule Meters & Calendar
             </h3>
             <div className="flex items-stretch gap-3 py-2">
               <SoftUiCapsuleMeter
-                title={<>The remaining<br />today</>}
-                percent={58}
-                fillColor="#c6c3b6"
+                title={<>The<br />remaining<br />today</>}
+                percent={40}
+                variant="cutout"
+                theme={pageTheme}
               />
               <SoftUiCapsuleMeter
                 title="electricity"
-                percent={51}
-                fillColor="#d4c7cf"
+                percent={80}
+                variant="fluid"
+                theme={pageTheme}
               />
-              <SoftUiCalendar monthNumber={9} highlightDay={13} />
+              <SoftUiCalendar
+                monthNumber={isDark ? 10 : 9}
+                highlightDay={13}
+                theme={pageTheme}
+              />
             </div>
-            <p className="text-xs text-[#7a7770]">
-              Fluid reservoir capsules with percentage tags and an interactive clay calendar with amber badge.
+            <p className={`text-xs font-mono ${isDark ? "text-[#787a82]" : "text-[#7a7770]"}`}>
+              Fluid reservoir capsules with percentage readouts and an interactive clay calendar with amber badge.
             </p>
           </div>
         </div>

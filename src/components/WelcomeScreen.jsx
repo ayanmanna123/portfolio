@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Terminal, ArrowRight } from "lucide-react";
+import { startPreloadPipeline } from "@/lib/preloadManager";
 
 const WelcomeScreen = ({ onWelcomeComplete }) => {
   const [phase, setPhase] = useState(0);
   const [progress, setProgress] = useState(15);
   const [exitAnimation, setExitAnimation] = useState(false);
   const [typedText, setTypedText] = useState("");
+  const [dynamicStatus, setDynamicStatus] = useState("Initializing System Pipeline...");
   const onCompleteRef = useRef(onWelcomeComplete);
 
   useEffect(() => {
@@ -31,34 +33,46 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
     }, 700);
   };
 
-  // Phase transitions & progress count
+  // Real preloading pipeline & synchronized progress
   useEffect(() => {
-    const p1 = setTimeout(() => {
-      setPhase(1);
-      setProgress(48);
-    }, 900);
+    let isMounted = true;
 
-    const p2 = setTimeout(() => {
-      setPhase(2);
-      setProgress(82);
-    }, 2000);
-
-    const p3 = setTimeout(() => {
-      setPhase(3);
+    startPreloadPipeline((pct, msg) => {
+      if (!isMounted) return;
+      setProgress((prev) => Math.max(prev, pct));
+      if (msg) setDynamicStatus(msg);
+      if (pct >= 40 && pct < 75) setPhase(1);
+      else if (pct >= 75 && pct < 99) setPhase(2);
+      else if (pct >= 100) setPhase(3);
+    }).then(() => {
+      if (!isMounted) return;
       setProgress(100);
-    }, 3400);
+      setPhase(3);
+      setDynamicStatus("All Systems Loaded & Primed!");
+      setTimeout(() => {
+        if (isMounted) handleFinish();
+      }, 800);
+    });
 
+    const minTimer = setTimeout(() => {
+      if (isMounted) {
+        setProgress((prev) => Math.max(prev, 45));
+        setPhase(1);
+      }
+    }, 1100);
+
+    // Guaranteed fallback so the intro never stalls
     const autoDone = setTimeout(() => {
-      handleFinish();
-    }, 4800);
+      if (isMounted) handleFinish();
+    }, 4500);
 
     return () => {
-      clearTimeout(p1);
-      clearTimeout(p2);
-      clearTimeout(p3);
+      isMounted = false;
+      clearTimeout(minTimer);
       clearTimeout(autoDone);
     };
   }, []);
+
 
   // Typing effect for the portfolio URL
   useEffect(() => {
@@ -258,7 +272,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
           {/* Rotating Message */}
           <p className="font-mono text-xs sm:text-sm text-[#5a5751] h-5 flex items-center overflow-hidden">
             <span className="transition-all duration-300">
-              {welcomeMessages[Math.min(phase, welcomeMessages.length - 1)]}
+              {dynamicStatus || welcomeMessages[Math.min(phase, welcomeMessages.length - 1)]}
             </span>
           </p>
         </motion.div>

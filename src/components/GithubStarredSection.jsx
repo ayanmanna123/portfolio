@@ -16,6 +16,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { githubUsername } from "@/data";
+import { fetchWithCache, getCachedData } from "@/lib/apiCache";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,40 +121,50 @@ const fallbackStarredRepos = [
 ];
 
 export const GithubStarredSection = () => {
-  const [starredRepos, setStarredRepos] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const user = githubUsername || "ayanmanna123";
+  const cachedStarred = getCachedData(`gh_starred_${user}`);
+
+  const [starredRepos, setStarredRepos] = useState(() => {
+    if (Array.isArray(cachedStarred) && cachedStarred.length > 0) {
+      return [...cachedStarred].sort((a, b) => {
+        const dA = new Date(a.starred_at || a.created_at || a.pushed_at || 0).getTime();
+        const dB = new Date(b.starred_at || b.created_at || b.pushed_at || 0).getTime();
+        return dB - dA;
+      });
+    }
+    return fallbackStarredRepos;
+  });
+
+  const [loading, setLoading] = useState(() => !cachedStarred);
 
   useEffect(() => {
     const fetchStarredRepos = async () => {
       try {
-        const user = githubUsername || "ayanmanna123";
-        const res = await fetch(`https://api.github.com/users/${user}/starred?per_page=100&sort=created&direction=desc`);
+        const data = await fetchWithCache(
+          `https://api.github.com/users/${user}/starred?per_page=100&sort=created&direction=desc`,
+          {},
+          { key: `gh_starred_${user}` }
+        );
         
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            const sorted = [...data].sort((a, b) => {
-              const dA = new Date(a.starred_at || a.created_at || a.pushed_at || 0).getTime();
-              const dB = new Date(b.starred_at || b.created_at || b.pushed_at || 0).getTime();
-              return dB - dA;
-            });
-            setStarredRepos(sorted);
-          } else {
-            const fallbackRes = await fetch(`https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=100`);
-            if (fallbackRes.ok) {
-              const fallbackData = await fallbackRes.json();
-              if (Array.isArray(fallbackData) && fallbackData.length > 0) {
-                setStarredRepos(fallbackData);
-              } else {
-                setStarredRepos(fallbackStarredRepos);
-              }
-            } else {
-              setStarredRepos(fallbackStarredRepos);
-            }
-          }
+        if (Array.isArray(data) && data.length > 0) {
+          const sorted = [...data].sort((a, b) => {
+            const dA = new Date(a.starred_at || a.created_at || a.pushed_at || 0).getTime();
+            const dB = new Date(b.starred_at || b.created_at || b.pushed_at || 0).getTime();
+            return dB - dA;
+          });
+          setStarredRepos(sorted);
         } else {
-          setStarredRepos(fallbackStarredRepos);
+          const fallbackData = await fetchWithCache(
+            `https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=100`,
+            {},
+            { key: `gh_repos_${user}` }
+          );
+          if (Array.isArray(fallbackData) && fallbackData.length > 0) {
+            setStarredRepos(fallbackData);
+          } else {
+            setStarredRepos(fallbackStarredRepos);
+          }
         }
       } catch (error) {
         console.error("Error fetching starred repositories:", error);
@@ -164,7 +175,7 @@ export const GithubStarredSection = () => {
     };
 
     fetchStarredRepos();
-  }, []);
+  }, [user]);
 
   const displayedRepos = showAll ? starredRepos : starredRepos.slice(0, 3);
 

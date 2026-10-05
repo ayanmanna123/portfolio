@@ -5,40 +5,52 @@ import { CountUp } from "./CountUp";
 import { heroData, heroAchievements, projects } from "@/data";
 import SplitText from "./SplitText";
 import { scrollToSection } from "@/lib/scrollToSection";
+import { fetchWithCache, getCachedData } from "@/lib/apiCache";
 
 export const HeroLeft = () => {
-  const [stats, setStats] = useState({
-    contributions: 0,
-    repos: 0,
-    projects: projects.length,
-    leetcode: 0,
+  const ghUser = heroData.githubUsername || "ayanmanna123";
+  const ltUser = heroData.leetcodeUsername || "ayanmanna123";
+
+  const [stats, setStats] = useState(() => {
+    const cachedContrib = getCachedData(`gh_contributions_${ghUser}`);
+    const cachedGh = getCachedData(`gh_user_${ghUser}`);
+    const cachedLeet = getCachedData(`leetcode_stats_${ltUser}`);
+
+    return {
+      contributions: cachedContrib?.contributions?.reduce((acc, curr) => acc + curr.count, 0) || 0,
+      repos: cachedGh?.public_repos || 0,
+      projects: projects.length,
+      leetcode: cachedLeet?.totalSolved || 0,
+    };
   });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const ghUser = heroData.githubUsername || "ayanmanna123";
-        const ltUser = heroData.leetcodeUsername || "ayanmanna123";
-
         // Github Contributions
-        const contribRes = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/${ghUser}?y=last`
+        const contribData = await fetchWithCache(
+          `https://github-contributions-api.jogruber.de/v4/${ghUser}?y=last`,
+          {},
+          { key: `gh_contributions_${ghUser}` }
         );
-        const contribData = await contribRes.json();
         const totalContribs =
-          contribData.contributions?.reduce((acc, curr) => acc + curr.count, 0) || 0;
+          contribData?.contributions?.reduce((acc, curr) => acc + curr.count, 0) || 0;
 
         // Github Repos
-        const reposRes = await fetch(`https://api.github.com/users/${ghUser}`);
-        const reposData = await reposRes.json();
-        const publicRepos = reposData.public_repos || 0;
+        const reposData = await fetchWithCache(
+          `https://api.github.com/users/${ghUser}`,
+          {},
+          { key: `gh_user_${ghUser}` }
+        );
+        const publicRepos = reposData?.public_repos || 0;
 
         // LeetCode
-        const leetRes = await fetch(
-          `https://leetcode-api-faisalshohag.vercel.app/${ltUser}`
+        const leetData = await fetchWithCache(
+          `https://leetcode-api-faisalshohag.vercel.app/${ltUser}`,
+          {},
+          { key: `leetcode_stats_${ltUser}` }
         );
-        const leetData = await leetRes.json();
-        const totalSolved = leetData.totalSolved || 0;
+        const totalSolved = leetData?.totalSolved || 0;
 
         setStats({
           contributions: totalContribs,
@@ -51,7 +63,7 @@ export const HeroLeft = () => {
       }
     };
     fetchStats();
-  }, []);
+  }, [ghUser, ltUser]);
 
   const handleViewResume = () => {
     window.open(heroData.resumeUrl || "/resume.pdf", "_blank", "noopener,noreferrer");

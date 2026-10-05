@@ -7,21 +7,27 @@ import { githubUsername } from "@/data";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GithubSpaceShooter } from "./GithubSpaceShooter";
+import { fetchWithCache, getCachedData } from "@/lib/apiCache";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const GithubStatsSection = () => {
-    const [contributions, setContributions] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const user = githubUsername || "ayanmanna123";
+    const cachedData = getCachedData(`gh_contributions_${user}`);
+
+    const [contributions, setContributions] = useState(() => cachedData?.contributions || []);
+    const [loading, setLoading] = useState(() => !cachedData?.contributions);
     const [viewMode, setViewMode] = useState("arcade");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const user = githubUsername || "ayanmanna123";
-                const contributionsRes = await fetch(`https://github-contributions-api.jogruber.de/v4/${user}?y=last`);
-                const contributionsData = await contributionsRes.json();
-                if (contributionsData.contributions) {
+                const contributionsData = await fetchWithCache(
+                    `https://github-contributions-api.jogruber.de/v4/${user}?y=last`,
+                    {},
+                    { key: `gh_contributions_${user}` }
+                );
+                if (contributionsData?.contributions) {
                     setContributions(contributionsData.contributions);
                 }
             } catch (error) {
@@ -32,7 +38,7 @@ const GithubStatsSection = () => {
         };
 
         fetchData();
-    }, []);
+    }, [user]);
 
     // Soft UI Clay Calibrated Palette for Heatmap tiles
     const calendarTheme = {

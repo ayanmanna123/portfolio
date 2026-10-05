@@ -4,6 +4,9 @@ import App from './App.jsx'
 import './index.css'
 
 import { HelmetProvider } from "react-helmet-async";
+import { registerServiceWorker } from "./registerServiceWorker";
+
+registerServiceWorker();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -12,3 +15,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </HelmetProvider>
   </React.StrictMode>,
 )
+

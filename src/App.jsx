@@ -14,6 +14,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import { CustomCursor } from "@/components/CustomCursor";
+import { startPreloadPipeline } from "@/lib/preloadManager";
 
 function App() {
   const [welcomeComplete, setWelcomeComplete] = useState(() => {
@@ -33,7 +34,7 @@ function App() {
   const handleWelcomeComplete = useCallback(() => {
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
-      if (window.lenis) {
+      if (window.lenis && typeof window.lenis.scrollTo === "function") {
         window.lenis.scrollTo(0, { immediate: true });
       }
     }
@@ -45,6 +46,16 @@ function App() {
       window.location.replace("/admin/index.html");
     }
   }, []);
+
+  useEffect(() => {
+    if (welcomeComplete) {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(() => startPreloadPipeline());
+      } else {
+        setTimeout(() => startPreloadPipeline(), 800);
+      }
+    }
+  }, [welcomeComplete]);
 
   return (
     <ThemeProvider

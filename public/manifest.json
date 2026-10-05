@@ -4,9 +4,26 @@
   "description": "Portfolio of Ayan Manna, Full-Stack Software Engineer.",
   "icons": [
     {
+      "src": "/favicon-48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/logo.svg",
       "type": "image/svg+xml",
-      "sizes": "192x192 512x512"
+      "sizes": "any"
     }
   ],
   "start_url": "/",

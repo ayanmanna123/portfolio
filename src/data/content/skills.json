@@ -152,10 +152,10 @@
       "icon": "https://huggingface.co/front/assets/huggingface_logo-noborder.svg"
     },
     {
-      "name": "OpenAI API",
+      "name": "MCP",
       "level": 90,
       "category": "deeplearning",
-      "icon": "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg"
+      "icon": "/mcp.svg"
     }
   ]
 }

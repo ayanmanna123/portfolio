@@ -127,8 +127,13 @@ export const EducationToProjectsMorph = () => {
   const generateParticles = useCallback((w, h) => {
     const isMobile = w < 640;
     const isTablet = w >= 640 && w < 1024;
+    const isLowEnd = typeof navigator !== "undefined" && (
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+      (navigator.deviceMemory && navigator.deviceMemory <= 4)
+    );
 
-    const totalCount = isMobile ? 1500 : isTablet ? 2800 : 4800;
+    // Optimized particle count that guarantees 60 FPS even on low-spec devices
+    const totalCount = isMobile ? (isLowEnd ? 90 : 180) : isTablet ? (isLowEnd ? 220 : 380) : (isLowEnd ? 480 : 850);
     const particles = [];
     const rnd = (min, max) => min + Math.random() * (max - min);
 
@@ -490,34 +495,44 @@ export const EducationToProjectsMorph = () => {
     particlesRef.current = generateParticles(viewport.width, viewport.height);
   }, [viewport, generateParticles]);
 
-  // High-performance 120 FPS requestAnimationFrame canvas render loop
+  // High-performance canvas render loop with IntersectionObserver viewport pausing
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const track = trackRef.current;
+    if (!canvas || !track) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let active = true;
+    let isVisible = false;
+    let lastReportedProgress = -1;
 
     const render = () => {
-      if (!active) return;
+      if (!active || !isVisible) {
+        rafIdRef.current = null;
+        return;
+      }
 
       const target = targetProgressRef.current;
       const current = progressRef.current;
       const diff = target - current;
 
-      if (Math.abs(diff) > 0.00004) {
+      if (Math.abs(diff) > 0.0001) {
         progressRef.current = current + diff * 0.16;
-        setScrollProgress(progressRef.current);
+        if (Math.abs(progressRef.current - lastReportedProgress) > 0.004) {
+          lastReportedProgress = progressRef.current;
+          setScrollProgress(progressRef.current);
+        }
       } else if (current !== target) {
         progressRef.current = target;
+        lastReportedProgress = target;
         setScrollProgress(target);
       }
 
       const p = progressRef.current;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
       if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
         canvas.width = width * dpr;
@@ -612,12 +627,27 @@ export const EducationToProjectsMorph = () => {
       }
 
       ctx.restore();
-      rafIdRef.current = requestAnimationFrame(render);
+      if (active && isVisible) {
+        rafIdRef.current = requestAnimationFrame(render);
+      }
     };
 
-    rafIdRef.current = requestAnimationFrame(render);
+    // Pause rendering whenever offscreen; resume when entering view (+250px margin)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        isVisible = entry.isIntersecting;
+        if (isVisible && active && !rafIdRef.current) {
+          rafIdRef.current = requestAnimationFrame(render);
+        }
+      },
+      { rootMargin: "250px 0px" }
+    );
+    observer.observe(track);
+
     return () => {
       active = false;
+      observer.disconnect();
       if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
   }, []);

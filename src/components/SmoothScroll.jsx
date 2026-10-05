@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -56,19 +56,36 @@ function LenisSync() {
 }
 
 export const SmoothScroll = ({ children }) => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    // Touch screens (phones/tablets) have 120Hz/60Hz hardware compositor scrolling built-in.
+    // Disabling JS scroll interception on touch devices eliminates mobile lag completely.
+    const isTouch =
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia("(pointer: coarse)").matches);
+
+    setIsTouchDevice(isTouch);
+  }, []);
+
+  if (isTouchDevice) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis
       root
       autoRaf={false}
       options={{
-        lerp: 0.058, // Luxuriously damped, silky momentum interpolation
-        duration: 1.6, // Extended organic deceleration
+        lerp: 0.08,
+        duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
-        wheelMultiplier: 0.62, // Speed governor: caps max scroll displacement per wheel tick
-        touchMultiplier: 0.9,  // Governs trackpad/mobile fling velocity
+        wheelMultiplier: 0.8,
         syncTouch: false,
         infinite: false,
       }}

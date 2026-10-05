@@ -58,18 +58,18 @@ export const Home = () => {
           <SkillsSection />
           <TimelineSection />
           <EducationToProjectsMorph />
-          <CertificatesSection />
-          <GithubStatsSection />
-          <GithubStarredSection />
-          <LeetCodeStatsSection />
-          <TestimonialSection />
-          <ContactSection />
+          <div className="section-perf"><CertificatesSection /></div>
+          <div className="section-perf"><GithubStatsSection /></div>
+          <div className="section-perf"><GithubStarredSection /></div>
+          <div className="section-perf"><LeetCodeStatsSection /></div>
+          <div className="section-perf"><TestimonialSection /></div>
+          <div className="section-perf"><ContactSection /></div>
         </Suspense>
       </main>
 
       {/* Footer */}
       <Suspense fallback={null}>
-        <Footer />
+        <div className="section-perf"><Footer /></div>
       </Suspense>
 
       {/* Scroll To Top */}

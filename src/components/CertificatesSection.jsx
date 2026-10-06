@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
@@ -266,9 +266,17 @@ const CertificateCard = ({ cert, cardRef }) => {
     );
 };
 
+const getColumnCount = () => {
+    if (typeof window === "undefined") return 3;
+    if (window.innerWidth < 768) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+};
+
 export const CertificatesSection = () => {
     const [showAll, setShowAll] = useState(false);
     const displayedCertificates = showAll ? certificates : certificates.slice(0, 3);
+    const [columnsCount, setColumnsCount] = useState(getColumnCount);
 
     const sectionRef = useRef(null);
     const headerRef = useRef(null);
@@ -277,6 +285,22 @@ export const CertificatesSection = () => {
     const line3Ref = useRef(null);
     const cardsContainerRef = useRef(null);
     const cardRefs = useRef([]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setColumnsCount(getColumnCount());
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const columns = useMemo(() => {
+        const cols = Array.from({ length: columnsCount }, () => []);
+        displayedCertificates.forEach((cert, index) => {
+            cols[index % columnsCount].push({ cert, index });
+        });
+        return cols;
+    }, [displayedCertificates, columnsCount]);
 
     useEffect(() => {
         if (!sectionRef.current) return;
@@ -362,7 +386,7 @@ export const CertificatesSection = () => {
         }, sectionRef.current);
 
         return () => ctx.revert();
-    }, [showAll]);
+    }, [showAll, columnsCount]);
 
     return (
         <section
@@ -426,14 +450,18 @@ export const CertificatesSection = () => {
                     </p>
                 </div>
 
-                {/* Grid */}
-                <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-start">
-                    {displayedCertificates.map((cert, index) => (
-                        <CertificateCard
-                            key={cert.id || index}
-                            cert={cert}
-                            cardRef={(el) => (cardRefs.current[index] = el)}
-                        />
+                {/* Masonry Columns */}
+                <div ref={cardsContainerRef} className="flex gap-6 sm:gap-7 items-start w-full">
+                    {columns.map((columnCards, colIdx) => (
+                        <div key={colIdx} className="flex flex-col gap-6 sm:gap-7 flex-1 min-w-0">
+                            {columnCards.map(({ cert, index }) => (
+                                <CertificateCard
+                                    key={cert.id || index}
+                                    cert={cert}
+                                    cardRef={(el) => (cardRefs.current[index] = el)}
+                                />
+                            ))}
+                        </div>
                     ))}
                 </div>
 

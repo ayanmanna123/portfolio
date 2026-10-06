@@ -27,39 +27,35 @@ export const HeroSection = () => {
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
+      if (prefersReducedMotion) return;
+
       const isMobile = window.innerWidth < 768;
-
-      if (isMobile || prefersReducedMotion) {
-        // On mobile devices, avoid full-screen pin-locking which traps touch gestures
-        // and breaks native scrolling on iOS Safari and mobile Chrome.
-        return;
-      }
-
-      const targetScale = 42;
+      const targetScale = isMobile ? 18 : 42;
 
       // Calculate translation offset so the CTA button centers exactly in the viewport
-      const ctaEl = containerRef.current.querySelector(".hero-zoom-cta");
-      let moveX = 0;
-      let moveY = 0;
-      if (ctaEl) {
+      const calculateHeroOffset = () => {
+        const ctaEl = containerRef.current?.querySelector(".hero-zoom-cta");
+        if (!ctaEl) return { moveX: 0, moveY: 0 };
         const rect = ctaEl.getBoundingClientRect();
         const ctaCenterX = rect.left + rect.width / 2;
         const ctaCenterY = rect.top + rect.height / 2;
         const vpCenterX = window.innerWidth / 2;
         const vpCenterY = window.innerHeight / 2;
-        moveX = vpCenterX - ctaCenterX;
-        moveY = vpCenterY - ctaCenterY;
-      }
+        return {
+          moveX: vpCenterX - ctaCenterX,
+          moveY: vpCenterY - ctaCenterY,
+        };
+      };
 
-      // Master Scroll-driven Timeline (Desktop only)
+      // Master Scroll-driven Timeline (Active on both Mobile and Desktop)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=120%",
+          end: isMobile ? "+=85%" : "+=120%",
           pin: true,
           pinSpacing: true,
-          scrub: 0.8,
+          scrub: isMobile ? 0.4 : 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
@@ -102,8 +98,8 @@ export const HeroSection = () => {
       tl.to(
         ".hero-zoom-cta",
         {
-          x: moveX,
-          y: moveY,
+          x: () => calculateHeroOffset().moveX,
+          y: () => calculateHeroOffset().moveY,
           scale: targetScale,
           borderRadius: "8px",
           boxShadow: "0 0 100px rgba(207,203,194,0.9)",
@@ -140,7 +136,7 @@ export const HeroSection = () => {
           opacity: 1,
           scale: 1,
           clipPath: "inset(0% round 0px)",
-          pointerEvents: "auto",
+          pointerEvents: "none",
           ease: "power2.out",
           duration: 0.55,
         },
@@ -299,7 +295,7 @@ export const HeroSection = () => {
       <div
         ref={portalSectionRef}
         aria-label="About Section Portal View"
-        className="hidden md:flex absolute inset-0 z-40 flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
+        className="flex absolute inset-0 z-40 flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
         style={{ opacity: 0 }}
       >
         <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">

@@ -92,37 +92,40 @@ export const AboutSection = () => {
       }
 
       // ----------------------------------------------------------------------
-      // SCROLL-DRIVEN PIN & ZOOM TIMELINE
+      // SCROLL-DRIVEN PIN & ZOOM TIMELINE (Active on Mobile and Desktop)
       // ----------------------------------------------------------------------
       const isMobile = window.innerWidth < 768;
-      if (isMobile || prefersReducedMotion) {
-        // On mobile, keep natural smooth scrolling without pin-locking
-        return;
-      }
+      const targetScale = isMobile ? 18 : 28;
 
-      const targetScale = 28;
-      const targetEl = profileImgCardRef.current;
+      const getTargetEl = () => {
+        if (isMobile) {
+          return mobileProfileDialRef.current || profileImgCardRef.current;
+        }
+        return profileImgCardRef.current || mobileProfileDialRef.current;
+      };
 
-      let moveX = 0;
-      let moveY = 0;
-      if (targetEl) {
-        const rect = targetEl.getBoundingClientRect();
+      const calculateAboutOffset = () => {
+        const el = getTargetEl();
+        if (!el) return { moveX: 0, moveY: 0 };
+        const rect = el.getBoundingClientRect();
         const targetCenterX = rect.left + rect.width / 2;
         const targetCenterY = rect.top + rect.height / 2;
         const vpCenterX = window.innerWidth / 2;
         const vpCenterY = window.innerHeight / 2;
-        moveX = vpCenterX - targetCenterX;
-        moveY = vpCenterY - targetCenterY;
-      }
+        return {
+          moveX: vpCenterX - targetCenterX,
+          moveY: vpCenterY - targetCenterY,
+        };
+      };
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: isMobile ? "+=110%" : "+=140%",
+          end: isMobile ? "+=85%" : "+=140%",
           pin: true,
           pinSpacing: true,
-          scrub: 0.8,
+          scrub: isMobile ? 0.4 : 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
@@ -142,14 +145,15 @@ export const AboutSection = () => {
       );
 
       // PHASE 2: Translate and Scale Profile Picture Card into Viewport Center
+      const targetEl = getTargetEl();
       if (targetEl) {
         tl.to(
           targetEl,
           {
-            x: moveX,
-            y: moveY,
+            x: () => calculateAboutOffset().moveX,
+            y: () => calculateAboutOffset().moveY,
             scale: targetScale,
-            borderRadius: "8px",
+            borderRadius: isMobile ? "9999px" : "8px",
             boxShadow: "0 0 100px rgba(207,203,194,0.9)",
             ease: "power2.inOut",
             transformOrigin: "center center",
@@ -172,7 +176,7 @@ export const AboutSection = () => {
         0.05
       );
 
-      // PHASE 3: Portal Aperture reveals Next Section
+      // PHASE 3: Portal Aperture reveals Next Section (Skills Entrance)
       tl.fromTo(
         portalSectionRef.current,
         {
@@ -185,11 +189,32 @@ export const AboutSection = () => {
           opacity: 1,
           scale: 1,
           clipPath: "inset(0% round 0px)",
-          pointerEvents: "auto",
+          pointerEvents: "none",
           ease: "power2.out",
           duration: 0.55,
         },
         0.35
+      );
+
+      tl.fromTo(
+        ".about-portal-heading",
+        { opacity: 0, y: 40, filter: "blur(8px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power2.out" },
+        0.45
+      );
+
+      tl.fromTo(
+        ".about-portal-desc",
+        { opacity: 0, y: 30, filter: "blur(6px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.35, ease: "power2.out" },
+        0.52
+      );
+
+      tl.fromTo(
+        ".about-portal-cta",
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.5)" },
+        0.58
       );
 
     }, sectionRef.current);
@@ -390,7 +415,7 @@ export const AboutSection = () => {
       <div
         ref={portalSectionRef}
         aria-label="Skills Section Portal View"
-        className="hidden md:flex absolute inset-0 z-40 flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
+        className="flex absolute inset-0 z-40 flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
         style={{ opacity: 0 }}
       >
         <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-4">
@@ -399,14 +424,14 @@ export const AboutSection = () => {
             <span>Next.Chapter</span>
           </div>
 
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#43413d] leading-[1.15]">
+          <h2 className="about-portal-heading text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#43413d] leading-[1.15] will-change-[transform,opacity,filter]">
             Mastery Built Through{" "}
             <span className="font-handwriting text-[#e59845] block sm:inline mt-1 sm:mt-0">
               Deep Practice
             </span>
           </h2>
 
-          <p className="text-[#78756e] font-handwriting text-base sm:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="about-portal-desc text-[#78756e] font-handwriting text-base sm:text-xl max-w-2xl mx-auto leading-relaxed will-change-[transform,opacity,filter]">
             From real-time architectures and modern frontend systems to deep learning pipelines.
           </p>
 
@@ -421,7 +446,7 @@ export const AboutSection = () => {
                 }
               }
             }}
-            className="pt-2 flex items-center gap-2 text-xs font-bold text-[#e59845] font-handwriting uppercase tracking-wider animate-bounce cursor-pointer pointer-events-auto"
+            className="about-portal-cta pt-2 flex items-center gap-2 text-xs font-bold text-[#e59845] font-handwriting uppercase tracking-wider animate-bounce cursor-pointer pointer-events-auto will-change-[transform,opacity]"
           >
             <span>Explore Technical Arsenal</span>
             <ArrowDown className="w-4 h-4" />

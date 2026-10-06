@@ -14,6 +14,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import { CustomCursor } from "@/components/CustomCursor";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { startPreloadPipeline } from "@/lib/preloadManager";
 
 function App() {
@@ -61,6 +62,12 @@ function App() {
       } else {
         setTimeout(() => startPreloadPipeline(), 800);
       }
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 600);
     }
   }, [welcomeComplete]);
 

@@ -159,8 +159,7 @@ export const HeroLeft = () => {
               e.preventDefault();
               scrollToSection("#projects");
             }}
-            className="hero-zoom-cta relative z-10 overflow-hidden px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#2d2b28] hover:text-[#e59845] flex items-center justify-between gap-3.5 shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 will-change-transform cursor-pointer"
-            whileHover={{ scale: 1.03, y: -2 }}
+            className="hero-zoom-cta relative z-10 overflow-hidden px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl font-bold soft-ui-raised bg-[#eae7e1] border border-[#dedad1] text-[#2d2b28] hover:text-[#e59845] flex items-center justify-between gap-3.5 shadow-md hover:shadow-lg transition-colors duration-200 cursor-pointer"
           >
             <div className="hero-cta-inner flex items-center gap-3 will-change-[transform,opacity,filter]">
               <div className="flex items-center justify-center w-7 h-7 rounded-xl soft-ui-inset bg-[#e4e1d9] border border-[#cdc8be] text-[#e59845]">

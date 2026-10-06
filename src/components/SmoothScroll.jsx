@@ -76,7 +76,24 @@ export const SmoothScroll = ({ children }) => {
       setIsTouchDevice(isTouch);
 
       if (isTouch && typeof document !== "undefined") {
-        window.lenis = null;
+        window.lenis = {
+          start: () => {},
+          stop: () => {},
+          scrollTo: (target, opts) => {
+            if (typeof target === "number") {
+              window.scrollTo({ top: target, behavior: opts?.immediate ? "auto" : "smooth" });
+            } else if (typeof target === "string") {
+              const el = document.querySelector(target);
+              if (el) el.scrollIntoView({ behavior: opts?.immediate ? "auto" : "smooth" });
+            } else if (target && typeof target.getBoundingClientRect === "function") {
+              target.scrollIntoView({ behavior: opts?.immediate ? "auto" : "smooth" });
+            }
+          },
+          raf: () => {},
+          on: () => {},
+          off: () => {},
+        };
+        ScrollTrigger.config({ ignoreMobileResize: true });
         document.documentElement.classList.remove(
           "lenis",
           "lenis-smooth",

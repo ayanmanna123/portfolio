@@ -16,8 +16,82 @@ const getCertAspectRatio = (cert) => {
     return '1754 / 1240';
 };
 
+const IssuerBadge = ({ issuer }) => {
+    const iss = (issuer || '').toLowerCase();
+    if (iss.includes('google')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+                    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.97 0 12c0 2.03.45 3.84 1.25 5.42l4.03-3.15z" />
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+                </svg>
+                <span className="text-[11px] font-digital font-bold text-[#383a3d]">Google</span>
+            </div>
+        );
+    }
+    if (iss.includes('tata')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <span className="w-2 h-2 rounded-full bg-[#1b365d]" />
+                <span className="text-[11px] font-digital font-bold text-[#1b365d] tracking-wide">Tata Group</span>
+            </div>
+        );
+    }
+    if (iss.includes('jio')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <span className="w-2 h-2 rounded-full bg-[#0a58ca]" />
+                <span className="text-[11px] font-digital font-bold text-[#0a58ca]">JioPC</span>
+            </div>
+        );
+    }
+    if (iss.includes('coursera') || iss.includes('credly')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <span className="w-2 h-2 rounded-full bg-[#0056D2]" />
+                <span className="text-[11px] font-digital font-bold text-[#0056D2]">Coursera</span>
+            </div>
+        );
+    }
+    if (iss.includes('unstop')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <span className="w-2 h-2 rounded-full bg-[#1c49c2]" />
+                <span className="text-[11px] font-digital font-bold text-[#1c49c2]">Unstop</span>
+            </div>
+        );
+    }
+    if (iss.includes('udemy')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <span className="w-2 h-2 rounded-full bg-[#a435f0]" />
+                <span className="text-[11px] font-digital font-bold text-[#a435f0]">Udemy</span>
+            </div>
+        );
+    }
+    if (iss.includes('kaggle')) {
+        return (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+                <span className="w-2 h-2 rounded-full bg-[#20beff]" />
+                <span className="text-[11px] font-digital font-bold text-[#008abc]">Kaggle</span>
+            </div>
+        );
+    }
+    return (
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc]">
+            <Award size={12} className="text-[#e59845]" />
+            <span className="text-[11px] font-digital font-bold text-[#5a5751] truncate max-w-[120px]">{issuer || 'Credential'}</span>
+        </div>
+    );
+};
+
 const CertificateCard = ({ cert, cardRef }) => {
     const [aspectRatio, setAspectRatio] = useState(() => getCertAspectRatio(cert));
+    const [imgError, setImgError] = useState(false);
+
+    const hasValidImage = cert.image && !imgError;
 
     return (
         <div
@@ -46,13 +120,14 @@ const CertificateCard = ({ cert, cardRef }) => {
                     shadow={false}
                     className="w-full"
                     front={
-                        cert.image ? (
+                        hasValidImage ? (
                             <div className="w-full h-full soft-ui-inset rounded-[20px] p-2 bg-[#e4e1d9] flex flex-col justify-between overflow-hidden relative group">
                                 <img
                                     src={cert.image}
                                     alt={`Certificate: ${cert.title} - issued by ${cert.issuer || 'Ayan Manna'}`}
                                     loading="lazy"
                                     decoding="async"
+                                    onError={() => setImgError(true)}
                                     onLoad={(e) => {
                                         const { naturalWidth, naturalHeight } = e.currentTarget;
                                         if (naturalWidth && naturalHeight) {
@@ -69,9 +144,40 @@ const CertificateCard = ({ cert, cardRef }) => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center soft-ui-inset rounded-[20px] bg-[#e4e1d9] text-[#78756e] p-4">
-                                <BadgeCheck className="w-12 h-12 text-[#e59845]" />
-                                <span className="text-xs font-handwriting font-bold mt-2">Certificate Document</span>
+                            <div className="w-full h-full soft-ui-inset rounded-[20px] p-4 sm:p-5 bg-[#e4e1d9] flex flex-col justify-between overflow-hidden relative group border border-[#dfdbd1]">
+                                {/* Top Header: Issuer + Verified Badge */}
+                                <div className="flex items-center justify-between gap-2">
+                                    <IssuerBadge issuer={cert.issuer} />
+                                    <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full soft-ui-inset-subtle bg-[#e6e3dc] text-[10px] font-bold text-[#e59845] font-digital">
+                                        <BadgeCheck size={12} className="text-[#e59845]" />
+                                        <span>VERIFIED</span>
+                                    </div>
+                                </div>
+
+                                {/* Center: Title & Credential ID */}
+                                <div className="my-auto py-3 text-center flex flex-col items-center">
+                                    <span className="text-[10px] uppercase tracking-widest text-[#78756e] font-mono font-bold mb-1">
+                                        Digital Certificate
+                                    </span>
+                                    <h3 className="text-sm sm:text-base font-bold text-[#383a3d] font-digital leading-snug line-clamp-2 max-w-[90%]">
+                                        {cert.title}
+                                    </h3>
+                                    {cert.credentialId && (
+                                        <div className="mt-2.5 inline-flex items-center gap-1 soft-ui-inset-subtle px-2.5 py-0.5 rounded-full bg-[#e6e3dc] text-[10px] font-mono text-[#5a5751]">
+                                            <span className="text-[#78756e] font-bold">ID:</span>
+                                            <span className="font-semibold truncate max-w-[140px]">{cert.credentialId}</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Bottom bar: Issuer & Date + Flip Prompt */}
+                                <div className="flex items-center justify-between text-[10px] text-[#78756e] font-handwriting font-bold pt-2 border-t border-[#cdc8be]/40">
+                                    <span className="truncate max-w-[60%]">{cert.issuer} • {cert.date}</span>
+                                    <div className="soft-ui-inset-subtle rounded-full px-2 py-0.5 text-[9px] font-bold text-[#5a5751] flex items-center gap-1 bg-[#e6e3dc]">
+                                        <span>Details</span>
+                                        <RotateCw size={10} className="text-[#e59845]" />
+                                    </div>
+                                </div>
                             </div>
                         )
                     }
@@ -79,7 +185,7 @@ const CertificateCard = ({ cert, cardRef }) => {
                         <div className="w-full h-full flex flex-col justify-between p-4 sm:p-5 soft-ui-inset rounded-[20px] bg-[#e4e1d9] text-left overflow-y-auto custom-scrollbar">
                             <div>
                                 {/* Header: Date + Flip Indicator */}
-                                <div className="flex items-center justify-between mb-2.5">
+                                <div className="flex items-center justify-between mb-2">
                                     <span className="text-[10px] sm:text-[11px] text-[#5a5751] font-handwriting font-bold soft-ui-inset-subtle px-2.5 py-0.5 rounded-full bg-[#e6e3dc]">
                                         {cert.date}
                                     </span>
@@ -95,8 +201,16 @@ const CertificateCard = ({ cert, cardRef }) => {
                                     {cert.title}
                                 </h3>
 
+                                {/* Credential ID if present */}
+                                {cert.credentialId && (
+                                    <div className="mb-2 inline-flex items-center gap-1.5 soft-ui-inset-subtle px-2.5 py-1 rounded-lg bg-[#e6e3dc] text-[10px] font-mono text-[#43413d] w-full">
+                                        <span className="font-bold text-[#78756e]">Credential ID:</span>
+                                        <span className="truncate select-all font-semibold">{cert.credentialId}</span>
+                                    </div>
+                                )}
+
                                 {/* Description */}
-                                <p className="text-[11px] sm:text-xs text-[#66635d] font-normal leading-relaxed line-clamp-3 mb-3">
+                                <p className="text-[11px] sm:text-xs text-[#66635d] font-normal leading-relaxed line-clamp-3 mb-2.5">
                                     {cert.description || "Validated professional skill and course completion certification."}
                                 </p>
 

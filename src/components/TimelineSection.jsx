@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,7 +22,18 @@ export const TimelineSection = () => {
     const trackRef = useRef(null);
     const stageRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [displayedIndex, setDisplayedIndex] = useState(0);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [transitionState, setTransitionState] = useState(null);
+
+    const isAnimatingRef = useRef(false);
+    const displayedIndexRef = useRef(0);
+    const activeIndexRef = useRef(0);
+    const curtainTweenRef = useRef(null);
+    const curtainContainerRef = useRef(null);
+    const curtainEdgeRef = useRef(null);
+    const curtainOldImgRef = useRef(null);
 
     const items = useMemo(() => {
         return journeyData.map((item, idx) => ({
@@ -30,6 +41,81 @@ export const TimelineSection = () => {
             image: journeyImages[idx] || journeyImages[0],
             category: journeyCategories[idx] || "Milestone"
         }));
+    }, []);
+
+    useEffect(() => {
+        displayedIndexRef.current = displayedIndex;
+    }, [displayedIndex]);
+
+    useEffect(() => {
+        activeIndexRef.current = activeIndex;
+    }, [activeIndex]);
+
+    useEffect(() => {
+        return () => {
+            if (curtainTweenRef.current) {
+                curtainTweenRef.current.kill();
+            }
+        };
+    }, []);
+
+    const triggerCurtainTransition = useCallback((fromIdx, toIdx) => {
+        if (fromIdx === toIdx) return;
+
+        isAnimatingRef.current = true;
+        setIsAnimating(true);
+
+        setTransitionState({
+            fromIndex: fromIdx,
+            toIndex: toIdx,
+        });
+
+        if (curtainTweenRef.current) {
+            curtainTweenRef.current.kill();
+        }
+
+        const animObj = { progress: 0 };
+
+        requestAnimationFrame(() => {
+            if (curtainContainerRef.current) {
+                curtainContainerRef.current.style.clipPath = 'inset(0% 0% 0% 0%)';
+                curtainContainerRef.current.style.webkitClipPath = 'inset(0% 0% 0% 0%)';
+            }
+            if (curtainEdgeRef.current) {
+                curtainEdgeRef.current.style.top = '100%';
+            }
+            if (curtainOldImgRef.current) {
+                curtainOldImgRef.current.style.transform = 'translate3d(0, 0, 0)';
+            }
+
+            curtainTweenRef.current = gsap.to(animObj, {
+                progress: 1,
+                duration: 1.4,
+                ease: "power2.inOut",
+                onUpdate: () => {
+                    const p = animObj.progress;
+                    const clipBottom = p * 100;
+                    if (curtainContainerRef.current) {
+                        curtainContainerRef.current.style.clipPath = `inset(0% 0% ${clipBottom}% 0%)`;
+                        curtainContainerRef.current.style.webkitClipPath = `inset(0% 0% ${clipBottom}% 0%)`;
+                    }
+                    if (curtainEdgeRef.current) {
+                        curtainEdgeRef.current.style.top = `${(1 - p) * 100}%`;
+                    }
+                    if (curtainOldImgRef.current) {
+                        curtainOldImgRef.current.style.transform = `translate3d(0, -${p * 6}%, 0)`;
+                    }
+                },
+                onComplete: () => {
+                    setDisplayedIndex(toIdx);
+                    displayedIndexRef.current = toIdx;
+                    setTransitionState(null);
+                    isAnimatingRef.current = false;
+                    setIsAnimating(false);
+                    curtainTweenRef.current = null;
+                }
+            });
+        });
     }, []);
 
     useEffect(() => {
@@ -108,12 +194,16 @@ export const TimelineSection = () => {
                     const rawIndex = self.progress * (totalSlides - 1);
                     const currentIndex = Math.min(totalSlides - 1, Math.round(rawIndex));
                     setActiveIndex(currentIndex);
+
+                    if (!isAnimatingRef.current && currentIndex !== displayedIndexRef.current) {
+                        triggerCurtainTransition(displayedIndexRef.current, currentIndex);
+                    }
                 }
             });
         }, sectionRef.current);
 
         return () => ctx.revert();
-    }, [items]);
+    }, [items, triggerCurtainTransition]);
 
     // Handle click on milestone index to jump directly
     const scrollToMilestone = (index) => {
@@ -127,9 +217,9 @@ export const TimelineSection = () => {
         const trackHeight = trackRef.current.offsetHeight;
         const targetScroll = trackTop + (index / (totalSlides - 1)) * (trackHeight - window.innerHeight);
 
-        if (window.lenis) {
+        if (window.lenis && typeof window.lenis.scrollTo === "function") {
             window.lenis.scrollTo(targetScroll, {
-                duration: 1.0,
+                duration: 1.4,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             });
         } else {
@@ -140,13 +230,42 @@ export const TimelineSection = () => {
     const totalSlides = items.length;
     const currentItem = items[activeIndex] || items[0];
 
+    const goToMilestone = (targetIndex) => {
+        if (isAnimatingRef.current || targetIndex === activeIndexRef.current) return;
+
+        const fromIdx = displayedIndexRef.current;
+        triggerCurtainTransition(fromIdx, targetIndex);
+        setActiveIndex(targetIndex);
+        scrollToMilestone(targetIndex);
+    };
+
+    const handleNext = () => {
+        if (isAnimatingRef.current) return;
+        const nextIdx = activeIndex === totalSlides - 1 ? 0 : activeIndex + 1;
+        goToMilestone(nextIdx);
+    };
+
+    const handlePrev = () => {
+        if (isAnimatingRef.current || activeIndex === 0) return;
+        const prevIdx = activeIndex - 1;
+        goToMilestone(prevIdx);
+    };
+
+    const handlePillClick = (idx) => {
+        if (isAnimatingRef.current || idx === activeIndex) return;
+        goToMilestone(idx);
+    };
+
     // Handle clicking anywhere along the loading track to seek to milestone
     const handleTrackClick = (e) => {
+        if (isAnimatingRef.current) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const fraction = Math.max(0, Math.min(1, clickX / rect.width));
         const targetIndex = Math.round(fraction * (totalSlides - 1));
-        scrollToMilestone(targetIndex);
+        if (targetIndex !== activeIndex) {
+            goToMilestone(targetIndex);
+        }
     };
 
     return (
@@ -229,8 +348,11 @@ export const TimelineSection = () => {
                                 {items.map((item, idx) => (
                                     <button
                                         key={idx}
-                                        onClick={() => scrollToMilestone(idx)}
-                                        className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                                        onClick={() => handlePillClick(idx)}
+                                        disabled={isAnimating}
+                                        className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
+                                            isAnimating ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+                                        } ${
                                             activeIndex === idx
                                                 ? "soft-ui-inset-subtle bg-[#e6e3dc] text-[#e59845] scale-105 font-digital font-black shadow-inner border border-[#cdc8be]"
                                                 : "soft-ui-raised bg-[#eae7e1] text-[#78756e] hover:text-[#e59845] font-handwriting border border-[#dedad1]/60"
@@ -248,29 +370,67 @@ export const TimelineSection = () => {
                             <div className="w-full max-w-4xl soft-ui-raised-card rounded-[32px] sm:rounded-[38px] p-5 sm:p-7 md:p-8 bg-[#eae7e1] text-[#43413d] border border-[#dedad1]/70 transition-all duration-300">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
                                     
-                                    {/* Left: Sunken Bezel Picture Frame */}
+                                    {/* Left: Sunken Bezel Picture Frame with Vertical Curtain Reveal */}
                                     <div className="lg:col-span-6 flex flex-col justify-center">
                                         <div className="soft-ui-inset rounded-[24px] sm:rounded-[28px] p-2.5 sm:p-3 bg-[#e4e1d9] relative overflow-hidden aspect-[16/11]">
-                                            <AnimatePresence mode="wait">
-                                                <motion.img 
-                                                    key={activeIndex}
-                                                    src={currentItem.image} 
-                                                    alt={currentItem.role}
-                                                    initial={{ opacity: 0, scale: 1.04 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    exit={{ opacity: 0, scale: 0.96 }}
-                                                    transition={{ duration: 0.35, ease: "easeOut" }}
-                                                    className="w-full h-full object-cover object-center rounded-[18px] sm:rounded-[20px]"
+                                            {/* Inner Image Canvas */}
+                                            <div className="relative w-full h-full rounded-[18px] sm:rounded-[20px] overflow-hidden select-none bg-[#dedad1]">
+                                                {/* BASE LAYER: The target/current milestone photograph */}
+                                                <img 
+                                                    src={transitionState ? items[transitionState.toIndex].image : items[displayedIndex].image} 
+                                                    alt={transitionState ? items[transitionState.toIndex].role : items[displayedIndex].role}
+                                                    className="w-full h-full object-cover object-center absolute inset-0"
                                                 />
-                                            </AnimatePresence>
+
+                                                {/* CURTAIN OVERLAY LAYER: Active during transition */}
+                                                {transitionState && (
+                                                    <>
+                                                        {/* The Old Image curtain being pulled upward and clipped from bottom to top */}
+                                                        <div 
+                                                            ref={curtainContainerRef}
+                                                            className="absolute inset-0 w-full h-full overflow-hidden will-change-[clip-path] z-10"
+                                                            style={{ 
+                                                                clipPath: 'inset(0% 0% 0% 0%)', 
+                                                                WebkitClipPath: 'inset(0% 0% 0% 0%)' 
+                                                            }}
+                                                        >
+                                                            <img 
+                                                                ref={curtainOldImgRef}
+                                                                src={items[transitionState.fromIndex].image} 
+                                                                alt={items[transitionState.fromIndex].role}
+                                                                className="w-full h-full object-cover object-center will-change-transform"
+                                                                style={{ transform: 'translate3d(0, 0, 0)' }}
+                                                            />
+                                                        </div>
+
+                                                        {/* DIMENSIONAL CURTAIN EDGE: Moving boundary with soft shadow, fabric crease, and highlight seam */}
+                                                        <div 
+                                                            ref={curtainEdgeRef} 
+                                                            className="absolute left-0 right-0 pointer-events-none z-20 will-change-transform"
+                                                            style={{ top: '100%', transform: 'translateY(-50%) translateZ(0)' }}
+                                                        >
+                                                            <div className="relative w-full">
+                                                                {/* Soft dimensional shadow casting downward onto the revealed photograph underneath */}
+                                                                <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-black/60 via-black/25 to-transparent pointer-events-none filter blur-[1px]" />
+                                                                {/* Soft ambient blur spread */}
+                                                                <div className="absolute top-0 left-0 right-0 h-8 bg-black/20 filter blur-[4px] pointer-events-none" />
+                                                                {/* Soft fabric shadow just above the curtain edge */}
+                                                                <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-black/35 via-black/10 to-transparent pointer-events-none" />
+                                                                {/* Subtle physical edge line highlight */}
+                                                                <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-white/55 to-transparent shadow-[0_1px_5px_rgba(0,0,0,0.7)] relative z-10" />
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </div>
 
                                             {/* Sunken Year Badge */}
-                                            <div className="soft-ui-inset-subtle absolute top-4 left-4 sm:top-5 sm:left-5 px-3 py-1 rounded-full text-xs font-black text-[#e59845] font-digital bg-[#e6e3dc]/95 backdrop-blur-sm shadow-sm pointer-events-none">
+                                            <div className="soft-ui-inset-subtle absolute top-4 left-4 sm:top-5 sm:left-5 px-3 py-1 rounded-full text-xs font-black text-[#e59845] font-digital bg-[#e6e3dc]/95 backdrop-blur-sm shadow-sm pointer-events-none z-30">
                                                 {currentItem.year}
                                             </div>
 
                                             {/* Sunken Category Badge */}
-                                            <div className="soft-ui-inset-subtle absolute top-4 right-4 sm:top-5 sm:right-5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#5a5751] font-handwriting bg-[#e6e3dc]/95 backdrop-blur-sm shadow-sm pointer-events-none">
+                                            <div className="soft-ui-inset-subtle absolute top-4 right-4 sm:top-5 sm:right-5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#5a5751] font-handwriting bg-[#e6e3dc]/95 backdrop-blur-sm shadow-sm pointer-events-none z-30">
                                                 {currentItem.category}
                                             </div>
                                         </div>
@@ -316,12 +476,14 @@ export const TimelineSection = () => {
                                         <div className="w-full h-12 soft-ui-inset rounded-full p-1.5 flex items-center justify-between bg-[#e4e1d9] border border-[#cdc8be]/60 mt-auto shadow-inner gap-2.5 sm:gap-3">
                                             {/* Prev Button */}
                                             <button
-                                                onClick={() => scrollToMilestone(Math.max(0, activeIndex - 1))}
-                                                disabled={activeIndex === 0}
-                                                className={`soft-ui-raised rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-bold font-handwriting transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer active:scale-95 shrink-0 ${
-                                                    activeIndex === 0 ? "opacity-35 cursor-not-allowed text-[#99948a]" : "text-[#6d6a64] hover:text-[#e59845] bg-[#eae7e1]"
+                                                onClick={handlePrev}
+                                                disabled={isAnimating || activeIndex === 0}
+                                                className={`soft-ui-raised rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-bold font-handwriting transition-all flex items-center gap-1.5 border border-[#dedad1] shrink-0 ${
+                                                    (isAnimating || activeIndex === 0) 
+                                                        ? "opacity-35 cursor-not-allowed text-[#99948a] pointer-events-none" 
+                                                        : "text-[#6d6a64] hover:text-[#e59845] bg-[#eae7e1] cursor-pointer active:scale-95"
                                                 }`}
-                                                title="Scroll to previous milestone"
+                                                title={isAnimating ? "Transitioning..." : "Scroll to previous milestone"}
                                             >
                                                 <ArrowLeft size={13} className="text-[#e59845]" />
                                                 <span>Prev</span>
@@ -330,8 +492,10 @@ export const TimelineSection = () => {
                                             {/* Full-width Neumorphic Arrow Loading Progress Bar (No text, No percentage) */}
                                             <div 
                                                 onClick={handleTrackClick}
-                                                className="flex-1 relative flex items-center h-6 px-1 min-w-0 cursor-pointer group"
-                                                title="Click anywhere to seek along journey"
+                                                className={`flex-1 relative flex items-center h-6 px-1 min-w-0 group ${
+                                                    isAnimating ? "cursor-not-allowed pointer-events-none" : "cursor-pointer"
+                                                }`}
+                                                title={isAnimating ? "Transitioning..." : "Click anywhere to seek along journey"}
                                             >
                                                 {/* Sunken Channel Track */}
                                                 <div className="w-full h-4 soft-ui-inset rounded-full bg-[#dedad1] p-0.5 relative flex items-center overflow-hidden border border-[#cdc8be]/70 shadow-inner">
@@ -367,9 +531,14 @@ export const TimelineSection = () => {
 
                                             {/* Next Button */}
                                             <button
-                                                onClick={() => scrollToMilestone(activeIndex === totalSlides - 1 ? 0 : activeIndex + 1)}
-                                                className="soft-ui-raised rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] cursor-pointer active:scale-95 shrink-0 group shadow-sm hover:shadow-md"
-                                                title={activeIndex === totalSlides - 1 ? "Restart Timeline" : "Scroll to next milestone"}
+                                                onClick={handleNext}
+                                                disabled={isAnimating}
+                                                className={`soft-ui-raised rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-bold text-[#383a3d] font-handwriting bg-[#eae7e1] hover:text-[#e59845] transition-all flex items-center gap-1.5 border border-[#dedad1] shrink-0 group shadow-sm hover:shadow-md ${
+                                                    isAnimating 
+                                                        ? "opacity-40 cursor-not-allowed pointer-events-none" 
+                                                        : "cursor-pointer active:scale-95"
+                                                }`}
+                                                title={isAnimating ? "Transitioning..." : (activeIndex === totalSlides - 1 ? "Restart Timeline" : "Scroll to next milestone")}
                                             >
                                                 <span>{activeIndex === totalSlides - 1 ? "Restart" : "Next"}</span>
                                                 <ArrowRight size={13} className="text-[#e59845] group-hover:translate-x-0.5 transition-transform" />

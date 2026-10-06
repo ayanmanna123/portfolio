@@ -139,7 +139,7 @@ export const ProjectsSection = () => {
           }
         );
       });
-    }, sectionRef);
+    }, sectionRef.current);
 
     return () => ctx.revert();
   }, [activeFilter, showAll]);

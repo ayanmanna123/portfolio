@@ -27,18 +27,15 @@ export const HeroSection = () => {
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      if (prefersReducedMotion) {
-        gsap.set(portalSectionRef.current, {
-          opacity: 1,
-          scale: 1,
-          clipPath: "inset(0% round 0px)",
-          pointerEvents: "auto",
-        });
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile || prefersReducedMotion) {
+        // On mobile devices, avoid full-screen pin-locking which traps touch gestures
+        // and breaks native scrolling on iOS Safari and mobile Chrome.
         return;
       }
 
-      const isMobile = window.innerWidth < 768;
-      const targetScale = isMobile ? 24 : 42;
+      const targetScale = 42;
 
       // Calculate translation offset so the CTA button centers exactly in the viewport
       const ctaEl = containerRef.current.querySelector(".hero-zoom-cta");
@@ -54,12 +51,12 @@ export const HeroSection = () => {
         moveY = vpCenterY - ctaCenterY;
       }
 
-      // Master Scroll-driven Timeline
+      // Master Scroll-driven Timeline (Desktop only)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: isMobile ? "+=100%" : "+=120%",
+          end: "+=120%",
           pin: true,
           pinSpacing: true,
           scrub: 0.8,
@@ -189,7 +186,7 @@ export const HeroSection = () => {
     <section
       id="hero"
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden flex flex-col justify-between px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 bg-[#eae7e1] text-[#2d2b28]"
+      className="relative w-full min-h-[100dvh] overflow-x-clip overflow-y-visible flex flex-col justify-between px-3 sm:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 bg-[#eae7e1] text-[#2d2b28] touch-pan-y"
     >
       {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
       <style dangerouslySetInnerHTML={{
@@ -302,7 +299,7 @@ export const HeroSection = () => {
       <div
         ref={portalSectionRef}
         aria-label="About Section Portal View"
-        className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
+        className="hidden md:flex absolute inset-0 z-40 flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
         style={{ opacity: 0 }}
       >
         <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-5">

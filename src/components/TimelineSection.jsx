@@ -110,7 +110,7 @@ export const TimelineSection = () => {
                     setActiveIndex(currentIndex);
                 }
             });
-        }, sectionRef);
+        }, sectionRef.current);
 
         return () => ctx.revert();
     }, [items]);

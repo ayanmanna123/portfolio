@@ -162,8 +162,11 @@
   }
 
   html {
-    /* Smooth scrolling handled by Lenis physics engine */
+    /* Smooth scrolling handled by Lenis physics engine on desktop, hardware compositor on mobile */
     scroll-behavior: auto;
+    overflow-x: clip;
+    max-width: 100vw;
+    -webkit-overflow-scrolling: touch;
     @apply font-mono;
   }
 
@@ -189,6 +192,8 @@
 
   body {
     @apply transition-colors duration-300 bg-transparent dark:bg-background text-foreground;
+    overflow-x: clip;
+    max-width: 100vw;
     font-family: 'JetBrains Mono', monospace;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
@@ -281,7 +286,7 @@
   margin: 0 auto;
   padding: 0;
   text-align: center;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Custom sleek global scrollbar */
@@ -571,5 +576,8 @@ body {
 @media (pointer: coarse) {
   * {
     -webkit-tap-highlight-color: transparent;
+  }
+  html, body {
+    touch-action: pan-y;
   }
 }

@@ -10,7 +10,7 @@ export const scrollToSection = (targetId, options = {}) => {
 
   // When navigating to Home (#hero, #home, or #), always scroll directly to the absolute top of the page (0)
   if (hash === "#hero" || hash === "#home" || hash === "#") {
-    if (window.lenis) {
+    if (window.lenis && typeof window.lenis.scrollTo === "function") {
       window.lenis.scrollTo(0, {
         duration: options.duration || 1.6,
         easing: options.easing || ((t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))),
@@ -68,7 +68,7 @@ export const scrollToSection = (targetId, options = {}) => {
       }
 
       if (targetPos !== null && targetPos > 0) {
-        if (window.lenis) {
+        if (window.lenis && typeof window.lenis.scrollTo === "function") {
           window.lenis.scrollTo(targetPos, {
             duration: options.duration || 1.5,
             easing: options.easing || ((t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))),
@@ -92,7 +92,7 @@ export const scrollToSection = (targetId, options = {}) => {
   const tryScrollToElement = () => {
     const element = document.querySelector(hash);
     if (element) {
-      if (window.lenis) {
+      if (window.lenis && typeof window.lenis.scrollTo === "function") {
         window.lenis.scrollTo(element, {
           offset: options.offset !== undefined ? options.offset : -30,
           duration: options.duration || 1.6,

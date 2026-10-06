@@ -109,7 +109,7 @@ const GithubStatsSection = () => {
                     }
                 );
             }
-        }, sectionRef);
+        }, sectionRef.current);
 
         return () => ctx.revert();
     }, []);

@@ -90,7 +90,7 @@ export const ContactSection = () => {
           }
         );
       }
-    }, headerRef);
+    }, headerRef.current);
 
     return () => ctx.revert();
   }, []);

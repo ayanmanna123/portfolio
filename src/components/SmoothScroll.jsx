@@ -56,18 +56,43 @@ function LenisSync() {
 }
 
 export const SmoothScroll = ({ children }) => {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return (
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches
+    );
+  });
 
   useEffect(() => {
-    // Touch screens (phones/tablets) have 120Hz/60Hz hardware compositor scrolling built-in.
-    // Disabling JS scroll interception on touch devices eliminates mobile lag completely.
-    const isTouch =
-      typeof window !== "undefined" &&
-      ("ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia("(pointer: coarse)").matches);
+    if (typeof window === "undefined") return;
 
-    setIsTouchDevice(isTouch);
+    const checkTouch = () => {
+      const isTouch =
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia("(pointer: coarse)").matches;
+      setIsTouchDevice(isTouch);
+
+      if (isTouch && typeof document !== "undefined") {
+        window.lenis = null;
+        document.documentElement.classList.remove(
+          "lenis",
+          "lenis-smooth",
+          "lenis-stopped",
+          "lenis-scrolling"
+        );
+        document.body.classList.remove(
+          "lenis",
+          "lenis-smooth",
+          "lenis-stopped",
+          "lenis-scrolling"
+        );
+      }
+    };
+
+    checkTouch();
   }, []);
 
   if (isTouchDevice) {

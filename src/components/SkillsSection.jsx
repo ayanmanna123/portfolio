@@ -336,7 +336,7 @@ export const SkillsSection = () => {
           targetProgressRef.current = self.progress;
         }
       });
-    }, sectionRef);
+    }, sectionRef.current);
 
     ScrollTrigger.refresh();
 
@@ -357,7 +357,7 @@ export const SkillsSection = () => {
     const dist = trackH - window.innerHeight;
     const targetScroll = trackTop + (clampedIndex / (count - 1)) * dist;
 
-    if (window.lenis) {
+    if (window.lenis && typeof window.lenis.scrollTo === "function") {
       window.lenis.scrollTo(targetScroll, {
         duration: 0.8,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
@@ -489,7 +489,7 @@ export const SkillsSection = () => {
         {/* Pinned Stage: Locks to 100vh during the horizontal card journey */}
         <div
           ref={stageRef}
-          className="relative w-full overflow-hidden flex flex-col justify-between h-screen min-h-[660px] max-h-[1080px] py-4 sm:py-6 px-3 sm:px-6 lg:px-12 bg-[#eae7e1]"
+          className="relative w-full overflow-hidden flex flex-col justify-between h-screen min-h-[660px] max-h-[1080px] py-4 sm:py-6 px-3 sm:px-6 lg:px-12 bg-[#eae7e1] touch-pan-y"
         >
           <div className="container mx-auto px-2 sm:px-6 relative z-10 max-w-6xl w-full flex-1 flex flex-col justify-between">
             {/* Section Header with Soft UI Clay Typography */}

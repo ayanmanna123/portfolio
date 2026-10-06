@@ -669,7 +669,7 @@ export const EducationToProjectsMorph = () => {
           targetProgressRef.current = self.progress;
         },
       });
-    }, containerRef);
+    }, containerRef.current);
 
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
@@ -738,7 +738,7 @@ export const EducationToProjectsMorph = () => {
         {/* Pinned Stage: Always min-h-screen with full natural height so GSAP pin spacer measures full Projects height */}
         <div
           ref={stageRef}
-          className="relative w-full transition-colors duration-500 bg-[#eae7e1] text-[#43413d] min-h-screen overflow-x-hidden select-none"
+          className="relative w-full transition-colors duration-500 bg-[#eae7e1] text-[#43413d] min-h-screen overflow-x-clip select-none touch-pan-y"
         >
           {/* Exact Soft UI Styles from SoftUiWidgets.jsx */}
           <style dangerouslySetInnerHTML={{

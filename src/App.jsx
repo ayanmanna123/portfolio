@@ -20,7 +20,9 @@ function App() {
   const [welcomeComplete, setWelcomeComplete] = useState(() => {
     if (typeof window !== "undefined") {
       const p = window.location.pathname;
+      const alreadyEntered = sessionStorage.getItem("portfolio_entered") === "true";
       return (
+        alreadyEntered ||
         p.includes("/soft-ui") ||
         p.includes("/demo") ||
         p.includes("/project/") ||
@@ -33,6 +35,11 @@ function App() {
 
   const handleWelcomeComplete = useCallback(() => {
     if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("portfolio_entered", "true");
+      } catch (e) {
+        // Ignore storage errors
+      }
       window.scrollTo(0, 0);
       if (window.lenis && typeof window.lenis.scrollTo === "function") {
         window.lenis.scrollTo(0, { immediate: true });

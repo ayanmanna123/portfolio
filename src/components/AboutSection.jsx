@@ -94,12 +94,14 @@ export const AboutSection = () => {
       // ----------------------------------------------------------------------
       // SCROLL-DRIVEN PIN & ZOOM TIMELINE
       // ----------------------------------------------------------------------
-      const isMobile = window.innerWidth < 1024;
-      const targetScale = isMobile ? 18 : 28;
+      const isMobile = window.innerWidth < 768;
+      if (isMobile || prefersReducedMotion) {
+        // On mobile, keep natural smooth scrolling without pin-locking
+        return;
+      }
 
-      const targetEl = isMobile 
-        ? (mobileProfileDialRef.current || profileImgCardRef.current) 
-        : profileImgCardRef.current;
+      const targetScale = 28;
+      const targetEl = profileImgCardRef.current;
 
       let moveX = 0;
       let moveY = 0;
@@ -190,7 +192,7 @@ export const AboutSection = () => {
         0.35
       );
 
-    }, sectionRef);
+    }, sectionRef.current);
 
     return () => ctx.revert();
   }, []);
@@ -199,7 +201,7 @@ export const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-12 pb-24 sm:pt-14 sm:pb-28 bg-[#eae7e1] text-[#43413d] select-none transition-colors"
+      className="relative w-full min-h-screen overflow-x-clip overflow-y-visible flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-12 pb-24 sm:pt-14 sm:pb-28 bg-[#eae7e1] text-[#43413d] select-none transition-colors touch-pan-y"
     >
       {/* Exact Neumorphic Soft UI Styles from SoftUiWidgets.jsx */}
       <style dangerouslySetInnerHTML={{
@@ -388,7 +390,7 @@ export const AboutSection = () => {
       <div
         ref={portalSectionRef}
         aria-label="Skills Section Portal View"
-        className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
+        className="hidden md:flex absolute inset-0 z-40 flex-col items-center justify-center bg-[#eae7e1] px-4 sm:px-8 py-8 overflow-hidden pointer-events-none will-change-[transform,opacity,clip-path]"
         style={{ opacity: 0 }}
       >
         <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center space-y-4">
@@ -412,7 +414,7 @@ export const AboutSection = () => {
             onClick={() => {
               const skillsSection = document.getElementById("skills");
               if (skillsSection) {
-                if (window.lenis) {
+                if (window.lenis && typeof window.lenis.scrollTo === "function") {
                   window.lenis.scrollTo(skillsSection, { offset: -40, duration: 1.2 });
                 } else {
                   skillsSection.scrollIntoView({ behavior: "smooth" });

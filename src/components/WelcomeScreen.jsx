@@ -25,13 +25,62 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
 
   const handleFinish = () => {
     if (exitAnimation) return;
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("portfolio_entered", "true");
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
     setExitAnimation(true);
     setTimeout(() => {
       if (onCompleteRef.current) {
         onCompleteRef.current();
       }
-    }, 700);
+    }, 600);
   };
+
+  // Instant swipe-to-enter & scroll listener so phone users who start scrolling immediately enter the portfolio
+  useEffect(() => {
+    let startY = 0;
+    let startX = 0;
+
+    const onTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        startY = e.touches[0].clientY;
+        startX = e.touches[0].clientX;
+      }
+    };
+
+    const onTouchMove = (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      const currentY = e.touches[0].clientY;
+      const currentX = e.touches[0].clientX;
+      const deltaY = startY - currentY;
+      const deltaX = Math.abs(currentX - startX);
+
+      // Natural upward swipe to scroll down (user scrolling down on phone)
+      if (deltaY > 25 && deltaY > deltaX) {
+        handleFinish();
+      }
+    };
+
+    const onWheel = (e) => {
+      if (e.deltaY > 15) {
+        handleFinish();
+      }
+    };
+
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("wheel", onWheel);
+    };
+  }, [exitAnimation]);
 
   // Real preloading pipeline & synchronized progress
   useEffect(() => {
@@ -305,6 +354,17 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
           <span>Enter Portfolio</span>
           <ArrowRight size={16} className="text-[#e59845]" />
         </motion.button>
+
+        {/* Mobile Swipe Up Cue */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.75 }}
+          transition={{ delay: 0.8 }}
+          className="text-[11px] font-mono text-[#78756e] mt-3 sm:hidden flex items-center justify-center gap-1.5"
+        >
+          <span>Swipe up or tap to explore</span>
+          <span className="text-[#e59845] animate-bounce">↑</span>
+        </motion.p>
       </motion.div>
     </div>
   );

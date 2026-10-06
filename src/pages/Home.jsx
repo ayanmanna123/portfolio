@@ -38,7 +38,7 @@ export const Home = () => {
     }
   }, [location.hash]);
   return (
-    <div className="min-h-screen bg-[#eae7e1] text-[#2d2b28] selection:bg-[#e59845]/25 selection:text-[#2d2b28] overflow-x-hidden">
+    <div className="min-h-screen bg-[#eae7e1] text-[#2d2b28] selection:bg-[#e59845]/25 selection:text-[#2d2b28] overflow-x-clip">
       <Helmet>
         <title>Home | Ayan Manna | Portfolio</title>
         <meta name="description" content="Welcome to Ayan Manna's portfolio. Explore projects, skills, and achievements." />

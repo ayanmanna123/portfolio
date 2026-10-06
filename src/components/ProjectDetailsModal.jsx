@@ -31,18 +31,18 @@ export const ProjectDetailsModal = ({ project, isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen && project) {
       document.body.style.overflow = "hidden";
-      if (window.lenis) {
+      if (window.lenis && typeof window.lenis.stop === "function") {
         window.lenis.stop();
       }
     } else {
       document.body.style.overflow = "unset";
-      if (window.lenis) {
+      if (window.lenis && typeof window.lenis.start === "function") {
         window.lenis.start();
       }
     }
     return () => {
       document.body.style.overflow = "unset";
-      if (window.lenis) {
+      if (window.lenis && typeof window.lenis.start === "function") {
         window.lenis.start();
       }
     };

@@ -290,7 +290,7 @@ export const GithubStarredSection = () => {
           }
         );
       });
-    }, sectionRef);
+    }, sectionRef.current);
 
     return () => ctx.revert();
   }, [showAll, starredRepos, loading]);

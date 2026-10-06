@@ -245,7 +245,7 @@ export const CertificatesSection = () => {
                     }
                 );
             });
-        }, sectionRef);
+        }, sectionRef.current);
 
         return () => ctx.revert();
     }, [showAll]);

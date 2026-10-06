@@ -149,7 +149,7 @@ export const TestimonialSection = () => {
           }
         );
       });
-    }, sectionRef);
+    }, sectionRef.current);
 
     return () => ctx.revert();
   }, [currentIndex, itemsPerPage]);

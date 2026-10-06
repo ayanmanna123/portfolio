@@ -295,7 +295,7 @@ export const LeetCodeStatsSection = () => {
                     }
                 );
             }
-        }, headerRef);
+        }, headerRef.current);
 
         return () => ctx.revert();
     }, []);

@@ -84,7 +84,7 @@ export const SplitText = ({
           },
         }
       );
-    }, containerRef);
+    }, containerRef.current);
 
     return () => {
       ctx.revert();

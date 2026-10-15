@@ -46,6 +46,7 @@ export const SoftUiDemoPage = () => {
           name="description"
           content="Interactive Neumorphic Soft UI widgets demo featuring analog clock, digital alarm card, progress bars, fluid level meters, and calendar in both dark and light modes."
         />
+        <link rel="canonical" href="https://ayanmanna.in/soft-ui" />
       </Helmet>
 
       {/* Embedded Neumorphic Styles */}

@@ -12,6 +12,7 @@ export const NotFound = () => {
       <Helmet>
         <title>404 - Page Not Found | Ayan Manna</title>
         <meta name="description" content="The page you are looking for does not exist." />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       {/* Embedded Neumorphic Styles */}

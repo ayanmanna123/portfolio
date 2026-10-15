@@ -72,6 +72,7 @@ export const ProjectDetails = () => {
       <Helmet>
         <title>{project.title} | Projects | Ayan Manna</title>
         <meta name="description" content={project.description} />
+        <link rel="canonical" href={`https://ayanmanna.in/project/${project.id}`} />
       </Helmet>
 
       {/* Embedded Neumorphic Styles from SoftUiWidgets.jsx */}
